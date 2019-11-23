@@ -13,6 +13,7 @@
     <module>sakila-address-service</module>
     <module>sakila-store-service</module>
     <module>sakila-address-api</module>
+    <module>sakila-payment-service</module>
   </modules>
 
   <parent>
