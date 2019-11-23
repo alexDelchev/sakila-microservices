@@ -58,6 +58,32 @@
           }
         }
       }
+    },
+    "address/country/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Country ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getAddressesByCountryId",
+        "responses": {
+          "200": {
+            "description": "Address models",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
