@@ -35,6 +35,13 @@ public class AddressController implements AddressApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<AddressDTO>> getAddressesByCountryId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        addressService.getAddressesByCountry(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private AddressDTO toDTO(Address address) {
     AddressDTO addressDTO = new AddressDTO();
     BeanUtils.copyProperties(address, addressDTO);
