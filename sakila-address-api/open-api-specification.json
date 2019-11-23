@@ -84,6 +84,22 @@
           }
         }
       }
+    },
+    "/city":{
+      "get": {
+        "operationId": "getAllCities",
+        "responses": {
+          "200": {
+            "description": "City models",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CityDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
