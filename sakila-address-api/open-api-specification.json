@@ -121,6 +121,29 @@
           "format": "date-time"
         }
       }
+    },
+    "CityDTO": {
+      "type": "object",
+      "required": [
+        "id", "city", "countryId"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "city": {
+          "type": "string"
+        },
+        "countryId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }
