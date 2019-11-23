@@ -32,6 +32,32 @@
           }
         }
       }
+    },
+    "address/city/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "City ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getAddressesByCityId",
+        "responses": {
+          "200": {
+            "description": "Address models",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
