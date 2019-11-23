@@ -28,7 +28,9 @@ public class AddressRepositoryHibernateImpl implements AddressRepository {
 
   @Override
   public List<Address> getAddressesByCountry(Long countryId) {
-    TypedQuery<Address> query = createQuery("SELECT a FROM Address a WHERE country_id = :countryId");
+    TypedQuery<Address> query = createQuery(
+        "SELECT a FROM Address a JOIN a.city c JOIN c.country co WHERE co.id = :countryId"
+    );
     query.setParameter("countryId", countryId);
     return query.getResultList();
   }
