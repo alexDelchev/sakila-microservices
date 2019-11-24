@@ -123,6 +123,32 @@
           }
         }
       }
+    },
+    "/city/country/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Country ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getCitiesByCountryId",
+        "responses": {
+          "200": {
+            "description": "City model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CityDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
