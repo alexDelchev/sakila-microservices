@@ -28,7 +28,7 @@ public class CityRepositoryHibernateImpl implements CityRepository {
 
   @Override
   public List<City> getCitiesByCountry(Long countryId) {
-    TypedQuery<City> query = createQuery("SELECT c FROM City WHERE c.country_id = :countryId");
+    TypedQuery<City> query = createQuery("SELECT c FROM City c WHERE c.country.id = :countryId");
     query.setParameter("countryId", countryId);
     return query.getResultList();
   }
