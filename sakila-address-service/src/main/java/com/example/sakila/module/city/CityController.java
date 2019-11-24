@@ -30,6 +30,13 @@ public class CityController implements CityApi {
   }
 
   @Override
+  public ResponseEntity<List<CityDTO>> getCitiesByCountryId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        cityService.getCitiesByCountry(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
+  @Override
   public ResponseEntity<CityDTO> getCityById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(cityService.getCityById(id)));
   }
