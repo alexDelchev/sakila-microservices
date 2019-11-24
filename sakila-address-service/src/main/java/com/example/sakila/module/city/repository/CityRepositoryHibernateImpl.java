@@ -35,7 +35,7 @@ public class CityRepositoryHibernateImpl implements CityRepository {
 
   @Override
   public List<City> getAllCities() {
-    return createQuery("SELECT c FROM City").getResultList();
+    return createQuery("SELECT c FROM City c").getResultList();
   }
 
   private TypedQuery<City> createQuery(String query) {
