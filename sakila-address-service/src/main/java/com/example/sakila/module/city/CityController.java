@@ -5,6 +5,7 @@ import com.example.sakila.generated.server.model.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -26,6 +27,11 @@ public class CityController implements CityApi {
     return ResponseEntity.ok(
         cityService.getAllCities().stream().map(this::toDTO).collect(Collectors.toList())
     );
+  }
+
+  @Override
+  public ResponseEntity<CityDTO> getCityById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(cityService.getCityById(id)));
   }
 
   private CityDTO toDTO(City city) {
