@@ -100,6 +100,29 @@
           }
         }
       }
+    },
+    "/city/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "City ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getCityById",
+        "responses": {
+          "200": {
+            "description": "City model",
+            "schema": {
+              "$ref": "#/definitions/CityDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
