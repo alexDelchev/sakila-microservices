@@ -209,6 +209,25 @@
           "format": "date-time"
         }
       }
+    },
+    "CountryDTO": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "country": {
+          "type": "string"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }
