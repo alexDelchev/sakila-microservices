@@ -181,7 +181,7 @@
         "responses": {
           "200": {
             "description": "Country model",
-            "schems": {
+            "schema": {
               "$ref": "#/definitions/CountryDTO"
             }
           }
