@@ -10,7 +10,7 @@
   "produces": ["application/json"],
   "tags": "Address",
   "paths": {
-    "/address/{id}": {
+    "/addresses/{id}": {
       "get": {
         "parameters": [
           {
@@ -33,7 +33,7 @@
         }
       }
     },
-    "address/city/{id}": {
+    "/addresses/city/{id}": {
       "get": {
         "parameters": [
           {
@@ -59,7 +59,7 @@
         }
       }
     },
-    "address/country/{id}": {
+    "/addresses/country/{id}": {
       "get": {
         "parameters": [
           {
@@ -85,7 +85,7 @@
         }
       }
     },
-    "/city":{
+    "/cities":{
       "get": {
         "operationId": "getAllCities",
         "responses": {
@@ -101,7 +101,7 @@
         }
       }
     },
-    "/city/{id}": {
+    "/cities/{id}": {
       "get": {
         "parameters": [
           {
@@ -124,7 +124,7 @@
         }
       }
     },
-    "/city/country/{id}": {
+    "/cities/country/{id}": {
       "get": {
         "parameters": [
           {
