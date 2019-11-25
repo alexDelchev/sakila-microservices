@@ -1,6 +1,6 @@
 package com.example.sakila.module.address;
 
-import com.example.sakila.generated.server.api.AddressApi;
+import com.example.sakila.generated.server.api.AddressesApi;
 import com.example.sakila.generated.server.model.AddressDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class AddressController implements AddressApi {
+public class AddressController implements AddressesApi {
 
   private final AddressService addressService;
 
