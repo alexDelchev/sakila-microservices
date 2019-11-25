@@ -4,6 +4,7 @@ import com.example.sakila.generated.server.api.CountriesApi;
 import com.example.sakila.generated.server.model.CountryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.OffsetDateTime;
@@ -26,6 +27,11 @@ public class CountryController implements CountriesApi {
     return ResponseEntity.ok(
         countryService.getAllCountries().stream().map(this::toDTO).collect(Collectors.toList())
     );
+  }
+
+  @Override
+  public ResponseEntity<CountryDTO> getCountryById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(countryService.getCountryById(id)));
   }
 
   private CountryDTO toDTO(Country country) {
