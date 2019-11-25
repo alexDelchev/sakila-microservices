@@ -165,6 +165,28 @@
           }
         }
       }
+    },
+    "/countries/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getCountryById",
+        "responses": {
+          "200": {
+            "description": "Country model",
+            "schems": {
+              "$ref": "#/definitions/CountryDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
