@@ -149,6 +149,22 @@
           }
         }
       }
+    },
+    "/countries": {
+      "get": {
+        "operationId": "getAllCountries",
+        "responses": {
+          "200": {
+            "description": "Country model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CountryDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
