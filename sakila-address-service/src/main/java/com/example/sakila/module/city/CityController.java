@@ -1,6 +1,6 @@
 package com.example.sakila.module.city;
 
-import com.example.sakila.generated.server.api.CityApi;
+import com.example.sakila.generated.server.api.CitiesApi;
 import com.example.sakila.generated.server.model.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class CityController implements CityApi {
+public class CityController implements CitiesApi {
 
   private final CityService cityService;
 
