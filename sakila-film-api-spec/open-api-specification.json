@@ -15,7 +15,33 @@
     "application/json"
   ],
   "tags": "Address",
-  "paths": {},
+  "paths": {
+    "/actors/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Actor ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getActorById",
+        "responses": {
+          "200": {
+            "description": "Actor model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ActorDTO"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "definitions": {
     "ActorDTO": {
       "type": "object",
