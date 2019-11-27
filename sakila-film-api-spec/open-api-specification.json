@@ -62,6 +62,22 @@
           }
         }
       }
+    },
+    "/categories": {
+      "get": {
+        "operationId": "getAllCategories",
+        "responses": {
+          "200": {
+            "description": "Country model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
