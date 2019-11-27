@@ -14,6 +14,7 @@
     <module>sakila-store-service</module>
     <module>sakila-address-api-spec</module>
     <module>sakila-payment-service</module>
+    <module>sakila-film-api-spec</module>
   </modules>
 
   <parent>
