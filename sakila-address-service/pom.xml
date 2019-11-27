@@ -87,7 +87,7 @@
         <dependencies>
           <dependency>
             <groupId>com.example.sakila</groupId>
-            <artifactId>sakila-address-api</artifactId>
+            <artifactId>sakila-address-api-spec</artifactId>
             <version>1.0-SNAPSHOT</version>
           </dependency>
         </dependencies>

@@ -12,7 +12,7 @@
     <module>sakila-film-service</module>
     <module>sakila-address-service</module>
     <module>sakila-store-service</module>
-    <module>sakila-address-api</module>
+    <module>sakila-address-api-spec</module>
     <module>sakila-payment-service</module>
   </modules>
 
