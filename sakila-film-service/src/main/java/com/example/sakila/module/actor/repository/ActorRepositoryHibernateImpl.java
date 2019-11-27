@@ -21,7 +21,7 @@ public class ActorRepositoryHibernateImpl implements ActorRepository {
 
   @Override
   public List<Actor> getActorsByFilm(Long filmId) {
-    TypedQuery<Actor> query = createQuery("SELECT a FROM Actor a INNER JOIN actor_film af WHERE af.film_id = :filmId");
+    TypedQuery<Actor> query = createQuery("SELECT a FROM Film f JOIN f.actors a WHERE f.id = :filmId");
     query.setParameter("filmId", filmId);
     return query.getResultList();
   }
