@@ -37,6 +37,31 @@
           }
         }
       }
+    },
+    "/actors/film/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Film ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getActorsByFilmId",
+        "responses": {
+          "200": {
+            "description": "Actor model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ActorDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
