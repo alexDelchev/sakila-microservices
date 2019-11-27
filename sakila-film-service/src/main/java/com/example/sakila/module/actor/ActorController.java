@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ActorController implements ActorsApi {
@@ -24,6 +26,13 @@ public class ActorController implements ActorsApi {
   public ResponseEntity<ActorDTO> getActorById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(
         toDTO(actorService.getActorById(id))
+    );
+  }
+
+  @Override
+  public ResponseEntity<List<ActorDTO>> getActorsByFilmId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        actorService.getActorsByFilmId(id).stream().map(this::toDTO).collect(Collectors.toList())
     );
   }
 
