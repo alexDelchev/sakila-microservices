@@ -32,10 +32,7 @@
           "200": {
             "description": "Actor model list",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ActorDTO"
-              }
+              "$ref": "#/definitions/ActorDTO"
             }
           }
         }
