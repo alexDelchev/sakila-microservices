@@ -1,8 +1,15 @@
 package com.example.sakila.module.category;
 
 import com.example.sakila.generated.server.api.CategoriesApi;
+import com.example.sakila.generated.server.model.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CategoryController implements CategoriesApi {
@@ -13,4 +20,20 @@ public class CategoryController implements CategoriesApi {
   public CategoryController(CategoryService categoryService) {
     this.categoryService = categoryService;
   }
+
+  @Override
+  public ResponseEntity<List<CategoryDTO>> getAllCategories() {
+    return ResponseEntity.ok(
+        categoryService.getAllCategories().stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
+  private CategoryDTO toDTO(Category category) {
+    CategoryDTO categoryDTO = new CategoryDTO();
+    categoryDTO.setId(category.getId());
+    categoryDTO.setName(category.getName());
+    categoryDTO.setLastUpdate(OffsetDateTime.ofInstant(category.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    return categoryDTO;
+  }
+
 }
