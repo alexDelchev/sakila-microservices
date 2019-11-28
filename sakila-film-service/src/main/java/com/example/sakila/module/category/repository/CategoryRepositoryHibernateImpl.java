@@ -28,7 +28,7 @@ public class CategoryRepositoryHibernateImpl implements CategoryRepository {
 
   @Override
   public List<Category> getAllCategories() {
-    return createQuery("SELECT c FROM Category").getResultList();
+    return createQuery("SELECT c FROM Category c").getResultList();
   }
 
   private TypedQuery<Category> createQuery(String query) {
