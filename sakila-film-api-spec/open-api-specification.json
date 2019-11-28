@@ -78,6 +78,28 @@
           }
         }
       }
+    },
+    "/categories/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getCategoryById",
+        "responses": {
+          "200": {
+            "description": "Country model",
+            "schema": {
+              "$ref": "#/definitions/CategoryDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
