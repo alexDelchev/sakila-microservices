@@ -30,7 +30,7 @@
         "operationId": "getActorById",
         "responses": {
           "200": {
-            "description": "Actor model list",
+            "description": "Actor model",
             "schema": {
               "$ref": "#/definitions/ActorDTO"
             }
