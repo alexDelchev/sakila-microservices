@@ -14,7 +14,7 @@
   "produces": [
     "application/json"
   ],
-  "tags": "Address",
+  "tags": "Film",
   "paths": {
     "/actors/{id}": {
       "get": {
