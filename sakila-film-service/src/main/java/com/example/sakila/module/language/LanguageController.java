@@ -1,4 +1,4 @@
-package com.example.sakila.module.language.repository;
+package com.example.sakila.module.language;
 
 import com.example.sakila.module.language.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
