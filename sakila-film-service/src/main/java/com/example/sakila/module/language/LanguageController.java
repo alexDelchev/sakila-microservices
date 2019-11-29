@@ -5,6 +5,7 @@ import com.example.sakila.generated.server.model.LanguageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -26,6 +27,11 @@ public class LanguageController implements LanguagesApi {
     return ResponseEntity.ok(
         languageService.getAllLanguages().stream().map(this::toDTO).collect(Collectors.toList())
     );
+  }
+
+  @Override
+  public ResponseEntity<LanguageDTO> getLanguageById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(languageService.getLanguageById(id)));
   }
 
   private LanguageDTO toDTO(Language language) {
