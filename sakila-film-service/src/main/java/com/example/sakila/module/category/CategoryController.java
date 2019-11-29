@@ -5,6 +5,7 @@ import com.example.sakila.generated.server.model.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -26,6 +27,11 @@ public class CategoryController implements CategoriesApi {
     return ResponseEntity.ok(
         categoryService.getAllCategories().stream().map(this::toDTO).collect(Collectors.toList())
     );
+  }
+
+  @Override
+  public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(categoryService.getCategoryById(id)));
   }
 
   private CategoryDTO toDTO(Category category) {
