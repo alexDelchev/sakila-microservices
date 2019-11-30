@@ -53,6 +53,13 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
     return query.getResultList();
   }
 
+  @Override
+  public List<Film> getFilmsByRating(String rating) {
+    TypedQuery<Film> query = createQuery("SELECT f FROM Film f WHERE CAST(rating AS string) = :filmRating");
+    query.setParameter("filmRating", rating);
+    return query.getResultList();
+  }
+
   private TypedQuery<Film> createQuery(String sql) {
     return entityManager.createQuery(sql, Film.class);
   }
