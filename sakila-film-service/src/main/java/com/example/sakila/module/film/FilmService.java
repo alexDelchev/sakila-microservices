@@ -42,4 +42,9 @@ public class FilmService {
     if (languageId == null) return null;
     return filmRepository.getFilmsByLanguage(languageId);
   }
+
+  public List<Film> getFilmsByRating(String rating) {
+    if (rating == null) return null;
+    return filmRepository.getFilmsByRating(rating);
+  }
 }
