@@ -35,7 +35,7 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
         "SELECT f FROM Film f WHERE f.description LIKE :expression",
         Film.class
     );
-    query.setParameter("expression", searchExpression);
+    query.setParameter("expression", '%' + searchExpression + '%');
     return query.getResultList();
   }
 
