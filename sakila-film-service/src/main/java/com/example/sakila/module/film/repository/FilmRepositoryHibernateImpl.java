@@ -48,7 +48,7 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
 
   @Override
   public List<Film> getFilmsByLanguage(Long languageId) {
-    TypedQuery<Film> query = createQuery("SELECT f FROM Film JOIN f.language l WHERE l.id = :languageId");
+    TypedQuery<Film> query = createQuery("SELECT f FROM Film f JOIN f.language l WHERE l.id = :languageId");
     query.setParameter("languageId", languageId);
     return query.getResultList();
   }
