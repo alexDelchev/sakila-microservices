@@ -22,7 +22,7 @@ public class FilmController implements FilmsApi {
 
   @Override
   public ResponseEntity<FilmDTO> getFilmById(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(toDTO(filmService.getFilmId(id)));
+    return ResponseEntity.ok(toDTO(filmService.getFilmById(id)));
   }
 
   private FilmDTO toDTO(Film film) {

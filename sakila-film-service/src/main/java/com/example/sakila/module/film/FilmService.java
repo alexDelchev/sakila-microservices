@@ -18,7 +18,7 @@ public class FilmService {
     this.filmRepository = filmRepository;
   }
 
-  public Film getFilmId(Long id) {
+  public Film getFilmById(Long id) {
     if (id == null) return null;
     return filmRepository.getFilmById(id);
   }
