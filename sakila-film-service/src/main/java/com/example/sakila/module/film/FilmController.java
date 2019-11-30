@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class FilmController implements FilmsApi {
@@ -23,6 +25,13 @@ public class FilmController implements FilmsApi {
   @Override
   public ResponseEntity<FilmDTO> getFilmById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(filmService.getFilmById(id)));
+  }
+
+  @Override
+  public ResponseEntity<List<FilmDTO>> getFilmsByLanguageId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        filmService.getFilmsByLanguageId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
   }
 
   private FilmDTO toDTO(Film film) {
