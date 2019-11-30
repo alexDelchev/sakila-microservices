@@ -6,6 +6,7 @@ import com.example.sakila.generated.server.model.FilmRating;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -46,6 +47,15 @@ public class FilmController implements FilmsApi {
     if (Arrays.stream(FilmRating.values()).noneMatch((x -> x.toString().equals(rating)))) return null;
     return ResponseEntity.ok(
         filmService.getFilmsByRating(rating).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
+  @Override
+  public ResponseEntity<List<FilmDTO>> searchFilmsByTitle(
+      @RequestParam(value = "expression", required = true) String expression
+  ) {
+    return ResponseEntity.ok(
+        filmService.searchFilmsByTitle(expression).stream().map(this::toDTO).collect(Collectors.toList())
     );
   }
 
