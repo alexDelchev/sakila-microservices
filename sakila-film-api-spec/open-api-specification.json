@@ -259,6 +259,31 @@
           }
         }
       }
+    },
+    "/films/search/description": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "expression",
+            "description": "Description search expression",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "operationId": "searchFilmsByDescription",
+        "responses": {
+          "200": {
+            "description": "Film model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilmDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
