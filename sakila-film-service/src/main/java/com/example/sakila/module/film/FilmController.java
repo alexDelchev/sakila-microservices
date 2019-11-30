@@ -34,6 +34,13 @@ public class FilmController implements FilmsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<FilmDTO>> getFilmsByCategoryId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        filmService.getFilmsByCategoryId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private FilmDTO toDTO(Film film) {
     FilmDTO filmDTO = new FilmDTO();
     filmDTO.setId(film.getId());
