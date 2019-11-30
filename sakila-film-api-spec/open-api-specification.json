@@ -200,6 +200,76 @@
           "format": "date-time"
         }
       }
+    },
+    "FilmDTO": {
+      "type": "object",
+      "required": [
+        "id", "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "releaseYear": {
+          "type": "integer"
+        },
+        "languageId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "originalLanguageId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rentalDuration": {
+          "type": "integer"
+        },
+        "rentalRate": {
+          "type": "number",
+          "format": "float"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "replacementCost": {
+          "type": "number",
+          "format": "float"
+        },
+        "rating": {
+          "$ref": "#/definitions/FilmRating"
+        },
+        "categoryId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "specialFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "FilmRating": {
+      "type": "string",
+      "enum": [
+        "G",
+        "PG",
+        "PG-13",
+        "R",
+        "NC-17"
+      ]
     }
   }
 }
