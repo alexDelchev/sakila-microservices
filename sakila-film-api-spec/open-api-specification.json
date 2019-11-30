@@ -160,6 +160,31 @@
           }
         }
       }
+    },
+    "/films/language/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Language ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getFilmsByLanguageId",
+        "responses": {
+          "200": {
+            "description": "Film model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilmDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
