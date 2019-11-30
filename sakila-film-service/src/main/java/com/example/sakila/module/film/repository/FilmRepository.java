@@ -16,4 +16,6 @@ public interface FilmRepository {
 
   List<Film> getFilmsByLanguage(Long languageId);
 
+  List<Film> getFilmsByRating(String rating);
+
 }
