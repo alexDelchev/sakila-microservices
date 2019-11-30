@@ -59,6 +59,15 @@ public class FilmController implements FilmsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<FilmDTO>> searchFilmsByDescription(
+      @RequestParam(value = "expression", required = true) String expression
+  ) {
+    return ResponseEntity.ok(
+        filmService.searchFilmsByDescription(expression).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private FilmDTO toDTO(Film film) {
     FilmDTO filmDTO = new FilmDTO();
     filmDTO.setId(film.getId());
