@@ -185,6 +185,31 @@
           }
         }
       }
+    },
+    "/films/category/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getFilmsByCategoryId",
+        "responses": {
+          "200": {
+            "description": "Film model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilmDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
