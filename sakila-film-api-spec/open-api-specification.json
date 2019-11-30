@@ -210,6 +210,30 @@
           }
         }
       }
+    },
+    "/films/mpaaRating/{rating}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "MPAA rating",
+            "type": "string"
+          }
+        ],
+        "operationId": "getFilmsByMpaaRating",
+        "responses": {
+          "200": {
+            "description": "Film model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilmDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
