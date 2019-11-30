@@ -41,6 +41,14 @@ public class FilmController implements FilmsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<FilmDTO>> getFilmsByMpaaRating(@PathVariable("rating") String rating) {
+    if (Arrays.stream(FilmRating.values()).noneMatch((x -> x.toString().equals(rating)))) return null;
+    return ResponseEntity.ok(
+        filmService.getFilmsByRating(rating).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private FilmDTO toDTO(Film film) {
     FilmDTO filmDTO = new FilmDTO();
     filmDTO.setId(film.getId());
