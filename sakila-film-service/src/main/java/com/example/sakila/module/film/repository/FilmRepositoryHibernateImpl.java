@@ -32,7 +32,7 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
   @Override
   public List<Film> searchFilmsByDescription(String searchExpression) {
     TypedQuery<Film> query = entityManager.createQuery(
-        "SELECT f FROM Film f WHERE f.description LIKE :expression",
+        "SELECT f FROM Film f WHERE LOWER(f.description) LIKE LOWER(:expression)",
         Film.class
     );
     query.setParameter("expression", '%' + searchExpression + '%');
