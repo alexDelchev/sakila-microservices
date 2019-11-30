@@ -138,6 +138,28 @@
           }
         }
       }
+    },
+    "/films/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Film ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getFilmById",
+        "responses": {
+          "200": {
+            "description": "Film model",
+            "schema": {
+              "$ref": "#/definitions/FilmDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
