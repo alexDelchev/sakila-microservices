@@ -80,6 +80,30 @@
           }
         }
       }
+    },
+    "/customers/search/lastName": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "expression",
+            "description":"Last name search expression",
+            "type": "string"
+          }
+        ],
+        "operationId": "searchCustomersByLastName",
+        "responses": {
+          "200": {
+            "description": "Customer model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
