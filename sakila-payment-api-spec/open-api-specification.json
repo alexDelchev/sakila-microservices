@@ -1,0 +1,14 @@
+{
+  "swagger": 2.0,
+  "info" : {
+    "version": "1.0.0",
+    "title": "Payment API"
+  },
+  "host": "",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "tags": "Payment",
+  "paths": {},
+  "definitions": {}
+}
