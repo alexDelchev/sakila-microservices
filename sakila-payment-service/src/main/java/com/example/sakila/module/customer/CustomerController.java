@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -33,6 +34,15 @@ public class CustomerController implements CustomersApi {
   public ResponseEntity<List<CustomerDTO>> getCustomersByStoreId(@PathVariable("id") Long id) {
     return ResponseEntity.ok(
         customerService.getCustomersByStoreId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
+  @Override
+  public ResponseEntity<List<CustomerDTO>> searchCustomersByFirstName(
+      @RequestParam(value = "expression", required = false) String expression
+  ) {
+    return ResponseEntity.ok(
+        customerService.searchCustomersByFirstName(expression).stream().map(this::toDTO).collect(Collectors.toList())
     );
   }
 
