@@ -201,6 +201,28 @@
           }
         }
       }
+    },
+    "/payments/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Payment ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getPaymentById",
+        "responses": {
+          "200": {
+            "description": "Payment model",
+            "schema": {
+              "$ref": "#/definitions/PaymentDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
