@@ -282,6 +282,38 @@
           "format": "date-time"
         }
       }
+    },
+    "PaymentDTO": {
+      "type": "object",
+      "required": [
+        "id", "customerId", "rentalId"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "customerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "staffId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rentalId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "format": "float"
+        },
+        "paymentDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }
