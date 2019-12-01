@@ -238,7 +238,7 @@
         "operationId": "getPaymentsByRentalId",
         "responses": {
           "200": {
-            "description": "Payment model",
+            "description": "Payment model list",
             "schema": {
               "type": "array",
               "items": {
