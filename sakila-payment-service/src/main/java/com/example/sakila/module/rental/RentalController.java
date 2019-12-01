@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class RentalController implements RentalsApi {
@@ -24,6 +26,13 @@ public class RentalController implements RentalsApi {
   @Override
   public ResponseEntity<RentalDTO> getRentalById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(rentalService.getRentalById(id)));
+  }
+
+  @Override
+  public ResponseEntity<List<RentalDTO>> getRentalsByInventoryId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+      rentalService.getRentalsByInventoryId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
   }
 
   private RentalDTO toDTO(Rental rental) {
