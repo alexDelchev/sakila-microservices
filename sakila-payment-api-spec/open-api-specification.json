@@ -56,6 +56,30 @@
           }
         }
       }
+    },
+    "/customers/search/firstName": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "expression",
+            "description":"First name search expression",
+            "type": "string"
+          }
+        ],
+        "operationId": "searchCustomersByFirstName",
+        "responses": {
+          "200": {
+            "description": "Customer model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
