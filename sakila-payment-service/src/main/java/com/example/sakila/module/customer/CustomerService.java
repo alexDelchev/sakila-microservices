@@ -16,22 +16,22 @@ public class CustomerService {
     this.customerRepository = customerRepository;
   }
 
-  Customer getCustomerById(Long id) {
+  public Customer getCustomerById(Long id) {
     if (id == null) return null;
     return customerRepository.getCustomerById(id);
   }
 
-  List<Customer> getCustomersByStoreId(Long id) {
+  public List<Customer> getCustomersByStoreId(Long id) {
     if (id == null) return null;
     return customerRepository.getCustomersByStoreId(id);
   }
 
-  List<Customer> searchCustomersByFirstName(String expression) {
+  public List<Customer> searchCustomersByFirstName(String expression) {
     if (expression == null || expression.length() == 0) return null;
     return customerRepository.searchCustomersByFirstName(expression);
   }
 
-  List<Customer> searchCustomersByLastName(String expression) {
+  public List<Customer> searchCustomersByLastName(String expression) {
     if (expression == null || expression.length() == 0) return null;
     return customerRepository.searchCustomersByLastName(expression);
   }
