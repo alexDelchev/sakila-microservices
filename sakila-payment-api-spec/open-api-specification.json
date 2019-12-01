@@ -176,6 +176,31 @@
           }
         }
       }
+    },
+    "/rentals/staff/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Staff ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getRentalsByStaffId",
+        "responses": {
+          "200": {
+            "description": "Rental model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RentalDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
