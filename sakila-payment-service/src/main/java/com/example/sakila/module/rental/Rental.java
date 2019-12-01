@@ -55,6 +55,59 @@ public class Rental {
     this.lastUpdate = lastUpdate;
   }
 
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 
+  public Date getRentalDate() {
+    return rentalDate;
+  }
+
+  public void setRentalDate(Date rentalDate) {
+    this.rentalDate = rentalDate;
+  }
+
+  public Long getInventory_id() {
+    return inventory_id;
+  }
+
+  public void setInventory_id(Long inventory_id) {
+    this.inventory_id = inventory_id;
+  }
+
+  public Customer getCustomer() {
+    return customer;
+  }
+
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
+
+  public Date getReturnDate() {
+    return returnDate;
+  }
+
+  public void setReturnDate(Date returnDate) {
+    this.returnDate = returnDate;
+  }
+
+  public Long getStaff_id() {
+    return staff_id;
+  }
+
+  public void setStaff_id(Long staff_id) {
+    this.staff_id = staff_id;
+  }
+
+  public Date getLastUpdate() {
+    return lastUpdate;
+  }
+
+  public void setLastUpdate(Date lastUpdate) {
+    this.lastUpdate = lastUpdate;
+  }
 }
