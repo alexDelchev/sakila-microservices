@@ -20,10 +20,10 @@ public class PaymentRepositoryHibernateImpl implements PaymentRepository {
   }
 
   @Override
-  public Payment getPaymentByRentalId(Long id) {
+  public List<Payment> getPaymentsByRentalId(Long id) {
     TypedQuery<Payment> query = createQuery("SELECT p FROM Payment p WHERE p.rental.id = :rentalId");
     query.setParameter("rentalId", id);
-    return query.getSingleResult();
+    return query.getResultList();
   }
 
   @Override

@@ -21,9 +21,9 @@ public class PaymentService {
     return paymentRepository.getPaymentById(id);
   }
 
-  public Payment getPaymentByRentalId(Long id) {
+  public List<Payment> getPaymentsByRentalId(Long id) {
     if (id == null) return null;
-    return paymentRepository.getPaymentByRentalId(id);
+    return paymentRepository.getPaymentsByRentalId(id);
   }
 
   public List<Payment> getPaymentsByCustomerId(Long id) {

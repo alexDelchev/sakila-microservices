@@ -8,7 +8,7 @@ public interface PaymentRepository {
 
   Payment getPaymentById(Long id);
 
-  Payment getPaymentByRentalId(Long id);
+  List<Payment> getPaymentsByRentalId(Long id);
 
   List<Payment> getPaymentsByCustomerId(Long id);
 
