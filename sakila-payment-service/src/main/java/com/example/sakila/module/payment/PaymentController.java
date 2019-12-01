@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PaymentController implements PaymentsApi {
@@ -26,6 +28,14 @@ public class PaymentController implements PaymentsApi {
         toDTO(paymentService.getPaymentById(id))
     );
   }
+
+  @Override
+  public ResponseEntity<List<PaymentDTO>> getPaymentsByRentalId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        paymentService.getPaymentsByRentalId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private PaymentDTO toDTO(Payment payment) {
     PaymentDTO paymentDTO = new PaymentDTO();
     paymentDTO.setId(payment.getId());
