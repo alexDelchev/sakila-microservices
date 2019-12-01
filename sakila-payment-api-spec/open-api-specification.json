@@ -149,6 +149,42 @@
           "type": "integer"
         }
       }
+    },
+    "RentalDTO": {
+      "type": "object",
+      "required": [
+        "id", "customerId", "inventoryId"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rentalDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "inventoryId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "customerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "returnDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "staffId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }
