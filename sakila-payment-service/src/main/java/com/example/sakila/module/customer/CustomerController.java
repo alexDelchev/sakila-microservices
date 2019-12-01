@@ -46,6 +46,15 @@ public class CustomerController implements CustomersApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<CustomerDTO>> searchCustomersByLastName(
+      @RequestParam(value = "expression", required = false) String expression
+  ) {
+    return ResponseEntity.ok(
+        customerService.searchCustomersByLastName(expression).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private CustomerDTO toDTO(Customer customer) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setId(customer.getId());
