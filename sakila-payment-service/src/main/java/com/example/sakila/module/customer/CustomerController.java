@@ -7,9 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CustomerController implements CustomersApi {
@@ -26,18 +29,30 @@ public class CustomerController implements CustomersApi {
     return ResponseEntity.ok(toDTO(customerService.getCustomerById(id)));
   }
 
+  @Override
+  public ResponseEntity<List<CustomerDTO>> getCustomersByStoreId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        customerService.getCustomersByStoreId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private CustomerDTO toDTO(Customer customer) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setId(customer.getId());
+    customerDTO.setStoreId(customer.getStore_id());
     customerDTO.setFirstName(customer.getFirstName());
     customerDTO.setLastName(customer.getLastName());
     customerDTO.setEmail(customer.getEmail());
     customerDTO.setAddressId(customer.getAddress_id());
     customerDTO.setActiveBool(customer.getActiveBool());
-    customerDTO.setCreateDate(toOffsetDateTime(customer.getCreateDate()));
+    customerDTO.setCreateDate(toLocalDate(customer.getCreateDate()));
     customerDTO.setLastUpdate(toOffsetDateTime(customer.getLastUpdate()));
     customerDTO.setActive(customer.getActive());
     return customerDTO;
+  }
+
+  private LocalDate toLocalDate(Date date) {
+    return ((java.sql.Date) date).toLocalDate();
   }
 
   private OffsetDateTime toOffsetDateTime(Date date) {
