@@ -1,10 +1,17 @@
 package com.example.sakila.module.payment;
 
+import com.example.sakila.generated.server.api.PaymentsApi;
+import com.example.sakila.generated.server.model.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 @Controller
-public class PaymentController {
+public class PaymentController implements PaymentsApi {
 
   private final PaymentService paymentService;
 
@@ -12,5 +19,21 @@ public class PaymentController {
   public PaymentController(PaymentService paymentService) {
     this.paymentService = paymentService;
   }
-  
+
+  @Override
+  public ResponseEntity<PaymentDTO> getPaymentById(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        toDTO(paymentService.getPaymentById(id))
+    );
+  }
+  private PaymentDTO toDTO(Payment payment) {
+    PaymentDTO paymentDTO = new PaymentDTO();
+    paymentDTO.setId(payment.getId());
+    paymentDTO.setCustomerId(payment.getCustomer().getId());
+    paymentDTO.setStaffId(payment.getStaff_id());
+    paymentDTO.setRentalId(payment.getRental().getId());
+    paymentDTO.setAmount(payment.getAmount());
+    paymentDTO.setPaymentDate(OffsetDateTime.ofInstant(payment.getPaymentDate().toInstant(), ZoneId.systemDefault()));
+    return paymentDTO;
+  }
 }
