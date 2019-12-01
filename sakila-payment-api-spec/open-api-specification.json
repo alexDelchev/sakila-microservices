@@ -104,6 +104,28 @@
           }
         }
       }
+    },
+    "/rentals/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Rental ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getRentalById",
+        "responses": {
+          "200": {
+            "description": "Rental model",
+            "schema": {
+              "$ref": "#/definitions/RentalDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
