@@ -151,6 +151,31 @@
           }
         }
       }
+    },
+    "/rentals/customer/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Customer ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getRentalsByCustomerId",
+        "responses": {
+          "200": {
+            "description": "Rental model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RentalDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
