@@ -81,6 +81,28 @@
           }
         }
       }
+    },
+    "/staff/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Staff id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getStaffById",
+        "responses": {
+          "200": {
+            "description": "Staff model",
+            "schema": {
+              "$ref": "#/definitions/StaffDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
