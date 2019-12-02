@@ -273,6 +273,31 @@
           }
         }
       }
+    },
+    "/payments/staff/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Staff ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getPaymentsByStaffId",
+        "responses": {
+          "200": {
+            "description": "Payment model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PaymentDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
