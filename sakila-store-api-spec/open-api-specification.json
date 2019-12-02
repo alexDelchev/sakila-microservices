@@ -103,6 +103,31 @@
           }
         }
       }
+    },
+    "/staff/store/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Store id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getStaffByStoreId",
+        "responses": {
+          "200": {
+            "description": "Staff model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StaffDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
