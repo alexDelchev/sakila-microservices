@@ -29,7 +29,7 @@ public class InventoryRepositoryHibernateImpl implements InventoryRepository {
 
   @Override
   public List<Inventory> getInventoriesByFilm(Long filmId) {
-    TypedQuery<Inventory> query = createQuery("SELET i FROM Inventory WHERE film_id = :filmId");
+    TypedQuery<Inventory> query = createQuery("SELECT i FROM Inventory i WHERE film_id = :filmId");
     query.setParameter("filmId", filmId);
     return query.getResultList();
   }
