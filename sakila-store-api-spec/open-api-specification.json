@@ -31,6 +31,31 @@
           }
         }
       }
+    },
+    "/inventories/store/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Store ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getInventoriesByStoreId",
+        "responses": {
+          "200": {
+            "description": "Inventory model",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InventoryDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
