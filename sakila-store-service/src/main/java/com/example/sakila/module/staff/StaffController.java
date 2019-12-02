@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class StaffController implements StaffApi {
@@ -23,6 +25,13 @@ public class StaffController implements StaffApi {
   @Override
   public ResponseEntity<StaffDTO> getStaffById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(staffService.getStaffById(id)));
+  }
+
+  @Override
+  public ResponseEntity<List<StaffDTO>> getStaffByStoreId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        staffService.getStaffByStoreId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
   }
 
   private StaffDTO toDTO(Staff staff) {
