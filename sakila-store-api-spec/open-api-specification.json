@@ -150,6 +150,28 @@
           }
         }
       }
+    },
+    "/stores/address/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Address ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getStoreByAddressId",
+        "responses": {
+          "200": {
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
