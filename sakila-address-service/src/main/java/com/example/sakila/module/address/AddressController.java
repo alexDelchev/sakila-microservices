@@ -1,6 +1,5 @@
 package com.example.sakila.module.address;
 
-import com.example.sakila.exception.BadRequestException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.AddressesApi;
 import com.example.sakila.generated.server.model.AddressDTO;
