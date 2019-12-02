@@ -248,6 +248,31 @@
           }
         }
       }
+    },
+    "/payments/customer/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Customer ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getPaymentsByCustomerId",
+        "responses": {
+          "200": {
+            "description": "Payment model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PaymentDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
