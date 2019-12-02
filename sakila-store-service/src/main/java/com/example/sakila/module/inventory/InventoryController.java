@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class InventoryController implements InventoriesApi {
@@ -23,6 +25,13 @@ public class InventoryController implements InventoriesApi {
   @Override
   public ResponseEntity<InventoryDTO> getInventoryById(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(inventoryService.getInventoryById(id)));
+  }
+
+  @Override
+  public ResponseEntity<List<InventoryDTO>> getInventoriesByStoreId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        inventoryService.getInventoriesByStore(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
   }
 
   private InventoryDTO toDTO(Inventory inventory) {
