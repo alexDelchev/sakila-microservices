@@ -34,6 +34,13 @@ public class InventoryController implements InventoriesApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<InventoryDTO>> getInventoriesByFilmId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        inventoryService.getInventoriesByFilm(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private InventoryDTO toDTO(Inventory inventory) {
     InventoryDTO inventoryDTO = new InventoryDTO();
     inventoryDTO.setId(inventory.getId());
