@@ -46,7 +46,7 @@
         "operationId": "getInventoriesByStoreId",
         "responses": {
           "200": {
-            "description": "Inventory model",
+            "description": "Inventory model list",
             "schema": {
               "type": "array",
               "items": {
