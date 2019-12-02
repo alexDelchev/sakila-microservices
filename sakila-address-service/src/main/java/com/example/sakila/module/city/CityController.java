@@ -1,5 +1,6 @@
 package com.example.sakila.module.city;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.CitiesApi;
 import com.example.sakila.generated.server.model.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,20 @@ public class CityController implements CitiesApi {
 
   @Override
   public ResponseEntity<List<CityDTO>> getCitiesByCountryId(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(
-        cityService.getCitiesByCountry(id).stream().map(this::toDTO).collect(Collectors.toList())
+    List<City> cities = cityService.getCitiesByCountry(id);
+    if (cities == null || cities.size() == 0) throw new NotFoundException(
+        "Cities for Country ID " + id + " do not exist"
     );
+
+    return ResponseEntity.ok(cities.stream().map(this::toDTO).collect(Collectors.toList()));
   }
 
   @Override
   public ResponseEntity<CityDTO> getCityById(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(toDTO(cityService.getCityById(id)));
+    City city = cityService.getCityById(id);
+    if (city == null) throw new NotFoundException("City for ID " + id + " does not exist");
+
+    return ResponseEntity.ok(toDTO(city));
   }
 
   private CityDTO toDTO(City city) {
