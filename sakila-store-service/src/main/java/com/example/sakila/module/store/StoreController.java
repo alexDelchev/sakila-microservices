@@ -25,6 +25,11 @@ public class StoreController implements StoresApi {
     return ResponseEntity.ok(toDTO(storeService.getStoreById(id)));
   }
 
+  @Override
+  public ResponseEntity<StoreDTO> getStoreByAddressId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(storeService.getStoreByIaddressId(id)));
+  }
+
   private StoreDTO toDTO(Store store) {
     StoreDTO storeDTO = new StoreDTO();
     storeDTO.setId(store.getId());
