@@ -128,6 +128,28 @@
           }
         }
       }
+    },
+    "/stores/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Store ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getStoreById",
+        "responses": {
+          "200": {
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
