@@ -16,17 +16,17 @@ public class AddressService {
     this.addressRepository = addressRepository;
   }
 
-  Address getAddressById(Long id) {
+  public Address getAddressById(Long id) {
     if (id == null) return null;
     return addressRepository.getAddressById(id);
   }
 
-  List<Address> getAddressesByCity(Long cityId) {
+  public List<Address> getAddressesByCity(Long cityId) {
     if (cityId == null) return null;
     return addressRepository.getAddressesByCity(cityId);
   }
 
-  List<Address> getAddressesByCountry(Long countryId) {
+  public List<Address> getAddressesByCountry(Long countryId) {
     if (countryId == null) return null;
     return addressRepository.getAddressesByCountry(countryId);
   }
