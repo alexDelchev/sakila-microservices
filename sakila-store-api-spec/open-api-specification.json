@@ -56,6 +56,31 @@
           }
         }
       }
+    },
+    "/inventories/film/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Film ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getInventoriesByFilmId",
+        "responses": {
+          "200": {
+            "description": "Inventory model list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InventoryDTO"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
