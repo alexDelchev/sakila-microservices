@@ -43,6 +43,13 @@ public class PaymentController implements PaymentsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<List<PaymentDTO>> getPaymentsByStaffId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(
+        paymentService.getPaymentsByStaffId(id).stream().map(this::toDTO).collect(Collectors.toList())
+    );
+  }
+
   private PaymentDTO toDTO(Payment payment) {
     PaymentDTO paymentDTO = new PaymentDTO();
     paymentDTO.setId(payment.getId());
