@@ -1,5 +1,6 @@
 package com.example.sakila.module.country;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.CountriesApi;
 import com.example.sakila.generated.server.model.CountryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class CountryController implements CountriesApi {
 
   @Override
   public ResponseEntity<CountryDTO> getCountryById(@PathVariable("id") Long id) {
+    Country country = countryService.getCountryById(id);
+    if (country == null) throw new NotFoundException("Country for ID " + id + " does not exist");
+
     return ResponseEntity.ok(toDTO(countryService.getCountryById(id)));
   }
 
