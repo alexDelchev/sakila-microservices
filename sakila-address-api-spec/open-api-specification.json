@@ -54,6 +54,35 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Address ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "addressDTO",
+            "description": "Address model",
+            "schema": {
+              "$ref": "#/definitions/AddressDTO"
+            }
+          }
+        ],
+        "operationId": "replaceAddress",
+        "responses": {
+          "200": {
+            "description": "Created Address model",
+            "schema": {
+              "$ref": "#/definitions/AddressDTO"
+            }
+          }
+        }
       }
     },
     "/addresses/city/{id}": {
