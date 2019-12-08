@@ -10,6 +10,29 @@
   "produces": ["application/json"],
   "tags": "Address",
   "paths": {
+    "/addresses": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "addressDTO",
+            "description": "Address model",
+            "schema": {
+              "$ref": "#/definitions/AddressDTO"
+            }
+          }
+        ],
+        "operationId": "addNewAddress",
+        "responses": {
+          "200": {
+            "description": "Created Address model",
+            "schema": {
+              "$ref": "#/definitions/AddressDTO"
+            }
+          }
+        }
+      }
+    },
     "/addresses/{id}": {
       "get": {
         "parameters": [
