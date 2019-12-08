@@ -30,4 +30,19 @@ public class AddressService {
     if (countryId == null) return null;
     return addressRepository.getAddressesByCountry(countryId);
   }
+
+  public Address addNewAddress(Address address) {
+    return addressRepository.insertAddress(address);
+  }
+
+  public Address updateAddress(Long id, Address source) {
+    Address target = addressRepository.getAddressById(id);
+    target.setAddress(source.getAddress());
+    target.setAddress2(source.getAddress2());
+    target.setDistrict(source.getDistrict());
+    target.setCity(source.getCity());
+    target.setPostalCode(source.getPostalCode());
+    target.setPhone(source.getPhone());
+    return addressRepository.updateAddress(target);
+  }
 }
