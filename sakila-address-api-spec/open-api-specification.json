@@ -193,7 +193,7 @@
     "AddressDTO" : {
       "type": "object",
       "required": [
-        "id", "address", "cityId"
+        "address", "district", "cityId", "phone"
       ],
       "properties": {
         "id": {
