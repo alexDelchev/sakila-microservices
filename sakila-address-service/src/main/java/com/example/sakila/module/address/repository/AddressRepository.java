@@ -11,4 +11,6 @@ public interface AddressRepository {
   List<Address> getAddressesByCity(Long cityId);
 
   List<Address> getAddressesByCountry(Long countryId);
+
+  Address insertAddress(Address address);
 }
