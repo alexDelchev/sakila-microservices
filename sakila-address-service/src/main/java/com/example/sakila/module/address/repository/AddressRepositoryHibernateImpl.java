@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -33,6 +34,15 @@ public class AddressRepositoryHibernateImpl implements AddressRepository {
     );
     query.setParameter("countryId", countryId);
     return query.getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Address insertAddress(Address address) {
+    entityManager.persist(address);
+    entityManager.flush();
+    entityManager.refresh(address);
+    return address;
   }
 
   private TypedQuery<Address> createQuery(String query) {
