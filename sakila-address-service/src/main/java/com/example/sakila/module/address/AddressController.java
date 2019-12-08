@@ -3,12 +3,15 @@ package com.example.sakila.module.address;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.AddressesApi;
 import com.example.sakila.generated.server.model.AddressDTO;
+import com.example.sakila.module.city.CityService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.Date;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -19,9 +22,12 @@ public class AddressController implements AddressesApi {
 
   private final AddressService addressService;
 
+  private final CityService cityService;
+
   @Autowired
-  public AddressController(AddressService addressService) {
+  public AddressController(AddressService addressService, CityService cityService) {
     this.addressService = addressService;
+    this.cityService = cityService;
   }
 
   @Override
@@ -52,11 +58,26 @@ public class AddressController implements AddressesApi {
     return ResponseEntity.ok(addresses.stream().map(this::toDTO).collect(Collectors.toList()));
   }
 
+  @Override
+  public ResponseEntity<AddressDTO> addNewAddress(@RequestBody AddressDTO addressDTO) {
+    return ResponseEntity.ok(toDTO(addressService.addNewAddress(toEntity(addressDTO))));
+  }
+
   private AddressDTO toDTO(Address address) {
     AddressDTO addressDTO = new AddressDTO();
     BeanUtils.copyProperties(address, addressDTO);
     addressDTO.setCityId(address.getCity().getId());
-    addressDTO.setLastUpdate(OffsetDateTime.ofInstant(address.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    if (address.getLastUpdate() != null) {
+      addressDTO.setLastUpdate(OffsetDateTime.ofInstant(address.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    }
     return addressDTO;
+  }
+
+  private Address toEntity(AddressDTO addressDTO) {
+    Address address = new Address();
+    BeanUtils.copyProperties(addressDTO, address);
+    address.setCity(cityService.getCityById(addressDTO.getCityId()));
+    if (addressDTO.getLastUpdate() != null) address.setLastUpdate(Date.from(addressDTO.getLastUpdate().toInstant()));
+    return address;
   }
 }
