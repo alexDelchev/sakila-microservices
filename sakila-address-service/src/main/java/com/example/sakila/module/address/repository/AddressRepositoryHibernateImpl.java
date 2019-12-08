@@ -45,9 +45,17 @@ public class AddressRepositoryHibernateImpl implements AddressRepository {
     return address;
   }
 
+  @Override
+  @Transactional
+  public Address updateAddress(Address address) {
+    entityManager.merge(address);
+    entityManager.flush();
+    entityManager.refresh(address);
+    return address;
+  }
+
   private TypedQuery<Address> createQuery(String query) {
     return entityManager.createQuery(query, Address.class);
   }
-
 
 }
