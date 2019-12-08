@@ -13,4 +13,6 @@ public interface AddressRepository {
   List<Address> getAddressesByCountry(Long countryId);
 
   Address insertAddress(Address address);
+
+  Address updateAddress(Address address);
 }
