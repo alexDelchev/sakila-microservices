@@ -33,4 +33,11 @@ class AddressServiceTest {
 
     assertNull(addresses);
   }
+
+  @Test
+  void getAddressesByCountry() {
+    List<Address> addresses = addressService.getAddressesByCountry(null);
+
+    assertNull(addresses);
+  }
 }
