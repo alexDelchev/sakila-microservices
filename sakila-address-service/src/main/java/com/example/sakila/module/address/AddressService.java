@@ -1,5 +1,6 @@
 package com.example.sakila.module.address;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.address.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,12 +38,15 @@ public class AddressService {
 
   public Address updateAddress(Long id, Address source) {
     Address target = addressRepository.getAddressById(id);
+    if (target == null) throw new NotFoundException("Target address for update does not exist");
+
     target.setAddress(source.getAddress());
     target.setAddress2(source.getAddress2());
     target.setDistrict(source.getDistrict());
     target.setCity(source.getCity());
     target.setPostalCode(source.getPostalCode());
     target.setPhone(source.getPhone());
+
     return addressRepository.updateAddress(target);
   }
 }
