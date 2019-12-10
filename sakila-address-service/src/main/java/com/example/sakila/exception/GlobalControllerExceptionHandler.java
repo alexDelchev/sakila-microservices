@@ -23,6 +23,13 @@ public class GlobalControllerExceptionHandler {
     return generateResponse(exception);
   }
 
+  @ResponseBody
+  @ResponseStatus(HttpStatus.CONFLICT)
+  @ExceptionHandler({DataConflictException.class})
+  public ErrorResponse handleConflictException(Exception exception) {
+    return generateResponse(exception);
+  }
+
   private ErrorResponse generateResponse(Exception exception) {
     return new ErrorResponse(exception.getMessage());
   }
