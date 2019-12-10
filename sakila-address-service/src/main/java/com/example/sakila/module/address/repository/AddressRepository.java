@@ -15,4 +15,6 @@ public interface AddressRepository {
   Address insertAddress(Address address);
 
   Address updateAddress(Address address);
+
+  void deleteAddress(Long id);
 }
