@@ -1,10 +1,14 @@
 package com.example.sakila.module.address;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.address.repository.AddressRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 @Service
@@ -48,5 +52,13 @@ public class AddressService {
     target.setPhone(source.getPhone());
 
     return addressRepository.updateAddress(target);
+  }
+
+  public void deleteAddress(Long id) {
+    try {
+      addressRepository.deleteAddress(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
