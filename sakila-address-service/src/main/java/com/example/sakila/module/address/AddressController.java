@@ -68,6 +68,12 @@ public class AddressController implements AddressesApi {
     return ResponseEntity.ok(toDTO(addressService.updateAddress(id, toEntity(addressDTO))));
   }
 
+  @Override
+  public  ResponseEntity<Void> deleteAddress(@PathVariable("id") Long id) {
+    addressService.deleteAddress(id);
+    return ResponseEntity.ok(null);
+  }
+
   private AddressDTO toDTO(Address address) {
     AddressDTO addressDTO = new AddressDTO();
     BeanUtils.copyProperties(address, addressDTO);
