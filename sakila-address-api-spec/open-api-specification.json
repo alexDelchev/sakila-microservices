@@ -83,6 +83,24 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Address ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteAddress",
+        "responses": {
+          "200": {
+            "description": "Address deleted"
+          }
+        }
       }
     },
     "/addresses/city/{id}": {
