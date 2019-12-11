@@ -15,4 +15,6 @@ public interface CityRepository {
   List<City> getAllCities();
 
   City insertCity(City city);
+
+  City updateCity(City city);
 }
