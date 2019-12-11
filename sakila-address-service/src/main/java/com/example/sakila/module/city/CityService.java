@@ -34,4 +34,8 @@ public class CityService {
   public List<City> getAllCities() {
     return cityRepository.getAllCities();
   }
+
+  public City addNewCity(City city) {
+    return cityRepository.insertCity(city);
+  }
 }
