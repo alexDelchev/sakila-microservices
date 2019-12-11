@@ -1,11 +1,15 @@
 package com.example.sakila.module.city;
 
 import com.example.sakila.module.country.Country;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "city")
 public class City {
 
