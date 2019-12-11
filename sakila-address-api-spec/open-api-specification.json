@@ -217,6 +217,14 @@
       "put": {
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "description": "City ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "in": "body",
             "name": "cityDTO",
             "description": "City model",
