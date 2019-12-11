@@ -298,7 +298,7 @@
     "CityDTO": {
       "type": "object",
       "required": [
-        "id", "city", "countryId"
+        "city", "countryId"
       ],
       "properties": {
         "id": {
