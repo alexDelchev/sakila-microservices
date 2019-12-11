@@ -213,6 +213,27 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "cityDTO",
+            "description": "City model",
+            "schema": {
+              "$ref": "#/definitions/CityDTO"
+            }
+          }
+        ],
+        "operationId": "replaceCity",
+        "responses": {
+          "200": {
+            "description": "Updated city model",
+            "schema": {
+              "$ref": "#/definitions/CityDTO"
+            }
+          }
+        }
       }
     },
     "/cities/country/{id}": {
