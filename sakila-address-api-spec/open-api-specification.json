@@ -169,6 +169,27 @@
             }
           }
         }
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "cityDTO",
+            "description": "City model",
+            "schema": {
+              "$ref": "#/definitions/CityDTO"
+            }
+          }
+        ],
+        "operationId": "addNewCity",
+        "responses": {
+          "200": {
+            "description": "City model",
+            "schema": {
+              "$ref": "#/definitions/CityDTO"
+            }
+          }
+        }
       }
     },
     "/cities/{id}": {
