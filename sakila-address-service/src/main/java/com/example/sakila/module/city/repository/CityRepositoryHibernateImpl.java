@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -36,6 +37,15 @@ public class CityRepositoryHibernateImpl implements CityRepository {
   @Override
   public List<City> getAllCities() {
     return createQuery("SELECT c FROM City c").getResultList();
+  }
+
+  @Override
+  @Transactional
+  public City insertCity(City city) {
+    entityManager.persist(city);
+    entityManager.flush();
+    entityManager.refresh(city);
+    return city;
   }
 
   private TypedQuery<City> createQuery(String query) {
