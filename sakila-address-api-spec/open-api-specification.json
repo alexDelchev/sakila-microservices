@@ -77,7 +77,7 @@
         "operationId": "replaceAddress",
         "responses": {
           "200": {
-            "description": "Created Address model",
+            "description": "Updated Address model",
             "schema": {
               "$ref": "#/definitions/AddressDTO"
             }
