@@ -48,6 +48,15 @@ public class CityRepositoryHibernateImpl implements CityRepository {
     return city;
   }
 
+  @Override
+  @Transactional
+  public City updateCity(City city) {
+    entityManager.merge(city);
+    entityManager.flush();
+    entityManager.refresh(city);
+    return city;
+  }
+
   private TypedQuery<City> createQuery(String query) {
     return entityManager.createQuery(query, City.class);
   }
