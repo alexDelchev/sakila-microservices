@@ -321,7 +321,7 @@
     "CountryDTO": {
       "type": "object",
       "required": [
-        "id"
+        "country"
       ],
       "properties": {
         "id": {
