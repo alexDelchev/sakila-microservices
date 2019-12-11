@@ -13,4 +13,6 @@ public interface CityRepository {
   List<City> getCitiesByCountry(Long cityId);
 
   List<City> getAllCities();
+
+  City insertCity(City city);
 }
