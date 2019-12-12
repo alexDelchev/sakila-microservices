@@ -1,6 +1,7 @@
 package com.example.sakila.module.country;
 
 import com.example.sakila.module.country.repository.CountryRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class CountryServiceTest {
 
   @InjectMocks
   private CountryService countryService;
-  
+
+  @Test
+  void getCountryById() {
+    Country country = countryService.getCountryById(null);
+
+    assertNull(country);
+  }
 }
