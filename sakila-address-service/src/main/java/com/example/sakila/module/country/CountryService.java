@@ -1,8 +1,10 @@
 package com.example.sakila.module.country;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.country.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +43,14 @@ public class CountryService {
   }
 
   public void deleteCountry(Long id) {
-    countryRepository.deleteCountry(id);
+    Country country = countryRepository.getCountryById(id);
+    if (country == null) throw new NotFoundException("Country for ID " + id + " does not exist");
+
+    try {
+      countryRepository.deleteCountry(country);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(),e);
+    }
   }
 
   public List<Country> getAllCountries() {
