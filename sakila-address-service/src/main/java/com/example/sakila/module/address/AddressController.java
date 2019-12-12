@@ -34,28 +34,18 @@ public class AddressController implements AddressesApi {
   @Override
   public ResponseEntity<AddressDTO> getAddressById(@PathVariable("id") Long id) {
     Address address = addressService.getAddressById(id);
-    if (address == null) throw new NotFoundException("Address with ID " + id + " does not exist");
-
     return ResponseEntity.ok(toDTO(address));
   }
 
   @Override
   public ResponseEntity<List<AddressDTO>> getAddressesByCityId(@PathVariable("id") Long id) {
     List<Address> addresses = addressService.getAddressesByCity(id);
-    if (addresses == null || addresses.size() == 0) throw new NotFoundException(
-        "Addresses for City ID " + id + " do not exist"
-    );
-
     return ResponseEntity.ok(addresses.stream().map(this::toDTO).collect(Collectors.toList()));
   }
 
   @Override
   public ResponseEntity<List<AddressDTO>> getAddressesByCountryId(@PathVariable("id") Long id) {
     List<Address> addresses = addressService.getAddressesByCountry(id);
-    if (addresses == null || addresses.size() == 0) throw new NotFoundException(
-        "Addresses for Country ID " + id + " do not exist"
-    );
-
     return ResponseEntity.ok(addresses.stream().map(this::toDTO).collect(Collectors.toList()));
   }
 
