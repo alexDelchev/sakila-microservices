@@ -29,13 +29,13 @@ public class City {
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  City() {}
+  public City() {}
 
-  City(Long id) {
+  public City(Long id) {
     this.id = id;
   }
 
-  City(Long id, String city, Country country, Date lastUpdate) {
+  public City(Long id, String city, Country country, Date lastUpdate) {
     this.id = id;
     this.city = city;
     this.country = country;
