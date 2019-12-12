@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -24,6 +25,15 @@ public class ActorRepositoryHibernateImpl implements ActorRepository {
     TypedQuery<Actor> query = createQuery("SELECT a FROM Film f JOIN f.actors a WHERE f.id = :filmId");
     query.setParameter("filmId", filmId);
     return query.getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Actor insertActor(Actor actor) {
+    entityManager.persist(actor);
+    entityManager.flush();
+    entityManager.refresh(actor);
+    return actor;
   }
 
   private TypedQuery<Actor> createQuery(String query) {
