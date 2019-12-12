@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +38,11 @@ public class ActorController implements ActorsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<ActorDTO> addNewActor(@RequestBody ActorDTO actorDTO) {
+    return ResponseEntity.ok(toDTO(actorService.addNewActor(toEntity(actorDTO))));
+  }
+
   private ActorDTO toDTO(Actor actor) {
     ActorDTO actorDTO = new ActorDTO();
     actorDTO.setId(actor.getId());
@@ -43,6 +50,15 @@ public class ActorController implements ActorsApi {
     actorDTO.setLastName(actor.getLastName());
     actorDTO.setLastUpdate(OffsetDateTime.ofInstant(actor.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return actorDTO;
+  }
+
+  private Actor toEntity(ActorDTO actorDTO) {
+    Actor actor = new Actor();
+    actor.setId(actorDTO.getId());
+    actor.setFirstName(actorDTO.getFirstName());
+    actor.setLastName(actorDTO.getLastName());
+    if (actorDTO.getLastUpdate() != null) actor.setLastUpdate(Date.from(actorDTO.getLastUpdate().toInstant()));
+    return actor;
   }
 
 }
