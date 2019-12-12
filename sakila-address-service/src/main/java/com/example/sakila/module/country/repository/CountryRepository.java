@@ -11,4 +11,6 @@ public interface CountryRepository {
   Country getCountryByAddressId(Long addressId);
 
   List<Country> getAllCountries();
+
+  Country insertCountry(Country country);
 }
