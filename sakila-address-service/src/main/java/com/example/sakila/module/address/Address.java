@@ -27,7 +27,7 @@ public class Address {
   @Column(name = "district")
   private String district;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(name = "city_id")
   private City city;
 
