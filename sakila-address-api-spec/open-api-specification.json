@@ -175,7 +175,7 @@
           {
             "in": "body",
             "name": "cityDTO",
-            "description": "City model",
+            "description": "Created City model",
             "schema": {
               "$ref": "#/definitions/CityDTO"
             }
