@@ -302,6 +302,27 @@
             }
           }
         }
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CountryDTO",
+            "description": "Country model",
+            "schema": {
+              "$ref": "#/definitions/CountryDTO"
+            }
+          }
+        ],
+        "operationId": "addNewCountry",
+        "responses": {
+          "200": {
+            "description": "Created Country model",
+            "schema": {
+              "$ref": "#/definitions/CountryDTO"
+            }
+          }
+        }
       }
     },
     "/countries/{id}": {
