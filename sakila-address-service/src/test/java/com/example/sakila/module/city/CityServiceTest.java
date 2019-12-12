@@ -57,4 +57,11 @@ class CityServiceTest {
     assertDoesNotThrow(() -> cityService.updateCity(EXISTING_CITY_ID, new City()));
     assertThrows(NotFoundException.class, () -> cityService.updateCity(NON_EXISTING_CITY_ID, new City()));
   }
+
+  @Test
+  void deleteCity() {
+    final long NON_EXISTING_CITY_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> cityService.deleteCity(NON_EXISTING_CITY_ID));
+  }
 }
