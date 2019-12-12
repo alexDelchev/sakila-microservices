@@ -16,6 +16,29 @@
   ],
   "tags": "Film",
   "paths": {
+    "/actors": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ActorDTO",
+            "description": "Actor model",
+            "schema": {
+              "$ref": "#/definitions/ActorDTO"
+            }
+          }
+        ],
+        "operationId": "addNewActor",
+        "responses": {
+          "200": {
+            "description": "Created Actor model",
+            "schema": {
+              "$ref": "#/definitions/ActorDTO"
+            }
+          }
+        }
+      }
+    },
     "/actors/{id}": {
       "get": {
         "parameters": [
