@@ -56,8 +56,8 @@ public class AddressRepositoryHibernateImpl implements AddressRepository {
 
   @Override
   @Transactional
-  public void deleteAddress(Long id) {
-    entityManager.remove(getAddressById(id));
+  public void deleteAddress(Address address) {
+    entityManager.remove(address);
   }
 
   private TypedQuery<Address> createQuery(String query) {
