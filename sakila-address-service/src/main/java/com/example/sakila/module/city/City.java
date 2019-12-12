@@ -21,7 +21,7 @@ public class City {
   @Column(name = "city")
   private String city;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.REFRESH)
   @JoinColumn(name = "country_id")
   private Country country;
 
