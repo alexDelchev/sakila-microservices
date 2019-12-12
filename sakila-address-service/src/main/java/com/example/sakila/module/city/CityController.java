@@ -3,6 +3,7 @@ package com.example.sakila.module.city;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.CitiesApi;
 import com.example.sakila.generated.server.model.CityDTO;
+import com.example.sakila.module.country.Country;
 import com.example.sakila.module.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +84,13 @@ public class CityController implements CitiesApi {
     City city = new City();
     city.setId(cityDTO.getId());
     city.setCity(cityDTO.getCity());
-    city.setCountry(countryService.getCountryById(cityDTO.getCountryId()));
+
+    if (cityDTO.getCountryId() != null) {
+      Country country = countryService.getCountryById(cityDTO.getCountryId());
+      if (country == null) throw new NotFoundException("Country for ID " + cityDTO.getCountryId() + " does not exist");
+      city.setCountry(country);
+    }
+
     if (cityDTO.getLastUpdate() != null) city.setLastUpdate(Date.from(cityDTO.getLastUpdate().toInstant()));
     return city;
   }
