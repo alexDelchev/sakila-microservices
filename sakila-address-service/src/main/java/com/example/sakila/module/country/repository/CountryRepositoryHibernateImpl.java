@@ -41,6 +41,15 @@ public class CountryRepositoryHibernateImpl implements CountryRepository {
     return country;
   }
 
+  @Override
+  @Transactional
+  public Country updateCountry(Country country) {
+    entityManager.merge(country);
+    entityManager.flush();
+    entityManager.refresh(country);
+    return country;
+  }
+
   private TypedQuery<Country> createQuery(String query) {
     return entityManager.createQuery(query, Country.class);
   }
