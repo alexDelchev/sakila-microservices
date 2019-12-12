@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,15 @@ public class CountryRepositoryHibernateImpl implements CountryRepository {
   @Override
   public List<Country> getAllCountries() {
     return createQuery("SELECT c FROM Country c").getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Country insertCountry(Country country) {
+    entityManager.persist(country);
+    entityManager.flush();
+    entityManager.refresh(country);
+    return country;
   }
 
   private TypedQuery<Country> createQuery(String query) {
