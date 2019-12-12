@@ -50,6 +50,12 @@ public class CountryController implements CountriesApi {
     return ResponseEntity.ok(toDTO(countryService.updateCountry(id, toEntity(countryDTO))));
   }
 
+  @Override
+  public ResponseEntity<Void> deleteCountry(@PathVariable("id") Long id) {
+    countryService.deleteCountry(id);
+    return ResponseEntity.ok(null);
+  }
+
   private CountryDTO toDTO(Country country) {
     CountryDTO countryDTO = new CountryDTO();
     countryDTO.setId(country.getId());
