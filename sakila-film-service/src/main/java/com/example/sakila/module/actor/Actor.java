@@ -1,9 +1,14 @@
 package com.example.sakila.module.actor;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "actor")
 public class Actor {
 
