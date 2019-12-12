@@ -50,6 +50,12 @@ public class CountryRepositoryHibernateImpl implements CountryRepository {
     return country;
   }
 
+  @Override
+  @Transactional
+  public void deleteCountry(Long id) {
+    entityManager.remove(getCountryById(id));
+  }
+
   private TypedQuery<Country> createQuery(String query) {
     return entityManager.createQuery(query, Country.class);
   }
