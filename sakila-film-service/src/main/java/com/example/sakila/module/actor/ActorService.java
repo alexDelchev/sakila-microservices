@@ -25,4 +25,8 @@ public class ActorService {
     if (filmId == null) return null;
     return actorRepository.getActorsByFilm(filmId);
   }
+
+  public Actor addNewActor(Actor actor) {
+    return actorRepository.insertActor(actor);
+  }
 }
