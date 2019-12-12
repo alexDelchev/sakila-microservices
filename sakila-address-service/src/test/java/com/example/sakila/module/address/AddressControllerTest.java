@@ -32,4 +32,13 @@ class AddressControllerTest {
     assertThrows(NotFoundException.class, () -> addressController.addNewAddress(invalidDTO));
   }
 
+  @Test
+  void replaceAddress() {
+    final long UPDATED_ADDRESS_ID = 1L;
+    final long NON_EXISTING_CITY_ID = -1L;
+    AddressDTO invalidDTO = new AddressDTO();
+    invalidDTO.setCityId(NON_EXISTING_CITY_ID);
+
+    assertThrows(NotFoundException.class, () -> addressController.replaceAddress(UPDATED_ADDRESS_ID, invalidDTO));
+  }
 }
