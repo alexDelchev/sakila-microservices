@@ -373,6 +373,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteCountry",
+        "responses": {
+          "200": {
+            "description": "Country deleted"
+          }
+        }
       }
     }
   },
