@@ -64,6 +64,12 @@ public class CityController implements CitiesApi {
     return ResponseEntity.ok(toDTO(cityService.updateCity(id, toEntity(cityDTO))));
   }
 
+  @Override
+  public ResponseEntity<Void> deleteCity(@PathVariable("id") Long id) {
+    cityService.deleteCity(id);
+    return ResponseEntity.ok(null);
+  }
+
   private CityDTO toDTO(City city) {
     CityDTO result = new CityDTO();
     result.setId(city.getId());
