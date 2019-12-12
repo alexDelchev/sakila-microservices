@@ -13,4 +13,6 @@ public interface CountryRepository {
   List<Country> getAllCountries();
 
   Country insertCountry(Country country);
+
+  Country updateCountry(Country country);
 }
