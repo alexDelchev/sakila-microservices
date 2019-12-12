@@ -16,5 +16,5 @@ public interface CountryRepository {
 
   Country updateCountry(Country country);
 
-  void deleteCountry(Long id);
+  void deleteCountry(Country country);
 }
