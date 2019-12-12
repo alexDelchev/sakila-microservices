@@ -242,6 +242,24 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "City ID",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteCity",
+        "responses": {
+          "200": {
+            "description": "City deleted"
+          }
+        }
       }
     },
     "/cities/country/{id}": {
