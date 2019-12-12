@@ -24,4 +24,11 @@ class CountryServiceTest {
 
     assertNull(country);
   }
+
+  @Test
+  void getCountryByAddressId() {
+    Country country = countryService.getCountryByAddressId(null);
+
+    assertNull(country);
+  }
 }
