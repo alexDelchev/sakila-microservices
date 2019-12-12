@@ -53,8 +53,11 @@ public class CityService {
   }
 
   public void deleteCity(Long id) {
+    City city = cityRepository.getCityById(id);
+    if (city == null) throw new NotFoundException("City for ID " + id + " does not exist");
+
     try {
-      cityRepository.deleteCity(id);
+      cityRepository.deleteCity(city);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
