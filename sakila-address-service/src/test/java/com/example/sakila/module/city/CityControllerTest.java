@@ -31,4 +31,14 @@ class CityControllerTest {
 
     assertThrows(NotFoundException.class, () -> cityController.addNewCity(invalidDTO));
   }
+
+  @Test
+  void replaceCity() {
+    final long UPDATED_CITY_ID = 1L;
+    final long NON_EXISTING_COUNTRY_ID = -1L;
+    CityDTO invalidDTO = new CityDTO();
+    invalidDTO.setCountryId(NON_EXISTING_COUNTRY_ID);
+
+    assertThrows(NotFoundException.class, () -> cityController.replaceCity(UPDATED_CITY_ID, invalidDTO));
+  }
 }
