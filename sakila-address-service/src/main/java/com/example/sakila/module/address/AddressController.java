@@ -3,6 +3,7 @@ package com.example.sakila.module.address;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.AddressesApi;
 import com.example.sakila.generated.server.model.AddressDTO;
+import com.example.sakila.module.city.City;
 import com.example.sakila.module.city.CityService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,13 @@ public class AddressController implements AddressesApi {
   private Address toEntity(AddressDTO addressDTO) {
     Address address = new Address();
     BeanUtils.copyProperties(addressDTO, address);
-    address.setCity(cityService.getCityById(addressDTO.getCityId()));
+
+    if (addressDTO.getCityId() != null) {
+      City city = cityService.getCityById(addressDTO.getCityId());
+      if (city == null) throw new NotFoundException("City for ID " + addressDTO.getCityId() + " does not exist");
+      address.setCity(city);
+    }
+
     if (addressDTO.getLastUpdate() != null) address.setLastUpdate(Date.from(addressDTO.getLastUpdate().toInstant()));
     return address;
   }
