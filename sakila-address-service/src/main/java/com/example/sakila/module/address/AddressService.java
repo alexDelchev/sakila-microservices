@@ -55,8 +55,11 @@ public class AddressService {
   }
 
   public void deleteAddress(Long id) {
+    Address address = addressRepository.getAddressById(id);
+    if (address == null) throw new NotFoundException("Address for ID " + id + " does not exist");
+
     try {
-      addressRepository.deleteAddress(id);
+      addressRepository.deleteAddress(address);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
