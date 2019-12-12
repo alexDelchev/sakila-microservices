@@ -18,5 +18,5 @@ public interface CityRepository {
 
   City updateCity(City city);
 
-  void deleteCity(Long id);
+  void deleteCity(City city);
 }
