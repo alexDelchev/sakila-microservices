@@ -40,6 +40,10 @@ public class CountryService {
     return countryRepository.updateCountry(target);
   }
 
+  public void deleteCountry(Long id) {
+    countryRepository.deleteCountry(id);
+  }
+
   public List<Country> getAllCountries() {
     return countryRepository.getAllCountries();
   }
