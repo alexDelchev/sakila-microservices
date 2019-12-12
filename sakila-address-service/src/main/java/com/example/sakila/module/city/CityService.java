@@ -1,8 +1,10 @@
 package com.example.sakila.module.city;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.city.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,6 +53,10 @@ public class CityService {
   }
 
   public void deleteCity(Long id) {
-    cityRepository.deleteCity(id);
+    try {
+      cityRepository.deleteCity(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
