@@ -26,6 +26,10 @@ public class CountryService {
     return countryRepository.getCountryByAddressId(addressId);
   }
 
+  public Country addNewCountry(Country country) {
+    return countryRepository.insertCountry(country);
+  }
+
   public List<Country> getAllCountries() {
     return countryRepository.getAllCountries();
   }
