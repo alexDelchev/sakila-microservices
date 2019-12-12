@@ -345,6 +345,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "CountryDTO",
+            "description": "Country model",
+            "schema": {
+              "$ref": "#/definitions/CountryDTO"
+            }
+          }
+        ],
+        "operationId": "replaceCountry",
+        "responses": {
+          "200": {
+            "description": "Updated Country model",
+            "schema": {
+              "$ref": "#/definitions/CountryDTO"
+            }
+          }
+        }
       }
     }
   },
