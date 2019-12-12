@@ -1,5 +1,6 @@
 package com.example.sakila.module.country;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.country.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,15 @@ public class CountryService {
 
   public Country addNewCountry(Country country) {
     return countryRepository.insertCountry(country);
+  }
+
+  public Country updateCountry(Long id, Country source) {
+    Country target = getCountryById(id);
+    if (target == null) throw new NotFoundException("Country for ID " + id + " does not exist");
+
+    target.setCountry(source.getCountry());
+
+    return countryRepository.updateCountry(target);
   }
 
   public List<Country> getAllCountries() {
