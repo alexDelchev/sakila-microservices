@@ -6,10 +6,12 @@ import com.example.sakila.generated.server.model.CountryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,12 +40,25 @@ public class CountryController implements CountriesApi {
     return ResponseEntity.ok(toDTO(countryService.getCountryById(id)));
   }
 
+  @Override
+  public ResponseEntity<CountryDTO> addNewCountry(@RequestBody CountryDTO countryDTO) {
+    return ResponseEntity.ok(toDTO(countryService.addNewCountry(toEntity(countryDTO))));
+  }
+
   private CountryDTO toDTO(Country country) {
     CountryDTO countryDTO = new CountryDTO();
     countryDTO.setId(country.getId());
     countryDTO.setCountry(country.getCountry());
     countryDTO.setLastUpdate(OffsetDateTime.ofInstant(country.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return countryDTO;
+  }
+
+  private Country toEntity(CountryDTO countryDTO) {
+    Country country = new Country();
+    country.setId(countryDTO.getId());
+    country.setCountry(countryDTO.getCountry());
+    if (countryDTO.getLastUpdate() != null) country.setLastUpdate(Date.from(countryDTO.getLastUpdate().toInstant()));
+    return country;
   }
 
 }
