@@ -9,4 +9,6 @@ public interface ActorRepository {
   Actor getActorById(Long id);
 
   List<Actor> getActorsByFilm(Long filmId);
+
+  Actor insertActor(Actor actor);
 }
