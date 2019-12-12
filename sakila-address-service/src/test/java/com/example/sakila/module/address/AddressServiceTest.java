@@ -57,4 +57,11 @@ class AddressServiceTest {
     assertDoesNotThrow(() -> addressService.updateAddress(EXISTING_ID, new Address()));
     assertThrows(NotFoundException.class, () -> addressService.updateAddress(NON_EXISTING_ID, new Address()));
   }
+
+  @Test
+  void deleteAddress() {
+    final long NON_EXISTING_ADDRESS_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> addressService.deleteAddress(NON_EXISTING_ADDRESS_ID));
+  }
 }
