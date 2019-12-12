@@ -57,6 +57,12 @@ public class CityRepositoryHibernateImpl implements CityRepository {
     return city;
   }
 
+  @Override
+  @Transactional
+  public void deleteCity(Long id) {
+    entityManager.remove(getCityById(id));
+  }
+
   private TypedQuery<City> createQuery(String query) {
     return entityManager.createQuery(query, City.class);
   }
