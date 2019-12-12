@@ -313,7 +313,7 @@
     "ActorDTO": {
       "type": "object",
       "required": [
-        "id"
+        "firstName", "lastName"
       ],
       "properties": {
         "id": {
@@ -335,7 +335,7 @@
     "CategoryDTO": {
       "type": "object",
       "required": [
-        "id"
+        "name"
       ],
       "properties": {
         "id": {
@@ -354,7 +354,7 @@
     "LanguageDTO": {
       "type": "object",
       "required": [
-        "id"
+        "name"
       ],
       "properties": {
         "id": {
@@ -373,7 +373,8 @@
     "FilmDTO": {
       "type": "object",
       "required": [
-        "id", "title"
+        "title", "languageId", "rentalDuration", "rentalRate",
+        "replacementCost"
       ],
       "properties": {
         "id": {
