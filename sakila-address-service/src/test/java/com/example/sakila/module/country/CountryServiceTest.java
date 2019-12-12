@@ -48,4 +48,11 @@ class CountryServiceTest {
     assertDoesNotThrow(() -> countryService.updateCountry(EXISTING_COUNTRY_ID, new Country()));
     assertThrows(NotFoundException.class, () -> countryService.updateCountry(NON_EXISTING_COUNTRY_ID, new Country()));
   }
+
+  @Test
+  void deleteCountry() {
+    final long NON_EXISTING_COUNTRY_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> countryService.deleteCountry(NON_EXISTING_COUNTRY_ID));
+  }
 }
