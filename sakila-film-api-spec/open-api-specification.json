@@ -87,6 +87,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Actor ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteActor",
+        "responses": {
+          "200": {
+            "description": "Actor deleted"
+          }
+        }
       }
     },
     "/actors/film/{id}": {
