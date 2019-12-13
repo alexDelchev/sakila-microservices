@@ -45,6 +45,12 @@ public class ActorRepositoryHibernateImpl implements ActorRepository {
     return actor;
   }
 
+  @Override
+  @Transactional
+  public void deleteActor(Actor actor) {
+    entityManager.remove(actor);
+  }
+
   private TypedQuery<Actor> createQuery(String query) {
     return entityManager.createQuery(query, Actor.class);
   }
