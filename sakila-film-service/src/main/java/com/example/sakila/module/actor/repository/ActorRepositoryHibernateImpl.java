@@ -36,6 +36,15 @@ public class ActorRepositoryHibernateImpl implements ActorRepository {
     return actor;
   }
 
+  @Override
+  @Transactional
+  public Actor updateActor(Actor actor) {
+    entityManager.merge(actor);
+    entityManager.flush();
+    entityManager.refresh(actor);
+    return actor;
+  }
+
   private TypedQuery<Actor> createQuery(String query) {
     return entityManager.createQuery(query, Actor.class);
   }
