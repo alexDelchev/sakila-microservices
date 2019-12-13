@@ -59,6 +59,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Actor ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "actorDTO",
+            "description": "Actor model",
+            "schema": {
+              "$ref": "#/definitions/ActorDTO"
+            }
+          }
+        ],
+        "operationId": "replaceActor",
+        "responses": {
+          "200": {
+            "description": "Actor model",
+            "schema": {
+              "$ref": "#/definitions/ActorDTO"
+            }
+          }
+        }
       }
     },
     "/actors/film/{id}": {
