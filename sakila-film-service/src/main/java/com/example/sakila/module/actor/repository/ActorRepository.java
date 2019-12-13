@@ -13,4 +13,6 @@ public interface ActorRepository {
   Actor insertActor(Actor actor);
 
   Actor updateActor(Actor actor);
+
+  void deleteActor(Actor actor);
 }
