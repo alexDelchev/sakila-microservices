@@ -11,4 +11,6 @@ public interface ActorRepository {
   List<Actor> getActorsByFilm(Long filmId);
 
   Actor insertActor(Actor actor);
+
+  Actor updateActor(Actor actor);
 }
