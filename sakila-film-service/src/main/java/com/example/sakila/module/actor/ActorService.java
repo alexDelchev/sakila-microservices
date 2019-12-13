@@ -40,4 +40,11 @@ public class ActorService {
 
     return actorRepository.updateActor(target);
   }
+
+  public void deleteActor(Long id) {
+    Actor actor = actorRepository.getActorById(id);
+    if (actor == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
+
+    actorRepository.deleteActor(actor);
+  }
 }
