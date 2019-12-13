@@ -1,8 +1,10 @@
 package com.example.sakila.module.actor;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +47,10 @@ public class ActorService {
     Actor actor = actorRepository.getActorById(id);
     if (actor == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
 
-    actorRepository.deleteActor(actor);
+    try {
+      actorRepository.deleteActor(actor);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
