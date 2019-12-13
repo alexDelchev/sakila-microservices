@@ -50,4 +50,11 @@ class ActorServiceTest {
     assertDoesNotThrow(() -> actorService.updateActor(EXISTING_ACTOR_ID, new Actor()));
     assertThrows(NotFoundException.class, () -> actorService.updateActor(NON_EXISTING_ACTOR_ID, new Actor()));
   }
+
+  @Test
+  void deleteActor() {
+    final long NON_EXISTING_ACTOR_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> actorService.deleteActor(NON_EXISTING_ACTOR_ID));
+  }
 }
