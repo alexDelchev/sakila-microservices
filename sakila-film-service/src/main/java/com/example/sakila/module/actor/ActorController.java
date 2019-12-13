@@ -43,6 +43,11 @@ public class ActorController implements ActorsApi {
     return ResponseEntity.ok(toDTO(actorService.addNewActor(toEntity(actorDTO))));
   }
 
+  @Override
+  public ResponseEntity<ActorDTO> replaceActor(@PathVariable("id") Long id, @RequestBody ActorDTO actorDTO) {
+    return ResponseEntity.ok(toDTO(actorService.updateActor(id, toEntity(actorDTO))));
+  }
+
   private ActorDTO toDTO(Actor actor) {
     ActorDTO actorDTO = new ActorDTO();
     actorDTO.setId(actor.getId());
