@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,5 +25,12 @@ class ActorServiceTest {
     Actor actor = actorService.getActorById(null);
 
     assertNull(actor);
+  }
+
+  @Test
+  void getActorsByFilmId() {
+    List<Actor> actors = actorService.getActorsByFilmId(null);
+
+    assertNull(actors);
   }
 }
