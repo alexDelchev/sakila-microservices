@@ -1,6 +1,7 @@
 package com.example.sakila.module.actor;
 
 import com.example.sakila.module.actor.repository.ActorRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,4 +17,11 @@ class ActorServiceTest {
 
   @InjectMocks
   private ActorService actorService;
+
+  @Test
+  void getActorById() {
+    Actor actor = actorService.getActorById(null);
+
+    assertNull(actor);
+  }
 }
