@@ -1,5 +1,6 @@
 package com.example.sakila.module.category;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.category.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,14 @@ public class CategoryService {
     return categoryRepository.insertCategory(category);
   }
 
+  public Category updateCategory(Long id, Category source) {
+    Category target = categoryRepository.getCategoryById(id);
+    if (target == null) throw new NotFoundException("Category for ID " + id + " does not exist");
+
+    target.setName(source.getName());
+
+    return categoryRepository.updateCategory(target);
+  }
   public List<Category> getAllCategories() {
     return categoryRepository.getAllCategories();
   }
