@@ -50,6 +50,12 @@ public class CategoryRepositoryHibernateImpl implements CategoryRepository {
     return category;
   }
 
+  @Override
+  @Transactional
+  public void deleteCategory(Category category) {
+    entityManager.remove(category);
+  }
+
   private TypedQuery<Category> createQuery(String query) {
     return entityManager.createQuery(query, Category.class);
   }
