@@ -11,4 +11,6 @@ public interface CategoryRepository {
   Category getCategoryByFilmId(Long filmId);
 
   List<Category> getAllCategories();
+
+  Category insertCategory(Category category);
 }
