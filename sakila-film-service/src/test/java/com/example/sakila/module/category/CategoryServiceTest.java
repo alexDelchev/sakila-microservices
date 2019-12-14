@@ -51,4 +51,11 @@ class CategoryServiceTest {
         () -> categoryService.updateCategory(NON_EXISTING_CATEGORY_ID, new Category())
     );
   }
+
+  @Test
+  void deleteCategory() {
+    final long NON_EXISTING_CATEGORY_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> categoryService.deleteCategory(NON_EXISTING_CATEGORY_ID));
+  }
 }
