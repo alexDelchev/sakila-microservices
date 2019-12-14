@@ -18,4 +18,5 @@ public interface FilmRepository {
 
   List<Film> getFilmsByRating(String rating);
 
+  Film insertFilm(Film film);
 }
