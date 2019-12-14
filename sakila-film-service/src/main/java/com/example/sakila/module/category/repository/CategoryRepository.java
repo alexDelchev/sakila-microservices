@@ -15,4 +15,6 @@ public interface CategoryRepository {
   Category insertCategory(Category category);
 
   Category updateCategory(Category category);
+
+  void deleteCategory(Category category);
 }
