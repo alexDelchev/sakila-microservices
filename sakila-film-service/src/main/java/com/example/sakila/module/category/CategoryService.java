@@ -1,8 +1,10 @@
 package com.example.sakila.module.category;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.category.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,18 @@ public class CategoryService {
 
     return categoryRepository.updateCategory(target);
   }
+
+  public void deleteCategory(Long id) {
+    Category category = categoryRepository.getCategoryById(id);
+    if (category == null) throw new NotFoundException("Category for ID " + id + " does not exist");
+
+    try {
+      categoryRepository.deleteCategory(category);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
+  }
+
   public List<Category> getAllCategories() {
     return categoryRepository.getAllCategories();
   }
