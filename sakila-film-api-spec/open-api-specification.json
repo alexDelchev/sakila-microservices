@@ -188,6 +188,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Category ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "CategoryDTO",
+            "description": "Category model",
+            "schema": {
+              "$ref": "#/definitions/CategoryDTO"
+            }
+          }
+        ],
+        "operationId": "replaceCategory",
+        "responses": {
+          "200": {
+            "description": "Country model",
+            "schema": {
+              "$ref": "#/definitions/CategoryDTO"
+            }
+          }
+        }
       }
     },
     "/languages": {
