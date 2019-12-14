@@ -1,6 +1,7 @@
 package com.example.sakila.module.category;
 
 import com.example.sakila.module.category.repository.CategoryRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class CategoryServiceTest {
 
   @InjectMocks
   private CategoryService categoryService;
-  
+
+  @Test
+  void getCategoryById() {
+    Category category = categoryService.getCategoryById(null);
+
+    assertNull(category);
+  }
 }
