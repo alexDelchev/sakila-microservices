@@ -136,7 +136,7 @@
         "operationId": "getAllCategories",
         "responses": {
           "200": {
-            "description": "Country model list",
+            "description": "Category model list",
             "schema": {
               "type": "array",
               "items": {
@@ -210,7 +210,7 @@
         "operationId": "replaceCategory",
         "responses": {
           "200": {
-            "description": "Country model",
+            "description": "Category model",
             "schema": {
               "$ref": "#/definitions/CategoryDTO"
             }
