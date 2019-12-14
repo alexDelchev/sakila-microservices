@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.Date;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -34,12 +36,25 @@ public class CategoryController implements CategoriesApi {
     return ResponseEntity.ok(toDTO(categoryService.getCategoryById(id)));
   }
 
+  @Override
+  public ResponseEntity<CategoryDTO> addNewCategory(@RequestBody CategoryDTO categoryDTO) {
+    return ResponseEntity.ok(toDTO(categoryService.addNewCategory(toEntity(categoryDTO))));
+  }
+
   private CategoryDTO toDTO(Category category) {
     CategoryDTO categoryDTO = new CategoryDTO();
     categoryDTO.setId(category.getId());
     categoryDTO.setName(category.getName());
     categoryDTO.setLastUpdate(OffsetDateTime.ofInstant(category.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return categoryDTO;
+  }
+
+  private Category toEntity(CategoryDTO categoryDTO) {
+    Category category = new Category();
+    category.setId(categoryDTO.getId());
+    category.setName(categoryDTO.getName());
+    if (categoryDTO.getLastUpdate() != null) category.setLastUpdate(Date.from(categoryDTO.getLastUpdate().toInstant()));
+    return category;
   }
 
 }
