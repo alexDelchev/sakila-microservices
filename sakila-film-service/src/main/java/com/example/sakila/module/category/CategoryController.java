@@ -41,6 +41,13 @@ public class CategoryController implements CategoriesApi {
     return ResponseEntity.ok(toDTO(categoryService.createCategory(toEntity(categoryDTO))));
   }
 
+  @Override
+  public ResponseEntity<CategoryDTO> replaceCategory(
+      @PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO
+  ) {
+    return ResponseEntity.ok(toDTO(categoryService.updateCategory(id, toEntity(categoryDTO))));
+  }
+
   private CategoryDTO toDTO(Category category) {
     CategoryDTO categoryDTO = new CategoryDTO();
     categoryDTO.setId(category.getId());
