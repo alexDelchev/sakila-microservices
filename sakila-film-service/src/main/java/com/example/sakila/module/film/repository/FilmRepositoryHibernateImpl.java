@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -58,6 +59,15 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
     TypedQuery<Film> query = createQuery("SELECT f FROM Film f WHERE CAST(rating AS string) = :filmRating");
     query.setParameter("filmRating", rating);
     return query.getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Film insertFilm(Film film) {
+    entityManager.persist(film);
+    entityManager.flush();
+    entityManager.refresh(film);
+    return film;
   }
 
   private TypedQuery<Film> createQuery(String sql) {
