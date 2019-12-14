@@ -37,8 +37,8 @@ public class CategoryController implements CategoriesApi {
   }
 
   @Override
-  public ResponseEntity<CategoryDTO> addNewCategory(@RequestBody CategoryDTO categoryDTO) {
-    return ResponseEntity.ok(toDTO(categoryService.addNewCategory(toEntity(categoryDTO))));
+  public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+    return ResponseEntity.ok(toDTO(categoryService.createCategory(toEntity(categoryDTO))));
   }
 
   private CategoryDTO toDTO(Category category) {

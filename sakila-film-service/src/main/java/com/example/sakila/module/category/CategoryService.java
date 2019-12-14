@@ -26,7 +26,7 @@ public class CategoryService {
     return categoryRepository.getCategoryByFilmId(filmId);
   }
 
-  public Category addNewCategory(Category category) {
+  public Category createCategory(Category category) {
     return categoryRepository.insertCategory(category);
   }
 

@@ -36,7 +36,7 @@ public class AddressService {
     return addressRepository.getAddressesByCountry(countryId);
   }
 
-  public Address addNewAddress(Address address) {
+  public Address createAddress(Address address) {
     return addressRepository.insertAddress(address);
   }
 

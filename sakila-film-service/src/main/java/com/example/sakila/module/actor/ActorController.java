@@ -39,8 +39,8 @@ public class ActorController implements ActorsApi {
   }
 
   @Override
-  public ResponseEntity<ActorDTO> addNewActor(@RequestBody ActorDTO actorDTO) {
-    return ResponseEntity.ok(toDTO(actorService.addNewActor(toEntity(actorDTO))));
+  public ResponseEntity<ActorDTO> createActor(@RequestBody ActorDTO actorDTO) {
+    return ResponseEntity.ok(toDTO(actorService.createActor(toEntity(actorDTO))));
   }
 
   @Override

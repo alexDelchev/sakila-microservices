@@ -50,8 +50,8 @@ public class AddressController implements AddressesApi {
   }
 
   @Override
-  public ResponseEntity<AddressDTO> addNewAddress(@RequestBody AddressDTO addressDTO) {
-    return ResponseEntity.ok(toDTO(addressService.addNewAddress(toEntity(addressDTO))));
+  public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressDTO) {
+    return ResponseEntity.ok(toDTO(addressService.createAddress(toEntity(addressDTO))));
   }
 
   @Override

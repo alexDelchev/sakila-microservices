@@ -29,7 +29,7 @@ class AddressControllerTest {
     AddressDTO invalidDTO = new AddressDTO();
     invalidDTO.setCityId(NON_EXISTING_CITY_ID);
 
-    assertThrows(NotFoundException.class, () -> addressController.addNewAddress(invalidDTO));
+    assertThrows(NotFoundException.class, () -> addressController.createAddress(invalidDTO));
   }
 
   @Test

@@ -29,7 +29,7 @@ public class CountryService {
     return countryRepository.getCountryByAddressId(addressId);
   }
 
-  public Country addNewCountry(Country country) {
+  public Country createCountry(Country country) {
     return countryRepository.insertCountry(country);
   }
 

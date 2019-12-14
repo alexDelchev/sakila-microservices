@@ -22,7 +22,7 @@
             }
           }
         ],
-        "operationId": "addNewAddress",
+        "operationId": "createAddress",
         "responses": {
           "200": {
             "description": "Created Address model",
@@ -181,7 +181,7 @@
             }
           }
         ],
-        "operationId": "addNewCity",
+        "operationId": "createCity",
         "responses": {
           "200": {
             "description": "City model",
@@ -314,7 +314,7 @@
             }
           }
         ],
-        "operationId": "addNewCountry",
+        "operationId": "createCountry",
         "responses": {
           "200": {
             "description": "Created Country model",

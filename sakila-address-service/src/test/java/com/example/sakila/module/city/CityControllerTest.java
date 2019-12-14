@@ -29,7 +29,7 @@ class CityControllerTest {
     CityDTO invalidDTO = new CityDTO();
     invalidDTO.setCountryId(NON_EXISTING_COUNTRY_ID);
 
-    assertThrows(NotFoundException.class, () -> cityController.addNewCity(invalidDTO));
+    assertThrows(NotFoundException.class, () -> cityController.createCity(invalidDTO));
   }
 
   @Test

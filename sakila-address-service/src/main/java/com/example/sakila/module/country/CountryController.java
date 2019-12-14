@@ -38,8 +38,8 @@ public class CountryController implements CountriesApi {
   }
 
   @Override
-  public ResponseEntity<CountryDTO> addNewCountry(@RequestBody CountryDTO countryDTO) {
-    return ResponseEntity.ok(toDTO(countryService.addNewCountry(toEntity(countryDTO))));
+  public ResponseEntity<CountryDTO> createCountry(@RequestBody CountryDTO countryDTO) {
+    return ResponseEntity.ok(toDTO(countryService.createCountry(toEntity(countryDTO))));
   }
 
   @Override

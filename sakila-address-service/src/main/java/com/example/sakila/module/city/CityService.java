@@ -38,7 +38,7 @@ public class CityService {
     return cityRepository.getAllCities();
   }
 
-  public City addNewCity(City city) {
+  public City createCity(City city) {
     return cityRepository.insertCity(city);
   }
 

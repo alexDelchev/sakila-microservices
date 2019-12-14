@@ -28,7 +28,7 @@
             }
           }
         ],
-        "operationId": "addNewActor",
+        "operationId": "createActor",
         "responses": {
           "200": {
             "description": "Created Actor model",
@@ -157,7 +157,7 @@
             }
           }
         ],
-        "operationId": "addNewCategory",
+        "operationId": "createCategory",
         "responses": {
           "200": {
             "description": "Created Category model",

@@ -50,8 +50,8 @@ public class CityController implements CitiesApi {
   }
 
   @Override
-  public ResponseEntity<CityDTO> addNewCity(@RequestBody CityDTO cityDTO) {
-    return ResponseEntity.ok(toDTO(cityService.addNewCity(toEntity(cityDTO))));
+  public ResponseEntity<CityDTO> createCity(@RequestBody CityDTO cityDTO) {
+    return ResponseEntity.ok(toDTO(cityService.createCity(toEntity(cityDTO))));
   }
 
   @Override

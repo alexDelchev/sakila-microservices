@@ -29,7 +29,7 @@ public class ActorService {
     return actorRepository.getActorsByFilm(filmId);
   }
 
-  public Actor addNewActor(Actor actor) {
+  public Actor createActor(Actor actor) {
     return actorRepository.insertActor(actor);
   }
 
