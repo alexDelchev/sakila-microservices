@@ -273,6 +273,29 @@
         }
       }
     },
+    "/films": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "FilmDTO",
+            "description": "Film model",
+            "schema": {
+              "$ref": "#/definitions/FilmDTO"
+            }
+          }
+        ],
+        "operationId": "createFilm",
+        "responses": {
+          "200": {
+            "description": "Film model",
+            "schema": {
+              "$ref": "#/definitions/FilmDTO"
+            }
+          }
+        }
+      }
+    },
     "/films/{id}": {
       "get": {
         "parameters": [
