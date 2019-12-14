@@ -47,4 +47,8 @@ public class FilmService {
     if (rating == null) return null;
     return filmRepository.getFilmsByRating(rating);
   }
+
+  public Film createFilm(Film film) {
+    return filmRepository.insertFilm(film);
+  }
 }
