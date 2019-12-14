@@ -24,4 +24,11 @@ class CategoryServiceTest {
 
     assertNull(category);
   }
+
+  @Test
+  void getCategoryByFilmId() {
+    Category category = categoryService.getCategoryByFilmId(null);
+
+    assertNull(category);
+  }
 }
