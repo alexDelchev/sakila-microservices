@@ -41,6 +41,15 @@ public class CategoryRepositoryHibernateImpl implements CategoryRepository {
     return category;
   }
 
+  @Override
+  @Transactional
+  public Category updateCategory(Category category) {
+    entityManager.merge(category);
+    entityManager.flush();
+    entityManager.refresh(category);
+    return category;
+  }
+
   private TypedQuery<Category> createQuery(String query) {
     return entityManager.createQuery(query, Category.class);
   }
