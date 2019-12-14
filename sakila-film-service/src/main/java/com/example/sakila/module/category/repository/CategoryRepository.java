@@ -13,4 +13,6 @@ public interface CategoryRepository {
   List<Category> getAllCategories();
 
   Category insertCategory(Category category);
+
+  Category updateCategory(Category category);
 }
