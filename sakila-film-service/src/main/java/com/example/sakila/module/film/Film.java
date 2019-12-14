@@ -4,15 +4,17 @@ import com.example.sakila.module.actor.Actor;
 import com.example.sakila.module.category.Category;
 import com.example.sakila.module.language.Language;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "film")
 @TypeDefs({@TypeDef(name = "string-array", typeClass = StringArrayType.class)})
 public class Film {
