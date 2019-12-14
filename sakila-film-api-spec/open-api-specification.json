@@ -145,6 +145,27 @@
             }
           }
         }
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CategoryDTO",
+            "description": "Category model",
+            "schema": {
+              "$ref": "#/definitions/CategoryDTO"
+            }
+          }
+        ],
+        "operationId": "addNewCategory",
+        "responses": {
+          "200": {
+            "description": "Created Category model",
+            "schema": {
+              "$ref": "#/definitions/CategoryDTO"
+            }
+          }
+        }
       }
     },
     "/categories/{id}": {
