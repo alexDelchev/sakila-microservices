@@ -86,6 +86,11 @@ public class FilmController implements FilmsApi {
     return ResponseEntity.ok(toDTO(filmService.createFilm(toEntity(filmDTO))));
   }
 
+  @Override
+  public ResponseEntity<FilmDTO> replaceFilm(@PathVariable("id") Long id, @RequestBody FilmDTO filmDTO) {
+    return ResponseEntity.ok(toDTO(filmService.updateFilm(id, toEntity(filmDTO))));
+  }
+
   private FilmDTO toDTO(Film film) {
     FilmDTO filmDTO = new FilmDTO();
     filmDTO.setId(film.getId());
