@@ -33,4 +33,11 @@ class FilmServiceTest {
 
     assertNull(films);
   }
+
+  @Test
+  void searchFilmsByDescription() {
+    List<Film> films = filmService.searchFilmsByDescription(null);
+
+    assertNull(films);
+  }
 }
