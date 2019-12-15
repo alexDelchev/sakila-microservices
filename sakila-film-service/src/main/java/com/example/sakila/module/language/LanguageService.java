@@ -1,5 +1,6 @@
 package com.example.sakila.module.language;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.language.repository.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,15 @@ public class LanguageService {
 
   public Language createLanguage(Language language) {
     return languageRepository.insertLanguage(language);
+  }
+
+  public Language updateLanguage(Long id, Language source) {
+    Language target = languageRepository.getLanguageById(id);
+    if (target == null) throw new NotFoundException("Language for ID " + id + " does not exist");
+
+    target.setName(source.getName());
+
+    return languageRepository.updateLanguage(target);
   }
 
   public List<Language> getAllLanguages() {
