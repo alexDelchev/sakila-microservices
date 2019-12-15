@@ -316,6 +316,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Film ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "FilmDTO",
+            "description": "Film model",
+            "schema": {
+              "$ref": "#/definitions/FilmDTO"
+            }
+          }
+        ],
+        "operationId": "replaceFilm",
+        "responses": {
+          "200": {
+            "description": "Film model",
+            "schema": {
+              "$ref": "#/definitions/FilmDTO"
+            }
+          }
+        }
       }
     },
     "/films/language/{id}": {
