@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,15 @@ public class LanguageRepositoryHibernateImpl implements LanguageRepository {
   @Override
   public List<Language> getAllLanguages() {
     return createQuery("SELECT l FROM Language l").getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Language insertLanguage(Language language) {
+    entityManager.persist(language);
+    entityManager.flush();
+    entityManager.refresh(language);
+    return language;
   }
 
   private TypedQuery<Language> createQuery(String query) {
