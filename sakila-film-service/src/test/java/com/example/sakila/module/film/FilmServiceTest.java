@@ -82,7 +82,7 @@ class FilmServiceTest {
   @Test
   void deleteFilm() {
     final long NON_EXISTING_ID = -1L;
-    
+
     assertThrows(NotFoundException.class, () -> filmService.deleteFilm(NON_EXISTING_ID));
   }
 }
