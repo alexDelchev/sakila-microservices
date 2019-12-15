@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,11 +36,24 @@ public class LanguageController implements LanguagesApi {
     return ResponseEntity.ok(toDTO(languageService.getLanguageById(id)));
   }
 
+  @Override
+  public ResponseEntity<LanguageDTO> createLanguage(@RequestBody LanguageDTO languageDTO) {
+    return ResponseEntity.ok(toDTO(languageService.createLanguage(toEntity(languageDTO))));
+  }
+
   private LanguageDTO toDTO(Language language) {
     LanguageDTO languageDTO = new LanguageDTO();
     languageDTO.setId(language.getId());
     languageDTO.setName(language.getName());
     languageDTO.setLastUpdate(OffsetDateTime.ofInstant(language.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return languageDTO;
+  }
+
+  private Language toEntity(LanguageDTO languageDTO) {
+    Language language = new Language();
+    language.setId(languageDTO.getId());
+    language.setName(languageDTO.getName());
+    if (languageDTO.getLastUpdate() != null) language.setLastUpdate(Date.from(languageDTO.getLastUpdate().toInstant()));
+    return language;
   }
 }
