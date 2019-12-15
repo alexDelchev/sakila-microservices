@@ -344,6 +344,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Film ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteFilm",
+        "responses": {
+          "200": {
+            "description": "Film deleted"
+          }
+        }
       }
     },
     "/films/language/{id}": {
