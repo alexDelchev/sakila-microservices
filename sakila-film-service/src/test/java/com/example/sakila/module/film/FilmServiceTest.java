@@ -1,6 +1,7 @@
 package com.example.sakila.module.film;
 
 import com.example.sakila.module.film.repository.FilmRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class FilmServiceTest {
 
   @InjectMocks
   private FilmService filmService;
-  
+
+  @Test
+  void getFilmById() {
+    Film film = filmService.getFilmById(null);
+
+    assertNull(film);
+  }
 }
