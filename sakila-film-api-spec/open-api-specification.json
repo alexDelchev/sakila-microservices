@@ -249,6 +249,27 @@
             }
           }
         }
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "languageDTO",
+            "description": "Language model",
+            "schema": {
+              "$ref": "#/definitions/LanguageDTO"
+            }
+          }
+        ],
+        "operationId": "createLanguage",
+        "responses": {
+          "200": {
+            "description": "Language model",
+            "schema": {
+              "$ref": "#/definitions/LanguageDTO"
+            }
+          }
+        }
       }
     },
     "/languages/{id}": {
