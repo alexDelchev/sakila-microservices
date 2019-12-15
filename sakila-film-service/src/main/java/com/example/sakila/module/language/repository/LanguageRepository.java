@@ -15,4 +15,6 @@ public interface LanguageRepository {
   Language insertLanguage(Language language);
 
   Language updateLanguage(Language language);
+
+  void deleteLanguage(Language language);
 }
