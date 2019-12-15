@@ -51,4 +51,11 @@ class LanguageServiceTest {
         () -> languageService.updateLanguage(NON_EXISTING_LANGUAGE_ID, new Language())
     );
   }
+
+  @Test
+  void deleteLanguage() {
+    final long NON_EXISTING_LANGUAGE_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> languageService.deleteLanguage(NON_EXISTING_LANGUAGE_ID));
+  }
 }
