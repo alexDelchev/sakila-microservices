@@ -26,6 +26,10 @@ public class LanguageService {
     return languageRepository.getLanguageByFilmId(filmId);
   }
 
+  public Language createLanguage(Language language) {
+    return languageRepository.insertLanguage(language);
+  }
+
   public List<Language> getAllLanguages() {
     return languageRepository.getAllLanguages();
   }
