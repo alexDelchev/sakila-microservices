@@ -1,8 +1,10 @@
 package com.example.sakila.module.language;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.language.repository.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,17 @@ public class LanguageService {
     target.setName(source.getName());
 
     return languageRepository.updateLanguage(target);
+  }
+
+  public void deleteLanguage(Long id) {
+    Language language = languageRepository.getLanguageById(id);
+    if (language == null) throw new NotFoundException("Language for ID " + id + " does not exist");
+
+    try {
+      languageRepository.deleteLanguage(language);
+    } catch(DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 
   public List<Language> getAllLanguages() {
