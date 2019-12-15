@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FilmServiceTest {
@@ -60,5 +63,19 @@ class FilmServiceTest {
     List<Film> films = filmService.getFilmsByRating(null);
 
     assertNull(films);
+  }
+
+  @Test
+  void updateFilm() {
+    final long EXISTING_FILM_ID = 1L;
+    when(filmRepository.getFilmById(EXISTING_FILM_ID)).thenReturn(new Film());
+
+    final long NON_EXISTING_FILM_ID = -1L;
+    when(filmRepository.getFilmById(NON_EXISTING_FILM_ID)).thenReturn(null);
+
+    when(filmRepository.updateFilm(any(Film.class))).thenReturn(new Film());
+
+    assertDoesNotThrow(() -> filmService.updateFilm(EXISTING_FILM_ID, new Film()));
+    assertThrows(NotFoundException.class, () -> filmService.updateFilm(NON_EXISTING_FILM_ID, new Film()));
   }
 }
