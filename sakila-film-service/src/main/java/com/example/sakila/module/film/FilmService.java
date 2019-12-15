@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -50,5 +51,25 @@ public class FilmService {
 
   public Film createFilm(Film film) {
     return filmRepository.insertFilm(film);
+  }
+
+  public Film updateFilm(Long id, Film source) {
+    Film target = filmRepository.getFilmById(id);
+    if (target == null) throw new NotFoundException("Film for ID " + id + " does not exist");
+
+    target.setTitle(source.getTitle());
+    target.setDescription(source.getDescription());
+    target.setReleaseYear(source.getReleaseYear());
+    target.setLanguage(source.getLanguage());
+    target.setOriginalLanguage(source.getOriginalLanguage());
+    target.setRentalDuration(source.getRentalDuration());
+    target.setRentalRate(source.getRentalRate());
+    target.setLength(source.getLength());
+    target.setReplacementCost(source.getReplacementCost());
+    target.setRating(source.getRating());
+    target.setCategory(source.getCategory());
+    target.setSpecialFeatures(source.getSpecialFeatures());
+
+    return filmRepository.updateFilm(target);
   }
 }
