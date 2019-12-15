@@ -41,6 +41,15 @@ public class LanguageRepositoryHibernateImpl implements LanguageRepository {
     return language;
   }
 
+  @Override
+  @Transactional
+  public Language updateLanguage(Language language) {
+    entityManager.merge(language);
+    entityManager.flush();
+    entityManager.refresh(language);
+    return language;
+  }
+
   private TypedQuery<Language> createQuery(String query) {
     return entityManager.createQuery(query, Language.class);
   }
