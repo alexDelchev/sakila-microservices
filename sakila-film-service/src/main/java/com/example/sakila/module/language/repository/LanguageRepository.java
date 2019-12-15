@@ -11,4 +11,6 @@ public interface LanguageRepository {
   Language getLanguageByFilmId(Long filmId);
 
   List<Language> getAllLanguages();
+
+  Language insertLanguage(Language language);
 }
