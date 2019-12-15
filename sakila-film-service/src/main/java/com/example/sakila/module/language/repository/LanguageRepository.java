@@ -13,4 +13,6 @@ public interface LanguageRepository {
   List<Language> getAllLanguages();
 
   Language insertLanguage(Language language);
+
+  Language updateLanguage(Language language);
 }
