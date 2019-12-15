@@ -50,6 +50,12 @@ public class LanguageRepositoryHibernateImpl implements LanguageRepository {
     return language;
   }
 
+  @Override
+  @Transactional
+  public void deleteLanguage(Language language) {
+    entityManager.remove(language);
+  }
+
   private TypedQuery<Language> createQuery(String query) {
     return entityManager.createQuery(query, Language.class);
   }
