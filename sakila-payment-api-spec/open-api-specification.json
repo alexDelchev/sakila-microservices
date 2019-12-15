@@ -304,7 +304,7 @@
     "CustomerDTO": {
       "type": "object",
       "required": [
-        "id"
+        "storeId", "firstName", "lastName", "addressId"
       ],
       "properties": {
         "id": {
@@ -347,7 +347,7 @@
     "RentalDTO": {
       "type": "object",
       "required": [
-        "id", "customerId", "inventoryId"
+        "rentalDate", "inventoryId", "customerId", "staffId"
       ],
       "properties": {
         "id": {
@@ -383,7 +383,7 @@
     "PaymentDTO": {
       "type": "object",
       "required": [
-        "id", "customerId", "rentalId"
+        "customerId", "staffId", ",rentalId", "amount", "paymentDate"
       ],
       "properties": {
         "id": {
