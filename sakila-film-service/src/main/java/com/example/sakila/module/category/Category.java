@@ -24,13 +24,13 @@ public class Category {
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  Category() {}
+  public Category() {}
 
-  Category(Long id) {
+  public Category(Long id) {
     this.id = id;
   }
 
-  Category(Long id, String name, Date lastUpdate) {
+  public Category(Long id, String name, Date lastUpdate) {
     this.id = id;
     this.name = name;
     this.lastUpdate = lastUpdate;
