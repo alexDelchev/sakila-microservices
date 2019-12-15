@@ -70,6 +70,15 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
     return film;
   }
 
+  @Override
+  @Transactional
+  public Film updateFilm(Film film) {
+    entityManager.merge(film);
+    entityManager.flush();
+    entityManager.refresh(film);
+    return film;
+  }
+
   private TypedQuery<Film> createQuery(String sql) {
     return entityManager.createQuery(sql, Film.class);
   }
