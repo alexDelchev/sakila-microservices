@@ -79,6 +79,12 @@ public class FilmRepositoryHibernateImpl implements FilmRepository {
     return film;
   }
 
+  @Override
+  @Transactional
+  public void deleteFilm(Film film) {
+    entityManager.remove(film);
+  }
+
   private TypedQuery<Film> createQuery(String sql) {
     return entityManager.createQuery(sql, Film.class);
   }
