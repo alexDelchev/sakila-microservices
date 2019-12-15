@@ -1,6 +1,7 @@
 package com.example.sakila.module.language;
 
 import com.example.sakila.module.language.repository.LanguageRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class LanguageServiceTest {
 
   @InjectMocks
   private LanguageService languageService;
-  
+
+  @Test
+  void getLanguageById() {
+    Language language = languageService.getLanguageById(null);
+
+    assertNull(language);
+  }
 }
