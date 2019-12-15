@@ -1,9 +1,11 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -71,5 +73,16 @@ public class FilmService {
     target.setSpecialFeatures(source.getSpecialFeatures());
 
     return filmRepository.updateFilm(target);
+  }
+
+  public void deleteFilm(Long id) {
+    Film film = filmRepository.getFilmById(id);
+    if (film == null) throw new NotFoundException("Film for ID " + id + " does not exist");
+
+    try {
+      filmRepository.deleteFilm(film);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
