@@ -41,6 +41,13 @@ public class LanguageController implements LanguagesApi {
     return ResponseEntity.ok(toDTO(languageService.createLanguage(toEntity(languageDTO))));
   }
 
+  @Override
+  public ResponseEntity<LanguageDTO> replaceLanguage(
+      @PathVariable("id") Long id, @RequestBody LanguageDTO languageDTO
+  ) {
+    return ResponseEntity.ok(toDTO(languageService.updateLanguage(id, toEntity(languageDTO))));
+  }
+
   private LanguageDTO toDTO(Language language) {
     LanguageDTO languageDTO = new LanguageDTO();
     languageDTO.setId(language.getId());
