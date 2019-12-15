@@ -24,4 +24,11 @@ class LanguageServiceTest {
 
     assertNull(language);
   }
+
+  @Test
+  void getLanguageByFilmId() {
+    Language language = languageService.getLanguageByFilmId(null);
+
+    assertNull(language);
+  }
 }
