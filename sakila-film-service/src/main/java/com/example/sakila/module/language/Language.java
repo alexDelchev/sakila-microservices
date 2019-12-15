@@ -1,9 +1,14 @@
 package com.example.sakila.module.language;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "language")
 public class Language {
 
