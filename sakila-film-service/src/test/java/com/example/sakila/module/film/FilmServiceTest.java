@@ -78,4 +78,11 @@ class FilmServiceTest {
     assertDoesNotThrow(() -> filmService.updateFilm(EXISTING_FILM_ID, new Film()));
     assertThrows(NotFoundException.class, () -> filmService.updateFilm(NON_EXISTING_FILM_ID, new Film()));
   }
+
+  @Test
+  void deleteFilm() {
+    final long NON_EXISTING_ID = -1L;
+    
+    assertThrows(NotFoundException.class, () -> filmService.deleteFilm(NON_EXISTING_ID));
+  }
 }
