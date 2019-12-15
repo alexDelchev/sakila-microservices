@@ -51,4 +51,26 @@ class FilmControllerTest {
     assertThrows(NotFoundException.class, () -> filmController.createFilm(invalidLanguageFilmDTO));
     assertThrows(NotFoundException.class, () -> filmController.createFilm(invalidCategoryFilmDTO));
   }
+
+  @Test
+  void replaceFilm() {
+    final long EXISTING_LANGUAGE_ID = 1;
+    when(languageService.getLanguageById(EXISTING_LANGUAGE_ID)).thenReturn(new Language());
+
+    final long NON_EXISTING_LANGUAGE_ID = -1L;
+    when(languageService.getLanguageById(NON_EXISTING_LANGUAGE_ID)).thenReturn(null);
+
+    final long NON_EXISTING_CATEGORY_ID = -1L;
+    when(categoryService.getCategoryById(NON_EXISTING_CATEGORY_ID)).thenReturn(null);
+
+    FilmDTO invalidLanguageFilmDTO = new FilmDTO();
+    invalidLanguageFilmDTO.setLanguageId(NON_EXISTING_LANGUAGE_ID);
+
+    FilmDTO invalidCategoryFilmDTO = new FilmDTO();
+    invalidCategoryFilmDTO.setLanguageId(EXISTING_LANGUAGE_ID);
+    invalidCategoryFilmDTO.setCategoryId(NON_EXISTING_CATEGORY_ID);
+
+    assertThrows(NotFoundException.class, () -> filmController.replaceFilm(1L, invalidLanguageFilmDTO));
+    assertThrows(NotFoundException.class, () -> filmController.replaceFilm(1L, invalidCategoryFilmDTO));
+  }
 }
