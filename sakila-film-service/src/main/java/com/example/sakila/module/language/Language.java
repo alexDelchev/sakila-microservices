@@ -19,13 +19,13 @@ public class Language {
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  Language() {}
+  public Language() {}
 
-  Language(Long id) {
+  public Language(Long id) {
     this.id = id;
   }
 
-  Language(Long id, String name, Date lastUpdate) {
+  public Language(Long id, String name, Date lastUpdate) {
     this.id = id;
     this.name = name;
     this.lastUpdate = lastUpdate;
