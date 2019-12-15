@@ -21,4 +21,6 @@ public interface FilmRepository {
   Film insertFilm(Film film);
 
   Film updateFilm(Film film);
+
+  void deleteFilm(Film film);
 }
