@@ -292,6 +292,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Language ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "languageDTO",
+            "description": "Language model",
+            "schema": {
+              "$ref": "#/definitions/LanguageDTO"
+            }
+          }
+        ],
+        "operationId": "replaceLanguage",
+        "responses": {
+          "200": {
+            "description": "Language model",
+            "schema": {
+              "$ref": "#/definitions/LanguageDTO"
+            }
+          }
+        }
       }
     },
     "/films": {
