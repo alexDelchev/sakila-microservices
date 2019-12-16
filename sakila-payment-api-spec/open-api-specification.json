@@ -10,6 +10,29 @@
   "produces": ["application/json"],
   "tags": "Payment",
   "paths": {
+    "/customers": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "customerDTO",
+            "description": "Customer model",
+            "schema": {
+              "$ref": "#/definitions/CustomerDTO"
+            }
+          }
+        ],
+        "operationId": "createCustomer",
+        "responses": {
+          "200": {
+            "description": "Customer model",
+            "schema": {
+              "$ref": "#/definitions/CustomerDTO"
+            }
+          }
+        }
+      }
+    },
     "/customers/{id}": {
       "get": {
         "parameters": [
