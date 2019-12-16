@@ -35,4 +35,8 @@ public class CustomerService {
     if (expression == null || expression.length() == 0) return null;
     return customerRepository.searchCustomersByLastName(expression);
   }
+
+  public Customer createCustomer(Customer customer) {
+    return customerRepository.insertCustomer(customer);
+  }
 }
