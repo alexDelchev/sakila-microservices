@@ -54,6 +54,15 @@ public class CustomerRepositoryHibernateImpl implements CustomerRepository {
     return customer;
   }
 
+  @Override
+  @Transactional
+  public Customer updateCustomer(Customer customer) {
+    entityManager.merge(customer);
+    entityManager.flush();
+    entityManager.refresh(customer);
+    return customer;
+  }
+
   private TypedQuery<Customer> createQuery(String sql) {
     return entityManager.createQuery(sql, Customer.class);
   }
