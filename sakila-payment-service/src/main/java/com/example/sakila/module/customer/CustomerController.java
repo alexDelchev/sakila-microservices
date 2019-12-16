@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -55,6 +56,11 @@ public class CustomerController implements CustomersApi {
     );
   }
 
+  @Override
+  public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO) {
+    return ResponseEntity.ok(toDTO(customerService.createCustomer(toEntity(customerDTO))));
+  }
+
   private CustomerDTO toDTO(Customer customer) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setId(customer.getId());
@@ -68,6 +74,25 @@ public class CustomerController implements CustomersApi {
     customerDTO.setLastUpdate(toOffsetDateTime(customer.getLastUpdate()));
     customerDTO.setActive(customer.getActive());
     return customerDTO;
+  }
+
+  private Customer toEntity(CustomerDTO customerDTO) {
+    Customer customer = new Customer();
+    customer.setId(customerDTO.getId());
+    customer.setStore_id(customerDTO.getStoreId());
+    customer.setFirstName(customerDTO.getFirstName());
+    customer.setLastName(customerDTO.getLastName());
+    customer.setEmail(customerDTO.getEmail());
+    customer.setAddress_id(customerDTO.getAddressId());
+    customer.setActiveBool(customerDTO.isActiveBool());
+    if (customerDTO.getCreateDate() != null) {
+      customer.setCreateDate(Date.from(customerDTO.getCreateDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    }
+    if (customerDTO.getLastUpdate() != null) {
+      customer.setLastUpdate(Date.from(customerDTO.getLastUpdate().toInstant()));
+    }
+    customer.setActive(customerDTO.getActive());
+    return customer;
   }
 
   private LocalDate toLocalDate(Date date) {
