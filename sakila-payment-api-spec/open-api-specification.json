@@ -53,6 +53,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Customer ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "customerDTO",
+            "description": "Customer model",
+            "schema": {
+              "$ref": "#/definitions/CustomerDTO"
+            }
+          }
+        ],
+        "operationId": "replaceCustomer",
+        "responses": {
+          "200": {
+            "description": "Customer model",
+            "schema": {
+              "$ref": "#/definitions/CustomerDTO"
+            }
+          }
+        }
       }
     },
     "/customers/store/{id}": {
