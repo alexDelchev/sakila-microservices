@@ -15,4 +15,6 @@ public interface CustomerRepository {
   List<Customer> searchCustomersByLastName(String lastName);
 
   Customer insertCustomer(Customer customer);
+
+  Customer updateCustomer(Customer customer);
 }
