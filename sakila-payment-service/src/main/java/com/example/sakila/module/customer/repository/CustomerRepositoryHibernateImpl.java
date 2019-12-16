@@ -35,6 +35,7 @@ public class CustomerRepositoryHibernateImpl implements CustomerRepository {
     return query.getResultList();
   }
 
+  @Override
   public List<Customer> searchCustomersByLastName(String expression) {
     TypedQuery<Customer> query = createQuery(
         "SELECT c FROM Customer c WHERE LOWER(c.lastName) LIKE LOWER(:expression)"
