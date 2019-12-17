@@ -35,4 +35,8 @@ public class RentalService {
     if (id == null) return null;
     return rentalRepository.getRentalsByStaffId(id);
   }
+
+  public Rental createRental(Rental rental) {
+    return rentalRepository.insertRental(rental);
+  }
 }
