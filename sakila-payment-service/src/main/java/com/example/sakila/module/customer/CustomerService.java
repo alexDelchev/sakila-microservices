@@ -1,8 +1,10 @@
 package com.example.sakila.module.customer;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,5 +59,16 @@ public class CustomerService {
     if (source.getCreateDate() != null) target.setCreateDate(source.getCreateDate());
 
     return customerRepository.updateCustomer(target);
+  }
+
+  public void deleteCustomer(Long id) {
+    Customer customer = getCustomerById(id);
+    if (customer == null) throw new NotFoundException("Customer for ID " + id + " does not exist");
+
+    try {
+      customerRepository.deleteCustomer(customer);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
