@@ -1,8 +1,10 @@
 package com.example.sakila.module.rental;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.rental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,16 @@ public class RentalService {
     target.setStaff_id(source.getStaff_id());
 
     return rentalRepository.updateRental(target);
+  }
+
+  public void deleteRental(Long id) {
+    Rental rental = getRentalById(id);
+    if (rental == null) throw new NotFoundException("Rental for ID " + id + " does not exist");
+
+    try {
+      rentalRepository.deleteRental(rental);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
