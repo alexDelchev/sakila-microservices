@@ -1,6 +1,7 @@
 package com.example.sakila.module.customer;
 
 import com.example.sakila.module.customer.repository.CustomerRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class CustomerServiceTest {
 
   @InjectMocks
   private CustomerService customerService;
-  
+
+  @Test
+  void getCustomerById() {
+    Customer customer = customerService.getCustomerById(null);
+
+    assertNull(customer);
+  }
 }
