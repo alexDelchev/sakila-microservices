@@ -53,4 +53,11 @@ class CustomerServiceTest {
         () -> customerService.updateCustomer(NON_EXISTING_CUSTOMER_ID, new Customer())
     );
   }
+
+  @Test
+  void deleteCustomer() {
+    final long NON_EXISTING_CUSTOMER_ID = 1L;
+
+    assertThrows(NotFoundException.class, () -> customerService.deleteCustomer(NON_EXISTING_CUSTOMER_ID));
+  }
 }
