@@ -81,6 +81,26 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Customer ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteCustomer",
+        "responses": {
+          "200": {
+            "description": "Customer model",
+            "schema": {
+              "$ref": "#/definitions/CustomerDTO"
+            }
+          }
+        }
       }
     },
     "/customers/store/{id}": {
