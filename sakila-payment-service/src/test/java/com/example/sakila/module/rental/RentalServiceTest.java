@@ -33,4 +33,11 @@ class RentalServiceTest {
 
     assertNull(rentals);
   }
+
+  @Test
+  void getRentalsByStaffId() {
+    List<Rental> rentals = rentalService.getRentalsByStaffId(null);
+
+    assertNull(rentals);
+  }
 }
