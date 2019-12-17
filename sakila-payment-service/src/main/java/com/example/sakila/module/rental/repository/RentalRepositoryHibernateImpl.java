@@ -50,6 +50,15 @@ public class RentalRepositoryHibernateImpl implements RentalRepository {
     return rental;
   }
 
+  @Override
+  @Transactional
+  public Rental updateRental(Rental rental) {
+    entityManager.merge(rental);
+    entityManager.flush();
+    entityManager.refresh(rental);
+    return rental;
+  }
+
   private TypedQuery<Rental> createQuery(String sql) {
     return entityManager.createQuery(sql, Rental.class);
   }
