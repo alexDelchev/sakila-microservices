@@ -66,6 +66,12 @@ public class RentalController implements RentalsApi {
     return ResponseEntity.ok(toDTO(rentalService.updateRental(id, toEntity(rentalDTO))));
   }
 
+  @Override
+  public ResponseEntity<Void> deleteRental(@PathVariable("id") Long id) {
+    rentalService.deleteRental(id);
+    return ResponseEntity.ok(null);
+  }
+
   private RentalDTO toDTO(Rental rental) {
     RentalDTO rentalDTO = new RentalDTO();
     rentalDTO.setId(rental.getId());
