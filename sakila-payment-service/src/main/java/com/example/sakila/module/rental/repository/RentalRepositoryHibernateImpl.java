@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -38,6 +39,15 @@ public class RentalRepositoryHibernateImpl implements RentalRepository {
     TypedQuery<Rental> query = createQuery("SELECT r FROM Rental r WHERE r.staff_id = :staffId");
     query.setParameter("staffId", id);
     return query.getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Rental insertRental(Rental rental) {
+    entityManager.persist(rental);
+    entityManager.flush();
+    entityManager.refresh(rental);
+    return rental;
   }
 
   private TypedQuery<Rental> createQuery(String sql) {
