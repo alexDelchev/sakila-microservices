@@ -1,11 +1,15 @@
 package com.example.sakila.module.rental;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.RentalsApi;
 import com.example.sakila.generated.server.model.RentalDTO;
+import com.example.sakila.module.customer.Customer;
+import com.example.sakila.module.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -18,9 +22,12 @@ public class RentalController implements RentalsApi {
 
   private final RentalService rentalService;
 
+  private final CustomerService customerService;
+
   @Autowired
-  public RentalController(RentalService rentalService) {
+  public RentalController(RentalService rentalService, CustomerService customerService) {
     this.rentalService = rentalService;
+    this.customerService = customerService;
   }
 
   @Override
@@ -49,6 +56,11 @@ public class RentalController implements RentalsApi {
     );
   }
 
+  @Override
+  public ResponseEntity<RentalDTO> createRental(@RequestBody RentalDTO rentalDTO) {
+    return ResponseEntity.ok(toDTO(rentalService.createRental(toEntity(rentalDTO))));
+  }
+
   private RentalDTO toDTO(Rental rental) {
     RentalDTO rentalDTO = new RentalDTO();
     rentalDTO.setId(rental.getId());
@@ -59,6 +71,28 @@ public class RentalController implements RentalsApi {
     rentalDTO.setStaffId(rental.getStaff_id());
     rentalDTO.setLastUpdate(toOffsetDateTime(rental.getLastUpdate()));
     return rentalDTO;
+  }
+
+  private Rental toEntity(RentalDTO rentalDTO) {
+    Rental rental = new Rental();
+    rental.setId(rentalDTO.getId());
+    rental.setStaff_id(rentalDTO.getStaffId());
+    rental.setInventory_id(rentalDTO.getInventoryId());
+
+    if (rentalDTO.getCustomerId() != null) {
+      Customer customer = customerService.getCustomerById(rentalDTO.getCustomerId());
+      if (customer == null) throw new NotFoundException(
+          "Custmer for ID " + rentalDTO.getCustomerId() + " does not exist"
+      );
+
+      rental.setCustomer(customer);
+    }
+
+    if (rentalDTO.getRentalDate() != null) rental.setRentalDate(Date.from(rentalDTO.getRentalDate().toInstant()));
+    if (rentalDTO.getReturnDate() != null) rental.setReturnDate(Date.from(rentalDTO.getReturnDate().toInstant()));
+    if (rentalDTO.getLastUpdate() != null) rental.setLastUpdate(Date.from(rentalDTO.getLastUpdate().toInstant()));
+
+    return rental;
   }
 
   private OffsetDateTime toOffsetDateTime(Date date) {
