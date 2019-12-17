@@ -1,5 +1,6 @@
 package com.example.sakila.module.rental;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.rental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,18 @@ public class RentalService {
 
   public Rental createRental(Rental rental) {
     return rentalRepository.insertRental(rental);
+  }
+
+  public Rental updateRental(Long id, Rental source) {
+    Rental target = getRentalById(id);
+    if (target == null) throw new NotFoundException("Rental for ID " + id + " does not exist");
+
+    target.setRentalDate(source.getRentalDate());
+    target.setReturnDate(source.getReturnDate());
+    target.setCustomer(source.getCustomer());
+    target.setInventory_id(source.getInventory_id());
+    target.setStaff_id(source.getStaff_id());
+
+    return rentalRepository.updateRental(target);
   }
 }
