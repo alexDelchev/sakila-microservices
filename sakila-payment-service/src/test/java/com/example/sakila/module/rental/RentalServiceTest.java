@@ -1,6 +1,7 @@
 package com.example.sakila.module.rental;
 
 import com.example.sakila.module.rental.repository.RentalRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class RentalServiceTest {
 
   @InjectMocks
   private RentalService rentalService;
-  
+
+  @Test
+  void getRentalById() {
+    Rental rental = rentalService.getRentalById(null);
+
+    assertNull(rental);
+  }
 }
