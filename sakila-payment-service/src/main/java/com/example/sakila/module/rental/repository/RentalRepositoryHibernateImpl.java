@@ -59,6 +59,12 @@ public class RentalRepositoryHibernateImpl implements RentalRepository {
     return rental;
   }
 
+  @Override
+  @Transactional
+  public void deleteRental(Rental rental) {
+    entityManager.remove(rental);
+  }
+
   private TypedQuery<Rental> createQuery(String sql) {
     return entityManager.createQuery(sql, Rental.class);
   }
