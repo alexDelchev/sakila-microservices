@@ -1,11 +1,15 @@
 package com.example.sakila.module.rental;
 
 import com.example.sakila.module.customer.Customer;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "rental")
 public class Rental {
 
