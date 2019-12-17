@@ -219,6 +219,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Rental ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "rentalDTO",
+            "description": "Rental model",
+            "schema": {
+              "$ref": "#/definitions/RentalDTO"
+            }
+          }
+        ],
+        "operationId": "replaceRental",
+        "responses": {
+          "200": {
+            "description": "Rental model",
+            "schema": {
+              "$ref": "#/definitions/RentalDTO"
+            }
+          }
+        }
       }
     },
     "/rentals/inventory/{id}": {
