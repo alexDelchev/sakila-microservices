@@ -247,6 +247,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Rental ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteRental",
+        "responses": {
+          "200": {
+            "description": "Rental deleted"
+          }
+        }
       }
     },
     "/rentals/inventory/{id}": {
