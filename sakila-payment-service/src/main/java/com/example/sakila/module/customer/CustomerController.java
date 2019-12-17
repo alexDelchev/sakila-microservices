@@ -68,6 +68,12 @@ public class CustomerController implements CustomersApi {
     return ResponseEntity.ok(toDTO(customerService.updateCustomer(id, toEntity(customerDTO))));
   }
 
+  @Override
+  public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable("id") Long id) {
+    customerService.deleteCustomer(id);
+    return ResponseEntity.ok(null);
+  }
+
   private CustomerDTO toDTO(Customer customer) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setId(customer.getId());
