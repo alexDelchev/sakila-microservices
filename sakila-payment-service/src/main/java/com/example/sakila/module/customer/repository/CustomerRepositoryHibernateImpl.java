@@ -63,6 +63,12 @@ public class CustomerRepositoryHibernateImpl implements CustomerRepository {
     return customer;
   }
 
+  @Override
+  @Transactional
+  public void deleteCustomer(Customer customer) {
+    entityManager.remove(customer);
+  }
+
   private TypedQuery<Customer> createQuery(String sql) {
     return entityManager.createQuery(sql, Customer.class);
   }
