@@ -64,4 +64,11 @@ class RentalServiceTest {
     assertDoesNotThrow(() -> rentalService.updateRental(EXISITING_RENTAL_ID, new Rental()));
     assertThrows(NotFoundException.class, () -> rentalService.updateRental(NON_EXISTING_RENTAL_ID, new Rental()));
   }
+
+  @Test
+  void deleteRental() {
+    final long NON_EXISTING_RENTAL_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> rentalService.deleteRental(NON_EXISTING_RENTAL_ID));
+  }
 }
