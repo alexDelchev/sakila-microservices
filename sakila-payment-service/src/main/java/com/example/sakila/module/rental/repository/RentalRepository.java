@@ -17,4 +17,6 @@ public interface RentalRepository {
   Rental insertRental(Rental rental);
 
   Rental updateRental(Rental rental);
+
+  void deleteRental(Rental rental);
 }
