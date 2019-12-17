@@ -176,6 +176,29 @@
         }
       }
     },
+    "/rentals": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "rentalDTO",
+            "description": "Rental model",
+            "schema": {
+              "$ref": "#/definitions/RentalDTO"
+            }
+          }
+        ],
+        "operationId": "createRental",
+        "responses": {
+          "200": {
+            "description": "Rental model",
+            "schema": {
+              "$ref": "#/definitions/RentalDTO"
+            }
+          }
+        }
+      }
+    },
     "/rentals/{id}": {
       "get": {
         "parameters": [
