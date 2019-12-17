@@ -15,4 +15,6 @@ public interface RentalRepository {
   List<Rental> getRentalsByStaffId(Long id);
 
   Rental insertRental(Rental rental);
+
+  Rental updateRental(Rental rental);
 }
