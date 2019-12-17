@@ -40,4 +40,11 @@ class RentalServiceTest {
 
     assertNull(rentals);
   }
+
+  @Test
+  void getRentalByInventoryId() {
+    List<Rental> rentals = rentalService.getRentalsByInventoryId(null);
+
+    assertNull(rentals);
+  }
 }
