@@ -11,4 +11,6 @@ public interface StaffRepository {
   List<Staff> getStaffByStoreId(Long id);
 
   Staff insertStaff(Staff staff);
+
+  Staff updateStaff(Staff staff);
 }
