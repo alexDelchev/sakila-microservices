@@ -193,6 +193,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Staff id",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "staffDTO",
+            "description": "Staff model",
+            "schema": {
+              "$ref": "#/definitions/StaffDTO"
+            }
+          }
+        ],
+        "operationId": "replaceStaff",
+        "responses": {
+          "200": {
+            "description": "Staff model",
+            "schema": {
+              "$ref": "#/definitions/StaffDTO"
+            }
+          }
+        }
       }
     },
     "/staff/store/{id}": {
