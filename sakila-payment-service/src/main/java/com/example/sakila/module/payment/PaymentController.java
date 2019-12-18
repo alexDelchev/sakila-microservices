@@ -70,6 +70,11 @@ public class PaymentController implements PaymentsApi {
     return ResponseEntity.ok(toDTO(paymentService.createPayment(toEntity(paymentDTO))));
   }
 
+  @Override
+  public ResponseEntity<PaymentDTO> replacePayment(@PathVariable("id") Long id, @RequestBody PaymentDTO paymentDTO) {
+    return ResponseEntity.ok(toDTO(paymentService.updatePayment(id, toEntity(paymentDTO))));
+  }
+
   private PaymentDTO toDTO(Payment payment) {
     PaymentDTO paymentDTO = new PaymentDTO();
     paymentDTO.setId(payment.getId());
