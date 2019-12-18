@@ -1,5 +1,6 @@
 package com.example.sakila.module.inventory;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.inventory.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,15 @@ public class InventoryService {
 
   public Inventory createInventory(Inventory inventory) {
     return inventoryRepository.insertInventory(inventory);
+  }
+
+  public Inventory updateInventory(Long id, Inventory source) {
+    Inventory target = getInventoryById(id);
+    if (target == null) throw new NotFoundException("Inventory for ID " + id + " does not exist");
+
+    target.setFilm_id(source.getFilm_id());
+    target.setStore(source.getStore());
+
+    return inventoryRepository.updateInventory(target);
   }
 }
