@@ -1,5 +1,6 @@
 package com.example.sakila.module.payment.repository;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.Payment;
 import org.springframework.stereotype.Repository;
 
@@ -57,6 +58,12 @@ public class PaymentRepositoryHibernateImpl implements PaymentRepository {
     entityManager.flush();
     entityManager.refresh(payment);
     return payment;
+  }
+
+  @Override
+  @Transactional
+  public void deletePayment(Payment payment) {
+    entityManager.remove(payment);
   }
 
   private TypedQuery<Payment> createQuery(String sql) {
