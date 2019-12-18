@@ -53,4 +53,15 @@ class InventoryServiceTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'deleteInventory - should throw NotFoundException'() {
+    given:
+    final long NON_EXISTING_INVENTORY_ID = -1L;
+
+    when:
+    inventoryService.deleteInventory(NON_EXISTING_INVENTORY_ID)
+
+    then:
+    thrown NotFoundException
+  }
 }
