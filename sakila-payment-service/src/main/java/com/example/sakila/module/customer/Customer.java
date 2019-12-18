@@ -46,13 +46,13 @@ public class Customer {
   @Column(name = "active")
   private Integer active;
 
-  Customer() {}
+  public Customer() {}
 
-  Customer(Long id) {
+  public Customer(Long id) {
     this.id = id;
   }
 
-  Customer(
+  public Customer(
       Long id, Long store_id, String firstName, String lastName, String email,
       Long address_id, Boolean activeBool, Date createDate, Date lastUpdate, Integer active
   ) {
