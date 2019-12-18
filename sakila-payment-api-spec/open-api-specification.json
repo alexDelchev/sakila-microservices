@@ -384,6 +384,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Payment ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "paymentDTO",
+            "description": "Payment model",
+            "schema": {
+              "$ref": "#/definitions/PaymentDTO"
+            }
+          }
+        ],
+        "operationId": "replacePayment",
+        "responses": {
+          "200": {
+            "description": "Payment model",
+            "schema": {
+              "$ref": "#/definitions/PaymentDTO"
+            }
+          }
+        }
       }
     },
     "/payments/rental/{id}": {
