@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -62,6 +63,11 @@ public class PaymentController implements PaymentsApi {
     return ResponseEntity.ok(
         paymentService.getPaymentsByStaffId(id).stream().map(this::toDTO).collect(Collectors.toList())
     );
+  }
+
+  @Override
+  public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
+    return ResponseEntity.ok(toDTO(paymentService.createPayment(toEntity(paymentDTO))));
   }
 
   private PaymentDTO toDTO(Payment payment) {
