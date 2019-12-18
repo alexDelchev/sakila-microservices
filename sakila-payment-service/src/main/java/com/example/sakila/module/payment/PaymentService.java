@@ -1,8 +1,10 @@
 package com.example.sakila.module.payment;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,16 @@ public class PaymentService {
     target.setPaymentDate(source.getPaymentDate());
 
     return paymentRepository.updatePayment(target);
+  }
+
+  public void deletePayment(Long id) {
+    Payment payment = getPaymentById(id);
+    if (payment == null) throw new NotFoundException("Payment for ID " + id + " does not exist");
+
+    try {
+      paymentRepository.deletePayment(payment);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
