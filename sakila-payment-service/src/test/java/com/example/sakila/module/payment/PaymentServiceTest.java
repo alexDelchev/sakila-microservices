@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,5 +25,12 @@ class PaymentServiceTest {
     Payment payment = paymentService.getPaymentById(null);
 
     assertNull(payment);
+  }
+
+  @Test
+  void getPaymentsByCustomerId() {
+    List<Payment> payments = paymentService.getPaymentsByCustomerId(null);
+
+    assertNull(payments);
   }
 }
