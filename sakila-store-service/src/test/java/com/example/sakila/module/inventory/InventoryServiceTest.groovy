@@ -9,4 +9,14 @@ class InventoryServiceTest extends Specification {
 
   private InventoryService inventoryService = new InventoryService(inventoryRepository)
 
+  void 'getInventoryById - should return null'() {
+    given:
+    Inventory inventory
+
+    when:
+    inventory = inventoryService.getInventoryById(null)
+
+    then:
+    inventory == null
+  }
 }
