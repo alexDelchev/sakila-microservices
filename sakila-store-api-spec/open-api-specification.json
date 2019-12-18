@@ -81,6 +81,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Inventory ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteInventory",
+        "responses": {
+          "200": {
+            "description": "Inventory deleted"
+          }
+        }
       }
     },
     "/inventories/store/{id}": {
