@@ -545,7 +545,7 @@
     "PaymentDTO": {
       "type": "object",
       "required": [
-        "customerId", "staffId", ",rentalId", "amount", "paymentDate"
+        "customerId", "staffId", "rentalId", "amount", "paymentDate"
       ],
       "properties": {
         "id": {
