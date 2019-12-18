@@ -15,4 +15,6 @@ public interface InventoryRepository {
   Inventory insertInventory(Inventory inventory);
 
   Inventory updateInventory(Inventory inventory);
+
+  void deleteInventory(Inventory inventory);
 }
