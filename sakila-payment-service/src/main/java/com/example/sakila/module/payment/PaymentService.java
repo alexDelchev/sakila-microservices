@@ -1,5 +1,6 @@
 package com.example.sakila.module.payment;
 
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,18 @@ public class PaymentService {
 
   public Payment createPayment(Payment payment) {
     return paymentRepository.insertPayment(payment);
+  }
+
+  public Payment updatePayment(Long id, Payment source) {
+    Payment target = getPaymentById(id);
+    if (target == null) throw new NotFoundException("Payment for ID " + id + " does not exist");
+
+    target.setCustomer(source.getCustomer());
+    target.setRental(source.getRental());
+    target.setStaff_id(source.getStaff_id());
+    target.setAmount(source.getAmount());
+    target.setPaymentDate(source.getPaymentDate());
+
+    return paymentRepository.updatePayment(target);
   }
 }
