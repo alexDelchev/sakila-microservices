@@ -14,12 +14,12 @@ public class StoreService {
     this.storeRepository = storeRepository;
   }
 
-  Store getStoreById(Long id) {
+  public Store getStoreById(Long id) {
     if (id == null) return null;
     return storeRepository.getStoreById(id);
   }
 
-  Store getStoreByIaddressId(Long addressId) {
+  public Store getStoreByIaddressId(Long addressId) {
     if (addressId == null) return null;
     return storeRepository.getStoreByAddressId(addressId);
   }
