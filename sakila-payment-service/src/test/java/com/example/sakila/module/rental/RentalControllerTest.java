@@ -43,4 +43,22 @@ class RentalControllerTest {
     invalidRental.setCustomerId(NON_EXISTING_CUSTOMER_ID);
     assertThrows(NotFoundException.class, () -> rentalController.createRental(invalidRental));
   }
+
+  @Test
+  void replaceRental() {
+    final long EXISTING_CUSTOMER_ID = 1L;
+    when(customerService.getCustomerById(EXISTING_CUSTOMER_ID)).thenReturn(new Customer());
+
+    final long NON_EXISTING_CUSTOMER_ID = -1L;
+
+    when(rentalService.updateRental(any(Long.class), any(Rental.class))).thenReturn(new Rental());
+
+    RentalDTO validRental = new RentalDTO();
+    validRental.setCustomerId(EXISTING_CUSTOMER_ID);
+    assertDoesNotThrow(() -> rentalController.replaceRental(1L, validRental));
+
+    RentalDTO invalidRental = new RentalDTO();
+    invalidRental.setCustomerId(NON_EXISTING_CUSTOMER_ID);
+    assertThrows(NotFoundException.class, () -> rentalController.replaceRental(1L, invalidRental));
+  }
 }
