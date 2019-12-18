@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -38,6 +39,15 @@ public class PaymentRepositoryHibernateImpl implements PaymentRepository {
     TypedQuery<Payment> query = createQuery("SELECT p FROM Payment p WHERE p.staff_id = :staffId");
     query.setParameter("staffId", id);
     return query.getResultList();
+  }
+
+  @Override
+  @Transactional
+  public Payment insertPayment(Payment payment) {
+    entityManager.persist(payment);
+    entityManager.flush();
+    entityManager.refresh(payment);
+    return payment;
   }
 
   private TypedQuery<Payment> createQuery(String sql) {
