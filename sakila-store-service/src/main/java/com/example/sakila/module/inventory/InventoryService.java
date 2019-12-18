@@ -30,4 +30,8 @@ public class InventoryService {
     if (filmId == null) return null;
     return inventoryRepository.getInventoriesByFilm(filmId);
   }
+
+  public Inventory createInventory(Inventory inventory) {
+    return inventoryRepository.insertInventory(inventory);
+  }
 }
