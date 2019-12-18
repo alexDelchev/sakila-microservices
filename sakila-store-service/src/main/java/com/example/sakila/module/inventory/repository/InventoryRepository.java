@@ -13,4 +13,6 @@ public interface InventoryRepository {
   List<Inventory> getInventoriesByFilm(Long filmId);
 
   Inventory insertInventory(Inventory inventory);
+
+  Inventory updateInventory(Inventory inventory);
 }
