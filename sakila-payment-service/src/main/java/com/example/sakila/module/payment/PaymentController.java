@@ -75,6 +75,12 @@ public class PaymentController implements PaymentsApi {
     return ResponseEntity.ok(toDTO(paymentService.updatePayment(id, toEntity(paymentDTO))));
   }
 
+  @Override
+  public ResponseEntity<Void> deletePayment(@PathVariable("id") Long id) {
+    paymentService.deletePayment(id);
+    return ResponseEntity.ok(null);
+  }
+
   private PaymentDTO toDTO(Payment payment) {
     PaymentDTO paymentDTO = new PaymentDTO();
     paymentDTO.setId(payment.getId());
