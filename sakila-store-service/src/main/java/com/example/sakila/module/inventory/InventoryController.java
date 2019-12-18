@@ -54,6 +54,13 @@ public class InventoryController implements InventoriesApi {
     return ResponseEntity.ok(toDTO(inventoryService.createInventory(toEntity(inventoryDTO))));
   }
 
+  @Override
+  public ResponseEntity<InventoryDTO> replaceInventory(
+      @PathVariable("id") Long id, @RequestBody InventoryDTO inventoryDTO
+  ) {
+    return ResponseEntity.ok(toDTO(inventoryService.updateInventory(id, toEntity(inventoryDTO))));
+  }
+
   private InventoryDTO toDTO(Inventory inventory) {
     InventoryDTO inventoryDTO = new InventoryDTO();
     inventoryDTO.setId(inventory.getId());
