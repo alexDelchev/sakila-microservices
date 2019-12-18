@@ -45,6 +45,15 @@ public class InventoryRepositoryHibernateImpl implements InventoryRepository {
     return inventory;
   }
 
+  @Override
+  @Transactional
+  public Inventory updateInventory(Inventory inventory) {
+    entityManager.merge(inventory);
+    entityManager.flush();
+    entityManager.refresh(inventory);
+    return inventory;
+  }
+
   private TypedQuery<Inventory> createQuery(String query) {
     return entityManager.createQuery(query, Inventory.class);
   }
