@@ -54,6 +54,12 @@ public class InventoryRepositoryHibernateImpl implements InventoryRepository {
     return inventory;
   }
 
+  @Override
+  @Transactional
+  public void deleteInventory(Inventory inventory) {
+    entityManager.remove(inventory);
+  }
+
   private TypedQuery<Inventory> createQuery(String query) {
     return entityManager.createQuery(query, Inventory.class);
   }
