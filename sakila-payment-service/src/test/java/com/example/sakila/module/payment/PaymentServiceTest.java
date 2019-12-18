@@ -64,4 +64,11 @@ class PaymentServiceTest {
     assertDoesNotThrow(() -> paymentService.updatePayment(EXISTING_PAYMENT_ID, new Payment()));
     assertThrows(NotFoundException.class, () -> paymentService.updatePayment(NON_EXISTING_PAYMENT_ID, new Payment()));
   }
+
+  @Test
+  void deletePayment() {
+    final long NON_EXISTING_PAYMENT_ID = -1L;
+
+    assertThrows(NotFoundException.class, () -> paymentService.deletePayment(NON_EXISTING_PAYMENT_ID));
+  }
 }
