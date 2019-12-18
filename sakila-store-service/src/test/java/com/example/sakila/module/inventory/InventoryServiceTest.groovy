@@ -19,4 +19,15 @@ class InventoryServiceTest extends Specification {
     then:
     inventory == null
   }
+
+  void 'getInventoriesByStoreId - should return null'() {
+    given:
+    List<Inventory> inventories
+
+    when:
+    inventories = inventoryService.getInventoriesByStore(null)
+
+    then:
+    inventories == null
+  }
 }
