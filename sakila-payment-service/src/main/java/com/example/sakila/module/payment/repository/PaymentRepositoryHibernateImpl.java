@@ -50,6 +50,15 @@ public class PaymentRepositoryHibernateImpl implements PaymentRepository {
     return payment;
   }
 
+  @Override
+  @Transactional
+  public Payment updatePayment(Payment payment) {
+    entityManager.merge(payment);
+    entityManager.flush();
+    entityManager.refresh(payment);
+    return payment;
+  }
+
   private TypedQuery<Payment> createQuery(String sql) {
     return entityManager.createQuery(sql, Payment.class);
   }
