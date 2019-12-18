@@ -150,6 +150,29 @@
         }
       }
     },
+    "/staff": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "staffDTO",
+            "description": "Staff model",
+            "schema": {
+              "$ref": "#/definitions/StaffDTO"
+            }
+          }
+        ],
+        "operationId": "createStaff",
+        "responses": {
+          "200": {
+            "description": "Staff model",
+            "schema": {
+              "$ref": "#/definitions/StaffDTO"
+            }
+          }
+        }
+      }
+    },
     "/staff/{id}": {
       "get": {
         "parameters": [
@@ -270,7 +293,7 @@
     "StaffDTO": {
       "type": "object",
       "required": [
-        "firstName", "lastName", "addressId", "storeId", "password"
+        "firstName", "lastName", "addressId", "storeId", "userName"
       ],
       "properties": {
         "id": {
