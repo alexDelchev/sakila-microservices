@@ -341,6 +341,29 @@
         }
       }
     },
+    "/payments": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "paymentDTO",
+            "description": "Payment model",
+            "schema": {
+              "$ref": "#/definitions/PaymentDTO"
+            }
+          }
+        ],
+        "operationId": "createPayment",
+        "responses": {
+          "200": {
+            "description": "Payment model",
+            "schema": {
+              "$ref": "#/definitions/PaymentDTO"
+            }
+          }
+        }
+      }
+    },
     "/payments/{id}": {
       "get": {
         "parameters": [
