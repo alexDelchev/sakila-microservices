@@ -1,6 +1,7 @@
 package com.example.sakila.module.payment;
 
 import com.example.sakila.module.payment.repository.PaymentRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,5 +17,11 @@ class PaymentServiceTest {
 
   @InjectMocks
   private PaymentService paymentService;
-  
+
+  @Test
+  void getPaymentById() {
+    Payment payment = paymentService.getPaymentById(null);
+
+    assertNull(payment);
+  }
 }
