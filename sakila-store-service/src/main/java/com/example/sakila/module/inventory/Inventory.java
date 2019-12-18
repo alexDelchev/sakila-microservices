@@ -1,11 +1,15 @@
 package com.example.sakila.module.inventory;
 
 import com.example.sakila.module.store.Store;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "inventory")
 public class Inventory {
 
