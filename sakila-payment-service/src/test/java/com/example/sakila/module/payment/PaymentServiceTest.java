@@ -40,4 +40,11 @@ class PaymentServiceTest {
 
     assertNull(payments);
   }
+
+  @Test
+  void getPaymentsByRentalId() {
+    List<Payment> payments = paymentService.getPaymentsByRentalId(null);
+
+    assertNull(payments);
+  }
 }
