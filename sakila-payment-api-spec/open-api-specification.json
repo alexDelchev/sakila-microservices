@@ -412,6 +412,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Payment ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deletePayment",
+        "responses": {
+          "200": {
+            "description": "Payment deleted"
+          }
+        }
       }
     },
     "/payments/rental/{id}": {
