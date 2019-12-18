@@ -25,4 +25,8 @@ public class StaffService {
     if (storeId == null) return null;
     return staffRepository.getStaffByStoreId(storeId);
   }
+
+  public Staff createStaff(Staff staff) {
+    return staffRepository.insertStaff(staff);
+  }
 }
