@@ -1,5 +1,6 @@
 package com.example.sakila.module.inventory
 
+import com.example.sakila.exception.NotFoundException
 import com.example.sakila.module.inventory.repository.InventoryRepository
 import spock.lang.Specification
 
@@ -40,5 +41,16 @@ class InventoryServiceTest extends Specification {
 
     then:
     inventories == null
+  }
+
+  void 'updateInventory - should throw NotFoundException'() {
+    given:
+    final long NON_EXISTING_INVENTORY_ID = -1L
+
+    when:
+    inventoryService.updateInventory(NON_EXISTING_INVENTORY_ID, new Inventory())
+
+    then:
+    thrown NotFoundException
   }
 }
