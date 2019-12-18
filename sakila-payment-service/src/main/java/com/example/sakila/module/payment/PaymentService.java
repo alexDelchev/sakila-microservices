@@ -35,4 +35,8 @@ public class PaymentService {
     if (id == null) return null;
     return paymentRepository.getPaymentsByStaffId(id);
   }
+
+  public Payment createPayment(Payment payment) {
+    return paymentRepository.insertPayment(payment);
+  }
 }
