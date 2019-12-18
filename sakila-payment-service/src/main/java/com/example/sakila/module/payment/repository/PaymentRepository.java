@@ -14,4 +14,5 @@ public interface PaymentRepository {
 
   List<Payment> getPaymentsByStaffId(Long id);
 
+  Payment insertPayment(Payment payment);
 }
