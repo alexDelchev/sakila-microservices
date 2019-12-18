@@ -33,4 +33,11 @@ class PaymentServiceTest {
 
     assertNull(payments);
   }
+
+  @Test
+  void getPaymentsByStaffId() {
+    List<Payment> payments = paymentService.getPaymentsByStaffId(null);
+
+    assertNull(payments);
+  }
 }
