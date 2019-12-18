@@ -75,12 +75,12 @@ public class RentalController implements RentalsApi {
   private RentalDTO toDTO(Rental rental) {
     RentalDTO rentalDTO = new RentalDTO();
     rentalDTO.setId(rental.getId());
-    rentalDTO.setRentalDate(toOffsetDateTime(rental.getRentalDate()));
-    rentalDTO.setCustomerId(rental.getCustomer().getId());
     rentalDTO.setInventoryId(rental.getInventory_id());
-    if (rental.getReturnDate() != null) rentalDTO.setReturnDate(toOffsetDateTime(rental.getReturnDate()));
     rentalDTO.setStaffId(rental.getStaff_id());
-    rentalDTO.setLastUpdate(toOffsetDateTime(rental.getLastUpdate()));
+    if (rental.getRentalDate() != null) rentalDTO.setRentalDate(toOffsetDateTime(rental.getRentalDate()));
+    if (rental.getCustomer() != null) rentalDTO.setCustomerId(rental.getCustomer().getId());
+    if (rental.getReturnDate() != null) rentalDTO.setReturnDate(toOffsetDateTime(rental.getReturnDate()));
+    if (rental.getLastUpdate() != null) rentalDTO.setLastUpdate(toOffsetDateTime(rental.getLastUpdate()));
     return rentalDTO;
   }
 
