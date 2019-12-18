@@ -5,8 +5,12 @@ import java.util.Date;
 
 import com.example.sakila.module.rental.Rental;
 import com.example.sakila.module.customer.Customer;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "payment")
 public class Payment {
 
