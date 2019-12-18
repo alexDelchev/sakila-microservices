@@ -10,6 +10,29 @@
   "produces": ["application/json"],
   "tags": "Store",
   "paths": {
+    "/inventories": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "inventoryDTO",
+            "description": "Inventory model",
+            "schema": {
+              "$ref": "#/definitions/InventoryDTO"
+            }
+          }
+        ],
+        "operationId": "createInventory",
+        "responses": {
+          "200": {
+            "description": "Inventory model",
+            "schema": {
+              "$ref": "#/definitions/InventoryDTO"
+            }
+          }
+        }
+      }
+    },
     "/inventories/{id}": {
       "get": {
         "parameters": [
