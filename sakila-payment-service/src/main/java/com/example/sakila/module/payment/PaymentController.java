@@ -84,11 +84,13 @@ public class PaymentController implements PaymentsApi {
   private PaymentDTO toDTO(Payment payment) {
     PaymentDTO paymentDTO = new PaymentDTO();
     paymentDTO.setId(payment.getId());
-    paymentDTO.setCustomerId(payment.getCustomer().getId());
     paymentDTO.setStaffId(payment.getStaff_id());
-    paymentDTO.setRentalId(payment.getRental().getId());
     paymentDTO.setAmount(payment.getAmount());
-    paymentDTO.setPaymentDate(OffsetDateTime.ofInstant(payment.getPaymentDate().toInstant(), ZoneId.systemDefault()));
+    if (paymentDTO.getPaymentDate() != null) {
+      paymentDTO.setPaymentDate(OffsetDateTime.ofInstant(payment.getPaymentDate().toInstant(), ZoneId.systemDefault()));
+    }
+    if (payment.getCustomer() != null) paymentDTO.setCustomerId(payment.getCustomer().getId());
+    if (payment.getRental() != null) paymentDTO.setRentalId(payment.getRental().getId());
     return paymentDTO;
   }
 
