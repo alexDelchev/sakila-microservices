@@ -25,4 +25,17 @@ class InventoryControllerTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'replaceInventory - should throw NotFoundException when the DTO references non-existing data'() {
+    given:
+    final long NON_EXISTING_STORE_ID = -1L
+    InventoryDTO inventoryDTO = new InventoryDTO()
+    inventoryDTO.setStoreId(NON_EXISTING_STORE_ID)
+
+    when:
+    inventoryController.replaceInventory(1L, inventoryDTO)
+
+    then:
+    thrown NotFoundException
+  }
 }
