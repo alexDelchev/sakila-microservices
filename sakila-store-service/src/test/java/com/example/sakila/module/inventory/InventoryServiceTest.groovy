@@ -30,4 +30,15 @@ class InventoryServiceTest extends Specification {
     then:
     inventories == null
   }
+
+  void 'getInventoriesByFilm - should return null'() {
+    given:
+    List<Inventory> inventories
+
+    when:
+    inventories = inventoryService.getInventoriesByFilm(null)
+
+    then:
+    inventories == null
+  }
 }
