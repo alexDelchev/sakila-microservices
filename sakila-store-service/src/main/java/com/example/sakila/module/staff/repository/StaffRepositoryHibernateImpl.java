@@ -36,6 +36,15 @@ public class StaffRepositoryHibernateImpl implements StaffRepository {
     return staff;
   }
 
+  @Override
+  @Transactional
+  public Staff updateStaff(Staff staff) {
+    entityManager.merge(staff);
+    entityManager.flush();
+    entityManager.refresh(staff);
+    return staff;
+  }
+
   private TypedQuery<Staff> createQuery(String query) {
     return entityManager.createQuery(query, Staff.class);
   }
