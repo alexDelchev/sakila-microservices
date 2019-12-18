@@ -17,4 +17,6 @@ public interface PaymentRepository {
   Payment insertPayment(Payment payment);
 
   Payment updatePayment(Payment payment);
+
+  void deletePayment(Payment payment);
 }
