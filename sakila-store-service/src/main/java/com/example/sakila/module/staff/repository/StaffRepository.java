@@ -9,4 +9,6 @@ public interface StaffRepository {
   Staff getStaffById(Long id);
 
   List<Staff> getStaffByStoreId(Long id);
+
+  Staff insertStaff(Staff staff);
 }
