@@ -1,8 +1,10 @@
 package com.example.sakila.module.inventory;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.inventory.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +46,16 @@ public class InventoryService {
     target.setStore(source.getStore());
 
     return inventoryRepository.updateInventory(target);
+  }
+
+  public void deleteInventory(Long id) {
+    Inventory inventory = getInventoryById(id);
+    if (inventory == null) throw new NotFoundException("Inventory for ID " + id + " does not exist");
+
+    try {
+      inventoryRepository.deleteInventory(inventory);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
