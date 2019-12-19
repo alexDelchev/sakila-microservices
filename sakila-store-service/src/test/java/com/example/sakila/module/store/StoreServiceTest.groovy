@@ -64,7 +64,7 @@ class StoreServiceTest extends Specification {
     storeRepository.getStoreById(_ as Long) >> store
 
     when:
-    storeService.updateStore(1L, otherStore)
+    storeService.createStore(otherStore)
 
     then:
     thrown DataConflictException
