@@ -30,7 +30,7 @@ public class Staff {
   @Column(name = "email")
   private String email;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne()
   @JoinColumn(name = "store_id")
   private Store store;
 
