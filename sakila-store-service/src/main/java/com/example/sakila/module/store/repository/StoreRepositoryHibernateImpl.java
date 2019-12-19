@@ -52,6 +52,12 @@ public class StoreRepositoryHibernateImpl implements StoreRepository {
     return store;
   }
 
+  @Override
+  @Transactional
+  public void deleteStore(Store store) {
+    entityManager.remove(store);
+  }
+
   private TypedQuery<Store> createQuery(String query) {
     return entityManager.createQuery(query, Store.class);
   }
