@@ -9,4 +9,14 @@ class StaffServiceTest extends Specification {
 
   private StaffService staffService = new StaffService(staffRepository)
 
+  void 'getStaffById - should return null'() {
+    given:
+    Staff staff
+
+    when:
+    staff = staffService.getStaffById(null)
+
+    then:
+    staff == null
+  }
 }
