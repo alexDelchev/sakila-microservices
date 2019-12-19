@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 @Repository
 public class StoreRepositoryHibernateImpl implements StoreRepository {
@@ -24,6 +25,15 @@ public class StoreRepositoryHibernateImpl implements StoreRepository {
     TypedQuery<Store> query = createQuery("SELECT s FROM Store s WHERE s.address_id = :addressId");
     query.setParameter("addressId", addressId);
     return query.getSingleResult();
+  }
+
+  @Override
+  @Transactional
+  public Store insertStore(Store store) {
+    entityManager.persist(store);
+    entityManager.flush();
+    entityManager.refresh(store);
+    return store;
   }
 
   private TypedQuery<Store> createQuery(String query) {
