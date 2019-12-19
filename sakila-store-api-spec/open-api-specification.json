@@ -331,6 +331,28 @@
           }
         }
       }
+    },
+    "/stores/manager/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Staff ID (Manager)",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "getStoreByManagerId",
+        "responses": {
+          "200": {
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
