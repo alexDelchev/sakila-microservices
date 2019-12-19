@@ -308,6 +308,34 @@
             }
           }
         }
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Store ID",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "storeDTO",
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        ],
+        "operationId": "replaceStore",
+        "responses": {
+          "200": {
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        }
       }
     },
     "/stores/address/{id}": {
