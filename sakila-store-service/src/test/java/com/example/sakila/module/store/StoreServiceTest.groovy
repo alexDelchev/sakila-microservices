@@ -111,4 +111,15 @@ class StoreServiceTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'deleteStore - should throw NotFoundException'() {
+    given:
+    final long NON_EXISTING_STORE_ID = -1L;
+
+    when:
+    storeService.deleteStore(NON_EXISTING_STORE_ID)
+
+    then:
+    thrown NotFoundException
+  }
 }
