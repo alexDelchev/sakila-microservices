@@ -19,4 +19,15 @@ class StoreServiceTest extends Specification {
     then:
     store == null
   }
+
+  void 'getStoreByAddressId - should return null'() {
+    given:
+    Store store
+
+    when:
+    store = storeService.getStoreByAddressId(null)
+
+    then:
+    store == null
+  }
 }
