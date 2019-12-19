@@ -69,4 +69,34 @@ class StoreServiceTest extends Specification {
     then:
     thrown DataConflictException
   }
+
+  void 'updateStore - should throw DataConflictException'() {
+    given:
+    final long EXISTING_STAFF_ID = 1L
+    Staff managerStaff = new Staff()
+    managerStaff.setId(EXISTING_STAFF_ID)
+
+    final long STORE_ID = 1L
+    Store store = new Store()
+    store.setId(STORE_ID)
+    store.setManagerStaff(managerStaff)
+
+    final long EXISTING_OTHER_STAFF_ID = 2L
+    Staff otherStaff = new Staff()
+    otherStaff.setId(EXISTING_OTHER_STAFF_ID)
+
+    final long OTHER_STORE_ID = 2L
+    Store otherStore = new Store()
+    otherStore.setId(OTHER_STORE_ID)
+    otherStore.setManagerStaff(otherStaff)
+
+    storeRepository.getStoreByManagerStaffId(EXISTING_OTHER_STAFF_ID) >> otherStore
+    storeRepository.getStoreById(STORE_ID) >> store
+
+    when:
+    storeService.updateStore(STORE_ID, otherStore)
+
+    then:
+    thrown DataConflictException
+  }
 }
