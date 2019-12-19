@@ -19,6 +19,7 @@ public class StoreRepositoryHibernateImpl implements StoreRepository {
   }
 
 
+  @Override
   public Store getStoreByAddressId(Long addressId) {
     TypedQuery<Store> query = createQuery("SELECT s FROM Store s WHERE s.address_id = :addressId");
     query.setParameter("addressId", addressId);
