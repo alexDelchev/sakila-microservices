@@ -336,6 +336,23 @@
             }
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Store ID",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "operationId": "deleteStore",
+        "responses": {
+          "200": {
+            "description": "Store deleted"
+          }
+        }
       }
     },
     "/stores/address/{id}": {
