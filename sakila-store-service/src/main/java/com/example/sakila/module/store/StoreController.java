@@ -35,7 +35,7 @@ public class StoreController implements StoresApi {
 
   @Override
   public ResponseEntity<StoreDTO> getStoreByAddressId(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(toDTO(storeService.getStoreByIaddressId(id)));
+    return ResponseEntity.ok(toDTO(storeService.getStoreByAddressId(id)));
   }
 
   @Override

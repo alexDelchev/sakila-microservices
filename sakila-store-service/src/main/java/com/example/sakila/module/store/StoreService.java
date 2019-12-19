@@ -20,7 +20,7 @@ public class StoreService {
     return storeRepository.getStoreById(id);
   }
 
-  public Store getStoreByIaddressId(Long addressId) {
+  public Store getStoreByAddressId(Long addressId) {
     if (addressId == null) return null;
     return storeRepository.getStoreByAddressId(addressId);
   }
