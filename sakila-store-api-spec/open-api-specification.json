@@ -265,6 +265,29 @@
         }
       }
     },
+    "/stores": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "storeDTO",
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        ],
+        "operationId": "createStore",
+        "responses": {
+          "200": {
+            "description": "Store model",
+            "schema": {
+              "$ref": "#/definitions/StoreDTO"
+            }
+          }
+        }
+      }
+    },
     "/stores/{id}": {
       "get": {
         "parameters": [
