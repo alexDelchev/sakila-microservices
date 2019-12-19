@@ -19,4 +19,15 @@ class StaffServiceTest extends Specification {
     then:
     staff == null
   }
+
+  void 'getStaffByStoreId - should return null'() {
+    given:
+    List<Staff> staff
+
+    when:
+    staff = staffService.getStaffByStoreId(null)
+
+    then:
+    staff == null
+  }
 }
