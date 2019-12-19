@@ -1,6 +1,7 @@
 package com.example.sakila.module.store;
 
 import com.example.sakila.exception.DataConflictException;
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,19 @@ public class StoreService {
     );
 
     return storeRepository.insertStore(store);
+  }
+
+  public Store updateStore(Long id, Store source) {
+    Store target = getStoreById(id);
+    if (target == null) throw new NotFoundException("Store for ID " + id + " does not exist");
+
+    if (!target.getManagerStaff().getId().equals(source.getManagerStaff().getId()) &&
+        getStoreByManagerStaffId(source.getManagerStaff().getId()) != null)
+      throw new DataConflictException("Staff with ID " + source.getManagerStaff().getId() + " is already a manager");
+
+    target.setAddress_id(source.getAddress_id());
+    target.setManagerStaff(source.getManagerStaff());
+
+    return storeRepository.updateStore(target);
   }
 }
