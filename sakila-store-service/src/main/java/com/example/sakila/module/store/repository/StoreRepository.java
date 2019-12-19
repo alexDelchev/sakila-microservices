@@ -8,5 +8,7 @@ public interface StoreRepository {
 
   Store getStoreByAddressId(Long addressId);
 
+  Store getStoreByManagerStaffId(Long managerStaffId);
+
   Store insertStore(Store store);
 }
