@@ -25,4 +25,17 @@ class StaffControllerTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'replaceStaff - should throw NotFoundException when DTO references non existing Store'() {
+    given:
+    final long NON_EXISTING_STORE_ID = -1L
+    StaffDTO staffDTO = new StaffDTO()
+    staffDTO.setStoreId(NON_EXISTING_STORE_ID)
+
+    when:
+    staffController.replaceStaff(1L, staffDTO)
+
+    then:
+    thrown NotFoundException
+  }
 }
