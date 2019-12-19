@@ -47,13 +47,13 @@ public class Staff {
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  Staff() {}
+  public Staff() {}
 
-  Staff(Long id) {
+  public Staff(Long id) {
     this.id = id;
   }
 
-  Staff(
+  public Staff(
       Long id, String firstName, String lastName, Long address_id,
       String email, Store store, Boolean active, String userName,
       String password, Date lastUpdate
