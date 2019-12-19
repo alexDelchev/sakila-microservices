@@ -18,7 +18,7 @@ public class Store {
   @Column(name = "store_id")
   private Long id;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne()
   @JoinColumn(name = "manager_staff_id", referencedColumnName = "staff_id")
   private Staff managerStaff;
 
