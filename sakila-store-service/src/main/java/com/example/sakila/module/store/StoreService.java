@@ -1,5 +1,6 @@
 package com.example.sakila.module.store;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,10 @@ public class StoreService {
     if (addressId == null) return null;
     return storeRepository.getStoreByAddressId(addressId);
   }
+
+  public Store getStoreByManagerStaffId(Long managerId) {
+    if (managerId == null) return null;
+    return storeRepository.getStoreByManagerStaffId(managerId);
+  }
+  
 }
