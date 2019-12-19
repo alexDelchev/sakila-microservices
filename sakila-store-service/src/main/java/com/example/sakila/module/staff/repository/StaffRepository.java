@@ -13,4 +13,6 @@ public interface StaffRepository {
   Staff insertStaff(Staff staff);
 
   Staff updateStaff(Staff staff);
+
+  void deleteStaff(Staff staff);
 }
