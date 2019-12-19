@@ -13,4 +13,6 @@ public interface StoreRepository {
   Store insertStore(Store store);
 
   Store updateStore(Store store);
+
+  void deleteStore(Store store);
 }
