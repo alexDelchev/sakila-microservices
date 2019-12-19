@@ -7,4 +7,6 @@ public interface StoreRepository {
   Store getStoreById(Long id);
 
   Store getStoreByAddressId(Long addressId);
+
+  Store insertStore(Store store);
 }
