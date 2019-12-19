@@ -1,6 +1,7 @@
 package com.example.sakila.module.store
 
 import com.example.sakila.exception.DataConflictException
+import com.example.sakila.exception.NotFoundException
 import com.example.sakila.module.staff.Staff
 import com.example.sakila.module.store.repository.StoreRepository
 import spock.lang.Specification
@@ -98,5 +99,16 @@ class StoreServiceTest extends Specification {
 
     then:
     thrown DataConflictException
+  }
+
+  void 'updateStore - should throw NotFoundException'() {
+    given:
+    final long NON_EXISTING_STORE_ID = -1L;
+
+    when:
+    storeService.updateStore(NON_EXISTING_STORE_ID, new Store())
+
+    then:
+    thrown NotFoundException
   }
 }
