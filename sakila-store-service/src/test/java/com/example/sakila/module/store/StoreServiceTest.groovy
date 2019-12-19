@@ -8,5 +8,15 @@ class StoreServiceTest extends Specification {
   private StoreRepository storeRepository = Mock(StoreRepository.class)
 
   private StoreService storeService = new StoreService(storeRepository)
-  
+
+  void 'getStoreById - should return null'() {
+    given:
+    Store store
+
+    when:
+    store = storeService.getStoreById(null)
+
+    then:
+    store == null
+  }
 }
