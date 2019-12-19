@@ -4,6 +4,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -51,5 +52,16 @@ public class StoreService {
     target.setManagerStaff(source.getManagerStaff());
 
     return storeRepository.updateStore(target);
+  }
+
+  public void deleteStore(Long id) {
+    Store store = getStoreById(id);
+    if (store == null) throw new NotFoundException("Store for ID " + id + " does not exist");
+
+    try {
+      storeRepository.deleteStore(store);
+    } catch(DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
