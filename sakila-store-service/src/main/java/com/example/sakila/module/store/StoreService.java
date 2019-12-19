@@ -29,5 +29,12 @@ public class StoreService {
     if (managerId == null) return null;
     return storeRepository.getStoreByManagerStaffId(managerId);
   }
-  
+
+  public Store createStore(Store store) {
+    if (getStoreByManagerStaffId(store.getManagerStaff().getId()) != null) throw new DataConflictException(
+        "Staff with ID " + store.getManagerStaff().getId() + " is already a manager"
+    );
+
+    return storeRepository.insertStore(store);
+  }
 }
