@@ -11,4 +11,6 @@ public interface StoreRepository {
   Store getStoreByManagerStaffId(Long managerStaffId);
 
   Store insertStore(Store store);
+
+  Store updateStore(Store store);
 }
