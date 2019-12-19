@@ -1,5 +1,7 @@
 package com.example.sakila.module.store
 
+import com.example.sakila.exception.DataConflictException
+import com.example.sakila.module.staff.Staff
 import com.example.sakila.module.store.repository.StoreRepository
 import spock.lang.Specification
 
@@ -29,5 +31,42 @@ class StoreServiceTest extends Specification {
 
     then:
     store == null
+  }
+
+  void 'getStoreByManagerStaffId - should return null'() {
+    given:
+    Store store
+
+    when:
+    store = storeService.getStoreByManagerStaffId(null)
+
+    then:
+    store == null
+  }
+
+  void 'createStore - should throw DataConflictException when managerStaffId is not unique'() {
+    given:
+    final long EXISTING_STAFF_ID = 1L
+    Staff managerStaff = new Staff()
+    managerStaff.setId(EXISTING_STAFF_ID)
+
+    Store store = new Store()
+    store.setManagerStaff(managerStaff)
+
+    final long EXISTING_OTHER_STAFF_ID = 2L
+    Staff otherStaff = new Staff()
+    otherStaff.setId(EXISTING_OTHER_STAFF_ID)
+
+    Store otherStore = new Store()
+    otherStore.setManagerStaff(otherStaff)
+
+    storeRepository.getStoreByManagerStaffId(_ as Long) >> new Store()
+    storeRepository.getStoreById(_ as Long) >> store
+
+    when:
+    storeService.updateStore(1L, otherStore)
+
+    then:
+    thrown DataConflictException
   }
 }
