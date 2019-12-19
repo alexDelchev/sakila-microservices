@@ -1,8 +1,10 @@
 package com.example.sakila.module.staff;
 
+import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.staff.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +48,16 @@ public class StaffService {
     if (source.getActive() != null) target.setActive(source.getActive());
 
     return staffRepository.updateStaff(target);
+  }
+
+  public void deleteStaff(Long id) {
+    Staff staff = getStaffById(id);
+    if (staff == null) throw new NotFoundException("Staff for ID " + id + " does not exist");
+
+    try {
+      staffRepository.deleteStaff(staff);
+    } catch(DataIntegrityViolationException e) {
+      throw new DataConflictException(e.getMessage(), e);
+    }
   }
 }
