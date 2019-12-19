@@ -42,4 +42,15 @@ class StaffServiceTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'deleteStaff - should throw NotFoundException'() {
+    given:
+    final long NON_EXISTING_STAFF_ID = -1L
+
+    when:
+    staffService.updateStaff(NON_EXISTING_STAFF_ID, new Staff())
+
+    then:
+    thrown NotFoundException
+  }
 }
