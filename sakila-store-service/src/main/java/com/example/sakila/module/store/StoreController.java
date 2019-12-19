@@ -43,6 +43,11 @@ public class StoreController implements StoresApi {
     return ResponseEntity.ok(toDTO(storeService.createStore(toEntity(storeDTO))));
   }
 
+  @Override
+  public ResponseEntity<StoreDTO> replaceStore(@PathVariable("id") Long id, @RequestBody StoreDTO storeDTO) {
+    return ResponseEntity.ok(toDTO(storeService.updateStore(id, toEntity(storeDTO))));
+  }
+
   private StoreDTO toDTO(Store store) {
     StoreDTO storeDTO = new StoreDTO();
     storeDTO.setId(store.getId());
