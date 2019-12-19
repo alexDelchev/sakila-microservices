@@ -43,6 +43,15 @@ public class StoreRepositoryHibernateImpl implements StoreRepository {
     return store;
   }
 
+  @Override
+  @Transactional
+  public Store updateStore(Store store) {
+    entityManager.merge(store);
+    entityManager.flush();
+    entityManager.refresh(store);
+    return store;
+  }
+
   private TypedQuery<Store> createQuery(String query) {
     return entityManager.createQuery(query, Store.class);
   }
