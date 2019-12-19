@@ -45,6 +45,12 @@ public class StaffRepositoryHibernateImpl implements StaffRepository {
     return staff;
   }
 
+  @Override
+  @Transactional
+  public void deleteStaff(Staff staff) {
+    entityManager.remove(staff);
+  }
+
   private TypedQuery<Staff> createQuery(String query) {
     return entityManager.createQuery(query, Staff.class);
   }
