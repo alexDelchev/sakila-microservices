@@ -28,6 +28,13 @@ public class StoreRepositoryHibernateImpl implements StoreRepository {
   }
 
   @Override
+  public Store getStoreByManagerStaffId(Long managerStaffId) {
+    TypedQuery<Store> query = createQuery("SELECT s FROM Store s WHERE s.managerStaff.id = :managerId");
+    query.setParameter("managerId", managerStaffId);
+    return query.getSingleResult();
+  }
+
+  @Override
   @Transactional
   public Store insertStore(Store store) {
     entityManager.persist(store);
