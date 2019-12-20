@@ -25,4 +25,17 @@ class StoreControllerTest extends Specification {
     then:
     thrown NotFoundException
   }
+
+  void 'replaceStore - should throw NotFoundException' () {
+    given:
+    final long NON_EXISTING_STAFF_ID = -1
+    StoreDTO storeDTO = new StoreDTO()
+    storeDTO.setManagerStaffId(NON_EXISTING_STAFF_ID)
+
+    when:
+    storeController.replaceStore(1L, storeDTO)
+
+    then:
+    thrown NotFoundException
+  }
 }
