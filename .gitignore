@@ -264,3 +264,4 @@ $RECYCLE.BIN/
 
 # Secrets file
 application-secrets.properties
+application-docker-secrets.properties
