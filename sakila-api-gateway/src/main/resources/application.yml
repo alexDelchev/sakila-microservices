@@ -17,3 +17,7 @@ spring:
           uri: lb://sakila-address-service
           predicates:
             - Path=/api/address/**
+        - id: sakila-payment-service
+          uri: lb://sakila-payment-service
+          predicates:
+            - Path=/api/payment/**
