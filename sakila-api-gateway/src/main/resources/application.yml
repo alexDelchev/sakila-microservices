@@ -13,3 +13,7 @@ spring:
           uri: lb://sakila-film-service
           predicates:
             - Path=/api/film/**
+        - id: sakila-film-service
+          uri: lb://sakila-address-service
+          predicates:
+            - Path=/api/address/**
