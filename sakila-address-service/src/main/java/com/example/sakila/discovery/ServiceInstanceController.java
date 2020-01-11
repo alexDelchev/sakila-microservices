@@ -1,4 +1,4 @@
-package com.example.sakila.discover;
+package com.example.sakila.discovery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
