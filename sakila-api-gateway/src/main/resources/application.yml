@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: sakila-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
