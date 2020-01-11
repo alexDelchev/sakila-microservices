@@ -8,3 +8,8 @@ spring:
       discovery:
         locator:
           enabled: true
+      routes:
+        - id: sakila-film-service
+          uri: lb://sakila-film-service
+          predicates:
+            - Path=/api/film/**
