@@ -7,6 +7,7 @@ spring:
     gateway:
       discovery:
         locator:
+          lowerCaseServiceId: true
           enabled: true
       routes:
         - id: sakila-film-service
