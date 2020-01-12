@@ -29,4 +29,6 @@ spring:
 eureka:
   instance:
     preferIpAddress: true
-
+  client:
+    serviceUrl:
+      defaultZone: ${secrets.eureka.server.url}
