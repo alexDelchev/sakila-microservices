@@ -26,3 +26,7 @@ spring:
           uri: lb://sakila-store-service
           predicates:
             - Path=/api/store/**
+eureka:
+  instance:
+    preferIpAddress: true
+
