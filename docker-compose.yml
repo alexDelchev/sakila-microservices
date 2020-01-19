@@ -1,0 +1,46 @@
+version: '2.1'
+
+services:
+  sakila-discovery-service:
+    image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
+    container_name: sakila-discovery-service
+    mem_limit: 512M
+    ports:
+      - 8761:8761
+  sakila-api-gateway:
+    image: com.example.sakila/sakila-api-gateway:1.0-SNAPSHOT
+    container_name: sakila-api-gateway
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+    ports:
+      - 8999:8999
+    command: --spring.profiles.active=docker-secrets
+  sakila-address-service:
+    image: com.example.sakila/sakila-address-service:1.0-SNAPSHOT
+    container_name: sakila-address-service
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+    command: --spring.profiles.active=docker-secrets
+  sakila-film-service:
+    image: com.example.sakila/sakila-film-service:1.0-SNAPSHOT
+    container_name: sakila-film-service
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+    command: --spring.profiles.active=docker-secrets
+  sakila-payment-service:
+    image: com.example.sakila/sakila-payment-service:1.0-SNAPSHOT
+    container_name: sakila-payment-service
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+    command: --spring.profiles.active=docker-secrets
+  sakila-store-service:
+    image: com.example.sakila/sakila-store-service:1.0-SNAPSHOT
+    container_name: sakila-store-service
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+    command: --spring.profiles.active=docker-secrets
