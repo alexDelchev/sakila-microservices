@@ -14,7 +14,11 @@
   "produces": [
     "application/json"
   ],
-  "tags": "Film",
+  "tags": [
+    {
+      "name": "Film"
+    }
+  ],
   "paths": {
     "/actors": {
       "post": {
