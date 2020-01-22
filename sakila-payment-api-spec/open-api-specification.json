@@ -8,7 +8,11 @@
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "tags": "Payment",
+  "tags": [
+    {
+      "name": "Payment"
+    }
+  ],
   "paths": {
     "/customers": {
       "post": {
