@@ -12,7 +12,7 @@
   <artifactId>sakila-frontend</artifactId>
 
   <properties>
-    <api.dir>${basedir}/api</api.dir>
+    <api.dir>${basedir}/api/spec</api.dir>
   </properties>
 
   <build>
