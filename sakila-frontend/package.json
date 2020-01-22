@@ -4,10 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run generate-clients && ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate-clients": "npm run generate-address-client && npm run generate-film-client && npm run generate-payment-client && npm run generate-store-client",
+    "generate-address-client": "ng-swagger-gen -i ./api/spec/address/open-api-specification.json -c ./api/config/address/ng-swagger-gen.json -o ./src/app/api/generated/address",
+    "generate-film-client": "ng-swagger-gen -i ./api/spec/film/open-api-specification.json -c ./api/config/film/ng-swagger-gen.json -o ./src/app/api/generated/film",
+    "generate-payment-client": "ng-swagger-gen -i ./api/spec/payment/open-api-specification.json -c ./api/config/payment/ng-swagger-gen.json -o ./src/app/api/generated/payment",
+    "generate-store-client": "ng-swagger-gen -i ./api/spec/store/open-api-specification.json -c ./apo/config/store/ng-swagger-gen.json -o ./src/app/api/generated/store"
   },
   "private": true,
   "dependencies": {
