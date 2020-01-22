@@ -488,7 +488,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "rating",
             "description": "MPAA rating",
             "type": "string"
           }
