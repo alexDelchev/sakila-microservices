@@ -19,6 +19,7 @@
     <module>sakila-store-api-spec</module>
     <module>sakila-discovery-service</module>
     <module>sakila-api-gateway</module>
+    <module>sakila-frontend</module>
   </modules>
 
 </project>
