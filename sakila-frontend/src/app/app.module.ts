@@ -9,6 +9,7 @@ import { ApiRequestInterceptor } from './config/request.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AddressApiModule } from '@api/generated/address/address-api.module';
 import { FilmApiModule } from '@api/generated/film/film-api.module';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
@@ -24,6 +25,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AddressApiModule.forRoot({rootUrl: environment.apiRootUrl + '/api/address/'}),
     FilmApiModule.forRoot({rootUrl: environment.apiRootUrl + '/api/film/' })
   ],
   providers: [
