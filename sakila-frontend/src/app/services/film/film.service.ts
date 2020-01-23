@@ -19,4 +19,8 @@ export class FilmService {
   searchFilmsByTitle(expression: string): Observable<Array<FilmDTO>> {
     return this.apiService.searchFilmsByTitle(expression);
   }
+
+  searchFilmsByDescription(expression: string): Observable<Array<FilmDTO>> {
+    return this.apiService.searchFilmsByDescription(expression);
+  }
 }
