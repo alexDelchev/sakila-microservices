@@ -25,8 +25,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AddressApiModule.forRoot({rootUrl: environment.apiRootUrl + '/api/address/'}),
-    FilmApiModule.forRoot({rootUrl: environment.apiRootUrl + '/api/film/' })
+    AddressApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/address/' }),
+    FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' })
   ],
   providers: [
     ApiRequestInterceptor, API_INTERCEPTOR_PROVIDER
