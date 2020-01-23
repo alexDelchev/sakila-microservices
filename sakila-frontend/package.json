@@ -12,7 +12,7 @@
     "generate-address-client": "ng-swagger-gen -i ./api/spec/address/open-api-specification.json -c ./api/config/address/ng-swagger-gen.json -o ./src/app/api/generated/address",
     "generate-film-client": "ng-swagger-gen -i ./api/spec/film/open-api-specification.json -c ./api/config/film/ng-swagger-gen.json -o ./src/app/api/generated/film",
     "generate-payment-client": "ng-swagger-gen -i ./api/spec/payment/open-api-specification.json -c ./api/config/payment/ng-swagger-gen.json -o ./src/app/api/generated/payment",
-    "generate-store-client": "ng-swagger-gen -i ./api/spec/store/open-api-specification.json -c ./apo/config/store/ng-swagger-gen.json -o ./src/app/api/generated/store"
+    "generate-store-client": "ng-swagger-gen -i ./api/spec/store/open-api-specification.json -c ./api/config/store/ng-swagger-gen.json -o ./src/app/api/generated/store"
   },
   "private": true,
   "dependencies": {
