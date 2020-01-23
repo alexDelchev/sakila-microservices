@@ -9,7 +9,7 @@ import { ApiRequestInterceptor } from './config/request.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { FilmApiModule } from './api/generated/film/film-api.module';
+import { FilmApiModule } from '@api/generated/film/film-api.module';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
