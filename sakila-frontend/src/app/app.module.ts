@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 
 import { AddressApiModule } from '@api/generated/address/address-api.module';
 import { FilmApiModule } from '@api/generated/film/film-api.module';
+import { PaymentApiModule } from '@api/generated/payment/payment-api.module';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -26,7 +27,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     BrowserModule,
     AppRoutingModule,
     AddressApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/address/' }),
-    FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' })
+    FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' }),
+    PaymentApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/payment/' })
   ],
   providers: [
     ApiRequestInterceptor, API_INTERCEPTOR_PROVIDER
