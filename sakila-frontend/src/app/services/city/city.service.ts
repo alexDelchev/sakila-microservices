@@ -12,4 +12,15 @@ export class CityService {
 
   constructor(private apiService: ApiService) { }
 
+  getAllCities(): Observable<Array<CityDTO>> {
+    return this.apiService.getAllCities();
+  }
+
+  getCityById(id: number): Observable<CityDTO> {
+    return this.apiService.getCityById(id);
+  }
+
+  getCitiesByCountryId(id: number): Observable<Array<CityDTO>> {
+    return this.apiService.getCitiesByCountryId(id);
+  }
 }
