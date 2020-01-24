@@ -12,4 +12,19 @@ export class PaymentService {
 
   constructor(private apiService: ApiService) { }
 
+  getPaymentById(id: number): Observable<PaymentDTO> {
+    return this.apiService.getPaymentById(id);
+  }
+
+  getPaymentsByRentalId(id: number): Observable<Array<PaymentDTO>> {
+    return this.apiService.getPaymentsByRentalId(id);
+  }
+
+  getPaymentsByCustomerId(id: number): Observable<Array<PaymentDTO>> {
+    return this.apiService.getPaymentsByCustomerId(id);
+  }
+
+  getPaymentsByStaffId(id: number): Observable<Array<PaymentDTO>> {
+    return this.apiService.getPaymentsByStaffId(id);
+  }
 }
