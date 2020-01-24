@@ -12,4 +12,11 @@ export class CountryService {
 
   constructor(private apiService: ApiService) { }
 
+  getAllCountries(): Observable<Array<CountryDTO>> {
+    return this.apiService.getAllCountries();
+  }
+
+  getCountryById(id: number): Observable<CountryDTO> {
+    return this.apiService.getCountryById(id);
+  }
 }
