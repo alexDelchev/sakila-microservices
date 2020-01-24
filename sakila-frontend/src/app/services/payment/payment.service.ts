@@ -27,4 +27,16 @@ export class PaymentService {
   getPaymentsByStaffId(id: number): Observable<Array<PaymentDTO>> {
     return this.apiService.getPaymentsByStaffId(id);
   }
+
+  createPayment(payment: PaymentDTO): Observable<PaymentDTO> {
+    return this.apiService.createPayment(payment);
+  }
+
+  replacePayment(id: number, payment: PaymentDTO): Observable<PaymentDTO> {
+    return this.apiService.replacePayment({ id: id, paymentDTO: payment });
+  }
+
+  deletePayment(id: number) {
+    this.apiService.deletePayment(id);
+  }
 }
