@@ -12,4 +12,11 @@ export class CategoryService {
 
   constructor(private apiService: ApiService) { }
 
+  getAllCategories(): Observable<Array<CategoryDTO>> {
+    return this.apiService.getAllCategories();
+  }
+
+  getCategoryById(id: number): Observable<CategoryDTO> {
+    return this.apiService.getCategoryById(id);
+  }
 }
