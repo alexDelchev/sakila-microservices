@@ -12,6 +12,18 @@ export class ActorService {
 
   constructor(private apiService: ApiService) { }
 
+  createActor(actor: ActorDTO): Observable<ActorDTO> {
+    return this.apiService.createActor(actor);
+  }
+
+  replaceActor(id: number, actor: ActorDTO): Observable<ActorDTO> {
+    return this.apiService.replaceActor({ id: id, actorDTO: actor });
+  }
+
+  deleteActor(id: number) {
+    this.apiService.deleteActor(id);
+  }
+
   getActorById(id: number): Observable<Actor> {
     return this.apiService.getActorById(id);
   }
