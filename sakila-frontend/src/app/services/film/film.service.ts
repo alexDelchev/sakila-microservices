@@ -12,6 +12,18 @@ export class FilmService {
 
   constructor(private apiService: ApiService) { }
 
+  createFilm(film: FilmDTO): Observable<FilmDTO> {
+    return this.apiService.createFilm(film);
+  }
+
+  replaceFilm(id: number, film: FilmDTO): Observable<FilmDTO> {
+    return this.apiService.replaceFilm({ id: id, FilmDTO: film });
+  }
+
+  deleteFilm(id: number) {
+    this.apiService.deleteFilm(id);
+  }
+
   getFilmById(id: number): Observable<FilmDTO> {
     return this.apiService.getFilmById(id);
   }
