@@ -31,4 +31,8 @@ export class FilmService {
   getFilmsByLanguageId(id: number): Observable<Array<FilmDTO>> {
     return this.apiService.getFilmsByLanguageId(id);
   }
+
+  getFilmsByMpaaRating(rating: string): Observable<Array<FilmDTO>> {
+    return this.apiService.getFilmsByMpaaRating(rating);
+  }
 }
