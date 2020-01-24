@@ -12,4 +12,15 @@ export class InventoryService {
 
   constructor(private apiService: ApiService) { }
 
+  getInventoryById(id: number): Observable<InventoryDTO> {
+    return this.apiService.getInventoryById(id);
+  }
+
+  getInventoriesByStoreId(id: number): Observable<Array<InventoryDTO>> {
+    return this.apiService.getInventoriesByStoreId(id);
+  }
+
+  getInventoriesByFilmId(id: number): Observable<Array<InventoryDTO>> {
+    return this.apiService.getInventoriesByFilmId(id);
+  }
 }
