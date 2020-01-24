@@ -12,4 +12,11 @@ export class StoreService {
 
   constructor(private apiService: ApiService) { }
 
+  getStoreById(id: number): Observable<StoreDTO> {
+    return this.apiService.getStoreById(id);
+  }
+
+  getStoreByAddressId(id: number): Observable<StoreDTO> {
+    return this.apiService.getStoreByAddressId(id);
+  }
 }
