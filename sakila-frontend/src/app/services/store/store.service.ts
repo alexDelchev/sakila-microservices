@@ -19,4 +19,16 @@ export class StoreService {
   getStoreByAddressId(id: number): Observable<StoreDTO> {
     return this.apiService.getStoreByAddressId(id);
   }
+
+  createStore(store: StoreDTO): Observable<StoreDTO> {
+    return this.apiService.createStore(store);
+  }
+
+  replaceStore(id: number, store: StoreDTO): Observable<StoreDTO> {
+    return this.apiService.replaceStore({ id: id, storeDTO: store });
+  }
+
+  deleteStore(id: number) {
+    this.apiService.deleteStore(id);
+  }
 }
