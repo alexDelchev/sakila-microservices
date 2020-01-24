@@ -24,11 +24,11 @@ export class ActorService {
     this.apiService.deleteActor(id);
   }
 
-  getActorById(id: number): Observable<Actor> {
+  getActorById(id: number): Observable<ActorDTO> {
     return this.apiService.getActorById(id);
   }
 
-  getActorsByFilmId(id: number): Observable<Array<Actor>> {
+  getActorsByFilmId(id: number): Observable<Array<ActorDTO>> {
     return this.apiService.getActorsByFilmId(id);
   }
 }
