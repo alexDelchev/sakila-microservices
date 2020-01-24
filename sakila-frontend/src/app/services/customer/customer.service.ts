@@ -27,4 +27,16 @@ export class CustomerService {
   searchCustomersByLastName(expression: string): Observable<Array<CustomerDTO>> {
     return this.apiService.searchCustomersByLastName(expression);
   }
+
+  createCustomer(customer: CustomerDTO): Observable<CustomerDTO> {
+    return this.apiService.createCustomer(customer);
+  }
+
+  replaceCustomer(id: number, customer: CustomerDTO): Observable<CustomerDTO> {
+    return this.apiService.replaceCustomer({ id: id, customerDTO: customer });
+  }
+
+  deleteCustomer(id: number) {
+    this.apiService.deleteCustomer(id);
+  }
 }
