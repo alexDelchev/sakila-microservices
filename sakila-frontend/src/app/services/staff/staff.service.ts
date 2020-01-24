@@ -12,4 +12,11 @@ export class StaffService {
 
   constructor(private apiService: ApiService) { }
 
+  getStaffById(id: number): Observable<StaffDTO> {
+    return this.apiService.getStaffById(id);
+  }
+
+  getStaffByStoreId(id: number): Observable<Array<StaffDTO>> {
+    return this.apiService.getStaffByStoreId(id);
+  }
 }
