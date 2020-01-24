@@ -19,4 +19,16 @@ export class CountryService {
   getCountryById(id: number): Observable<CountryDTO> {
     return this.apiService.getCountryById(id);
   }
+
+  createCountry(country: CountryDTO): Observable<CountryDTO> {
+    return this.apiService.createCountry(country);
+  }
+
+  replaceCountry(id: number, country: CountryDTO): Observable<CountryDTO> {
+    return this.apiService.replaceCountry({ id: id, CountryDTO: country });
+  }
+
+  deleteCountry(id: number) {
+    this.apiService.deleteCountry(id);
+  }
 }
