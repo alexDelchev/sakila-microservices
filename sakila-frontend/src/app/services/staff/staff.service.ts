@@ -19,4 +19,16 @@ export class StaffService {
   getStaffByStoreId(id: number): Observable<Array<StaffDTO>> {
     return this.apiService.getStaffByStoreId(id);
   }
+
+  createStaff(staff: StaffDTO): Observable<StaffDTO> {
+    return this.apiService.createStaff(staff);
+  }
+
+  replaceStaff(id: number, staff: StaffDTO): Observable<StaffDTO> {
+    return this.apiService.replaceStaff({ id: id, staffDTO: staff });
+  }
+
+  deleteStaff(id: number) {
+    this.apiService.deleteStaff(id);
+  }
 }
