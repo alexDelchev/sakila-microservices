@@ -23,4 +23,16 @@ export class CityService {
   getCitiesByCountryId(id: number): Observable<Array<CityDTO>> {
     return this.apiService.getCitiesByCountryId(id);
   }
+
+  createCity(city: CityDTO): Observable<CityDTO> {
+    return this.apiService.createCity(city);
+  }
+
+  replaceCity(id: number, city: CityDTO): Observable<CityDTO> {
+    return this.apiService.replaceCity({ id: id, cityDTO: city });
+  }
+
+  deleteCity(id: number) {
+    this.apiService.deleteCity(id);
+  }
 }
