@@ -27,4 +27,8 @@ export class FilmService {
   getFilmsByCategoryId(id: number): Observable<Array<FilmDTO>> {
     return this.apiService.getFilmsByCategoryId(id);
   }
+
+  getFilmsByLanguageId(id: number): Observable<Array<FilmDTO>> {
+    return this.apiService.getFilmsByLanguageId(id);
+  }
 }
