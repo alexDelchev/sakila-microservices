@@ -27,4 +27,16 @@ export class RentalService {
   getRentalsByStaffId(id: number): Observable<Array<RentalDTO>> {
     return this.apiService.getRentalsByStaffId(id);
   }
+
+  createRental(rental: RentalDTO): Observable<RentalDTO> {
+    return this.apiService.createRental(rental);
+  }
+
+  replaceRental(id: number, rental: RentalDTO): Observable<RentalDTO> {
+    return this.apiService.replaceRental({ id: id, rentalDTO: rental });
+  }
+
+  deleteRental(id: number) {
+    this.apiService.deleteRental(id);
+  }
 }
