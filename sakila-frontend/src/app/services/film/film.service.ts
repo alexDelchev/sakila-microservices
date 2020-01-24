@@ -23,4 +23,8 @@ export class FilmService {
   searchFilmsByDescription(expression: string): Observable<Array<FilmDTO>> {
     return this.apiService.searchFilmsByDescription(expression);
   }
+
+  getFilmsByCategoryId(id: number): Observable<Array<FilmDTO>> {
+    return this.apiService.getFilmsByCategoryId(id);
+  }
 }
