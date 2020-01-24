@@ -23,4 +23,16 @@ export class InventoryService {
   getInventoriesByFilmId(id: number): Observable<Array<InventoryDTO>> {
     return this.apiService.getInventoriesByFilmId(id);
   }
+
+  createInventory(inventory: InventoryDTO): Observable<InventoryDTO> {
+    return this.apiService.createInventory(inventory);
+  }
+
+  replaceInventory(id: number, inventory: InventoryDTO): Observable<InventoryDTO> {
+    return this.apiService.replaceInventory({ id: id, inventoryDTO: inventory });
+  }
+
+  deleteInventory(id: number) {
+    this.apiService.deleteInventory(id);
+  }
 }
