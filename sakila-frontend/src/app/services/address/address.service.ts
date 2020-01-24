@@ -12,6 +12,18 @@ export class AddressService {
 
   constructor(private apiService: ApiService) { }
 
+  createAddress(address: AddressDTO): Observable<AddressDTO> {
+    return this.apiService.createAddress(address);
+  }
+
+  replaceAddress(id: number, address: AddressDTO): Observable<AddressDTO> {
+    return this.apiService.replaceAddress({ id: id, addressDTO: address });
+  }
+
+  deleteAddress(id: number) {
+    this.apiService.deleteAddress(id);
+  }
+
   getAddressById(id: number): Observable<AddressDTO> {
     return this.apiService.getAddressById(id);
   }
