@@ -12,4 +12,11 @@ export class ActorService {
 
   constructor(private apiService: ApiService) { }
 
+  getActorById(id: number): Observable<Actor> {
+    return this.apiService.getActorById(id);
+  }
+
+  getActorsByFilmId(id: number): Observable<Array<Actor>> {
+    return this.apiService.getActorsByFilmId(id);
+  }
 }
