@@ -12,4 +12,19 @@ export class CustomerService {
 
   constructor(private apiService: ApiService) { }
 
+  getCustomerById(id: number): Observable<CustomerDTO> {
+    return this.apiService.getCustomerById(id);
+  }
+
+  getCustomersByStoreId(id: number): Observable<Array<CustomerDTO>> {
+    return this.apiService.getCustomersByStoreId(id);
+  }
+
+  searchCustomersByFirstName(expression: string): Observable<Array<CustomerDTO>> {
+    return this.apiService.searchCustomersByFirstName(expression);
+  }
+
+  searchCustomersByLastName(expression: string): Observable<Array<CustomerDTO>> {
+    return this.apiService.searchCustomersByLastName(expression);
+  }
 }
