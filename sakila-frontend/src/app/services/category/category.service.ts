@@ -19,4 +19,16 @@ export class CategoryService {
   getCategoryById(id: number): Observable<CategoryDTO> {
     return this.apiService.getCategoryById(id);
   }
+
+  createCategory(category: CategoryDTO): Observable<CategoryDTO> {
+    return this.apiService.createCategory(category);
+  }
+
+  replaceCategory(id: number, category: CategoryDTO): Observable<CategoryDTO> {
+    return this.apiService.replaceCategory({ id: id, CategoryDTO: category });
+  }
+
+  deleteCategory(id: number) {
+    this.apiService.deleteCategory(id);
+  }
 }
