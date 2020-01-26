@@ -14,6 +14,11 @@ import { FilmApiModule } from '@api/generated/film/film-api.module';
 import { PaymentApiModule } from '@api/generated/payment/payment-api.module';
 import { StoreApiModule } from '@api/generated/store/store-api.module';
 
+import { FilmComponent } from './film/film.component';
+import { CategoryPickerComponent } from './category-picker/category-picker.component';
+import { CategoryComponent } from './category/category.component';
+import { FilmBrowserComponent } from './film-browser/film-browser.component';
+
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiRequestInterceptor),
@@ -22,7 +27,11 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FilmComponent,
+    CategoryPickerComponent,
+    CategoryComponent,
+    FilmBrowserComponent
   ],
   imports: [
     BrowserModule,
