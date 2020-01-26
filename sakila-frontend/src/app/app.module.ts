@@ -20,6 +20,9 @@ import { CategoryComponent } from './category/category.component';
 import { FilmBrowserComponent } from './film-browser/film-browser.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiRequestInterceptor),
@@ -41,7 +44,10 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' }),
     PaymentApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/payment/' }),
     StoreApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/' }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [
     ApiRequestInterceptor, API_INTERCEPTOR_PROVIDER
