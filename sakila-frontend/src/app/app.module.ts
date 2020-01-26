@@ -18,6 +18,7 @@ import { FilmComponent } from './film/film.component';
 import { CategoryPickerComponent } from './category-picker/category-picker.component';
 import { CategoryComponent } from './category/category.component';
 import { FilmBrowserComponent } from './film-browser/film-browser.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,7 +40,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AddressApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/address/' }),
     FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' }),
     PaymentApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/payment/' }),
-    StoreApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/' })
+    StoreApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/' }),
+    BrowserAnimationsModule
   ],
   providers: [
     ApiRequestInterceptor, API_INTERCEPTOR_PROVIDER
