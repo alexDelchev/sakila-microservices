@@ -6,6 +6,7 @@ import { FilmDTO } from '@api/generated/film/models/film-dto';
 import { FilmService } from '../services/film/film.service';
 import { CategoryDTO } from '@api/generated/film/models/category-dto';
 import { CategoryService } from '../services/category/category.service';
+import { FilmRating } from '@api/generated/film/models/film-rating';
 
 @Component({
   selector: 'app-film-browser',
@@ -15,6 +16,10 @@ import { CategoryService } from '../services/category/category.service';
 export class FilmBrowserComponent implements OnInit {
 
   private category: CategoryDTO;
+
+  private filmRating: FilmRating;
+
+  private filmRatings: Array<FilmRating> = FilmRating.values();
 
   private categories: Array<CategoryDTO>;
 
@@ -28,20 +33,40 @@ export class FilmBrowserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.filmRating = FilmRating.PG_13
     this.categoryService.getAllCategories().subscribe(result => this.categories = result);
 
     let categoryId: number = this.getNumberParameterFromRoute('categoryId');
     if (categoryId) {
-      this.filmService.getFilmsByCategoryId(categoryId).subscribe(result => this.films = result);
+      this.categoryService.getCategoryById(categoryId).subscribe(
+        result => {
+          this.category = result;
+          this.getFilms();
+        }
+      );
     }
   }
 
   changeCategorySelection() {
-    this.filmService.getFilmsByCategoryId(this.category.id).subscribe(result => this.films = result);
+    this.getFilms();
+  }
+
+  changeFilmRatingSelection() {
+    this.getFilms();
+  }
+
+  compareCategories(c1: CategoryDTO, c2: CategoryDTO): boolean {
+    return c1.id === c2.id;
   }
 
   private getNumberParameterFromRoute(name: string): number {
     return +this.route.snapshot.paramMap.get(name);
   }
 
+  private getFilms() {
+    this.filmService.getFilmsByCategoryId(this.category.id).subscribe(
+      result =>
+        this.films = result.filter(film => film.rating == this.filmRating)
+    )
+  }
 }

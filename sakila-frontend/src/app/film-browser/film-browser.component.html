@@ -1,8 +1,14 @@
 <div class="film-browser">
   <mat-form-field>
     <mat-label>Film Category</mat-label>
-    <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()">
+    <mat-select [ngModel]="category" (selectionChange)="changeCategorySelection()" [compareWith]="compareCategories">
       <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Rated</mat-label>
+    <mat-select [(ngModel)]="filmRating" (selectionChange)="changeFilmRatingSelection()">
+      <mat-option *ngFor="let r of filmRatings" [value]="r">{{r}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
