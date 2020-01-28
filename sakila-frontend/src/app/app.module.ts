@@ -20,7 +20,7 @@ import { CategoryComponent } from './category/category.component';
 import { FilmBrowserComponent } from './film-browser/film-browser.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
@@ -47,6 +47,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatInputModule,
     FormsModule
   ],
   providers: [
