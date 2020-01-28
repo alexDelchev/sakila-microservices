@@ -1,5 +1,8 @@
 <div class="film-browser">
   <mat-form-field>
+    <input matInput placeholder="Title" [(ngModel)]="searchExpression">
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Film Category</mat-label>
     <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()" [compareWith]="compareCategories">
       <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>

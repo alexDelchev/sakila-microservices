@@ -15,6 +15,8 @@ import { FilmRating } from '@api/generated/film/models/film-rating';
 })
 export class FilmBrowserComponent implements OnInit {
 
+  private searchExpression: string;
+
   private category: CategoryDTO;
 
   private filmRating: FilmRating;
@@ -64,9 +66,16 @@ export class FilmBrowserComponent implements OnInit {
   }
 
   private getFilms() {
-    this.filmService.getFilmsByCategoryId(this.category.id).subscribe(
-      result =>
-        this.films = result.filter(film => film.rating == this.filmRating)
-    )
+    if (this.searchExpression != null) {
+      this.filmService.searchFilmsByTitle(this.searchExpression).subscribe(
+        result =>
+          this.films = result.filter(film => film.categoryId === this.category.id && film.rating === this.filmRating)
+      )
+    } else {
+      this.filmService.getFilmsByCategoryId(this.category.id).subscribe(
+        result =>
+          this.films = result.filter(film => film.rating === this.filmRating)
+      )
+    }
   }
 }
