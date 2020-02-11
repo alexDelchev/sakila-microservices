@@ -6,4 +6,26 @@
 
 .seach-form {
   padding: 10px;
+  min-height: 200px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.form-left {
+  display: block;
+  float: left;
+}
+
+.form-right {
+  display: block;
+  float:right;
+}
+
+.form-menu {
+  width: 100%;
+  min-width: 500px;
+}
+
+.form-button {
+  margin: 10px;
 }
