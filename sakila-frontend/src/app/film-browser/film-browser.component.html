@@ -2,20 +2,21 @@
   <mat-form-field>
     <input matInput placeholder="Title" [(ngModel)]="searchExpression">
   </mat-form-field>
-  <button mat-button (click)="getFilms()">Search</button>
-  <br/>
-  <mat-form-field>
-    <mat-label>Film Category</mat-label>
-    <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()" [compareWith]="compareCategories">
-      <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Rated</mat-label>
-    <mat-select [(ngModel)]="filmRating" (selectionChange)="changeFilmRatingSelection()">
-      <mat-option *ngFor="let r of filmRatings" [value]="r">{{r}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <button class="form-button" mat-button (click)="getFilms()">Search</button>
+  <div class="form-right">
+    <mat-form-field>
+      <mat-label>Film Category</mat-label>
+      <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()" [compareWith]="compareCategories">
+        <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rated</mat-label>
+      <mat-select [(ngModel)]="filmRating" (selectionChange)="changeFilmRatingSelection()">
+        <mat-option *ngFor="let r of filmRatings" [value]="r">{{r}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
 <div class="film-browser" *ngIf="films">
   <app-film *ngFor="let film of films" [film]="film"></app-film>
