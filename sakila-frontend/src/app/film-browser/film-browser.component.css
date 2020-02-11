@@ -2,6 +2,8 @@
   width: 70%;
   display: block;
   margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .seach-form {
@@ -26,6 +28,6 @@
   min-width: 500px;
 }
 
-.form-button {
+.form-element {
   margin: 10px;
 }
