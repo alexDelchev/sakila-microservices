@@ -1,9 +1,4 @@
 .category-picker {
-  overflow-x: scroll;
-  height: 100px;
-  white-space: nowrap;
-}
-
-.category-picker > .category-wrapper {
-  display: inline-block;
+  width:100%;
+  text-align: center;
 }
