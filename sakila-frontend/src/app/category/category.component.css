@@ -16,5 +16,6 @@
 
 .category-link {
   text-decoration: none;
-  color: black;
+  color: white;
+  text-shadow: 2px 2px 2px #000000;
 }
