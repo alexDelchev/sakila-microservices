@@ -1,3 +1,4 @@
 .wrapper {
-  background-color: #e7e7e7;
+  background: rgb(0,143,255);
+  background: radial-gradient(circle, rgba(0,143,255,1) 0%, rgba(59,9,121,1) 57%, rgba(2,0,36,1) 100%);
 }
