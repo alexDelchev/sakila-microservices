@@ -1,6 +1,6 @@
-<div class="category">
-  <a class="category-link" [routerLink]="['/category', category.id]">
-  <!--<a href="/category/{{category.id}}">-->
+<div class="category" [routerLink]="['/category', category.id]"
+     [ngStyle]="{'background-image': 'url(/assets/category_' + category.id + '.jpg)'}">
+  <a class="category-link">
     <h2>{{category.name}}</h2>
   </a>
 </div>
