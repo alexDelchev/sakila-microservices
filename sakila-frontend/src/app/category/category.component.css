@@ -12,6 +12,11 @@
   background-color: gray;
   background-size: cover;
   background-position: center;
+  border:5px solid black;
+}
+
+.category:hover {
+  box-shadow: 0px 0px 5px 5px white;
 }
 
 .category-link {
