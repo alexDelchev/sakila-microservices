@@ -1,5 +1,12 @@
 <div class="header-wrapper">
   <div class="header">
     <a [routerLink]="'/'"><img class="logo-img" src="/assets/logo.png" alt="Sakila"/></a>
+
+    <div class="cart-link">
+      <img class="cart" src="/assets/cart.png">
+      <div *ngIf="getFilmSelectionCount() > 0" class="cart-number-wrapper">
+        <span>{{getFilmSelectionCount()}}</span>
+      </div>
+    </div>
   </div>
 </div>
