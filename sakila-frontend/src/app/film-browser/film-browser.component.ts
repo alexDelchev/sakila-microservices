@@ -7,6 +7,7 @@ import { FilmService } from '../services/film/film.service';
 import { CategoryDTO } from '@api/generated/film/models/category-dto';
 import { CategoryService } from '../services/category/category.service';
 import { FilmRating } from '@api/generated/film/models/film-rating';
+import { FilmSelectionService } from '../services/film-selection/film-selection.service';
 
 @Component({
   selector: 'app-film-browser',
@@ -31,7 +32,8 @@ export class FilmBrowserComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private filmService: FilmService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private filmSelectionService: FilmSelectionService
   ) { }
 
   ngOnInit() {
@@ -55,6 +57,11 @@ export class FilmBrowserComponent implements OnInit {
 
   changeFilmRatingSelection() {
     this.getFilms();
+  }
+
+  selectFilm(film: FilmDTO) {
+    this.filmSelectionService.addFilmToSelection(film.id);
+    console.log(this.filmSelectionService.getSelectedFilmIds());
   }
 
   compareCategories(c1: CategoryDTO, c2: CategoryDTO): boolean {
