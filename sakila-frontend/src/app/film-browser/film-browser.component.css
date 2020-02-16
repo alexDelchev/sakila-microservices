@@ -6,9 +6,9 @@
   padding-bottom: 20px;
 }
 
-.seach-form {
+.search-form {
   padding: 10px;
-  min-height: 200px;
+  min-height: 100px;
   margin-top: 15px;
   margin-bottom: 10px;
 }
@@ -16,11 +16,13 @@
 .form-left {
   display: block;
   float: left;
+  width: 50%;
 }
 
 .form-right {
   display: block;
   float:right;
+  width: 50%;
 }
 
 .form-menu {

@@ -1,8 +1,10 @@
 <div class="film-browser search-form">
-  <mat-form-field>
-    <input matInput placeholder="Title" [(ngModel)]="searchExpression">
-  </mat-form-field>
-  <button class="form-element" mat-button (click)="getFilms()">Search</button>
+  <div class="form-left">
+    <mat-form-field>
+      <input matInput placeholder="Title" [(ngModel)]="searchExpression">
+    </mat-form-field>
+    <button class="form-element" mat-button (click)="getFilms()">Search</button>
+  </div>
   <div class="form-right">
     <mat-form-field class="form-element">
       <mat-label>Film Category</mat-label>
