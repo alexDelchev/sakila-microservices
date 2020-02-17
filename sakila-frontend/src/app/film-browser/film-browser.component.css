@@ -1,9 +1,16 @@
 .film-browser {
   width: 70%;
+  max-width: 70%;
   display: block;
   margin: auto;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.film-browser-films {
+  display: block;
+  max-width: 70%;
+  margin: auto;
 }
 
 .search-form {

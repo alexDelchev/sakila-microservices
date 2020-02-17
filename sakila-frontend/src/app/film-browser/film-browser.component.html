@@ -20,6 +20,6 @@
     </mat-form-field>
   </div>
 </div>
-<div class="film-browser" *ngIf="films">
+<div class="film-browser-films" *ngIf="films">
   <app-film *ngFor="let film of films" [film]="film" (click)="selectFilm(film)"></app-film>
 </div>
