@@ -1,5 +1,6 @@
-<div *ngIf="film" class="film">
+<div *ngIf="film" class="film" (click)="doClick()">
   <h3 class="film-title">{{film.title}}</h3>
   <p class="film-description">{{film.description}}</p>
   <p class="film-rating">{{film.rating}}</p>
+  <span class="selected-marker" *ngIf="isFilmSelected()">&#10003;</span>
 </div>
