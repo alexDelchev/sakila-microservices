@@ -19,6 +19,17 @@ export class FilmSelectionService {
     }
   }
 
+  removeFilmFromSelection(filmId: number) {
+    let selectedItems: Array<number> = this.getSelectedItems();
+    if (selectedItems === null) return
+
+    let elementIndex: number = selectedItems.indexOf(filmId);
+    if (elementIndex > -1) {
+      selectedItems = selectedItems.splice(elementIndex, 1);
+      this.setSelectedItems(selectedItems);
+    }
+  }
+
   getSelectedFilmIds(): Array<number> {
     return this.getSelectedItems();
   }
