@@ -59,11 +59,6 @@ export class FilmBrowserComponent implements OnInit {
     this.getFilms();
   }
 
-  selectFilm(film: FilmDTO) {
-    this.filmSelectionService.addFilmToSelection(film.id);
-    console.log(this.filmSelectionService.getSelectedFilmIds());
-  }
-
   compareCategories(c1: CategoryDTO, c2: CategoryDTO): boolean {
     return c1.id === c2.id;
   }
