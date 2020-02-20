@@ -3,4 +3,8 @@
   <p class="film-description">{{film.description}}</p>
   <p class="film-rating">{{film.rating}}</p>
   <span class="selected-marker" *ngIf="isFilmSelected()">&#10003;</span>
+  <p class="price-stock-info">
+    <span class="stock-info"></span>
+    <span class="price-info">${{film.rentalRate}}</span>
+  </p>
 </div>

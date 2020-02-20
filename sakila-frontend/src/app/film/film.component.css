@@ -32,3 +32,17 @@
   text-align: center;
   line-height: 20px;
 }
+
+.price-stock-info {
+  border-top: 1px solid gray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.stock-info {
+  float: left;
+}
+
+.price-info {
+  float: right;
+}
