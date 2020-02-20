@@ -43,6 +43,14 @@
   float: left;
 }
 
+.in-stock-info {
+  color: green;
+}
+
+.out-stock-info {
+  color: red;
+}
+
 .price-info {
   float: right;
 }

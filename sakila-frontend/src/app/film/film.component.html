@@ -4,7 +4,8 @@
   <p class="film-rating">{{film.rating}}</p>
   <span class="selected-marker" *ngIf="isFilmSelected()">&#10003;</span>
   <p class="price-stock-info">
-    <span class="stock-info"></span>
+    <span *ngIf="isFilmInStock()" class="in-stock-info stock-info">In Stock</span>
+    <span *ngIf="!isFilmInStock()" class="out-stock-info stock-info">Out of stock</span>
     <span class="price-info">${{film.rentalRate}}</span>
   </p>
 </div>
