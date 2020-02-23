@@ -24,6 +24,7 @@ import { MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule } 
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CartComponent } from './cart/cart.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,7 +40,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     CategoryComponent,
     FilmBrowserComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
