@@ -22,6 +22,16 @@ export class CartComponent implements OnInit {
     getFilms(filmIds);
   }
 
+  getTotalPrice(): number {
+    let result: number = 0;
+
+    for (let film of films) {
+      result += film.getRentalRate();
+    }
+
+    return result;
+  }
+
   private getFilms(filmIds: Array<number>) {
     for (let id: number of filmIds) {
       this.filmService.getFilmById(id).subscribe(result => this.films.push(result));
