@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FilmService } from '../services/film/film.service';
+import { FilmSelectionService } from '../services/film-selection/film-selection.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private filmService: FilmService,
+    private filmSelectionService: FilmSelectionService
+  ) { }
 
   ngOnInit() {
   }
