@@ -19,21 +19,22 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     let filmIds: Array<number> = this.filmSelectionService.getSelectedFilmIds();
-    getFilms(filmIds);
+    this.films = [];
+    this.getFilms(filmIds);
   }
 
   getTotalPrice(): number {
     let result: number = 0;
 
-    for (let film of films) {
-      result += film.getRentalRate();
+    for (let film of this.films) {
+      result += film.rentalRate;
     }
 
     return result;
   }
 
   private getFilms(filmIds: Array<number>) {
-    for (let id: number of filmIds) {
+    for (let id of filmIds) {
       this.filmService.getFilmById(id).subscribe(result => this.films.push(result));
     }
   }
