@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FilmService } from '../services/film/film.service';
-import { FilmDTO } from '../api/generated/film/models/film-dto';
+import { FilmDTO } from '@api/generated/film/models/film-dto';
 import { FilmSelectionService } from '../services/film-selection/film-selection.service';
 import { InventoryService } from '../services/inventory/inventory.service';
+import { InventoryDTO } from '@api/generated/store/models/inventory-dto';
 
 @Component({
   selector: 'app-film',
@@ -14,7 +15,7 @@ export class FilmComponent implements OnInit {
 
   @Input() film: FilmDTO;
 
-  private inventories: Array<Inventory>;
+  private inventories: Array<InventoryDTO>;
 
   constructor(
     private filmSelectionService: FilmSelectionService,
@@ -55,7 +56,7 @@ export class FilmComponent implements OnInit {
     return this.inventories.length > 0;
   }
 
-  getCurrentInventories(): Array<InventoryDTO> {
+  getCurrentInventories() {
     return this.inventoryService.getInventoriesByFilmId(this.film.id)
       .subscribe(result => this.inventories = result);
   }
