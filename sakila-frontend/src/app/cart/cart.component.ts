@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilmDTO } from '@api/generated/film/models/film-dto';
 import { FilmService } from '../services/film/film.service';
 import { FilmSelectionService } from '../services/film-selection/film-selection.service';
 
@@ -9,12 +10,21 @@ import { FilmSelectionService } from '../services/film-selection/film-selection.
 })
 export class CartComponent implements OnInit {
 
+  private films: Array<FilmDTO>;
+
   constructor(
     private filmService: FilmService,
     private filmSelectionService: FilmSelectionService
   ) { }
 
   ngOnInit() {
+    let filmIds: Array<number> = this.filmSelectionService.getSelectedFilmIds();
+    getFilms(filmIds);
   }
 
+  private getFilms(filmIds: Array<number>) {
+    for (let id: number of filmIds) {
+      this.filmService.getFilmById(id).subscribe(result => this.films.push(result));
+    }
+  }
 }
