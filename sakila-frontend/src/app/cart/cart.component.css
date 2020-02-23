@@ -4,3 +4,33 @@
   margin-right: auto;
   margin-top: 120px;
 }
+
+.total-price {
+  font-size: 48px;
+}
+.cart-film-item {
+  display: block;
+  width: 80%;
+}
+
+.film-item {
+  display: inline-block;
+  padding: 50px;
+  border-right: 1px solid black;
+  width: 20%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.film-price {
+  font-size: 48px;
+  float: right;
+  width: 65%;
+  height: 200px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.film-price p {
+  float: left;
+}

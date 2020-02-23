@@ -1,12 +1,16 @@
 <div class="cart">
   <div class="total-price">
-    <p>The total price is: </p>
-    <p>${{getTotalPrice()}}</p>
+    <h1>Total: ${{getTotalPrice().toFixed(2)}}</h1>
   </div>
 
   <div class="cart-films" *ngIf="films">
-    <div class="cart-film-item">
-      <app-film *ngFor="let film of films" [film]="film"></app-film>
+    <div class="cart-film-item" *ngFor="let film of films">
+      <div class="film-item">
+        <app-film [film]="film"></app-film>
+      </div>
+      <div class="film-price">
+        <p>${{film.rentalRate}}</p>
+      </div>
     </div>
   </div>
 </div>
