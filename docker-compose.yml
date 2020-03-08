@@ -44,3 +44,12 @@ services:
     depends_on:
       - sakila-discovery-service
     command: --spring.profiles.active=docker-secrets
+  sakila-frontend:
+    image: com.example.sakila/sakila-frontend:1.0-SNAPSHOT
+    container_name: sakila-frontend
+    mem_limit: 512M
+    depends_on:
+      - sakila-discovery-service
+      - sakila-api-gateway
+    ports:
+      - 80:80
