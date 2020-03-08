@@ -1,6 +1,12 @@
 version: '2.1'
 
 services:
+  sakila-postgres:
+    image: com.example.sakila/sakila-postgres:1.0-SNAPSHOT
+    container_name: sakila-postgres
+    mem_limit: 512m
+    ports:
+      - 5678:5432
   sakila-discovery-service:
     image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
     container_name: sakila-discovery-service
