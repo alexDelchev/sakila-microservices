@@ -21,6 +21,7 @@
     <module>sakila-api-gateway</module>
     <module>sakila-frontend</module>
     <module>sakila-postgres</module>
+    <module>sakila-mongodb</module>
   </modules>
 
 </project>
