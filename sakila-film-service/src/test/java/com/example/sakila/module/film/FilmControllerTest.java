@@ -33,13 +33,13 @@ class FilmControllerTest {
   @Test
   void createFilm() {
     final long EXISTING_LANGUAGE_ID = 1;
-    when(languageService.getLanguageById(EXISTING_LANGUAGE_ID)).thenReturn(new Language());
+    when(languageService.languageExists(EXISTING_LANGUAGE_ID)).thenReturn(true);
 
     final long NON_EXISTING_LANGUAGE_ID = -1L;
-    when(languageService.getLanguageById(NON_EXISTING_LANGUAGE_ID)).thenReturn(null);
+    when(languageService.languageExists(NON_EXISTING_LANGUAGE_ID)).thenReturn(false);
 
     final long NON_EXISTING_CATEGORY_ID = -1L;
-    when(categoryService.getCategoryById(NON_EXISTING_CATEGORY_ID)).thenReturn(null);
+    when(categoryService.categoryExists(NON_EXISTING_CATEGORY_ID)).thenReturn(false);
 
     FilmDTO invalidLanguageFilmDTO = new FilmDTO();
     invalidLanguageFilmDTO.setLanguageId(NON_EXISTING_LANGUAGE_ID);
@@ -55,13 +55,13 @@ class FilmControllerTest {
   @Test
   void replaceFilm() {
     final long EXISTING_LANGUAGE_ID = 1;
-    when(languageService.getLanguageById(EXISTING_LANGUAGE_ID)).thenReturn(new Language());
+    when(languageService.languageExists(EXISTING_LANGUAGE_ID)).thenReturn(true);
 
     final long NON_EXISTING_LANGUAGE_ID = -1L;
-    when(languageService.getLanguageById(NON_EXISTING_LANGUAGE_ID)).thenReturn(null);
+    when(languageService.languageExists(NON_EXISTING_LANGUAGE_ID)).thenReturn(false);
 
     final long NON_EXISTING_CATEGORY_ID = -1L;
-    when(categoryService.getCategoryById(NON_EXISTING_CATEGORY_ID)).thenReturn(null);
+    when(categoryService.categoryExists(NON_EXISTING_CATEGORY_ID)).thenReturn(false);
 
     FilmDTO invalidLanguageFilmDTO = new FilmDTO();
     invalidLanguageFilmDTO.setLanguageId(NON_EXISTING_LANGUAGE_ID);
