@@ -24,6 +24,10 @@ public class LanguageService {
     return languageRepository.getLanguageById(id);
   }
 
+  public boolean languageExists(Long id) {
+    return getLanguageById(id) != null;
+  }
+
   public Language getLanguageByFilmId(Long filmId) {
     if (filmId == null) return null;
     return languageRepository.getLanguageByFilmId(filmId);
