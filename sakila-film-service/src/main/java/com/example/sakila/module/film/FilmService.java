@@ -62,14 +62,14 @@ public class FilmService {
     target.setTitle(source.getTitle());
     target.setDescription(source.getDescription());
     target.setReleaseYear(source.getReleaseYear());
-    target.setLanguage(source.getLanguage());
-    target.setOriginalLanguage(source.getOriginalLanguage());
+    target.setLanguageId(source.getLanguageId());
+    target.setOriginalLanguageId(source.getOriginalLanguageId());
     target.setRentalDuration(source.getRentalDuration());
     target.setRentalRate(source.getRentalRate());
     target.setLength(source.getLength());
     target.setReplacementCost(source.getReplacementCost());
     target.setRating(source.getRating());
-    target.setCategory(source.getCategory());
+    target.setCategoryId(source.getCategoryId());
     target.setSpecialFeatures(source.getSpecialFeatures());
 
     return filmRepository.updateFilm(target);
