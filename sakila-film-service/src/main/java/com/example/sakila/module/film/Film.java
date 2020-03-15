@@ -12,73 +12,36 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "film")
-@TypeDefs({@TypeDef(name = "string-array", typeClass = StringArrayType.class)})
 public class Film {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "film_id")
   private Long id;
 
-  @Column(name = "title")
   private String title;
 
-  @Column(name = "description")
   private String description;
 
-  @Column(name = "release_year")
   private Integer releaseYear;
 
-  @ManyToOne
-  @JoinColumn(name = "language_id")
   private Language language;
 
-  @ManyToOne
-  @JoinColumn(name = "original_language_id")
   private Language originalLanguage;
 
-  @Column(name = "rental_duration")
   private Integer rentalDuration;
 
-  @Column(name = "rental_rate")
   private Float rentalRate;
 
-  @Column(name = "length")
   private Integer length;
 
-  @Column(name = "replacement_cost")
   private Float replacementCost;
 
-  @Column(name = "rating")
   private String rating;
 
-  @Column(name = "last_update")
-  @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  @Type(type = "string-array")
-  @Column(name = "special_features")
   private String[] specialFeatures;
 
-  @ManyToMany
-  @Basic(fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "film_actor",
-      joinColumns = @JoinColumn(name = "film_id"),
-      inverseJoinColumns = @JoinColumn(name = "actor_id")
-  )
   private List<Actor> actors;
 
-  @OneToOne
-  @JoinTable(
-      name = "film_category",
-      joinColumns = @JoinColumn(name = "film_id"),
-      inverseJoinColumns = @JoinColumn(name = "category_id")
-  )
   private Category category;
 
   public Film() {}
