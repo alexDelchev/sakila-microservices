@@ -24,6 +24,10 @@ public class CategoryService {
     return categoryRepository.getCategoryById(id);
   }
 
+  public boolean categoryExists(Long id) {
+    return getCategoryById(id) != null;
+  }
+
   public Category getCategoryByFilmId(Long filmId) {
     if (filmId == null) return null;
     return categoryRepository.getCategoryByFilmId(filmId);
