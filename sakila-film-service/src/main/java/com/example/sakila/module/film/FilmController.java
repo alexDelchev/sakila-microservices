@@ -154,6 +154,6 @@ public class FilmController implements FilmsApi {
   }
 
   private void checkCategoryExistence(Long id) {
-    if (categoryService.categoryExists(id)) throw new NotFoundException("Category for ID " + id + " does not exist");
+    if (!categoryService.categoryExists(id)) throw new NotFoundException("Category for ID " + id + " does not exist");
   }
 }
