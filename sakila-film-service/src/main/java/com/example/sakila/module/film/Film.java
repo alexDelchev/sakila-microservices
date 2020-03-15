@@ -22,9 +22,9 @@ public class Film {
 
   private Integer releaseYear;
 
-  private Language language;
+  private Long languageId;
 
-  private Language originalLanguage;
+  private Long originalLanguageId;
 
   private Integer rentalDuration;
 
@@ -49,7 +49,7 @@ public class Film {
   }
 
   public Film(
-      Long id, String title, String description, Integer releaseYear, Language language, Language originalLanguage,
+      Long id, String title, String description, Integer releaseYear, Long languageId, Long originalLanguageId,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
       String[] specialFeatures, List<Actor> actors, Category category
   ) {
@@ -57,8 +57,8 @@ public class Film {
     this.title = title;
     this.description = description;
     this.releaseYear = releaseYear;
-    this.language = language;
-    this.originalLanguage = originalLanguage;
+    this.languageId = languageId;
+    this.originalLanguageId = originalLanguageId;
     this.rentalDuration = rentalDuration;
     this.rentalRate = rentalRate;
     this.length = length;
@@ -66,7 +66,6 @@ public class Film {
     this.rating = rating;
     this.lastUpdate = lastUpdate;
     this.specialFeatures = specialFeatures;
-    this.actors = actors;
     this.category = category;
   }
 
@@ -102,20 +101,20 @@ public class Film {
     this.releaseYear = releaseYear;
   }
 
-  public Language getLanguage() {
-    return language;
+  public Long getLanguageId() {
+    return languageId;
   }
 
-  public void setLanguage(Language language) {
-    this.language = language;
+  public void setLanguageId(Long languageId) {
+    this.languageId = languageId;
   }
 
-  public Language getOriginalLanguage() {
-    return originalLanguage;
+  public Long getOriginalLanguageId() {
+    return originalLanguageId;
   }
 
-  public void setOriginalLanguage(Language originalLanguage) {
-    this.originalLanguage = originalLanguage;
+  public void setOriginalLanguageId(Long originalLanguageId) {
+    this.originalLanguageId = originalLanguageId;
   }
 
   public Integer getRentalDuration() {
