@@ -117,24 +117,34 @@ public class FilmController implements FilmsApi {
   }
 
   private Film toEntity(FilmDTO filmDTO) {
+    validateDTO(filmDTO);
+
     Film film = new Film();
     film.setId(filmDTO.getId());
     film.setTitle(filmDTO.getTitle());
     film.setDescription(filmDTO.getDescription());
     film.setReleaseYear(filmDTO.getReleaseYear());
-    if (filmDTO.getLanguageId() != null) checkLanguageExistence(filmDTO.getLanguageId());
-    if (filmDTO.getOriginalLanguageId() != null) checkLanguageExistence(filmDTO.getOriginalLanguageId());
+    film.setLanguageId(filmDTO.getLanguageId());
+    film.setOriginalLanguageId(filmDTO.getOriginalLanguageId());
     film.setRentalDuration(filmDTO.getRentalDuration());
     film.setRentalRate(filmDTO.getRentalRate());
     film.setLength(filmDTO.getLength());
     film.setReplacementCost(filmDTO.getReplacementCost());
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
-    if (filmDTO.getCategoryId() != null) film.setCategory(getCategory(filmDTO.getCategoryId()));
+    film.setCategoryId(filmDTO.getCategoryId());
     if (filmDTO.getSpecialFeatures() != null) {
       film.setSpecialFeatures(filmDTO.getSpecialFeatures().toArray(new String[0]));
     }
     if (filmDTO.getLastUpdate() != null) film.setLastUpdate(Date.from(filmDTO.getLastUpdate().toInstant()));
     return film;
+  }
+
+  private void validateDTO(FilmDTO filmDTO) {
+    if (filmDTO.getLanguageId() != null) checkLanguageExistence(filmDTO.getLanguageId());
+
+    if (filmDTO.getOriginalLanguageId() != null) checkLanguageExistence(filmDTO.getOriginalLanguageId());
+
+    if (filmDTO.getCategoryId() != null) checkCategoryExistence(filmDTO.getCategoryId());
   }
 
   private void checkLanguageExistence(Long id) {
@@ -143,10 +153,7 @@ public class FilmController implements FilmsApi {
     );
   }
 
-  private Category getCategory(Long id) {
-    Category category = categoryService.getCategoryById(id);
-    if (category == null) throw new NotFoundException("Category for ID " + id + " does not exist");
-
-    return category;
+  private void checkCategoryExistence(Long id) {
+    if (categoryService.categoryExists(id)) throw new NotFoundException("Category for ID " + id + " does not exist");
   }
 }
