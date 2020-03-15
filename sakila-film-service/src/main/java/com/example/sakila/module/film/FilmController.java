@@ -103,14 +103,14 @@ public class FilmController implements FilmsApi {
     filmDTO.setTitle(film.getTitle());
     filmDTO.setDescription(film.getDescription());
     filmDTO.setReleaseYear(film.getReleaseYear());
-    if (film.getLanguage() != null) filmDTO.setLanguageId(film.getLanguage().getId());
-    if (film.getOriginalLanguage() != null) filmDTO.setOriginalLanguageId(film.getOriginalLanguage().getId());
+    filmDTO.setLanguageId(film.getLanguageId());
+    filmDTO.setOriginalLanguageId(film.getOriginalLanguageId());
     filmDTO.setRentalDuration(film.getRentalDuration());
     filmDTO.setRentalRate(film.getRentalRate());
     filmDTO.setLength(film.getLength());
     filmDTO.setReplacementCost(film.getReplacementCost());
     filmDTO.setRating(FilmRating.fromValue(film.getRating()));
-    if (film.getCategory() != null) filmDTO.setCategoryId(film.getCategory().getId());
+    filmDTO.setCategoryId(film.getCategoryId());
     if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(Arrays.asList(film.getSpecialFeatures()));
     filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return filmDTO;
