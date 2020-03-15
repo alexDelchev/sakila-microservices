@@ -26,6 +26,10 @@ public class FilmService {
     return filmRepository.getFilmById(id);
   }
 
+  public boolean filmExists(Long id) {
+    return getFilmById(id) != null;
+  }
+
   public List<Film> searchFilmsByTitle(String searchExpression) {
     if (searchExpression == null) return null;
     return filmRepository.searchFilmsByTitle(searchExpression);
