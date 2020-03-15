@@ -122,8 +122,8 @@ public class FilmController implements FilmsApi {
     film.setTitle(filmDTO.getTitle());
     film.setDescription(filmDTO.getDescription());
     film.setReleaseYear(filmDTO.getReleaseYear());
-    if (filmDTO.getLanguageId() != null) film.setLanguage(getLanguage(filmDTO.getLanguageId()));
-    if (filmDTO.getOriginalLanguageId() != null) film.setOriginalLanguage(getLanguage(filmDTO.getOriginalLanguageId()));
+    if (filmDTO.getLanguageId() != null) checkLanguageExistence(filmDTO.getLanguageId());
+    if (filmDTO.getOriginalLanguageId() != null) checkLanguageExistence(filmDTO.getOriginalLanguageId());
     film.setRentalDuration(filmDTO.getRentalDuration());
     film.setRentalRate(filmDTO.getRentalRate());
     film.setLength(filmDTO.getLength());
@@ -137,13 +137,10 @@ public class FilmController implements FilmsApi {
     return film;
   }
 
-  private Language getLanguage(Long id) {
-    Language language = languageService.getLanguageById(id);
-    if (language == null) throw new NotFoundException(
+  private void checkLanguageExistence(Long id) {
+    if (!languageService.languageExists(id)) throw new NotFoundException(
         "Language for ID " + id + " does not exist"
     );
-
-    return language;
   }
 
   private Category getCategory(Long id) {
