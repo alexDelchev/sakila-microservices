@@ -81,13 +81,13 @@ public class Film {
   )
   private Category category;
 
-  Film() {}
+  public Film() {}
 
-  Film(Long id) {
+  public Film(Long id) {
     this.id = id;
   }
 
-  Film(
+  public Film(
       Long id, String title, String description, Integer releaseYear, Language language, Language originalLanguage,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
       String[] specialFeatures, List<Actor> actors, Category category
