@@ -98,22 +98,7 @@ public class FilmController implements FilmsApi {
   }
 
   private FilmDTO toDTO(Film film) {
-    FilmDTO filmDTO = new FilmDTO();
-    filmDTO.setId(film.getId());
-    filmDTO.setTitle(film.getTitle());
-    filmDTO.setDescription(film.getDescription());
-    filmDTO.setReleaseYear(film.getReleaseYear());
-    filmDTO.setLanguageId(film.getLanguageId());
-    filmDTO.setOriginalLanguageId(film.getOriginalLanguageId());
-    filmDTO.setRentalDuration(film.getRentalDuration());
-    filmDTO.setRentalRate(film.getRentalRate());
-    filmDTO.setLength(film.getLength());
-    filmDTO.setReplacementCost(film.getReplacementCost());
-    filmDTO.setRating(FilmRating.fromValue(film.getRating()));
-    filmDTO.setCategoryId(film.getCategoryId());
-    if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(Arrays.asList(film.getSpecialFeatures()));
-    filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
-    return filmDTO;
+    return FilmUtils.toDTO(film);
   }
 
   private Film toEntity(FilmDTO filmDTO) {

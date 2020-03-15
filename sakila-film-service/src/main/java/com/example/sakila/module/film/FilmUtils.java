@@ -1,8 +1,12 @@
 package com.example.sakila.module.film;
 
 import com.example.sakila.generated.server.model.FilmDTO;
+import com.example.sakila.generated.server.model.FilmRating;
 
 import java.sql.Date;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.Arrays;
 
 public class FilmUtils {
 
@@ -26,5 +30,26 @@ public class FilmUtils {
     }
     if (filmDTO.getLastUpdate() != null) film.setLastUpdate(Date.from(filmDTO.getLastUpdate().toInstant()));
     return film;
+  }
+
+  public static FilmDTO toDTO(Film film) {
+    FilmDTO filmDTO = new FilmDTO();
+
+    filmDTO.setId(film.getId());
+    filmDTO.setTitle(film.getTitle());
+    filmDTO.setDescription(film.getDescription());
+    filmDTO.setReleaseYear(film.getReleaseYear());
+    filmDTO.setLanguageId(film.getLanguageId());
+    filmDTO.setOriginalLanguageId(film.getOriginalLanguageId());
+    filmDTO.setRentalDuration(film.getRentalDuration());
+    filmDTO.setRentalRate(film.getRentalRate());
+    filmDTO.setLength(film.getLength());
+    filmDTO.setReplacementCost(film.getReplacementCost());
+    filmDTO.setRating(FilmRating.fromValue(film.getRating()));
+    filmDTO.setCategoryId(film.getCategoryId());
+    if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(Arrays.asList(film.getSpecialFeatures()));
+    filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+
+    return filmDTO;
   }
 }
