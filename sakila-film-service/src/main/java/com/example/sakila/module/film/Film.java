@@ -38,9 +38,9 @@ public class Film {
 
   private Date lastUpdate;
 
-  private String[] specialFeatures;
+  private List<String> specialFeatures;
 
-  private Long categoryId;
+  private List<Long> categoryIds;
 
   public Film() {}
 
@@ -51,7 +51,7 @@ public class Film {
   public Film(
       Long id, String title, String description, Integer releaseYear, Long languageId, Long originalLanguageId,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
-      String[] specialFeatures, Long categoryId
+      List<String> specialFeatures, List<Long> categoryIds
   ) {
     this.id = id;
     this.title = title;
@@ -66,7 +66,7 @@ public class Film {
     this.rating = rating;
     this.lastUpdate = lastUpdate;
     this.specialFeatures = specialFeatures;
-    this.categoryId = categoryId;
+    this.categoryIds = categoryIds;
   }
 
   public Long getId() {
@@ -165,19 +165,19 @@ public class Film {
     this.lastUpdate = lastUpdate;
   }
 
-  public String[] getSpecialFeatures() {
+  public List<String> getSpecialFeatures() {
     return specialFeatures;
   }
 
-  public void setSpecialFeatures(String[] specialFeatures) {
+  public void setSpecialFeatures(List<String> specialFeatures) {
     this.specialFeatures = specialFeatures;
   }
 
-  public Long getCategoryId() {
-    return categoryId;
+  public List<Long> getCategoryId() {
+    return categoryIds;
   }
 
-  public void setCategoryId(Long categoryId) {
-    this.categoryId = categoryId;
+  public void setCategoryId(List<Long> categoryIds) {
+    this.categoryIds = categoryIds;
   }
 }
