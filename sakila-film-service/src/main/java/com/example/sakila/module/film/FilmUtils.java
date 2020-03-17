@@ -6,7 +6,6 @@ import com.example.sakila.generated.server.model.FilmRating;
 import java.sql.Date;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
 
 public class FilmUtils {
 
@@ -24,9 +23,9 @@ public class FilmUtils {
     film.setLength(filmDTO.getLength());
     film.setReplacementCost(filmDTO.getReplacementCost());
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
-    film.setCategoryId(filmDTO.getCategoryId());
+    film.setCategoryIds(filmDTO.getCategoryIds());
     if (filmDTO.getSpecialFeatures() != null) {
-      film.setSpecialFeatures(filmDTO.getSpecialFeatures().toArray(new String[0]));
+      film.setSpecialFeatures(filmDTO.getSpecialFeatures());
     }
     if (filmDTO.getLastUpdate() != null) film.setLastUpdate(Date.from(filmDTO.getLastUpdate().toInstant()));
     return film;
@@ -46,8 +45,8 @@ public class FilmUtils {
     filmDTO.setLength(film.getLength());
     filmDTO.setReplacementCost(film.getReplacementCost());
     filmDTO.setRating(FilmRating.fromValue(film.getRating()));
-    filmDTO.setCategoryId(film.getCategoryId());
-    if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(Arrays.asList(film.getSpecialFeatures()));
+    filmDTO.setCategoryIds(film.getCategoryIds());
+    if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(film.getSpecialFeatures());
     filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
 
     return filmDTO;
