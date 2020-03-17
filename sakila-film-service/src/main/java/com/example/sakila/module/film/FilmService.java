@@ -73,7 +73,7 @@ public class FilmService {
     target.setLength(source.getLength());
     target.setReplacementCost(source.getReplacementCost());
     target.setRating(source.getRating());
-    target.setCategoryId(source.getCategoryId());
+    target.setCategoryIds(source.getCategoryIds());
     target.setSpecialFeatures(source.getSpecialFeatures());
 
     return filmRepository.updateFilm(target);
