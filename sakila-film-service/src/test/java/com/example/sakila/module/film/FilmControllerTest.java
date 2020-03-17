@@ -12,14 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FilmControllerTest {
-
-  @Mock
-  private FilmService filmService;
 
   @Mock
   private LanguageService languageService;
@@ -39,6 +40,7 @@ class FilmControllerTest {
     when(languageService.languageExists(NON_EXISTING_LANGUAGE_ID)).thenReturn(false);
 
     final long NON_EXISTING_CATEGORY_ID = -1L;
+    final List<Long> NON_EXISTING_CATEGORY_IDS = Collections.singletonList(NON_EXISTING_CATEGORY_ID);
     when(categoryService.categoryExists(NON_EXISTING_CATEGORY_ID)).thenReturn(false);
 
     FilmDTO invalidLanguageFilmDTO = new FilmDTO();
@@ -46,7 +48,7 @@ class FilmControllerTest {
 
     FilmDTO invalidCategoryFilmDTO = new FilmDTO();
     invalidCategoryFilmDTO.setLanguageId(EXISTING_LANGUAGE_ID);
-    invalidCategoryFilmDTO.setCategoryId(NON_EXISTING_CATEGORY_ID);
+    invalidCategoryFilmDTO.setCategoryIds(NON_EXISTING_CATEGORY_IDS);
 
     assertThrows(NotFoundException.class, () -> filmController.createFilm(invalidLanguageFilmDTO));
     assertThrows(NotFoundException.class, () -> filmController.createFilm(invalidCategoryFilmDTO));
@@ -61,6 +63,7 @@ class FilmControllerTest {
     when(languageService.languageExists(NON_EXISTING_LANGUAGE_ID)).thenReturn(false);
 
     final long NON_EXISTING_CATEGORY_ID = -1L;
+    final List<Long> NON_EXISTING_CATEGORY_IDS = Collections.singletonList(NON_EXISTING_CATEGORY_ID);
     when(categoryService.categoryExists(NON_EXISTING_CATEGORY_ID)).thenReturn(false);
 
     FilmDTO invalidLanguageFilmDTO = new FilmDTO();
@@ -68,7 +71,7 @@ class FilmControllerTest {
 
     FilmDTO invalidCategoryFilmDTO = new FilmDTO();
     invalidCategoryFilmDTO.setLanguageId(EXISTING_LANGUAGE_ID);
-    invalidCategoryFilmDTO.setCategoryId(NON_EXISTING_CATEGORY_ID);
+    invalidCategoryFilmDTO.setCategoryIds(NON_EXISTING_CATEGORY_IDS);
 
     assertThrows(NotFoundException.class, () -> filmController.replaceFilm(1L, invalidLanguageFilmDTO));
     assertThrows(NotFoundException.class, () -> filmController.replaceFilm(1L, invalidCategoryFilmDTO));
