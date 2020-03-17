@@ -173,11 +173,11 @@ public class Film {
     this.specialFeatures = specialFeatures;
   }
 
-  public List<Long> getCategoryId() {
+  public List<Long> getCategoryIds() {
     return categoryIds;
   }
 
-  public void setCategoryId(List<Long> categoryIds) {
+  public void setCategoryIds(List<Long> categoryIds) {
     this.categoryIds = categoryIds;
   }
 }
