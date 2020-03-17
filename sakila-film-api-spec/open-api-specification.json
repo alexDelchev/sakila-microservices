@@ -664,9 +664,12 @@
         "rating": {
           "$ref": "#/definitions/FilmRating"
         },
-        "categoryId": {
-          "type": "integer",
-          "format": "int64"
+        "categoryIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "specialFeatures": {
           "type": "array",
