@@ -112,7 +112,11 @@ public class FilmController implements FilmsApi {
 
     if (filmDTO.getOriginalLanguageId() != null) checkLanguageExistence(filmDTO.getOriginalLanguageId());
 
-    if (filmDTO.getCategoryId() != null) checkCategoryExistence(filmDTO.getCategoryId());
+    if (filmDTO.getCategoryIds() != null) {
+      for (Long cateogoryId: filmDTO.getCategoryIds()) {
+        checkCategoryExistence(cateogoryId);
+      }
+    }
   }
 
   private void checkLanguageExistence(Long id) {
