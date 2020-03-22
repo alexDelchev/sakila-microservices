@@ -1,0 +1,22 @@
+{
+  "collections": {
+    "create": [
+      "actor"
+    ],
+    "update": {
+      "actor": {
+        "indices": {
+          "create": [
+            {
+              "type": "text",
+              "fields": [
+                "first_name",
+                "last_name"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
