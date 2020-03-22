@@ -1,0 +1,28 @@
+{
+  "collections": {
+    "create": [
+      "film"
+    ],
+    "update": {
+      "film": {
+        "indices": {
+          "create": [
+            {
+              "type": "text",
+              "fields": [
+                "title",
+                "description"
+              ]
+            },
+            {
+              "type": "1",
+              "fields": [
+                "categoryIds"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
