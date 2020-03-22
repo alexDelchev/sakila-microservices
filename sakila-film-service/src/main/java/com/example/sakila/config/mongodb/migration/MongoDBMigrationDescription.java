@@ -1,0 +1,59 @@
+package com.example.sakila.config.mongodb.migration;
+
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class MongoDBMigrationDescription {
+
+  private static final String ENCODING = "UTF-8";
+
+  private static final String HASH_ALGORITHM = "MD5";
+
+  private String name;
+
+  private String hash;
+
+  public MongoDBMigrationDescription() {}
+
+  public MongoDBMigrationDescription(String name, String content) {
+    this.name = name;
+    this.hash = generateHash(content);
+  }
+
+  private String generateHash(String content) {
+    Charset charset = Charset.forName(ENCODING);
+    byte[] bytes = content.getBytes(charset);
+
+    MessageDigest digest = getDigest();
+    digest.update(bytes);
+    byte[] hashedBytes = digest.digest();
+
+    return DatatypeConverter.printHexBinary(hashedBytes);
+  }
+
+  private MessageDigest getDigest() {
+    try {
+      return MessageDigest.getInstance(HASH_ALGORITHM);
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException("Failed to load hash algorithm");
+    }
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getHash() {
+    return hash;
+  }
+
+  public void setHash(String hash) {
+    this.hash = hash;
+  }
+}
