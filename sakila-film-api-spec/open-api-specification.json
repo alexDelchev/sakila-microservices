@@ -660,11 +660,10 @@
         "rating": {
           "$ref": "#/definitions/FilmRating"
         },
-        "categoryIds": {
+        "categories": {
           "type": "array",
           "items": {
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/definitions/ApiFilmCategory"
           }
         },
         "specialFeatures": {
@@ -687,6 +686,28 @@
         "PG-13",
         "R",
         "NC-17"
+      ]
+    },
+
+    "ApiFilmCategory": {
+      "type": "string",
+      "enum": [
+        "Action",
+        "Animation",
+        "Children",
+        "Classics",
+        "Comedy",
+        "Documentary",
+        "Drama",
+        "Family",
+        "Foreign",
+        "Games",
+        "Horror",
+        "Music",
+        "New",
+        "SciFi",
+        "Sports",
+        "Travel"
       ]
     }
   }
