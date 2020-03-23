@@ -42,11 +42,13 @@ public class FilmUtils {
       film.setOriginalLanguages(originalLanguages);
     }
 
-    List<Category> categories = filmDTO.getCategories()
-        .stream()
-        .map(c -> Category.valueOf(c.toString()))
-        .collect(Collectors.toList());
-    film.setCategories(categories);
+    if (filmDTO.getCategories() != null) {
+      List<Category> categories = filmDTO.getCategories()
+          .stream()
+          .map(c -> Category.valueOf(c.toString()))
+          .collect(Collectors.toList());
+      film.setCategories(categories);
+    }
 
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
     if (filmDTO.getSpecialFeatures() != null) {
@@ -85,11 +87,13 @@ public class FilmUtils {
       filmDTO.setOriginalLanguages(originalLanguages);
     }
 
-    List<ApiFilmCategory> categories = film.getCategories()
-        .stream()
-        .map(c -> ApiFilmCategory.valueOf(c.toString()))
-        .collect(Collectors.toList());
-    filmDTO.setCategories(categories);
+    if (film.getCategories() != null) {
+      List<ApiFilmCategory> categories = film.getCategories()
+          .stream()
+          .map(c -> ApiFilmCategory.valueOf(c.toString()))
+          .collect(Collectors.toList());
+      filmDTO.setCategories(categories);
+    }
 
     if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(film.getSpecialFeatures());
     filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
