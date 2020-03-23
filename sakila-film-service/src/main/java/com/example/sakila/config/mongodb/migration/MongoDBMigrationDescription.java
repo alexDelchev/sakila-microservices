@@ -1,6 +1,7 @@
 package com.example.sakila.config.mongodb.migration;
 
-import javax.xml.bind.DatatypeConverter;
+import org.bouncycastle.util.encoders.Hex;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +31,7 @@ public class MongoDBMigrationDescription {
     digest.update(bytes);
     byte[] hashedBytes = digest.digest();
 
-    return DatatypeConverter.printHexBinary(hashedBytes);
+    return Hex.toHexString(hashedBytes);
   }
 
   private MessageDigest getDigest() {
