@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.generated.server.model.ApiFilmCategory;
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
 import org.bson.types.ObjectId;
@@ -7,6 +8,8 @@ import org.bson.types.ObjectId;
 import java.sql.Date;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilmUtils {
 
@@ -23,8 +26,14 @@ public class FilmUtils {
     film.setRentalRate(filmDTO.getRentalRate());
     film.setLength(filmDTO.getLength());
     film.setReplacementCost(filmDTO.getReplacementCost());
+
+    List<Category> categories = filmDTO.getCategories()
+        .stream()
+        .map(c -> Category.valueOf(c.toString()))
+        .collect(Collectors.toList());
+    film.setCategories(categories);
+
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
-    film.setCategoryIds(filmDTO.getCategoryIds());
     if (filmDTO.getSpecialFeatures() != null) {
       film.setSpecialFeatures(filmDTO.getSpecialFeatures());
     }
@@ -46,7 +55,13 @@ public class FilmUtils {
     filmDTO.setLength(film.getLength());
     filmDTO.setReplacementCost(film.getReplacementCost());
     filmDTO.setRating(FilmRating.fromValue(film.getRating()));
-    filmDTO.setCategoryIds(film.getCategoryIds());
+
+    List<ApiFilmCategory> categories = film.getCategories()
+        .stream()
+        .map(c -> ApiFilmCategory.valueOf(c.toString()))
+        .collect(Collectors.toList());
+    filmDTO.setCategories(categories);
+
     if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(film.getSpecialFeatures());
     filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
 
