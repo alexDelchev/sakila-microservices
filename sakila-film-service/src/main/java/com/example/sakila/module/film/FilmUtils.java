@@ -1,6 +1,7 @@
 package com.example.sakila.module.film;
 
 import com.example.sakila.generated.server.model.ApiFilmCategory;
+import com.example.sakila.generated.server.model.ApiFilmLanguage;
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
 import org.bson.types.ObjectId;
@@ -20,12 +21,26 @@ public class FilmUtils {
     film.setTitle(filmDTO.getTitle());
     film.setDescription(filmDTO.getDescription());
     film.setReleaseYear(filmDTO.getReleaseYear());
-    film.setLanguageId(filmDTO.getLanguageId());
-    film.setOriginalLanguageId(filmDTO.getOriginalLanguageId());
     film.setRentalDuration(filmDTO.getRentalDuration());
     film.setRentalRate(filmDTO.getRentalRate());
     film.setLength(filmDTO.getLength());
     film.setReplacementCost(filmDTO.getReplacementCost());
+
+    if (filmDTO.getLanguages() != null) {
+      List<Language> languages = filmDTO.getLanguages()
+          .stream()
+          .map(l -> Language.valueOf(l.toString()))
+          .collect(Collectors.toList());
+      film.setLanguages(languages);
+    }
+
+    if (filmDTO.getOriginalLanguages() != null) {
+      List<Language> originalLanguages = filmDTO.getOriginalLanguages()
+          .stream()
+          .map(l -> Language.valueOf(l.toString()))
+          .collect(Collectors.toList());
+      film.setOriginalLanguages(originalLanguages);
+    }
 
     List<Category> categories = filmDTO.getCategories()
         .stream()
@@ -48,13 +63,27 @@ public class FilmUtils {
     filmDTO.setTitle(film.getTitle());
     filmDTO.setDescription(film.getDescription());
     filmDTO.setReleaseYear(film.getReleaseYear());
-    filmDTO.setLanguageId(film.getLanguageId());
-    filmDTO.setOriginalLanguageId(film.getOriginalLanguageId());
     filmDTO.setRentalDuration(film.getRentalDuration());
     filmDTO.setRentalRate(film.getRentalRate());
     filmDTO.setLength(film.getLength());
     filmDTO.setReplacementCost(film.getReplacementCost());
     filmDTO.setRating(FilmRating.fromValue(film.getRating()));
+
+    if (film.getLanguages() != null) {
+      List<ApiFilmLanguage> languages = film.getLanguages()
+          .stream()
+          .map(l -> ApiFilmLanguage.valueOf(l.toString()))
+          .collect(Collectors.toList());
+      filmDTO.setLanguages(languages);
+    }
+
+    if (film.getOriginalLanguages() != null ) {
+      List<ApiFilmLanguage> originalLanguages = film.getOriginalLanguages()
+          .stream()
+          .map(l -> ApiFilmLanguage.valueOf(l.toString()))
+          .collect(Collectors.toList());
+      filmDTO.setOriginalLanguages(originalLanguages);
+    }
 
     List<ApiFilmCategory> categories = film.getCategories()
         .stream()
