@@ -15,9 +15,9 @@ public class Film {
 
   private Integer releaseYear;
 
-  private Long languageId;
+  private List<Language> languages;
 
-  private Long originalLanguageId;
+  private List<Language> originalLanguages;
 
   private Integer rentalDuration;
 
@@ -42,7 +42,7 @@ public class Film {
   }
 
   public Film(
-      ObjectId id, String title, String description, Integer releaseYear, Long languageId, Long originalLanguageId,
+      ObjectId id, String title, String description, Integer releaseYear, List<Language> languages, List<Language> originalLanguages,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
       List<String> specialFeatures, List<Category> categories
   ) {
@@ -50,8 +50,8 @@ public class Film {
     this.title = title;
     this.description = description;
     this.releaseYear = releaseYear;
-    this.languageId = languageId;
-    this.originalLanguageId = originalLanguageId;
+    this.languages = languages;
+    this.originalLanguages = originalLanguages;
     this.rentalDuration = rentalDuration;
     this.rentalRate = rentalRate;
     this.length = length;
@@ -94,20 +94,20 @@ public class Film {
     this.releaseYear = releaseYear;
   }
 
-  public Long getLanguageId() {
-    return languageId;
+  public List<Language> getLanguages() {
+    return languages;
   }
 
-  public void setLanguageId(Long languageId) {
-    this.languageId = languageId;
+  public void setLanguages(List<Language> languages) {
+    this.languages = languages;
   }
 
-  public Long getOriginalLanguageId() {
-    return originalLanguageId;
+  public List<Language> getOriginalLanguages() {
+    return originalLanguages;
   }
 
-  public void setOriginalLanguageId(Long originalLanguageId) {
-    this.originalLanguageId = originalLanguageId;
+  public void setOriginalLanguages(List<Language> originalLanguages) {
+    this.originalLanguages = originalLanguages;
   }
 
   public Integer getRentalDuration() {
