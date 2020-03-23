@@ -110,9 +110,19 @@ public class FilmController implements FilmsApi {
   }
 
   private void validateDTO(FilmDTO filmDTO) {
-    if (filmDTO.getLanguageId() != null) checkLanguageExistence(filmDTO.getLanguageId());
+    if (filmDTO.getLanguages() != null) {
+      filmDTO.getLanguages()
+          .stream()
+          .map(ApiFilmLanguage::toString)
+          .forEach(this::checkLanguageExistence);
+    }
 
-    if (filmDTO.getOriginalLanguageId() != null) checkLanguageExistence(filmDTO.getOriginalLanguageId());
+    if (filmDTO.getOriginalLanguages() != null) {
+      filmDTO.getLanguages()
+          .stream()
+          .map(ApiFilmLanguage::toString)
+          .forEach(this::checkLanguageExistence);
+    }
 
     if (filmDTO.getCategories() != null) {
       List<String> categories = filmDTO.getCategories()
@@ -126,10 +136,17 @@ public class FilmController implements FilmsApi {
     }
   }
 
-  private void checkLanguageExistence(Long id) {
-    if (!languageService.languageExists(id)) throw new NotFoundException(
-        "Language for ID " + id + " does not exist"
-    );
+  private void checkLanguageExistence(String languageName) {
+    boolean exists = false;
+
+    for (Language language: Language.values()) {
+      if (language.toString().equals(languageName)) {
+        exists = true;
+        break;
+      }
+    }
+
+    if (!exists) throw new NotFoundException(String.format("Language for name %s does not exist", languageName));
   }
 
   private void checkCategoryExistence(String categoryName) {
