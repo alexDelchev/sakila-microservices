@@ -2,9 +2,9 @@ package com.example.sakila.module.film;
 
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.FilmsApi;
+import com.example.sakila.generated.server.model.ApiFilmCategory;
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
-import com.example.sakila.module.category.Category;
 import com.example.sakila.module.category.CategoryService;
 import com.example.sakila.module.language.Language;
 import com.example.sakila.module.language.LanguageService;
@@ -49,9 +49,10 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<List<FilmDTO>> getFilmsByCategoryId(@PathVariable("id") Long id) {
+  public ResponseEntity<List<FilmDTO>> getFilmsByCategory(@PathVariable("category") String categoryName) {
+    Category category = Category.valueOf(categoryName);
     return ResponseEntity.ok(
-        filmService.getFilmsByCategoryId(id).stream().map(this::toDTO).collect(Collectors.toList())
+        filmService.getFilmsByCategory(category).stream().map(this::toDTO).collect(Collectors.toList())
     );
   }
 
