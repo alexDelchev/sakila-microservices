@@ -125,14 +125,10 @@ public class FilmController implements FilmsApi {
     }
 
     if (filmDTO.getCategories() != null) {
-      List<String> categories = filmDTO.getCategories()
+      filmDTO.getCategories()
           .stream()
           .map(ApiFilmCategory::toString)
-          .collect(Collectors.toList());
-
-      for (String category: categories) {
-        checkCategoryExistence(category);
-      }
+          .forEach(this::checkCategoryExistence);
     }
   }
 
