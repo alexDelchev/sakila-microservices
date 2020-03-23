@@ -455,18 +455,17 @@
         }
       }
     },
-    "/films/category/{id}": {
+    "/films/category/{category}": {
       "get": {
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "category",
             "description": "Category ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
-        "operationId": "getFilmsByCategoryId",
+        "operationId": "getFilmsByCategory",
         "responses": {
           "200": {
             "description": "Film model list",
