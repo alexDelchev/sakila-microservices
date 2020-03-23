@@ -37,7 +37,7 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<FilmDTO> getFilmById(@PathVariable("id") Long id) {
+  public ResponseEntity<FilmDTO> getFilmById(@PathVariable("id") String id) {
     return ResponseEntity.ok(toDTO(filmService.getFilmById(id)));
   }
 
@@ -87,12 +87,12 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<FilmDTO> replaceFilm(@PathVariable("id") Long id, @RequestBody FilmDTO filmDTO) {
+  public ResponseEntity<FilmDTO> replaceFilm(@PathVariable("id") String id, @RequestBody FilmDTO filmDTO) {
     return ResponseEntity.ok(toDTO(filmService.updateFilm(id, toEntity(filmDTO))));
   }
 
   @Override
-  public ResponseEntity<Void> deleteFilm(@PathVariable("id") Long id) {
+  public ResponseEntity<Void> deleteFilm(@PathVariable("id") String id) {
     filmService.deleteFilm(id);
     return ResponseEntity.ok(null);
   }
