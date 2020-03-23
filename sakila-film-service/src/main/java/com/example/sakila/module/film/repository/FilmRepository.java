@@ -1,5 +1,6 @@
 package com.example.sakila.module.film.repository;
 
+import com.example.sakila.module.film.Category;
 import com.example.sakila.module.film.Film;
 import org.bson.types.ObjectId;
 
@@ -13,7 +14,7 @@ public interface FilmRepository {
 
   List<Film> searchFilmsByDescription(String searchExpression);
 
-  List<Film> getFilmsByCategory(Long categoryId);
+  List<Film> getFilmsByCategory(Category category);
 
   List<Film> getFilmsByLanguage(Long languageId);
 
