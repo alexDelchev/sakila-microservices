@@ -49,9 +49,9 @@ public class FilmService {
     return filmRepository.searchFilmsByDescription(searchExpression);
   }
 
-  public List<Film> getFilmsByCategoryId(Long categoryId) {
-    if (categoryId == null) return null;
-    return filmRepository.getFilmsByCategory(categoryId);
+  public List<Film> getFilmsByCategory(Category category) {
+    if (category == null) return null;
+    return filmRepository.getFilmsByCategory(category);
   }
 
   public List<Film> getFilmsByLanguageId(Long languageId) {
