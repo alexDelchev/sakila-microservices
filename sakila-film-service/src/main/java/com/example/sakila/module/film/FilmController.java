@@ -3,10 +3,10 @@ package com.example.sakila.module.film;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.FilmsApi;
 import com.example.sakila.generated.server.model.ApiFilmCategory;
+import com.example.sakila.generated.server.model.ApiFilmLanguage;
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
 import com.example.sakila.module.category.CategoryService;
-import com.example.sakila.module.language.Language;
 import com.example.sakila.module.language.LanguageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -42,9 +42,10 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<List<FilmDTO>> getFilmsByLanguageId(@PathVariable("id") Long id) {
+  public ResponseEntity<List<FilmDTO>> getFilmsByLanguage(@PathVariable("language") String languageName) {
+    Language language = Language.valueOf(languageName);
     return ResponseEntity.ok(
-        filmService.getFilmsByLanguageId(id).stream().map(this::toDTO).collect(Collectors.toList())
+        filmService.getFilmsByLanguage(language).stream().map(this::toDTO).collect(Collectors.toList())
     );
   }
 
