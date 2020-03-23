@@ -54,9 +54,9 @@ public class FilmService {
     return filmRepository.getFilmsByCategory(category);
   }
 
-  public List<Film> getFilmsByLanguageId(Long languageId) {
-    if (languageId == null) return null;
-    return filmRepository.getFilmsByLanguage(languageId);
+  public List<Film> getFilmsByLanguage(Language language) {
+    if (language == null) return null;
+    return filmRepository.getFilmsByLanguage(language);
   }
 
   public List<Film> getFilmsByRating(String rating) {
