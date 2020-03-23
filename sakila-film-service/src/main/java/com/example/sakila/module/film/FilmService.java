@@ -3,6 +3,7 @@ package com.example.sakila.module.film;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,12 +22,22 @@ public class FilmService {
     this.filmRepository = filmRepository;
   }
 
-  public Film getFilmById(Long id) {
+  public Film getFilmById(String hexString) {
+    ObjectId id = new ObjectId(hexString);
+    return getFilmById(id);
+  }
+
+  public Film getFilmById(ObjectId id) {
     if (id == null) return null;
     return filmRepository.getFilmById(id);
   }
 
-  public boolean filmExists(Long id) {
+  public boolean filmExists(String hexString) {
+    ObjectId id = new ObjectId(hexString);
+    return filmExists(id);
+  }
+  
+  public boolean filmExists(ObjectId id) {
     return getFilmById(id) != null;
   }
 
@@ -59,7 +70,12 @@ public class FilmService {
     return filmRepository.insertFilm(film);
   }
 
-  public Film updateFilm(Long id, Film source) {
+  public Film updateFilm(String hexString, Film source) {
+    ObjectId id = new ObjectId(hexString);
+    return updateFilm(id, source);
+  }
+
+  public Film updateFilm(ObjectId id, Film source) {
     Film target = filmRepository.getFilmById(id);
     if (target == null) throw new NotFoundException("Film for ID " + id + " does not exist");
 
@@ -79,7 +95,12 @@ public class FilmService {
     return filmRepository.updateFilm(target);
   }
 
-  public void deleteFilm(Long id) {
+  public void deleteFilm(String hexString) {
+    ObjectId id = new ObjectId(hexString);
+    deleteFilm(id);
+  }
+
+  public void deleteFilm(ObjectId id) {
     Film film = filmRepository.getFilmById(id);
     if (film == null) throw new NotFoundException("Film for ID " + id + " does not exist");
 
