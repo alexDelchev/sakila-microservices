@@ -1,12 +1,13 @@
 package com.example.sakila.module.film.repository;
 
 import com.example.sakila.module.film.Film;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface FilmRepository {
 
-  Film getFilmById(Long id);
+  Film getFilmById(ObjectId id);
 
   List<Film> searchFilmsByTitle(String searchExpression);
 

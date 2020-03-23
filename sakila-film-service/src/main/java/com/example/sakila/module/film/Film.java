@@ -1,20 +1,13 @@
 package com.example.sakila.module.film;
 
-import com.example.sakila.module.actor.Actor;
-import com.example.sakila.module.category.Category;
-import com.example.sakila.module.language.Language;
-import com.vladmihalcea.hibernate.type.array.StringArrayType;
-import org.hibernate.annotations.*;
+import org.bson.types.ObjectId;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 public class Film {
 
-  private Long id;
+  private ObjectId id;
 
   private String title;
 
@@ -44,12 +37,12 @@ public class Film {
 
   public Film() {}
 
-  public Film(Long id) {
+  public Film(ObjectId id) {
     this.id = id;
   }
 
   public Film(
-      Long id, String title, String description, Integer releaseYear, Long languageId, Long originalLanguageId,
+      ObjectId id, String title, String description, Integer releaseYear, Long languageId, Long originalLanguageId,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
       List<String> specialFeatures, List<Long> categoryIds
   ) {
@@ -69,11 +62,11 @@ public class Film {
     this.categoryIds = categoryIds;
   }
 
-  public Long getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(ObjectId id) {
     this.id = id;
   }
 

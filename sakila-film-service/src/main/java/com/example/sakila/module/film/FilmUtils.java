@@ -2,6 +2,7 @@ package com.example.sakila.module.film;
 
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
+import org.bson.types.ObjectId;
 
 import java.sql.Date;
 import java.time.OffsetDateTime;
@@ -12,7 +13,7 @@ public class FilmUtils {
   public static Film toEntity(FilmDTO filmDTO) {
     Film film = new Film();
 
-    film.setId(filmDTO.getId());
+    film.setId(new ObjectId(filmDTO.getId()));
     film.setTitle(filmDTO.getTitle());
     film.setDescription(filmDTO.getDescription());
     film.setReleaseYear(filmDTO.getReleaseYear());
@@ -34,7 +35,7 @@ public class FilmUtils {
   public static FilmDTO toDTO(Film film) {
     FilmDTO filmDTO = new FilmDTO();
 
-    filmDTO.setId(film.getId());
+    filmDTO.setId(film.getId().toHexString());
     filmDTO.setTitle(film.getTitle());
     filmDTO.setDescription(film.getDescription());
     filmDTO.setReleaseYear(film.getReleaseYear());
