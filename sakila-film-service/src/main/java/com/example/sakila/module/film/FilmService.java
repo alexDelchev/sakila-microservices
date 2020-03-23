@@ -5,11 +5,9 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -36,7 +34,7 @@ public class FilmService {
     ObjectId id = new ObjectId(hexString);
     return filmExists(id);
   }
-  
+
   public boolean filmExists(ObjectId id) {
     return getFilmById(id) != null;
   }
