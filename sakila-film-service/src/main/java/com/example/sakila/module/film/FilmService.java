@@ -80,8 +80,8 @@ public class FilmService {
     target.setTitle(source.getTitle());
     target.setDescription(source.getDescription());
     target.setReleaseYear(source.getReleaseYear());
-    target.setLanguageId(source.getLanguageId());
-    target.setOriginalLanguageId(source.getOriginalLanguageId());
+    target.setLanguages(source.getLanguages());
+    target.setOriginalLanguages(source.getOriginalLanguages());
     target.setRentalDuration(source.getRentalDuration());
     target.setRentalRate(source.getRentalRate());
     target.setLength(source.getLength());
