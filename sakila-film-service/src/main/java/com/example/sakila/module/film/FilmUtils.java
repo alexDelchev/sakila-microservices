@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FilmUtils {
@@ -29,6 +30,7 @@ public class FilmUtils {
     if (filmDTO.getLanguages() != null) {
       List<Language> languages = filmDTO.getLanguages()
           .stream()
+          .filter(Objects::nonNull)
           .map(l -> Language.valueOf(l.toString()))
           .collect(Collectors.toList());
       film.setLanguages(languages);
@@ -37,6 +39,7 @@ public class FilmUtils {
     if (filmDTO.getOriginalLanguages() != null) {
       List<Language> originalLanguages = filmDTO.getOriginalLanguages()
           .stream()
+          .filter(Objects::nonNull)
           .map(l -> Language.valueOf(l.toString()))
           .collect(Collectors.toList());
       film.setOriginalLanguages(originalLanguages);
@@ -45,6 +48,7 @@ public class FilmUtils {
     if (filmDTO.getCategories() != null) {
       List<Category> categories = filmDTO.getCategories()
           .stream()
+          .filter(Objects::nonNull)
           .map(c -> Category.valueOf(c.toString()))
           .collect(Collectors.toList());
       film.setCategories(categories);
@@ -74,7 +78,8 @@ public class FilmUtils {
     if (film.getLanguages() != null) {
       List<ApiFilmLanguage> languages = film.getLanguages()
           .stream()
-          .map(l -> ApiFilmLanguage.valueOf(l.toString()))
+          .filter(Objects::nonNull)
+          .map(l -> ApiFilmLanguage.fromValue(l.toString()))
           .collect(Collectors.toList());
       filmDTO.setLanguages(languages);
     }
@@ -82,7 +87,8 @@ public class FilmUtils {
     if (film.getOriginalLanguages() != null ) {
       List<ApiFilmLanguage> originalLanguages = film.getOriginalLanguages()
           .stream()
-          .map(l -> ApiFilmLanguage.valueOf(l.toString()))
+          .filter(Objects::nonNull)
+          .map(l -> ApiFilmLanguage.fromValue(l.toString()))
           .collect(Collectors.toList());
       filmDTO.setOriginalLanguages(originalLanguages);
     }
@@ -90,7 +96,8 @@ public class FilmUtils {
     if (film.getCategories() != null) {
       List<ApiFilmCategory> categories = film.getCategories()
           .stream()
-          .map(c -> ApiFilmCategory.valueOf(c.toString()))
+          .filter(Objects::nonNull)
+          .map(c -> ApiFilmCategory.fromValue(c.toString()))
           .collect(Collectors.toList());
       filmDTO.setCategories(categories);
     }
