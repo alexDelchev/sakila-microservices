@@ -3,6 +3,7 @@ package com.example.sakila.module.actor;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,12 @@ public class ActorService {
     this.actorRepository = actorRepository;
   }
 
-  public Actor getActorById(Long id) {
+  public Actor getActorById(ObjectId id) {
     if (id == null) return null;
     return actorRepository.getActorById(id);
   }
 
-  public List<Actor> getActorsByFilmId(Long filmId) {
+  public List<Actor> getActorsByFilmId(ObjectId filmId) {
     if (filmId == null) return null;
     return actorRepository.getActorsByFilm(filmId);
   }
@@ -33,7 +34,7 @@ public class ActorService {
     return actorRepository.insertActor(actor);
   }
 
-  public Actor updateActor(Long id, Actor source) {
+  public Actor updateActor(ObjectId id, Actor source) {
     Actor target = actorRepository.getActorById(id);
     if (target == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
 
@@ -43,7 +44,7 @@ public class ActorService {
     return actorRepository.updateActor(target);
   }
 
-  public void deleteActor(Long id) {
+  public void deleteActor(ObjectId id) {
     Actor actor = actorRepository.getActorById(id);
     if (actor == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
 
