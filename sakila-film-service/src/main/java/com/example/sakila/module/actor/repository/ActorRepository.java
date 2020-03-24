@@ -1,14 +1,15 @@
 package com.example.sakila.module.actor.repository;
 
 import com.example.sakila.module.actor.Actor;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface ActorRepository {
 
-  Actor getActorById(Long id);
+  Actor getActorById(ObjectId id);
 
-  List<Actor> getActorsByFilm(Long filmId);
+  List<Actor> getActorsByFilm(ObjectId filmId);
 
   Actor insertActor(Actor actor);
 
