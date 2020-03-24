@@ -20,9 +20,21 @@ public class ActorService {
     this.actorRepository = actorRepository;
   }
 
+  public Actor getActorById(String hexString) {
+    if (hexString == null || hexString.length() == 0) return null
+    ObjectId id = new ObjectId(hexString);
+    return getActorById(id);
+  }
+
   public Actor getActorById(ObjectId id) {
     if (id == null) return null;
     return actorRepository.getActorById(id);
+  }
+
+  public List<Actor> getActorsByFilmId(String hexString) {
+    if (hexString == null || hexString.length() == 0) return null
+    ObjectId id = new ObjectId(hexString);
+    return getActorsByFilmId(id);
   }
 
   public List<Actor> getActorsByFilmId(ObjectId filmId) {
@@ -34,6 +46,12 @@ public class ActorService {
     return actorRepository.insertActor(actor);
   }
 
+  public Actor updateActor(String hexString, Actor source) {
+    if (hexString == null || hexString.length() == 0) return null
+    ObjectId id = new ObjectId(hexString);
+    return updateActor(id, source);
+  }
+
   public Actor updateActor(ObjectId id, Actor source) {
     Actor target = actorRepository.getActorById(id);
     if (target == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
@@ -42,6 +60,12 @@ public class ActorService {
     target.setLastName(source.getLastName());
 
     return actorRepository.updateActor(target);
+  }
+
+  public void deleteActor(String hexString) {
+    if (hexString == null || hexString.length() == 0) return null
+    ObjectId id = new ObjectId(hexString);
+    deleteActor(id);
   }
 
   public void deleteActor(ObjectId id) {
