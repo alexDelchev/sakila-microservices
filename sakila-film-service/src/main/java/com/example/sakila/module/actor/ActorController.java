@@ -25,14 +25,14 @@ public class ActorController implements ActorsApi {
   }
 
   @Override
-  public ResponseEntity<ActorDTO> getActorById(@PathVariable("id") Long id) {
+  public ResponseEntity<ActorDTO> getActorById(@PathVariable("id") String id) {
     return ResponseEntity.ok(
         toDTO(actorService.getActorById(id))
     );
   }
 
   @Override
-  public ResponseEntity<List<ActorDTO>> getActorsByFilmId(@PathVariable("id") Long id) {
+  public ResponseEntity<List<ActorDTO>> getActorsByFilmId(@PathVariable("id") String id) {
     return ResponseEntity.ok(
         actorService.getActorsByFilmId(id).stream().map(this::toDTO).collect(Collectors.toList())
     );
@@ -44,12 +44,12 @@ public class ActorController implements ActorsApi {
   }
 
   @Override
-  public ResponseEntity<ActorDTO> replaceActor(@PathVariable("id") Long id, @RequestBody ActorDTO actorDTO) {
+  public ResponseEntity<ActorDTO> replaceActor(@PathVariable("id") String id, @RequestBody ActorDTO actorDTO) {
     return ResponseEntity.ok(toDTO(actorService.updateActor(id, toEntity(actorDTO))));
   }
 
   @Override
-  public ResponseEntity<Void> deleteActor(@PathVariable("id") Long id) {
+  public ResponseEntity<Void> deleteActor(@PathVariable("id") String id) {
     actorService.deleteActor(id);
     return  ResponseEntity.ok(null);
   }
