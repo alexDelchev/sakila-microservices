@@ -21,7 +21,7 @@ public class ActorService {
   }
 
   public Actor getActorById(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return getActorById(id);
   }
@@ -32,7 +32,7 @@ public class ActorService {
   }
 
   public List<Actor> getActorsByFilmId(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return getActorsByFilmId(id);
   }
@@ -47,7 +47,7 @@ public class ActorService {
   }
 
   public Actor updateActor(String hexString, Actor source) {
-    if (hexString == null || hexString.length() == 0) return null
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return updateActor(id, source);
   }
@@ -63,7 +63,7 @@ public class ActorService {
   }
 
   public void deleteActor(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null
+    if (hexString == null || hexString.length() == 0) return;
     ObjectId id = new ObjectId(hexString);
     deleteActor(id);
   }
