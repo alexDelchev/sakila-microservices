@@ -1,33 +1,19 @@
 package com.example.sakila.module.actor;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "actor")
 public class Actor {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "actor_id")
   private Long id;
 
-  @Column(name = "first_name")
   private String firstName;
 
-  @Column(name = "last_name")
   private String lastName;
 
-  @Column(name = "last_update")
-  @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
-  Actor() {}
+  Actor() {
+  }
 
   Actor(Long id) {
     this.id = id;
