@@ -21,7 +21,7 @@ public class FilmService {
   }
 
   public Film getFilmById(String hexString) {
-    if (hexString == null) return null;
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return getFilmById(id);
   }
@@ -32,6 +32,7 @@ public class FilmService {
   }
 
   public boolean filmExists(String hexString) {
+    if (hexString == null || hexString.length() == 0) return null
     ObjectId id = new ObjectId(hexString);
     return filmExists(id);
   }
@@ -70,6 +71,7 @@ public class FilmService {
   }
 
   public Film updateFilm(String hexString, Film source) {
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return updateFilm(id, source);
   }
@@ -95,7 +97,7 @@ public class FilmService {
   }
 
   public void deleteFilm(String hexString) {
-    if (hexString == null) return;
+    if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     deleteFilm(id);
   }
