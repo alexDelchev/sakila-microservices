@@ -1,10 +1,12 @@
 package com.example.sakila.module.actor;
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 
 public class Actor {
 
-  private Long id;
+  private ObjectId id;
 
   private String firstName;
 
@@ -15,22 +17,22 @@ public class Actor {
   Actor() {
   }
 
-  Actor(Long id) {
+  Actor(ObjectId id) {
     this.id = id;
   }
 
-  Actor(Long id, String firstName, String lastName, Date lastUpdate) {
+  Actor(ObjectId id, String firstName, String lastName, Date lastUpdate) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.lastUpdate = lastUpdate;
   }
 
-  public Long getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(ObjectId id) {
     this.id = id;
   }
 
