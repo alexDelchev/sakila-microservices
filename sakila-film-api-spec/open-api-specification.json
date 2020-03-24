@@ -114,8 +114,7 @@
             "in": "path",
             "name": "id",
             "description": "Film ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "operationId": "getActorsByFilmId",
