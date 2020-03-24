@@ -21,6 +21,7 @@ public class FilmService {
   }
 
   public Film getFilmById(String hexString) {
+    if (hexString == null) return null;
     ObjectId id = new ObjectId(hexString);
     return getFilmById(id);
   }
@@ -94,6 +95,7 @@ public class FilmService {
   }
 
   public void deleteFilm(String hexString) {
+    if (hexString == null) return;
     ObjectId id = new ObjectId(hexString);
     deleteFilm(id);
   }
