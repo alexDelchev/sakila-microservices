@@ -430,18 +430,17 @@
         }
       }
     },
-    "/films/language/{id}": {
+    "/films/language/{language}": {
       "get": {
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "language",
             "description": "Language ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
-        "operationId": "getFilmsByLanguageId",
+        "operationId": "getFilmsByLanguage",
         "responses": {
           "200": {
             "description": "Film model list",
@@ -634,13 +633,17 @@
         "releaseYear": {
           "type": "integer"
         },
-        "languageId": {
-          "type": "integer",
-          "format": "int64"
+        "languages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiFilmLanguage"
+          }
         },
-        "originalLanguageId": {
-          "type": "integer",
-          "format": "int64"
+        "originalLanguages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiFilmLanguage"
+          }
         },
         "rentalDuration": {
           "type": "integer"
@@ -707,6 +710,12 @@
         "SciFi",
         "Sports",
         "Travel"
+      ]
+    },
+    "ApiFilmLanguage": {
+      "type": "string",
+      "enum": [
+        "English"
       ]
     }
   }
