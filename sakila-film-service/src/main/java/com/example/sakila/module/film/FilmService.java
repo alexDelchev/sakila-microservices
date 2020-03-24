@@ -32,7 +32,7 @@ public class FilmService {
   }
 
   public boolean filmExists(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null
+    if (hexString == null || hexString.length() == 0) return false;
     ObjectId id = new ObjectId(hexString);
     return filmExists(id);
   }
@@ -97,7 +97,7 @@ public class FilmService {
   }
 
   public void deleteFilm(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null;
+    if (hexString == null || hexString.length() == 0) return;
     ObjectId id = new ObjectId(hexString);
     deleteFilm(id);
   }
