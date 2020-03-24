@@ -26,50 +26,30 @@ public class ActorController implements ActorsApi {
 
   @Override
   public ResponseEntity<ActorDTO> getActorById(@PathVariable("id") String id) {
-    return ResponseEntity.ok(
-        toDTO(actorService.getActorById(id))
-    );
+    return ResponseEntity.ok(ActorUtils.toDTO(actorService.getActorById(id)));
   }
 
   @Override
   public ResponseEntity<List<ActorDTO>> getActorsByFilmId(@PathVariable("id") String id) {
     return ResponseEntity.ok(
-        actorService.getActorsByFilmId(id).stream().map(this::toDTO).collect(Collectors.toList())
+        actorService.getActorsByFilmId(id).stream().map(ActorUtils::toDTO).collect(Collectors.toList())
     );
   }
 
   @Override
   public ResponseEntity<ActorDTO> createActor(@RequestBody ActorDTO actorDTO) {
-    return ResponseEntity.ok(toDTO(actorService.createActor(toEntity(actorDTO))));
+    return ResponseEntity.ok(ActorUtils.toDTO(actorService.createActor(ActorUtils.toEntity(actorDTO))));
   }
 
   @Override
   public ResponseEntity<ActorDTO> replaceActor(@PathVariable("id") String id, @RequestBody ActorDTO actorDTO) {
-    return ResponseEntity.ok(toDTO(actorService.updateActor(id, toEntity(actorDTO))));
+    return ResponseEntity.ok(ActorUtils.toDTO(actorService.updateActor(id, ActorUtils.toEntity(actorDTO))));
   }
 
   @Override
   public ResponseEntity<Void> deleteActor(@PathVariable("id") String id) {
     actorService.deleteActor(id);
     return  ResponseEntity.ok(null);
-  }
-
-  private ActorDTO toDTO(Actor actor) {
-    ActorDTO actorDTO = new ActorDTO();
-    actorDTO.setId(actor.getId());
-    actorDTO.setFirstName(actor.getFirstName());
-    actorDTO.setLastName(actor.getLastName());
-    actorDTO.setLastUpdate(OffsetDateTime.ofInstant(actor.getLastUpdate().toInstant(), ZoneId.systemDefault()));
-    return actorDTO;
-  }
-
-  private Actor toEntity(ActorDTO actorDTO) {
-    Actor actor = new Actor();
-    actor.setId(actorDTO.getId());
-    actor.setFirstName(actorDTO.getFirstName());
-    actor.setLastName(actorDTO.getLastName());
-    if (actorDTO.getLastUpdate() != null) actor.setLastUpdate(Date.from(actorDTO.getLastUpdate().toInstant()));
-    return actor;
   }
 
 }
