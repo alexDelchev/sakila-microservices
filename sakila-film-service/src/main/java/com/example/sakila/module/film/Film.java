@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class Film {
 
+  @BsonId
   private ObjectId id;
 
   private String title;
