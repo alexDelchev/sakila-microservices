@@ -50,8 +50,7 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "operationId": "getActorById",
@@ -70,8 +69,7 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "in": "body",
@@ -98,8 +96,7 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "operationId": "deleteActor",
@@ -561,8 +558,7 @@
       ],
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "firstName": {
           "type": "string"
