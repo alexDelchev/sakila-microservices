@@ -140,8 +140,9 @@ public class FilmUtils {
     writeModel.setRating(film.getRating());
     writeModel.setCategories(film.getCategories());
     writeModel.setSpecialFeatures(film.getSpecialFeatures());
-    writeModel.setActors(film.getActors().stream().map(Actor::getId).collect(Collectors.toList()));
-    
+    if (film.getActors() != null) {
+      writeModel.setActors(film.getActors().stream().map(Actor::getId).collect(Collectors.toList()));
+    }
     return writeModel;
   }
 }
