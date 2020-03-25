@@ -1,9 +1,8 @@
 package com.example.sakila.module.film;
 
-import com.example.sakila.generated.server.model.ApiFilmCategory;
-import com.example.sakila.generated.server.model.ApiFilmLanguage;
-import com.example.sakila.generated.server.model.FilmDTO;
-import com.example.sakila.generated.server.model.FilmRating;
+import com.example.sakila.generated.server.model.*;
+import com.example.sakila.module.actor.Actor;
+import com.example.sakila.module.actor.ActorUtils;
 import org.bson.types.ObjectId;
 
 import java.sql.Date;
@@ -54,6 +53,15 @@ public class FilmUtils {
       film.setCategories(categories);
     }
 
+    if (filmDTO.getActors() != null) {
+      List<Actor> actors = filmDTO.getActors()
+          .stream()
+          .filter(Objects::nonNull)
+          .map(ActorUtils::toEntity)
+          .collect(Collectors.toList());
+      film.setActors(actors);
+    }
+
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
     if (filmDTO.getSpecialFeatures() != null) {
       film.setSpecialFeatures(filmDTO.getSpecialFeatures());
@@ -100,6 +108,15 @@ public class FilmUtils {
           .map(c -> ApiFilmCategory.fromValue(c.toString()))
           .collect(Collectors.toList());
       filmDTO.setCategories(categories);
+    }
+
+    if (film.getActors() != null) {
+      List<ActorDTO> actors = film.getActors()
+          .stream()
+          .filter(Objects::nonNull)
+          .map(ActorUtils::toDTO)
+          .collect(Collectors.toList());
+      filmDTO.setActors(actors);
     }
 
     if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(film.getSpecialFeatures());
