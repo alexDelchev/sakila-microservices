@@ -4,15 +4,15 @@ import com.example.sakila.module.film.Category;
 import com.example.sakila.module.film.Film;
 import com.example.sakila.module.film.Language;
 import com.mongodb.*;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
+import com.mongodb.client.model.Aggregates;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +22,8 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   private final MongoDatabase database;
 
   private final MongoCollection<Film> films;
+  
+  private final Bson actorLookup = Aggregates.lookup("actor", "actors", "_id", "actors");
 
   @Autowired
   public FilmRepositoryMongoDBImplementation(MongoDatabase database) {
@@ -31,47 +33,57 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
   @Override
   public Film getFilmById(ObjectId id) {
-    return films.find(new BasicDBObject("_id:", id)).first();
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("_id:", id));
+    return films.aggregate(parameters).first();
   }
 
   @Override
   public List<Film> searchFilmsByTitle(String searchExpression) {
-    BasicDBObject query = new BasicDBObject("title", String.format(".*%s.*", searchExpression));
-    FindIterable<Film> find = films.find(query);
+    List<Bson> parameters = generateAggregateParameters(
+        new BasicDBObject("title", String.format(".*%s.*", searchExpression))
+    );
+    
+    MongoIterable<Film> result = films.aggregate(parameters);
 
-    return toList(find);
+    return toList(result);
   }
 
   @Override
   public List<Film> searchFilmsByDescription(String searchExpression) {
-    BasicDBObject query = new BasicDBObject("description", String.format(".*%s.*", searchExpression));
-    FindIterable<Film> find = films.find(query);
+    List<Bson> parameters = generateAggregateParameters(
+        new BasicDBObject("description", String.format(".*%s.*", searchExpression))
+    );
 
-    return toList(find);
+    MongoIterable<Film> result = films.aggregate(parameters);
+
+    return toList(result);
   }
 
   @Override
   public List<Film> getFilmsByCategory(Category category) {
-    BasicDBObject query = new BasicDBObject("categories", category.toString());
-    FindIterable<Film> find = films.find(query);
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("categories", category.toString()));
 
-    return toList(find);
+    MongoIterable<Film> result = films.aggregate(parameters);
+
+    return toList(result);
   }
 
   @Override
   public List<Film> getFilmsByLanguage(Language language) {
-    BasicDBObject query = new BasicDBObject("languages", language.toString());
-    FindIterable<Film> find = films.find(query);
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("languages", language.toString()));
 
-    return toList(find);
+    MongoIterable<Film> result = films.aggregate(parameters);
+
+    return toList(result);
   }
 
   @Override
   public List<Film> getFilmsByRating(String rating) {
-    BasicDBObject query = new BasicDBObject("rating", rating);
-    FindIterable<Film> find = films.find(query);
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("rating", rating));
 
-    return toList(find);
+    MongoIterable<Film> result = films.aggregate(parameters);
+
+    return toList(result);
   }
 
   @Override
@@ -93,12 +105,19 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
     films.deleteOne(new BasicDBObject("_id", film.getId()));
   }
 
-  private <T>  List<T> toList(FindIterable<T> find) {
+  private <T>  List<T> toList(MongoIterable<T> find) {
     List<T> result = new ArrayList<>();
     MongoCursor<T> cursor = find.iterator();
 
     cursor.forEachRemaining(result::add);
 
     return result;
+  }
+  
+  private List<Bson> generateAggregateParameters(Bson filter) {
+    return Arrays.asList(
+        Aggregates.match(filter),
+        actorLookup
+    );
   }
 }
