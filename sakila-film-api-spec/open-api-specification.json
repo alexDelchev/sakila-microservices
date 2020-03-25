@@ -645,6 +645,12 @@
             "type": "string"
           }
         },
+        "actors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActorDTO"
+          }
+        },
         "lastUpdate": {
           "type": "string",
           "format": "date-time"
