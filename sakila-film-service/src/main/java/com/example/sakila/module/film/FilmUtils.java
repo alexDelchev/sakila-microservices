@@ -62,6 +62,15 @@ public class FilmUtils {
       film.setActors(actors);
     }
 
+    if (filmDTO.getInventories() != null) {
+      List<Inventory> inventories = filmDTO.getInventories()
+          .stream()
+          .filter(Objects::nonNull)
+          .map(InventoryUtils::toEntity)
+          .collect(Collectors.toList());
+      film.setInventories(inventories);
+    }
+
     if (filmDTO.getRating() != null) film.setRating(filmDTO.getRating().toString());
     if (filmDTO.getSpecialFeatures() != null) {
       film.setSpecialFeatures(filmDTO.getSpecialFeatures());
@@ -119,6 +128,15 @@ public class FilmUtils {
       filmDTO.setActors(actors);
     }
 
+    if (film.getInventories() != null) {
+      List<FilmInventoryDTO> inventories = film.getInventories()
+          .stream()
+          .filter(Objects::nonNull)
+          .map(InventoryUtils::toDTO)
+          .collect(Collectors.toList());
+      filmDTO.setInventories(inventories);
+    }
+
     if (film.getSpecialFeatures() != null) filmDTO.setSpecialFeatures(film.getSpecialFeatures());
     filmDTO.setLastUpdate(OffsetDateTime.ofInstant(film.getLastUpdate().toInstant(), ZoneId.systemDefault()));
 
@@ -140,6 +158,7 @@ public class FilmUtils {
     writeModel.setRating(film.getRating());
     writeModel.setCategories(film.getCategories());
     writeModel.setSpecialFeatures(film.getSpecialFeatures());
+    writeModel.setInventories(film.getInventories());
     if (film.getActors() != null) {
       writeModel.setActors(film.getActors().stream().map(Actor::getId).collect(Collectors.toList()));
     }
