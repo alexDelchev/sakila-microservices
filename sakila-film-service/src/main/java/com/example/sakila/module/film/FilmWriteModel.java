@@ -39,6 +39,8 @@ public class FilmWriteModel {
 
   private List<ObjectId> actors;
 
+  private List<Inventory> inventories;
+
   public ObjectId getId() {
     return id;
   }
@@ -157,5 +159,13 @@ public class FilmWriteModel {
 
   public void setActors(List<ObjectId> actors) {
     this.actors = actors;
+  }
+
+  public List<Inventory> getInventories() {
+    return inventories;
+  }
+
+  public void setInventories(List<Inventory> inventories) {
+    this.inventories = inventories;
   }
 }

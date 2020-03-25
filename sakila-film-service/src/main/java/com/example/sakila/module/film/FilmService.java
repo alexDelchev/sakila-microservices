@@ -95,6 +95,7 @@ public class FilmService {
     target.setCategories(source.getCategories());
     target.setSpecialFeatures(source.getSpecialFeatures());
     target.setActors(source.getActors());
+    target.setInventories(source.getInventories());
 
     FilmWriteModel writeModel = FilmUtils.toWriteModel(target);
 

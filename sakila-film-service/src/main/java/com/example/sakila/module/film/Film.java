@@ -40,6 +40,8 @@ public class Film {
 
   private List<Actor> actors;
 
+  private List<Inventory> inventories;
+
   public Film() {}
 
   public Film(ObjectId id) {
@@ -49,7 +51,7 @@ public class Film {
   public Film(
       ObjectId id, String title, String description, Integer releaseYear, List<Language> languages, List<Language> originalLanguages,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
-      List<String> specialFeatures, List<Category> categories, List<Actor> actors
+      List<String> specialFeatures, List<Category> categories, List<Actor> actors, List<Inventory> inventories
   ) {
     this.id = id;
     this.title = title;
@@ -66,6 +68,7 @@ public class Film {
     this.specialFeatures = specialFeatures;
     this.categories = categories;
     this.actors = actors;
+    this.inventories = inventories;
   }
 
   public ObjectId getId() {
@@ -186,5 +189,13 @@ public class Film {
 
   public void setActors(List<Actor> actors) {
     this.actors = actors;
+  }
+
+  public List<Inventory> getInventories() {
+    return inventories;
+  }
+
+  public void setInventories(List<Inventory> inventories) {
+    this.inventories = inventories;
   }
 }
