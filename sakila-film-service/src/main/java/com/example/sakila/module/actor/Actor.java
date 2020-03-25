@@ -14,14 +14,14 @@ public class Actor {
 
   private Date lastUpdate;
 
-  Actor() {
+  public Actor() {
   }
 
-  Actor(ObjectId id) {
+  public Actor(ObjectId id) {
     this.id = id;
   }
 
-  Actor(ObjectId id, String firstName, String lastName, Date lastUpdate) {
+  public Actor(ObjectId id, String firstName, String lastName, Date lastUpdate) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
