@@ -92,6 +92,7 @@ public class FilmService {
     target.setRating(source.getRating());
     target.setCategories(source.getCategories());
     target.setSpecialFeatures(source.getSpecialFeatures());
+    target.setActors(source.getActors());
 
     return filmRepository.updateFilm(target);
   }

@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.module.actor.Actor;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -37,6 +38,8 @@ public class Film {
 
   private List<Category> categories;
 
+  private List<Actor> actors;
+
   public Film() {}
 
   public Film(ObjectId id) {
@@ -46,7 +49,7 @@ public class Film {
   public Film(
       ObjectId id, String title, String description, Integer releaseYear, List<Language> languages, List<Language> originalLanguages,
       Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating, Date lastUpdate,
-      List<String> specialFeatures, List<Category> categories
+      List<String> specialFeatures, List<Category> categories, List<Actor> actors
   ) {
     this.id = id;
     this.title = title;
@@ -62,6 +65,7 @@ public class Film {
     this.lastUpdate = lastUpdate;
     this.specialFeatures = specialFeatures;
     this.categories = categories;
+    this.actors = actors;
   }
 
   public ObjectId getId() {
@@ -174,5 +178,13 @@ public class Film {
 
   public void setCategories(List<Category> categories) {
     this.categories = categories;
+  }
+
+  public List<Actor> getActors() {
+    return actors;
+  }
+
+  public void setActors(List<Actor> actors) {
+    this.actors = actors;
   }
 }
