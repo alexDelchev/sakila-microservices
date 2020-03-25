@@ -30,13 +30,6 @@ public class ActorController implements ActorsApi {
   }
 
   @Override
-  public ResponseEntity<List<ActorDTO>> getActorsByFilmId(@PathVariable("id") String id) {
-    return ResponseEntity.ok(
-        actorService.getActorsByFilmId(id).stream().map(ActorUtils::toDTO).collect(Collectors.toList())
-    );
-  }
-
-  @Override
   public ResponseEntity<ActorDTO> createActor(@RequestBody ActorDTO actorDTO) {
     return ResponseEntity.ok(ActorUtils.toDTO(actorService.createActor(ActorUtils.toEntity(actorDTO))));
   }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,17 +30,6 @@ public class ActorService {
   public Actor getActorById(ObjectId id) {
     if (id == null) return null;
     return actorRepository.getActorById(id);
-  }
-
-  public List<Actor> getActorsByFilmId(String hexString) {
-    if (hexString == null || hexString.length() == 0) return null;
-    ObjectId id = new ObjectId(hexString);
-    return getActorsByFilmId(id);
-  }
-
-  public List<Actor> getActorsByFilmId(ObjectId filmId) {
-    if (filmId == null) return null;
-    return actorRepository.getActorsByFilm(filmId);
   }
 
   public Actor createActor(Actor actor) {
