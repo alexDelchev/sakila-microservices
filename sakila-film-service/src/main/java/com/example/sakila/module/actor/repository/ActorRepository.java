@@ -9,8 +9,6 @@ public interface ActorRepository {
 
   Actor getActorById(ObjectId id);
 
-  List<Actor> getActorsByFilm(ObjectId filmId);
-
   Actor insertActor(Actor actor);
 
   Actor updateActor(Actor actor);
