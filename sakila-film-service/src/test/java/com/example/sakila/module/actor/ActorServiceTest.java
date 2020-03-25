@@ -31,13 +31,6 @@ class ActorServiceTest {
   }
 
   @Test
-  void getActorsByFilmId() {
-    List<Actor> actors = actorService.getActorsByFilmId(null);
-
-    assertNull(actors);
-  }
-
-  @Test
   void updateActor() {
     final long EXISTING_ACTOR_ID = 1L;
     when(actorRepository.getActorById(EXISTING_ACTOR_ID)).thenReturn(new Actor());
