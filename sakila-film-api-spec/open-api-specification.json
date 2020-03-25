@@ -107,30 +107,6 @@
         }
       }
     },
-    "/actors/film/{id}": {
-      "get": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Film ID",
-            "type": "string"
-          }
-        ],
-        "operationId": "getActorsByFilmId",
-        "responses": {
-          "200": {
-            "description": "Actor model list",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ActorDTO"
-              }
-            }
-          }
-        }
-      }
-    },
     "/categories": {
       "get": {
         "operationId": "getAllCategories",
