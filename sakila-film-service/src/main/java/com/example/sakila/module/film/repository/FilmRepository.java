@@ -2,6 +2,7 @@ package com.example.sakila.module.film.repository;
 
 import com.example.sakila.module.film.Category;
 import com.example.sakila.module.film.Film;
+import com.example.sakila.module.film.FilmWriteModel;
 import com.example.sakila.module.film.Language;
 import org.bson.types.ObjectId;
 
@@ -21,9 +22,9 @@ public interface FilmRepository {
 
   List<Film> getFilmsByRating(String rating);
 
-  Film insertFilm(Film film);
+  FilmWriteModel insertFilm(FilmWriteModel film);
 
-  Film updateFilm(Film film);
+  FilmWriteModel updateFilm(FilmWriteModel film);
 
   void deleteFilm(Film film);
 }
