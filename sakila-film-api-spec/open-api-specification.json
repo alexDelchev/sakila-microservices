@@ -339,44 +339,6 @@
         }
       }
     },
-    "CategoryDTO": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "lastUpdate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "LanguageDTO": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "lastUpdate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "FilmDTO": {
       "type": "object",
       "required": [
@@ -459,7 +421,6 @@
         "NC-17"
       ]
     },
-
     "ApiFilmCategory": {
       "type": "string",
       "enum": [
