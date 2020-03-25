@@ -124,4 +124,24 @@ public class FilmUtils {
 
     return filmDTO;
   }
+  
+  public static FilmWriteModel toWriteModel(Film film) {
+    FilmWriteModel writeModel = new FilmWriteModel();
+
+    writeModel.setTitle(film.getTitle());
+    writeModel.setDescription(film.getDescription());
+    writeModel.setReleaseYear(film.getReleaseYear());
+    writeModel.setLanguages(film.getLanguages());
+    writeModel.setOriginalLanguages(film.getOriginalLanguages());
+    writeModel.setRentalDuration(film.getRentalDuration());
+    writeModel.setRentalRate(film.getRentalRate());
+    writeModel.setLength(film.getLength());
+    writeModel.setReplacementCost(film.getReplacementCost());
+    writeModel.setRating(film.getRating());
+    writeModel.setCategories(film.getCategories());
+    writeModel.setSpecialFeatures(film.getSpecialFeatures());
+    writeModel.setActors(film.getActors().stream().map(Actor::getId).collect(Collectors.toList()));
+    
+    return writeModel;
+  }
 }
