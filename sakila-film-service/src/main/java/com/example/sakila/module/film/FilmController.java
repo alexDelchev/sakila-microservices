@@ -6,8 +6,6 @@ import com.example.sakila.generated.server.model.ApiFilmCategory;
 import com.example.sakila.generated.server.model.ApiFilmLanguage;
 import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.generated.server.model.FilmRating;
-import com.example.sakila.module.category.CategoryService;
-import com.example.sakila.module.language.LanguageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +21,8 @@ public class FilmController implements FilmsApi {
 
   private final FilmService filmService;
 
-  private final CategoryService categoryService;
-
-  private final LanguageService languageService;
-
-  public FilmController(FilmService filmService, CategoryService categoryService, LanguageService languageService){
+  public FilmController(FilmService filmService){
     this.filmService = filmService;
-    this.categoryService = categoryService;
-    this.languageService = languageService;
   }
 
   @Override
