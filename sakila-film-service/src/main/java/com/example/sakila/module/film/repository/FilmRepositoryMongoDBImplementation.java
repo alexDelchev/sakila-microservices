@@ -2,6 +2,7 @@ package com.example.sakila.module.film.repository;
 
 import com.example.sakila.module.film.Category;
 import com.example.sakila.module.film.Film;
+import com.example.sakila.module.film.FilmWriteModel;
 import com.example.sakila.module.film.Language;
 import com.mongodb.*;
 import com.mongodb.client.*;
@@ -21,20 +22,23 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
   private final MongoDatabase database;
 
-  private final MongoCollection<Film> films;
+  private final MongoCollection<Film> readCollection;
+
+  private final MongoCollection<FilmWriteModel> writeCollection;
   
   private final Bson actorLookup = Aggregates.lookup("actor", "actors", "_id", "actors");
 
   @Autowired
   public FilmRepositoryMongoDBImplementation(MongoDatabase database) {
     this.database = database;
-    this.films = database.getCollection("film", Film.class);
+    this.readCollection = database.getCollection("film", Film.class);
+    this.writeCollection = database.getCollection("film", FilmWriteModel.class);
   }
 
   @Override
   public Film getFilmById(ObjectId id) {
     List<Bson> parameters = generateAggregateParameters(new BasicDBObject("_id:", id));
-    return films.aggregate(parameters).first();
+    return readCollection.aggregate(parameters).first();
   }
 
   @Override
@@ -43,7 +47,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
         new BasicDBObject("title", String.format(".*%s.*", searchExpression))
     );
     
-    MongoIterable<Film> result = films.aggregate(parameters);
+    MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
   }
@@ -54,7 +58,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
         new BasicDBObject("description", String.format(".*%s.*", searchExpression))
     );
 
-    MongoIterable<Film> result = films.aggregate(parameters);
+    MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
   }
@@ -63,7 +67,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   public List<Film> getFilmsByCategory(Category category) {
     List<Bson> parameters = generateAggregateParameters(new BasicDBObject("categories", category.toString()));
 
-    MongoIterable<Film> result = films.aggregate(parameters);
+    MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
   }
@@ -72,7 +76,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   public List<Film> getFilmsByLanguage(Language language) {
     List<Bson> parameters = generateAggregateParameters(new BasicDBObject("languages", language.toString()));
 
-    MongoIterable<Film> result = films.aggregate(parameters);
+    MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
   }
@@ -81,28 +85,28 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   public List<Film> getFilmsByRating(String rating) {
     List<Bson> parameters = generateAggregateParameters(new BasicDBObject("rating", rating));
 
-    MongoIterable<Film> result = films.aggregate(parameters);
+    MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
   }
 
   @Override
-  public Film insertFilm(Film film) {
+  public FilmWriteModel insertFilm(FilmWriteModel film) {
     film.setLastUpdate(new Date());
-    films.insertOne(film);
+    writeCollection.insertOne(film);
     return film;
   }
 
   @Override
-  public Film updateFilm(Film film) {
+  public FilmWriteModel updateFilm(FilmWriteModel film) {
     film.setLastUpdate(new Date());
-    films.replaceOne(new BasicDBObject("_id", film.getId()), film);
+    writeCollection.replaceOne(new BasicDBObject("_id", film.getId()), film);
     return film;
   }
 
   @Override
   public void deleteFilm(Film film) {
-    films.deleteOne(new BasicDBObject("_id", film.getId()));
+    readCollection.deleteOne(new BasicDBObject("_id", film.getId()));
   }
 
   private <T>  List<T> toList(MongoIterable<T> find) {
