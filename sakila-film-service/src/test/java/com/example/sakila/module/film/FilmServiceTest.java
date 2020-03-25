@@ -45,13 +45,6 @@ class FilmServiceTest {
   }
 
   @Test
-  void getFilmsByLanguageId() {
-    List<Film> films = filmService.getFilmsByLanguageId(null);
-
-    assertNull(films);
-  }
-
-  @Test
   void getFilmsByRating() {
     List<Film> films = filmService.getFilmsByRating(null);
 
