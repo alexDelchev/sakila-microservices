@@ -59,16 +59,16 @@ class FilmServiceTest {
 
   @Test
   void updateFilm() {
-//    final long EXISTING_FILM_ID = 1L;
-//    when(filmRepository.getFilmById(EXISTING_FILM_ID)).thenReturn(new Film());
-//
-//    final long NON_EXISTING_FILM_ID = -1L;
-//    when(filmRepository.getFilmById(NON_EXISTING_FILM_ID)).thenReturn(null);
-//
-//    when(filmRepository.updateFilm(any(Film.class))).thenReturn(new Film());
-//
-//    assertDoesNotThrow(() -> filmService.updateFilm(EXISTING_FILM_ID, new Film()));
-//    assertThrows(NotFoundException.class, () -> filmService.updateFilm(NON_EXISTING_FILM_ID, new Film()));
+    final ObjectId EXISTING_FILM_ID = new ObjectId();
+    when(filmRepository.getFilmById(EXISTING_FILM_ID)).thenReturn(new Film());
+
+    final ObjectId NON_EXISTING_FILM_ID = new ObjectId();
+    when(filmRepository.getFilmById(NON_EXISTING_FILM_ID)).thenReturn(null);
+
+    when(filmRepository.updateFilm(any(FilmWriteModel.class))).thenReturn(new FilmWriteModel());
+
+    assertDoesNotThrow(() -> filmService.updateFilm(EXISTING_FILM_ID, new Film()));
+    assertThrows(NotFoundException.class, () -> filmService.updateFilm(NON_EXISTING_FILM_ID, new Film()));
   }
 
   @Test
