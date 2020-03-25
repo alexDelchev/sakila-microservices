@@ -100,7 +100,7 @@ public class FilmService {
 
     filmRepository.updateFilm(writeModel);
 
-    return filmRepository.getFilmById(target.getId());
+    return filmRepository.getFilmById(id);
   }
 
   public void deleteFilm(String hexString) {
