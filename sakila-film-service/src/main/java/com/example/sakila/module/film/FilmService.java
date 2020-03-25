@@ -67,7 +67,9 @@ public class FilmService {
   }
 
   public Film createFilm(Film film) {
-    return filmRepository.insertFilm(film);
+    FilmWriteModel writeModel = FilmUtils.toWriteModel(film);
+    filmRepository.insertFilm(writeModel);
+    return filmRepository.getFilmById(film.getId());
   }
 
   public Film updateFilm(String hexString, Film source) {
@@ -94,7 +96,11 @@ public class FilmService {
     target.setSpecialFeatures(source.getSpecialFeatures());
     target.setActors(source.getActors());
 
-    return filmRepository.updateFilm(target);
+    FilmWriteModel writeModel = FilmUtils.toWriteModel(target);
+
+    filmRepository.updateFilm(writeModel);
+
+    return filmRepository.getFilmById(target.getId());
   }
 
   public void deleteFilm(String hexString) {
