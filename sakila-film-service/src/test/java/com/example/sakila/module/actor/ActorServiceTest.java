@@ -9,8 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -52,8 +50,8 @@ class ActorServiceTest {
 
   @Test
   void deleteActor() {
-//    final long NON_EXISTING_ACTOR_ID = -1L;
-//
-//    assertThrows(NotFoundException.class, () -> actorService.deleteActor(NON_EXISTING_ACTOR_ID));
+    final ObjectId NON_EXISTING_ACTOR_ID = new ObjectId();
+
+    assertThrows(NotFoundException.class, () -> actorService.deleteActor(NON_EXISTING_ACTOR_ID));
   }
 }
