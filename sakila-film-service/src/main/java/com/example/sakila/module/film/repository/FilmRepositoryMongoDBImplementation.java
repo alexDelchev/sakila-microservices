@@ -37,7 +37,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
   @Override
   public Film getFilmById(ObjectId id) {
-    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("_id:", id));
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("_id", id));
     return readCollection.aggregate(parameters).first();
   }
 
