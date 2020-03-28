@@ -16,19 +16,15 @@ export class ActorService {
     return this.apiService.createActor(actor);
   }
 
-  replaceActor(id: number, actor: ActorDTO): Observable<ActorDTO> {
+  replaceActor(id: string, actor: ActorDTO): Observable<ActorDTO> {
     return this.apiService.replaceActor({ id: id, actorDTO: actor });
   }
 
-  deleteActor(id: number) {
-    this.apiService.deleteActor(id);
+  deleteActor(id: string) {
+    this.apiService.deleteActor(id)
   }
 
-  getActorById(id: number): Observable<ActorDTO> {
+  getActorById(id: string): Observable<ActorDTO> {
     return this.apiService.getActorById(id);
-  }
-
-  getActorsByFilmId(id: number): Observable<Array<ActorDTO>> {
-    return this.apiService.getActorsByFilmId(id);
   }
 }
