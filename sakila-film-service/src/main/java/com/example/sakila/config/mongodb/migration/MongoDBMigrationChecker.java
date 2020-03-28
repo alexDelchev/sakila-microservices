@@ -22,13 +22,21 @@ public class MongoDBMigrationChecker {
   boolean checkMigration(String name, String content) {
     MongoDBMigrationDescription description = new MongoDBMigrationDescription(name, content);
 
-    return !migrationAlreadyProcessed(description);
+    return checkMigration(description);
+  }
+
+  boolean checkMigration(MongoDBMigrationDescription migration) {
+    return !migrationAlreadyProcessed(migration);
   }
 
   void logMigration(String name, String content) {
     MongoDBMigrationDescription description = new MongoDBMigrationDescription(name, content);
 
-    mongoDatabase.getCollection(MIGRATION_COLLECTION_NAME, MongoDBMigrationDescription.class).insertOne(description);
+    logMigration(description);
+  }
+
+  void logMigration(MongoDBMigrationDescription migration) {
+    mongoDatabase.getCollection(MIGRATION_COLLECTION_NAME, MongoDBMigrationDescription.class).insertOne(migration);
   }
 
   private boolean migrationAlreadyProcessed(MongoDBMigrationDescription description) {
