@@ -6,16 +6,10 @@ import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MongoDBMigrationRunner {
 
@@ -31,18 +25,19 @@ public class MongoDBMigrationRunner {
   }
 
   public void runMigrations() {
+    MongoDBMigrationLoader loader = new MongoDBMigrationLoader();
     try {
-      List<File> files = getScriptFiles();
-      files.sort(File::compareTo);
+      List<MongoDBMigrationDescription> files = loader.getMigrationFiles();
+      files.sort(this::compareMigrations);
 
       log.info("Starting MongoDB migration runner");
-      for (File f: files) {
-        String name = f.getName();
-        String content = new String(Files.readAllBytes(f.toPath()));
-        if (!migrationChecker.checkMigration(name, content)) continue;
-        processMigration(name, content);
-        log.info(String.format("Successfully applied %s", name));
-        migrationChecker.logMigration(name, content);
+      for (MongoDBMigrationDescription f: files) {
+        if (!migrationChecker.checkMigration(f)) continue;
+
+        processMigration(f.getName(), f.getContent());
+        log.info(String.format("Successfully applied %s", f.getName()));
+
+        migrationChecker.logMigration(f);
       }
       log.info(String.format("Validated %d migrations", files.size()));
     } catch(IOException | URISyntaxException e) {
@@ -72,12 +67,6 @@ public class MongoDBMigrationRunner {
     }
   }
 
-  private List<File> getScriptFiles() throws IOException, URISyntaxException {
-    URI uri = getClass().getResource("/mongodb/scripts").toURI();
-    Path path = Paths.get(uri);
-    return Files.walk(path).map(Path::toFile).filter(x -> !x.isDirectory()).collect(Collectors.toList());
-  }
-
   private Bson getIndexDefinition(MongoDBIndex mongoDBIndex) {
     Bson result;
 
@@ -101,5 +90,17 @@ public class MongoDBMigrationRunner {
     }
 
     return result;
+  }
+
+  private int compareMigrations(MongoDBMigrationDescription a, MongoDBMigrationDescription b) {
+    float result = a.getNumber() - b.getNumber();
+
+    if (result < 0) {
+      return -1;
+    } else if (result > 0) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
