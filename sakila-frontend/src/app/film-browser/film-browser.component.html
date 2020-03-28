@@ -8,8 +8,8 @@
   <div class="form-right">
     <mat-form-field class="form-element">
       <mat-label>Film Category</mat-label>
-      <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()" [compareWith]="compareCategories">
-        <mat-option *ngFor="let c of categories" [value]="c">{{c.name}}</mat-option>
+      <mat-select [(ngModel)]="category" (selectionChange)="changeCategorySelection()">
+        <mat-option *ngFor="let c of categories" [value]="c">{{c}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
