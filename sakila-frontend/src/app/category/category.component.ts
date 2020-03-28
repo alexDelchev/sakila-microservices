@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { CategoryDTO } from '@api/generated/film/models/category-dto';
+import { ApiFilmCategory } from '@api/generated/film/models/api-film-category';
 
 @Component({
   selector: 'app-category',
@@ -9,6 +9,6 @@ import { CategoryDTO } from '@api/generated/film/models/category-dto';
 })
 export class CategoryComponent {
 
-  @Input() category: CategoryDTO;
+  @Input() category: ApiFilmCategory;
 
 }
