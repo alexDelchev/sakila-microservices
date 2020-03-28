@@ -9,8 +9,8 @@ export class FilmSelectionService {
 
   constructor() { }
 
-  addFilmToSelection(filmId: number) {
-    let selectedItems: Array<number> = this.getSelectedItems();
+  addFilmToSelection(filmId: string) {
+    let selectedItems: Array<string> = this.getSelectedItems();
     if (selectedItems == null) selectedItems = new Array();
 
     if (selectedItems.indexOf(filmId) == -1) {
@@ -19,8 +19,8 @@ export class FilmSelectionService {
     }
   }
 
-  removeFilmFromSelection(filmId: number) {
-    let selectedItems: Array<number> = this.getSelectedItems();
+  removeFilmFromSelection(filmId: string) {
+    let selectedItems: Array<string> = this.getSelectedItems();
     if (selectedItems == null) return
 
     let elementIndex: number = selectedItems.indexOf(filmId);
@@ -30,15 +30,15 @@ export class FilmSelectionService {
     }
   }
 
-  getSelectedFilmIds(): Array<number> {
+  getSelectedFilmIds(): Array<string> {
     return this.getSelectedItems();
   }
 
-  private getSelectedItems(): Array<number> {
+  private getSelectedItems(): Array<string> {
     return JSON.parse(sessionStorage.getItem(this.STORAGE_KEY));
   }
 
-  private setSelectedItems(selectedItems: Array<number>) {
+  private setSelectedItems(selectedItems: Array<string>) {
     sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(selectedItems));
   }
 }
