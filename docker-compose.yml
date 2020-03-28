@@ -7,6 +7,12 @@ services:
     mem_limit: 512m
     ports:
       - 5678:5432
+  sakila-mongodb:
+    image: com.example.sakila/sakila-mongodb:1.0-SNAPSHOT
+    container_name: sakila-mongodb
+    mem_limit: 512m
+    ports:
+      - 27777:27017
   sakila-discovery-service:
     image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
     container_name: sakila-discovery-service
