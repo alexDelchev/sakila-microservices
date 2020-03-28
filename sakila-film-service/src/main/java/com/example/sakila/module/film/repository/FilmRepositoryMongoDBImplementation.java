@@ -12,10 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class FilmRepositoryMongoDBImplementation implements FilmRepository {
@@ -43,9 +40,11 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
   @Override
   public List<Film> searchFilmsByTitle(String searchExpression) {
-    List<Bson> parameters = generateAggregateParameters(
-        new BasicDBObject("title", String.format(".*%s.*", searchExpression))
-    );
+    Map<String, String> regexParameters = new HashMap<>();
+    regexParameters.put("$regex", String.format(".*%s.*", searchExpression));
+    regexParameters.put("$options", "i");
+
+    List<Bson> parameters = generateAggregateParameters(new BasicDBObject("title", new BasicDBObject(regexParameters)));
     
     MongoIterable<Film> result = readCollection.aggregate(parameters);
 
@@ -54,8 +53,12 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
   @Override
   public List<Film> searchFilmsByDescription(String searchExpression) {
+    Map<String, String> regexParameters = new HashMap<>();
+    regexParameters.put("$regex", String.format(".*%s.*", searchExpression));
+    regexParameters.put("$options", "i");
+
     List<Bson> parameters = generateAggregateParameters(
-        new BasicDBObject("description", String.format(".*%s.*", searchExpression))
+        new BasicDBObject("description", new BasicDBObject(regexParameters))
     );
 
     MongoIterable<Film> result = readCollection.aggregate(parameters);
