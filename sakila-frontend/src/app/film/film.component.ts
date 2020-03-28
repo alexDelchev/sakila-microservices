@@ -3,8 +3,6 @@ import { Component, Input } from '@angular/core';
 import { FilmService } from '../services/film/film.service';
 import { FilmDTO } from '@api/generated/film/models/film-dto';
 import { FilmSelectionService } from '../services/film-selection/film-selection.service';
-import { InventoryService } from '../services/inventory/inventory.service';
-import { InventoryDTO } from '@api/generated/store/models/inventory-dto';
 
 @Component({
   selector: 'app-film',
@@ -15,11 +13,8 @@ export class FilmComponent {
 
   @Input() film: FilmDTO;
 
-  private inventories: Array<InventoryDTO>;
-
   constructor(
-    private filmSelectionService: FilmSelectionService,
-    private inventoryService: InventoryService
+    private filmSelectionService: FilmSelectionService
   ) {}
 
   isFilmSelected(): boolean {
