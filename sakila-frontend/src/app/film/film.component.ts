@@ -46,12 +46,18 @@ export class FilmComponent {
   }
 
   isFilmInStock(): boolean {
-    if (this.inventories == null) return false;
-    return this.inventories.length > 0;
-  }
+    if (!this.film.inventories) return false;
 
-  getCurrentInventories() {
-    return this.inventoryService.getInventoriesByFilmId(this.film.id)
-      .subscribe(result => this.inventories = result);
+    if (this.film.inventories.length == 0) return false;
+
+    let inStock: boolean = false;
+    for (let inventory of this.film.inventories) {
+      if (inventory.quantity > 0) {
+        inStock = true;
+        break;
+      }
+    }
+
+    return inStock;
   }
 }
