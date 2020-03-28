@@ -3,9 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FilmDTO } from '@api/generated/film/models/film-dto';
+import { ApiFilmCategory } from '@api/generated/film/models/api-film-category';
 import { FilmService } from '../services/film/film.service';
-import { CategoryDTO } from '@api/generated/film/models/category-dto';
-import { CategoryService } from '../services/category/category.service';
 import { FilmRating } from '@api/generated/film/models/film-rating';
 import { FilmSelectionService } from '../services/film-selection/film-selection.service';
 
@@ -18,13 +17,13 @@ export class FilmBrowserComponent implements OnInit {
 
   private searchExpression: string;
 
-  private category: CategoryDTO;
+  private category: ApiFilmCategory;
 
   private filmRating: FilmRating;
 
   private filmRatings: Array<FilmRating> = FilmRating.values();
 
-  private categories: Array<CategoryDTO>;
+  private categories: Array<ApiFilmCategory> = ApiFilmCategory.values();
 
   private films: Array<FilmDTO>;
 
@@ -32,22 +31,16 @@ export class FilmBrowserComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private filmService: FilmService,
-    private categoryService: CategoryService,
     private filmSelectionService: FilmSelectionService
   ) { }
 
   ngOnInit() {
-    this.filmRating = FilmRating.PG_13
-    this.categoryService.getAllCategories().subscribe(result => this.categories = result);
+    this.filmRating = FilmRating.PG_13;
 
-    let categoryId: number = this.getNumberParameterFromRoute('categoryId');
-    if (categoryId) {
-      this.categoryService.getCategoryById(categoryId).subscribe(
-        result => {
-          this.category = result;
-          this.getFilms();
-        }
-      );
+    let categoryString: string = this.getStringParameterFromRoute('category');
+    this.category = categoryString as ApiFilmCategory;
+    if (this.category) {
+      this.getFilms();
     }
   }
 
@@ -59,22 +52,18 @@ export class FilmBrowserComponent implements OnInit {
     this.getFilms();
   }
 
-  compareCategories(c1: CategoryDTO, c2: CategoryDTO): boolean {
-    return c1.id === c2.id;
-  }
-
-  private getNumberParameterFromRoute(name: string): number {
-    return +this.route.snapshot.paramMap.get(name);
+  private getStringParameterFromRoute(name: string): string {
+    return this.route.snapshot.paramMap.get(name);
   }
 
   private getFilms() {
     if (this.searchExpression != null) {
       this.filmService.searchFilmsByTitle(this.searchExpression).subscribe(
         result =>
-          this.films = result.filter(film => film.categoryId === this.category.id && film.rating === this.filmRating)
+          this.films = result.filter(film => film.categories.indexOf(this.category) > -1 && film.rating === this.filmRating)
       )
     } else {
-      this.filmService.getFilmsByCategoryId(this.category.id).subscribe(
+      this.filmService.getFilmsByCategory(this.category).subscribe(
         result =>
           this.films = result.filter(film => film.rating === this.filmRating)
       )
