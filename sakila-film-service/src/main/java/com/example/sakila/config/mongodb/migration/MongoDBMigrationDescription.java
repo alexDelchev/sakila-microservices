@@ -14,11 +14,15 @@ public class MongoDBMigrationDescription {
 
   private static final String HASH_ALGORITHM = "MD5";
 
+  private static final Pattern MIGRATION_NUMBER_PATTERN = Pattern.compile("M([\\d]+\\.?[\\d]*)__");
+
   private String name;
 
   private String content;
 
   private String hash;
+
+  private Float number;
 
   public MongoDBMigrationDescription() {}
 
@@ -26,6 +30,7 @@ public class MongoDBMigrationDescription {
     this.name = name;
     this.content = content;
     this.hash = generateHash(content);
+    this.number = extractMigrationNumber(name);
   }
 
   private String generateHash(String content) {
@@ -45,6 +50,13 @@ public class MongoDBMigrationDescription {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException("Failed to load hash algorithm");
     }
+  }
+
+  private Float extractMigrationNumber(String name) {
+    Matcher matcher = MIGRATION_NUMBER_PATTERN.matcher(name);
+    if (!matcher.find()) return null;
+
+    return Float.parseFloat(matcher.group(1));
   }
 
   public String getName() {
@@ -69,5 +81,13 @@ public class MongoDBMigrationDescription {
 
   public void setHash(String hash) {
     this.hash = hash;
+  }
+
+  public Float getNumber() {
+    return number;
+  }
+
+  public void setNumber(Float number) {
+    this.number = number;
   }
 }
