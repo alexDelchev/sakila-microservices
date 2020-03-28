@@ -5,6 +5,8 @@ import org.bouncycastle.util.encoders.Hex;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MongoDBMigrationDescription {
 
@@ -14,12 +16,15 @@ public class MongoDBMigrationDescription {
 
   private String name;
 
+  private String content;
+
   private String hash;
 
   public MongoDBMigrationDescription() {}
 
   public MongoDBMigrationDescription(String name, String content) {
     this.name = name;
+    this.content = content;
     this.hash = generateHash(content);
   }
 
@@ -48,6 +53,14 @@ public class MongoDBMigrationDescription {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
   }
 
   public String getHash() {
