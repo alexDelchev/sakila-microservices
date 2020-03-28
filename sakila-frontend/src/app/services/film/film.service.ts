@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from '@api/generated/film/services/api.service';
 import { FilmDTO } from '@api/generated/film/models/film-dto';
+import { ApiFilmCategory } from '@api/generated/film/models/api-film-category';
+import { ApiFilmLanguage } from '@api/generated/film/models/api-film-language';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +18,15 @@ export class FilmService {
     return this.apiService.createFilm(film);
   }
 
-  replaceFilm(id: number, film: FilmDTO): Observable<FilmDTO> {
+  replaceFilm(id: string, film: FilmDTO): Observable<FilmDTO> {
     return this.apiService.replaceFilm({ id: id, FilmDTO: film });
   }
 
-  deleteFilm(id: number) {
+  deleteFilm(id: string) {
     this.apiService.deleteFilm(id);
   }
 
-  getFilmById(id: number): Observable<FilmDTO> {
+  getFilmById(id: string): Observable<FilmDTO> {
     return this.apiService.getFilmById(id);
   }
 
@@ -36,12 +38,12 @@ export class FilmService {
     return this.apiService.searchFilmsByDescription(expression);
   }
 
-  getFilmsByCategoryId(id: number): Observable<Array<FilmDTO>> {
-    return this.apiService.getFilmsByCategoryId(id);
+  getFilmsByCategory(category: ApiFilmCategory): Observable<Array<FilmDTO>> {
+    return this.apiService.getFilmsByCategory(category);
   }
 
-  getFilmsByLanguageId(id: number): Observable<Array<FilmDTO>> {
-    return this.apiService.getFilmsByLanguageId(id);
+  getFilmsByLanguageId(language: ApiFilmLanguage): Observable<Array<FilmDTO>> {
+    return this.apiService.getFilmsByLanguage(language);
   }
 
   getFilmsByMpaaRating(rating: string): Observable<Array<FilmDTO>> {
