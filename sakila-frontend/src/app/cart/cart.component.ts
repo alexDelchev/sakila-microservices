@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let filmIds: Array<number> = this.filmSelectionService.getSelectedFilmIds();
+    let filmIds: Array<string> = this.filmSelectionService.getSelectedFilmIds();
     this.films = [];
     this.getFilms(filmIds);
   }
@@ -33,7 +33,7 @@ export class CartComponent implements OnInit {
     return result;
   }
 
-  private getFilms(filmIds: Array<number>) {
+  private getFilms(filmIds: Array<string>) {
     for (let id of filmIds) {
       this.filmService.getFilmById(id).subscribe(result => this.films.push(result));
     }
