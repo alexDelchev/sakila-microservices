@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { FilmService } from '../services/film/film.service';
 import { FilmDTO } from '@api/generated/film/models/film-dto';
@@ -11,7 +11,7 @@ import { InventoryDTO } from '@api/generated/store/models/inventory-dto';
   templateUrl: './film.component.html',
   styleUrls: ['./film.component.css']
 })
-export class FilmComponent implements OnInit {
+export class FilmComponent {
 
   @Input() film: FilmDTO;
 
@@ -21,12 +21,6 @@ export class FilmComponent implements OnInit {
     private filmSelectionService: FilmSelectionService,
     private inventoryService: InventoryService
   ) {}
-
-  ngOnInit() {
-    this.getCurrentInventories();
-    console.log(this.inventories);
-  }
-
 
   isFilmSelected(): boolean {
     let selection: Array<number> = this.filmSelectionService.getSelectedFilmIds();
