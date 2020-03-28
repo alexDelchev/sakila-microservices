@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getFilmSelectionCount(): number {
-    let selection: Array<number> = this.filmSelectionService.getSelectedFilmIds();
+    let selection: Array<string> = this.filmSelectionService.getSelectedFilmIds();
 
     if (selection === null) return 0;
 
