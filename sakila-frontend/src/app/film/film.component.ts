@@ -23,7 +23,7 @@ export class FilmComponent {
   ) {}
 
   isFilmSelected(): boolean {
-    let selection: Array<number> = this.filmSelectionService.getSelectedFilmIds();
+    let selection: Array<string> = this.filmSelectionService.getSelectedFilmIds();
     if (selection == null) return false
 
     return selection.indexOf(this.film.id) > -1
