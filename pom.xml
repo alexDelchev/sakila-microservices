@@ -22,6 +22,7 @@
     <module>sakila-frontend</module>
     <module>sakila-postgres</module>
     <module>sakila-mongodb</module>
+    <module>sakila-kafka</module>
   </modules>
 
 </project>
