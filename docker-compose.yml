@@ -35,6 +35,25 @@ networks:
           gateway: 176.18.3.254
 
 services:
+  sakila-zookeeper:
+    image: com.example.sakila/sakila-zookeeper:1.0-SNAPSHOT
+    container_name: sakila-zookeeper
+    mem_limit: 512m
+    networks:
+      - sakila-backend-network
+    ports:
+      - 2181:2181
+  sakila-kafka:
+    image: com.example.sakila/sakila-kafka:1.0-SNAPSHOT
+    container_name: sakila-kafka
+    mem_limit: 512m
+    depends_on:
+      - sakila-zookeeper
+    networks:
+      - sakila-backend-network
+    ports:
+      - 9092:9092
+      - 9093:9093
   sakila-postgres:
     image: com.example.sakila/sakila-postgres:1.0-SNAPSHOT
     container_name: sakila-postgres
