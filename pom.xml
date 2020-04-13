@@ -23,6 +23,7 @@
     <module>sakila-postgres</module>
     <module>sakila-mongodb</module>
     <module>sakila-kafka</module>
+    <module>sakila-zookeeper</module>
   </modules>
 
 </project>
