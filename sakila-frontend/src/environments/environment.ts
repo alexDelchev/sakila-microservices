@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiRootUrl: 'http://host.docker.internal:8999'
+  apiRootUrl: 'http://127.0.0.1:8999'
 };
 
 /*
