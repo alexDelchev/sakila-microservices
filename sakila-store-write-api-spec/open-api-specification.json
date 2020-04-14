@@ -17,6 +17,28 @@
 
   },
   "definitions": {
+    "CreateStoreCommandDTO": {
+      "type": "object",
+      "properties": {
+        "managerStaffId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "addressId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DeleteStoreCommandDTO": {
+      "type": "object",
+      "properties": {
+        "storeId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "BasicInt64CommandDTO": {
       "type": "object",
       "properties": {
