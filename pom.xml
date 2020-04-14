@@ -24,6 +24,8 @@
     <module>sakila-mongodb</module>
     <module>sakila-kafka</module>
     <module>sakila-zookeeper</module>
+    <module>sakila-store-write-service</module>
+    <module>sakila-store-write-api-spec</module>
   </modules>
 
 </project>
