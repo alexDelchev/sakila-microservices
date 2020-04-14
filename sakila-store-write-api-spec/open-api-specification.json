@@ -14,7 +14,86 @@
     }
   ],
   "paths": {
-
+    "/store/create": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/CreateStoreCommandDTO"
+            }
+          }
+        ],
+        "operationId": "createStore",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/store/delete": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/DeleteStoreCommandDTO"
+            }
+          }
+        ],
+        "operationId": "deleteStore",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/store/changeAddress": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicInt64CommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeAddress",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/store/changeManager": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicInt64CommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeManager",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    }
   },
   "definitions": {
     "CreateStaffCommandDTO": {
