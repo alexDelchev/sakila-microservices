@@ -49,3 +49,16 @@ GRANT ALL ON DATABASE sakila_store TO sakila_store_service;
 GRANT ALL ON DATABASE sakila_store TO postgres;
 
 GRANT TEMPORARY, CONNECT ON DATABASE sakila_store TO PUBLIC;
+
+CREATE DATABASE sakila_store_write
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+GRANT ALL ON DATABASE sakila_store_write TO sakila_store_write_service;
+
+GRANT ALL ON DATABASE sakila_store_write TO postgres;
+
+GRANT TEMPORARY, CONNECT ON DATABASE sakila_store_write TO PUBLIC;
