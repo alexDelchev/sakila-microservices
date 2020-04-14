@@ -11,4 +11,14 @@
 
   <artifactId>sakila-store-write-api-spec</artifactId>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>open-api-specification.json</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
