@@ -14,6 +14,206 @@
     }
   ],
   "paths": {
+    "/staff/create": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/CreateStaffCommandDTO"
+            }
+          }
+        ],
+        "operationId": "createStaff",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/delete": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/DeleteStaffCommandDTO"
+            }
+          }
+        ],
+        "operationId": "deleteStaff",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeActive": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicBooleanCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeActive",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeAddress": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicInt64CommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeAddress",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeEmail": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicStringCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeEmail",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeFirstName": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicStringCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeFirstName",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeLastName": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicStringCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeLastName",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changePassword": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicStringCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changePassword",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeStore": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicInt64CommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeStore",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
+    "/staff/changeUsername": {
+      "patch": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "command",
+            "description": "Command model.",
+            "schema": {
+              "$ref": "#/definitions/BasicStringCommandDTO"
+            }
+          }
+        ],
+        "operationId": "changeUsername",
+        "responses": {
+          "200": {
+            "description": "Command accepted."
+          }
+        }
+      }
+    },
     "/store/create": {
       "post": {
         "parameters": [
