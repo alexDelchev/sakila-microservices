@@ -17,6 +17,42 @@
 
   },
   "definitions": {
-
+    "BasicInt64CommandDTO": {
+      "type": "object",
+      "properties": {
+        "aggregateId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "newValue": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "BasicStringCommandDTO": {
+      "type": "object",
+      "properties": {
+        "aggregateId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "newValue": {
+          "type": "string"
+        }
+      }
+    },
+    "BasicBooleanCommandDTO": {
+      "type": "object",
+      "properties": {
+        "aggregateId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "newValue": {
+          "type": "boolean"
+        }
+      }
+    }
   }
 }
