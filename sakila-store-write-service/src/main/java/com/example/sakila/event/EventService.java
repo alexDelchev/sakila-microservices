@@ -28,4 +28,8 @@ public class EventService {
 
     return version;
   }
+
+  public void deleteAggregate(Long aggregateId) {
+    eventStore.deleteAggregate(aggregateId);
+  }
 }
