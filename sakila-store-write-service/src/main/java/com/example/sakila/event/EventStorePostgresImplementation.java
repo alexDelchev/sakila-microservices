@@ -47,4 +47,20 @@ public class EventStorePostgresImplementation implements EventStore {
 
     jdbcTemplate.update(statement, aggregateId);
   }
+
+  @Override
+  public void persistEventStoreItem(EventStoreItemDatabaseDTO item){
+    String statement =
+        "INSERT INTO event(eventId, aggregateId, aggregateVersion, data, metaData, rowCreation) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
+    jdbcTemplate.update(
+        statement,
+        item.getEventId(),
+        item.getAggregateId(),
+        item.getAggregateVersion(),
+        item.getEventJson().getBytes(Constants.CHARSET),
+        item.getMetaDataJson().getBytes(Constants.CHARSET),
+        item.getLastUpdate()
+    );
+  }
 }
