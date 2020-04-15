@@ -27,5 +27,15 @@ public class StaffCommandService {
 
     this.eventBus.register(this);
   }
-  
+
+  private <T> void processBasicCommand(BasicStaffCommand<T> command, BasicStaffEvent<T> event) {
+    event.setStaffId(command.getStaffId());
+    event.setNewValue(command.getNewValue());
+
+    Long aggregateVersion = eventService.getAggregateVersion(command.getStaffId());
+    event.setVersion(aggregateVersion + 1L);
+
+    eventService.persistEvent(event.getStaffId(), event);
+    eventBus.emit(event);
+  }
 }
