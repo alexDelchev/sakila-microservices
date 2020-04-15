@@ -26,6 +26,10 @@ spring:
           uri: lb://sakila-store-service
           predicates:
             - Path=/api/store/**
+        - id: sakila-store-write-service
+          uri: lb://sakila-store-write-service
+          predicates:
+            - Path=/api/store/write/**
 eureka:
   instance:
     preferIpAddress: true
