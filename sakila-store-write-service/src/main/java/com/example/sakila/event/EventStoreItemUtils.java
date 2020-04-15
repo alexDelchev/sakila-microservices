@@ -8,6 +8,34 @@ public class EventStoreItemUtils {
 
   private final static ObjectMapper mapper = new ObjectMapper();
 
+  static EventStoreItemDatabaseDTO toDTO(EventStoreItem item) {
+    EventStoreItemDatabaseDTO result = new EventStoreItemDatabaseDTO();
+
+    result.setEventId(item.getEventId());
+    result.setAggregateId(item.getAggregateId());
+    result.setAggregateVersion(item.getAggregateVersion());
+    result.setEventJson(serialize(item.getEvent()));
+    result.setMetaDataJson(serialize(item.getMetaData()));
+    result.setLastUpdate(item.getLastUpdate());
+
+    return result;
+  }
+
+  static <T> EventStoreItem<T> fromDTO(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
+    EventStoreItem<T> result = new EventStoreItem<>();
+
+    EventMetaData metaData = deserialize(dto.getMetaDataJson(), EventMetaData.class);
+
+    result.setEventId(dto.getEventId());
+    result.setAggregateId(dto.getAggregateId());
+    result.setAggregateVersion(dto.getAggregateVersion());
+    result.setMetaData(metaData);
+    result.setEvent(deserialize(dto.getEventJson(), metaData.getEventType(rootType)));
+    result.setLastUpdate(dto.getLastUpdate());
+
+    return result;
+  }
+
   private static <T> T deserialize(String json, Class<T> type) {
     try {
       return mapper.readValue(json, type);
