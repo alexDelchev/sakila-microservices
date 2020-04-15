@@ -47,4 +47,11 @@ public class EventService {
 
     eventStore.persistEventStoreItem(dto);
   }
+
+  public <T> List<Event<T>> getEventsForAggregate(Long aggregateId, Class<T> type) {
+    return eventStore.getEventStoreItemsForAggregate(aggregateId)
+        .stream()
+        .map(dto -> EventStoreItemUtils.toEvent(dto, type))
+        .collect(Collectors.toList());
+  }
 }
