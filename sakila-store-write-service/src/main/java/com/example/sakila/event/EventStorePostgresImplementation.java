@@ -40,4 +40,11 @@ public class EventStorePostgresImplementation implements EventStore {
 
     return result;
   }
+
+  @Override
+  public void deleteAggregate(Long aggregateId) {
+    String statement = "DELETE FROM aggregate WHERE aggregateId = ?";
+
+    jdbcTemplate.update(statement, aggregateId);
+  }
 }
