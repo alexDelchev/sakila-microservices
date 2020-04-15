@@ -54,4 +54,8 @@ public class EventService {
         .map(dto -> EventStoreItemUtils.toEvent(dto, type))
         .collect(Collectors.toList());
   }
+
+  public void deleteEventsForAggregate(Long aggregateId) {
+    eventStore.deleteEventStoreItemsForAggregate(aggregateId);
+  }
 }
