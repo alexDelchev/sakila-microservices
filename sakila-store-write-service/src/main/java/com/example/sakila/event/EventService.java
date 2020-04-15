@@ -22,4 +22,10 @@ public class EventService {
     return eventStore.persistAggregate(type, new Date());
   }
 
+  public Long getAggregateVersion(Long aggregateId) {
+    Long version = eventStore.getAggregateVersion(aggregateId);
+    if (version == null) version = 0L;
+
+    return version;
+  }
 }
