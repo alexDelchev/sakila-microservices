@@ -21,5 +21,9 @@ public class EventStorePostgresImplementation implements EventStore {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  
+  @Override
+  public Long persistAggregate(String type, Date date) {
+    String statement = "INSERT INTO aggregate (type, lastUpdate) VALUES (?, ?) RETURNING aggregateId";
+    return jdbcTemplate.queryForObject(statement, Long.class, type, date);
+  }
 }
