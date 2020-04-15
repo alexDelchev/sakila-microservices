@@ -63,4 +63,11 @@ public class EventStorePostgresImplementation implements EventStore {
         item.getLastUpdate()
     );
   }
+
+  @Override
+  public List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregate(Long aggregateId) {
+    String query = "SELECT eventId, aggregateId, aggregateVersion, data, metaData, rowCreation FROM event WHERE aggregateId = ?";
+
+    return jdbcTemplate.query(query, rowMapper, aggregateId);
+  }
 }
