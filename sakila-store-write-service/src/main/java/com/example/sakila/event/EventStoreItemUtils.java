@@ -36,6 +36,15 @@ public class EventStoreItemUtils {
     return result;
   }
 
+  static <T> Event<T> toEvent(EventStoreItem<T> item) {
+    return item.getEvent();
+  }
+
+  static <T> Event<T> toEvent(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
+    EventStoreItem<T> item = fromDTO(dto, rootType);
+    return toEvent(item);
+  }
+
   private static <T> T deserialize(String json, Class<T> type) {
     try {
       return mapper.readValue(json, type);
