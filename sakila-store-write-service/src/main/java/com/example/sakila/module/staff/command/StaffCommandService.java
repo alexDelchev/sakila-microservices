@@ -29,6 +29,38 @@ public class StaffCommandService {
   }
 
   @Handler
+  public void onCreateStaffCommand(CreateStaffCommand command) {
+    Long staffId = eventService.persistAggregate(StaffWriteModel.class.getTypeName());
+    Long version = 1L;
+
+    StaffCreatedEvent event = new StaffCreatedEvent();
+    event.setStaffId(staffId);
+    event.setVersion(version);
+    event.setFirstName(command.getFirstName());
+    event.setLastName(command.getLastName());
+    event.setAddress_id(command.getAddressId());
+    event.setEmail(command.getEmail());
+    event.setStoreId(command.getStoreId());
+    event.setActive(command.getActive());
+    event.setUserName(command.getUserName());
+    event.setPassword(command.getPassword());
+
+    eventService.persistEvent(event.getStaffId(), event);
+    eventBus.emit(event);
+  }
+
+  @Handler
+  public void onDeleteStaffCommand(DeleteStaffCommand command) {
+    Long staffId = command.getStaffId();
+    eventService.deleteEventsForAggregate(staffId);
+    eventService.deleteAggregate(staffId);
+
+    StaffDeletedEvent event = new StaffDeletedEvent();
+    event.setStaffId(staffId);
+    eventBus.emit(event);
+  }
+
+  @Handler
   public void onChangeActiveCommand(ChangeActiveCommand command) {
     processBasicCommand(command, new ActiveChangedEvent());
   }
