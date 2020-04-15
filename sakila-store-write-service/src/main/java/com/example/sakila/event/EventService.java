@@ -17,5 +17,9 @@ public class EventService {
   public EventService(EventStore eventStore) {
     this.eventStore = eventStore;
   }
-  
+
+  public Long persistAggregate(String type) {
+    return eventStore.persistAggregate(type, new Date());
+  }
+
 }
