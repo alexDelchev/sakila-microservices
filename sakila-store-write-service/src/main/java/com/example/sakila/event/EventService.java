@@ -32,4 +32,19 @@ public class EventService {
   public void deleteAggregate(Long aggregateId) {
     eventStore.deleteAggregate(aggregateId);
   }
+
+  public <T> void persistEvent(Long aggregateId, Event<T> event) {
+    EventStoreItem<T> item = new EventStoreItem<>();
+
+    item.setAggregateId(aggregateId);
+    item.setAggregateVersion(event.getVersion());
+    item.setEventId(event.getId());
+    item.setEvent(event);
+    item.setMetaData(EventMetaData.forType(event.getClass()));
+    item.setLastUpdate(new Date());
+
+    EventStoreItemDatabaseDTO dto = EventStoreItemUtils.toDTO(item);
+
+    eventStore.persistEventStoreItem(dto);
+  }
 }
