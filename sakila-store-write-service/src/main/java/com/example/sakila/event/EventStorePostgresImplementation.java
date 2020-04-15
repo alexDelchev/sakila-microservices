@@ -26,4 +26,18 @@ public class EventStorePostgresImplementation implements EventStore {
     String statement = "INSERT INTO aggregate (type, lastUpdate) VALUES (?, ?) RETURNING aggregateId";
     return jdbcTemplate.queryForObject(statement, Long.class, type, date);
   }
+
+  @Override
+  public Long getAggregateVersion(Long aggregateId) {
+    String query = "SELECT MAX(aggregateVersion) FROM event WHERE aggregateId = ?";
+    Long result;
+
+    try {
+      result = jdbcTemplate.queryForObject(query, Long.class, aggregateId);
+    } catch (DataAccessException e) {
+      result = null;
+    }
+
+    return result;
+  }
 }
