@@ -45,6 +45,30 @@ public class StoreEventService {
     this.eventBus.register(this);
   }
 
+  @Handler
+  public void onStoreCreatedEvent(StoreCreatedEvent event) {
+    String json = getStoreDTOAsJson(event.getStoreId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onStoreDeletedEvent(StoreDeletedEvent event) {
+    String json = toJson(event);
+    kafkaTemplate.send(DELETE_TOPIC, json);
+  }
+
+  @Handler
+  public void onManagerChangedEvent(ManagerChangedEvent event) {
+    String json = getStoreDTOAsJson(event.getStoreId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onAddressChangedEvent(AddressChangedEvent event) {
+    String json = getStoreDTOAsJson(event.getStoreId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
   private String getStoreDTOAsJson(Long storeId) {
     StoreWriteModel model = storeService.getStoreById(storeId);
     StoreDTO dto = StoreUtils.toDTO(model);
