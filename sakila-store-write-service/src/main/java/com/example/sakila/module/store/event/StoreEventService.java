@@ -44,5 +44,18 @@ public class StoreEventService {
 
     this.eventBus.register(this);
   }
-  
+
+  private String getStoreDTOAsJson(Long storeId) {
+    StoreWriteModel model = storeService.getStoreById(storeId);
+    StoreDTO dto = StoreUtils.toDTO(model);
+    return toJson(dto);
+  }
+
+  private String toJson(Object object) {
+    try {
+      return mapper.writeValueAsString(object);
+    } catch (JsonProcessingException e) {
+      throw new IllegalArgumentException("Failed to serialise to JSON", e);
+    }
+  }
 }
