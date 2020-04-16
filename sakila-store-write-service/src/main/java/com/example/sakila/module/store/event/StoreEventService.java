@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreEventService {
 
+  private static final String CREATE_TOPIC = "store-create-event-stream";
+
   private static final String DTO_TOPIC = "store-dto-stream";
 
   private static final String DELETE_TOPIC = "store-delete-event-stream";
@@ -48,7 +50,7 @@ public class StoreEventService {
   @Handler
   public void onStoreCreatedEvent(StoreCreatedEvent event) {
     String json = getStoreDTOAsJson(event.getStoreId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(CREATE_TOPIC, json);
   }
 
   @Handler
