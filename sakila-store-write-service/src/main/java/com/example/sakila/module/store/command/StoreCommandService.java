@@ -44,6 +44,17 @@ public class StoreCommandService {
   }
 
   @Handler
+  public void onDeleteStoreCommand(DeleteStoreCommand command) {
+    Long storeId = command.getStoreId();
+    eventService.deleteAggregate(storeId);
+    eventService.deleteEventsForAggregate(storeId);
+
+    StoreDeletedEvent storeDeletedEvent = new StoreDeletedEvent();
+    storeDeletedEvent.setStoreId(command.getStoreId());
+    eventBus.emit(storeDeletedEvent);
+  }
+
+  @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
     processBasicCommand(command, new AddressChangedEvent());
   }
