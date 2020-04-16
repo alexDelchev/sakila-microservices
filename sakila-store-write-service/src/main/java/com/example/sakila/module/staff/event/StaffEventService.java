@@ -20,7 +20,7 @@ public class StaffEventService {
 
   private static final String CREATE_TOPIC = "staff-create-event-stream";
 
-  private static final String DTO_TOPIC = "staff-dto-stream";
+  private static final String UPDATE_TOPIC = "staff-dto-stream";
 
   private static final String DELETE_TOPIC = "staff-delete-event-stream";
 
@@ -60,49 +60,49 @@ public class StaffEventService {
   @Handler
   public void onActiveChangedEvent(ActiveChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onEmailChangedEvent(EmailChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onFirstNameChangedEvent(FirstNameChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onLastNameChangedEvent(LastNameChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onPasswordChangedEvent(PasswordChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onStoreChangedEvent(StoreChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onUsernameChangedEvent(UsernameChangedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   private String getStaffDTOAsJson(Long staffId) {
