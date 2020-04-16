@@ -27,5 +27,15 @@ public class StoreCommandService {
 
     this.eventBus.register(this);
   }
-  
+
+  private <T> void processBasicCommand(BasicStoreCommand<T> command, BasicStoreEvent<T> event) {
+    event.setStoreId(command.getStoreId());
+    event.setNewValue(command.getNewValue());
+
+    Long aggregateVersion = eventService.getAggregateVersion(command.getStoreId());
+    event.setVersion(aggregateVersion + 1L);
+
+    eventService.persistEvent(event.getStoreId(), event);
+    eventBus.emit(event);
+  }
 }
