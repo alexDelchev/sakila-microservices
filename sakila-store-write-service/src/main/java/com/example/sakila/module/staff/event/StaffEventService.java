@@ -40,5 +40,18 @@ public class StaffEventService {
 
     this.eventBus.register(this);
   }
+  
+  private String getStaffDTOAsJson(Long staffId) {
+    StaffWriteModel model = staffService.getStaffById(staffId);
+    StaffDTO dto = StaffUtils.toDTO(model);
+    return toJson(dto);
+  }
 
+  private String toJson(Object object) {
+    try {
+      return mapper.writeValueAsString(object);
+    } catch (JsonProcessingException e) {
+      throw new IllegalArgumentException("Failed to serialise to JSON", e);
+    }
+  }
 }
