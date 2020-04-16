@@ -22,7 +22,7 @@ public class StoreEventService {
 
   private static final String CREATE_TOPIC = "store-create-event-stream";
 
-  private static final String DTO_TOPIC = "store-dto-stream";
+  private static final String UPDATE_TOPIC = "store-dto-stream";
 
   private static final String DELETE_TOPIC = "store-delete-event-stream";
 
@@ -62,13 +62,13 @@ public class StoreEventService {
   @Handler
   public void onManagerChangedEvent(ManagerChangedEvent event) {
     String json = getStoreDTOAsJson(event.getStoreId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
     String json = getStoreDTOAsJson(event.getStoreId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   private String getStoreDTOAsJson(Long storeId) {
