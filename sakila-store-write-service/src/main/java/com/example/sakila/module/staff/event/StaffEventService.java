@@ -40,7 +40,67 @@ public class StaffEventService {
 
     this.eventBus.register(this);
   }
-  
+
+  @Handler
+  public void onStaffCreatedEvent(StaffCreatedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onStaffDeletedEvent(StaffDeletedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onActiveChangedEvent(ActiveChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onAddressChangedEvent(AddressChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onEmailChangedEvent(EmailChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onFirstNameChangedEvent(FirstNameChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onLastNameChangedEvent(LastNameChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onPasswordChangedEvent(PasswordChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onStoreChangedEvent(StoreChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
+  @Handler
+  public void onUsernameChangedEvent(UsernameChangedEvent event) {
+    String json = getStaffDTOAsJson(event.getStaffId());
+    kafkaTemplate.send(DTO_TOPIC, json);
+  }
+
   private String getStaffDTOAsJson(Long staffId) {
     StaffWriteModel model = staffService.getStaffById(staffId);
     StaffDTO dto = StaffUtils.toDTO(model);
