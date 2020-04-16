@@ -28,6 +28,16 @@ public class StoreCommandService {
     this.eventBus.register(this);
   }
 
+  @Handler
+  public void onChangeAddressCommand(ChangeAddressCommand command) {
+    processBasicCommand(command, new AddressChangedEvent());
+  }
+
+  @Handler
+  public void onChangeManagerCommand(ChangeManagerCommand command) {
+    processBasicCommand(command, new ManagerChangedEvent());
+  }
+
   private <T> void processBasicCommand(BasicStoreCommand<T> command, BasicStoreEvent<T> event) {
     event.setStoreId(command.getStoreId());
     event.setNewValue(command.getNewValue());
