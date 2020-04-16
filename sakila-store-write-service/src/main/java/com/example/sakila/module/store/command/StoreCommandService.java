@@ -29,6 +29,21 @@ public class StoreCommandService {
   }
 
   @Handler
+  public void onCreatStoreCommand(CreateStoreCommand command) {
+    Long storeId = eventService.persistAggregate(StoreWriteModel.class.getTypeName());
+    Long version = 1L;
+
+    StoreCreatedEvent event = new StoreCreatedEvent();
+    event.setStoreId(storeId);
+    event.setVersion(version);
+    event.setManagerStaffId(command.getManagerStaffID());
+    event.setAddressId(command.getAddressId());
+
+    eventService.persistEvent(event.getStoreId(), event);
+    eventBus.emit(event);
+  }
+
+  @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
     processBasicCommand(command, new AddressChangedEvent());
   }
