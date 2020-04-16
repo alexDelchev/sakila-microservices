@@ -20,6 +20,8 @@ public class StaffEventService {
 
   private static final String DTO_TOPIC = "staff-dto-stream";
 
+  private static final String DELETE_TOPIC = "staff-delete-event-stream";
+
   private final EventBus eventBus;
 
   private final StaffService staffService;
@@ -49,8 +51,8 @@ public class StaffEventService {
 
   @Handler
   public void onStaffDeletedEvent(StaffDeletedEvent event) {
-    String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    String json = toJson(event);
+    kafkaTemplate.send(DELETE_TOPIC, json);
   }
 
   @Handler
