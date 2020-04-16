@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StaffEventService {
 
+  private static final String CREATE_TOPIC = "staff-create-event-stream";
+
   private static final String DTO_TOPIC = "staff-dto-stream";
 
   private static final String DELETE_TOPIC = "staff-delete-event-stream";
@@ -46,7 +48,7 @@ public class StaffEventService {
   @Handler
   public void onStaffCreatedEvent(StaffCreatedEvent event) {
     String json = getStaffDTOAsJson(event.getStaffId());
-    kafkaTemplate.send(DTO_TOPIC, json);
+    kafkaTemplate.send(CREATE_TOPIC, json);
   }
 
   @Handler
