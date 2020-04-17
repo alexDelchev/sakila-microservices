@@ -1,10 +1,7 @@
 package com.example.sakila.module.store;
 
-import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.StoresApi;
 import com.example.sakila.generated.server.model.StoreDTO;
-import com.example.sakila.module.staff.Staff;
-import com.example.sakila.module.staff.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,12 +17,9 @@ public class StoreController implements StoresApi {
 
   private final StoreService storeService;
 
-  private final StaffService staffService;
-
   @Autowired
-  public StoreController(StoreService storeService, StaffService staffService) {
+  public StoreController(StoreService storeService) {
     this.storeService = storeService;
-    this.staffService = staffService;
   }
 
   @Override
@@ -56,28 +50,23 @@ public class StoreController implements StoresApi {
 
   private StoreDTO toDTO(Store store) {
     StoreDTO storeDTO = new StoreDTO();
+
     storeDTO.setId(store.getId());
-    storeDTO.setManagerStaffId(store.getManagerStaff().getId());
+    storeDTO.setManagerStaffId(store.getManagerStaffId());
     storeDTO.setAddressId(store.getAddressId());
     storeDTO.setLastUpdate(OffsetDateTime.ofInstant(store.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+
     return storeDTO;
   }
 
   private Store toEntity(StoreDTO storeDTO) {
     Store store = new Store();
+
     store.setId(storeDTO.getId());
     store.setAddressId(storeDTO.getAddressId());
-
-    if (storeDTO.getManagerStaffId() != null) {
-      Staff staff = staffService.getStaffById(storeDTO.getManagerStaffId());
-      if (staff == null) throw new NotFoundException(
-          "Staff for ID " + storeDTO.getManagerStaffId() + " does not exist"
-      );
-
-      store.setManagerStaff(staff);
-    }
-
+    store.setManagerStaffId(storeDTO.getManagerStaffId());
     if (storeDTO.getLastUpdate() != null) store.setLastUpdate(Date.from(storeDTO.getLastUpdate().toInstant()));
+
     return store;
   }
 }
