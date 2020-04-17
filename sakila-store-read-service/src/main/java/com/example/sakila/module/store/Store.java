@@ -1,17 +1,12 @@
 package com.example.sakila.module.store;
 
-import com.example.sakila.module.staff.Staff;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
 import java.util.Date;
 
 public class Store {
 
   private Long id;
 
-  private Staff managerStaff;
+  private Long managerStaffId;
 
   private Long addressId;
 
@@ -23,9 +18,9 @@ public class Store {
     this.id = id;
   }
 
-  public Store(Long id, Staff managerStaff, Long addressId, Date lastUpdate) {
+  public Store(Long id, Long managerStaffId, Long addressId, Date lastUpdate) {
     this.id = id;
-    this.managerStaff = managerStaff;
+    this.managerStaffId = managerStaffId;
     this.addressId = addressId;
     this.lastUpdate = lastUpdate;
   }
@@ -38,12 +33,12 @@ public class Store {
     this.id = id;
   }
 
-  public Staff getManagerStaff() {
-    return managerStaff;
+  public Long getManagerStaffId() {
+    return managerStaffId;
   }
 
-  public void setManagerStaff(Staff managerStaff) {
-    this.managerStaff = managerStaff;
+  public void setManagerStaffId(Long managerStaffId) {
+    this.managerStaffId = managerStaffId;
   }
 
   public Long getAddressId() {
