@@ -6,7 +6,7 @@ public class AddressChangedEvent extends BasicStaffEvent<Long> {
 
   @Override
   public void apply(StaffWriteModel model) {
-    model.setAddress_id(this.getNewValue());
+    model.setAddressId(this.getNewValue());
     model.setVersion(this.getVersion());
   }
 }

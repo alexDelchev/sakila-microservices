@@ -8,7 +8,7 @@ public class StaffUtils {
     dto.setId(model.getId());
     dto.setFirstName(model.getFirstName());
     dto.setLastName(model.getLastName());
-    dto.setAddress_id(model.getAddress_id());
+    dto.setAddressId(model.getAddressId());
     dto.setEmail(model.getEmail());
     dto.setStoreId(model.getStoreId());
     dto.setActive(model.getActive());

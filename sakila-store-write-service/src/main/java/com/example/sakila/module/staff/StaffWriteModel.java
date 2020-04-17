@@ -12,7 +12,7 @@ public class StaffWriteModel {
 
   private String lastName;
 
-  private Long address_id;
+  private Long addressId;
 
   private String email;
 
@@ -59,12 +59,12 @@ public class StaffWriteModel {
     this.lastName = lastName;
   }
 
-  public Long getAddress_id() {
-    return address_id;
+  public Long getAddressId() {
+    return addressId;
   }
 
-  public void setAddress_id(Long address_id) {
-    this.address_id = address_id;
+  public void setAddressId(Long addressId) {
+    this.addressId = addressId;
   }
 
   public String getEmail() {

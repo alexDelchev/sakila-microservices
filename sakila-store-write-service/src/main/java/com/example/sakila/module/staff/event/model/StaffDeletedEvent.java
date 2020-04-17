@@ -13,7 +13,7 @@ public class StaffDeletedEvent extends Event<StaffWriteModel> {
     model.setFirstName(null);
     model.setLastName(null);
     model.setEmail(null);
-    model.setAddress_id(null);
+    model.setAddressId(null);
     model.setStoreId(null);
     model.setUserName(null);
     model.setPassword(null);

@@ -11,7 +11,7 @@ public class StaffCreatedEvent extends Event<StaffWriteModel> {
 
   private String lastName;
 
-  private Long address_id;
+  private Long addressId;
 
   private String email;
 
@@ -29,7 +29,7 @@ public class StaffCreatedEvent extends Event<StaffWriteModel> {
     model.setVersion(version);
     model.setFirstName(firstName);
     model.setLastName(lastName);
-    model.setAddress_id(address_id);
+    model.setAddressId(addressId);
     model.setEmail(email);
     model.setStoreId(storeId);
     model.setActive(active);
@@ -61,12 +61,12 @@ public class StaffCreatedEvent extends Event<StaffWriteModel> {
     this.lastName = lastName;
   }
 
-  public Long getAddress_id() {
-    return address_id;
+  public Long getAddressId() {
+    return addressId;
   }
 
-  public void setAddress_id(Long address_id) {
-    this.address_id = address_id;
+  public void setAddressId(Long addressId) {
+    this.addressId = addressId;
   }
 
   public String getEmail() {

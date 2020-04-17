@@ -38,7 +38,7 @@ public class StaffCommandService {
     event.setVersion(version);
     event.setFirstName(command.getFirstName());
     event.setLastName(command.getLastName());
-    event.setAddress_id(command.getAddressId());
+    event.setAddressId(command.getAddressId());
     event.setEmail(command.getEmail());
     event.setStoreId(command.getStoreId());
     event.setActive(command.getActive());
