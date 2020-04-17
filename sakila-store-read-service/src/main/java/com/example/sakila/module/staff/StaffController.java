@@ -63,7 +63,7 @@ public class StaffController implements StaffApi {
     staffDTO.setId(staff.getId());
     staffDTO.setFirstName(staff.getFirstName());
     staffDTO.setLastName(staff.getLastName());
-    staffDTO.setAddressId(staff.getAddress_id());
+    staffDTO.setAddressId(staff.getAddressId());
     staffDTO.setEmail(staff.getEmail());
     staffDTO.setStoreId(staff.getStore().getId());
     staffDTO.setActive(staff.getActive());
@@ -78,7 +78,7 @@ public class StaffController implements StaffApi {
     staff.setId(staffDTO.getId());
     staff.setFirstName(staffDTO.getFirstName());
     staff.setLastName(staffDTO.getLastName());
-    staff.setAddress_id(staffDTO.getAddressId());
+    staff.setAddressId(staffDTO.getAddressId());
     staff.setEmail(staffDTO.getEmail());
     staff.setActive(staffDTO.isActive());
     staff.setUserName(staffDTO.getUserName());

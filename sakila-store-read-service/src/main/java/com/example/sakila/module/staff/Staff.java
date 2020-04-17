@@ -15,7 +15,7 @@ public class Staff {
 
   private String lastName;
 
-  private Long address_id;
+  private Long addressId;
 
   private String email;
 
@@ -36,14 +36,14 @@ public class Staff {
   }
 
   public Staff(
-      Long id, String firstName, String lastName, Long address_id,
+      Long id, String firstName, String lastName, Long addressId,
       String email, Store store, Boolean active, String userName,
       String password, Date lastUpdate
   ) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.address_id = address_id;
+    this.addressId = addressId;
     this.email = email;
     this.store = store;
     this.active = active;
@@ -76,12 +76,12 @@ public class Staff {
     this.lastName = lastName;
   }
 
-  public Long getAddress_id() {
-    return address_id;
+  public Long getAddressId() {
+    return addressId;
   }
 
-  public void setAddress_id(Long address_id) {
-    this.address_id = address_id;
+  public void setAddressId(Long addressId) {
+    this.addressId = addressId;
   }
 
   public String getEmail() {

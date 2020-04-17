@@ -43,7 +43,7 @@ public class StaffService {
     target.setStore(source.getStore());
     target.setUserName(source.getUserName());
     target.setPassword(source.getPassword());
-    target.setAddress_id(source.getAddress_id());
+    target.setAddressId(source.getAddressId());
 
     if (source.getActive() != null) target.setActive(source.getActive());
 
