@@ -58,7 +58,7 @@ public class StoreController implements StoresApi {
     StoreDTO storeDTO = new StoreDTO();
     storeDTO.setId(store.getId());
     storeDTO.setManagerStaffId(store.getManagerStaff().getId());
-    storeDTO.setAddressId(store.getAddress_id());
+    storeDTO.setAddressId(store.getAddressId());
     storeDTO.setLastUpdate(OffsetDateTime.ofInstant(store.getLastUpdate().toInstant(), ZoneId.systemDefault()));
     return storeDTO;
   }
@@ -66,7 +66,7 @@ public class StoreController implements StoresApi {
   private Store toEntity(StoreDTO storeDTO) {
     Store store = new Store();
     store.setId(storeDTO.getId());
-    store.setAddress_id(storeDTO.getAddressId());
+    store.setAddressId(storeDTO.getAddressId());
 
     if (storeDTO.getManagerStaffId() != null) {
       Staff staff = staffService.getStaffById(storeDTO.getManagerStaffId());
