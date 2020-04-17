@@ -5,7 +5,6 @@ import com.example.sakila.generated.server.model.*;
 import com.example.sakila.module.staff.command.*;
 import com.example.sakila.module.staff.command.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -17,7 +16,7 @@ public class StaffController  implements StaffApi {
   private final StaffCommandService commandService;
 
   @Autowired
-  public StaffController(@Qualifier("StaffEventBus") StaffCommandService commandService) {
+  public StaffController(StaffCommandService commandService) {
     this.commandService = commandService;
   }
 
