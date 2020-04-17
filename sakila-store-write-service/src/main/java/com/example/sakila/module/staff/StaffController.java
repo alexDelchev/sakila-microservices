@@ -22,12 +22,13 @@ public class StaffController  implements StaffApi {
   }
 
   @Override
-  public ResponseEntity<Void> createStaff(CreateStaffCommandDTO dto) {
+  public ResponseEntity<AggregateIdDTO> createStaff(CreateStaffCommandDTO dto) {
     CreateStaffCommand command = CommandUtils.toCreateStaffCommand(dto);
 
-    commandService.onCreateStaffCommand(command);
+    Long createdStaffId = commandService.onCreateStaffCommand(command);
 
-    return OK_RESPONSE;
+    AggregateIdDTO response = new AggregateIdDTO().aggregateId(createdStaffId);
+    return ResponseEntity.ok(response);
   }
 
   @Override
