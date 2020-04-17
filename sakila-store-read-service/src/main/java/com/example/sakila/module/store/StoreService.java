@@ -48,7 +48,7 @@ public class StoreService {
         getStoreByManagerStaffId(source.getManagerStaff().getId()) != null)
       throw new DataConflictException("Staff with ID " + source.getManagerStaff().getId() + " is already a manager");
 
-    target.setAddress_id(source.getAddress_id());
+    target.setAddressId(source.getAddressId());
     target.setManagerStaff(source.getManagerStaff());
 
     return storeRepository.updateStore(target);

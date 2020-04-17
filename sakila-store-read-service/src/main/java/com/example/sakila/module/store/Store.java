@@ -13,7 +13,7 @@ public class Store {
 
   private Staff managerStaff;
 
-  private Long address_id;
+  private Long addressId;
 
   private Date lastUpdate;
 
@@ -23,10 +23,10 @@ public class Store {
     this.id = id;
   }
 
-  public Store(Long id, Staff managerStaff, Long address_id, Date lastUpdate) {
+  public Store(Long id, Staff managerStaff, Long addressId, Date lastUpdate) {
     this.id = id;
     this.managerStaff = managerStaff;
-    this.address_id = address_id;
+    this.addressId = addressId;
     this.lastUpdate = lastUpdate;
   }
 
@@ -46,12 +46,12 @@ public class Store {
     this.managerStaff = managerStaff;
   }
 
-  public Long getAddress_id() {
-    return address_id;
+  public Long getAddressId() {
+    return addressId;
   }
 
-  public void setAddress_id(Long address_id) {
-    this.address_id = address_id;
+  public void setAddressId(Long addressId) {
+    this.addressId = addressId;
   }
 
   public Date getLastUpdate() {
