@@ -1,6 +1,5 @@
 package com.example.sakila.module.staff;
 
-import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.generated.server.api.StaffApi;
 import com.example.sakila.generated.server.model.*;
 import com.example.sakila.module.staff.command.*;
@@ -15,18 +14,18 @@ public class StaffController  implements StaffApi {
 
   private static final ResponseEntity<Void> OK_RESPONSE = ResponseEntity.ok(null);
 
-  private final EventBus eventBus;
+  private final StaffCommandService commandService;
 
   @Autowired
-  public StaffController(@Qualifier("StaffEventBus") EventBus eventBus) {
-    this.eventBus = eventBus;
+  public StaffController(@Qualifier("StaffEventBus") StaffCommandService commandService) {
+    this.commandService = commandService;
   }
 
   @Override
   public ResponseEntity<Void> createStaff(CreateStaffCommandDTO dto) {
     CreateStaffCommand command = CommandUtils.toCreateStaffCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onCreateStaffCommand(command);
 
     return OK_RESPONSE;
   }
@@ -35,7 +34,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> deleteStaff(DeleteStaffCommandDTO dto) {
     DeleteStaffCommand command = CommandUtils.toDeleteStaffCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onDeleteStaffCommand(command);
 
     return OK_RESPONSE;
   }
@@ -44,7 +43,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeActive(BasicBooleanCommandDTO dto) {
     ChangeActiveCommand command = CommandUtils.toChangeActiveCOmmand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeActiveCommand(command);
 
     return OK_RESPONSE;
   }
@@ -53,7 +52,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeAddress(BasicInt64CommandDTO dto) {
     ChangeAddressCommand command = CommandUtils.toChangeAddressCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeAddressCommand(command);
 
     return OK_RESPONSE;
   }
@@ -62,7 +61,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeEmail(BasicStringCommandDTO dto) {
     ChangeEmailCommand command = CommandUtils.toChangeEmailCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeEmailCommand(command);
 
     return OK_RESPONSE;
   }
@@ -71,7 +70,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeFirstName(BasicStringCommandDTO dto) {
     ChangeFirstNameCommand command = CommandUtils.toChangeFirstNameCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeFirstNameCommand(command);
 
     return OK_RESPONSE;
   }
@@ -80,7 +79,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeLastName(BasicStringCommandDTO dto) {
     ChangeLastNameCommand command = CommandUtils.toChangeLastNameCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeLastNameCommand(command);
 
     return OK_RESPONSE;
   }
@@ -89,7 +88,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changePassword(BasicStringCommandDTO dto) {
     ChangePasswordCommand command = CommandUtils.toChangePasswordCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangePasswordCommand(command);
 
     return OK_RESPONSE;
   }
@@ -98,7 +97,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeStore(BasicInt64CommandDTO dto) {
     ChangeStoreCommand command = CommandUtils.toChangeStoreCOmmand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeStoreCommand(command);
 
     return OK_RESPONSE;
   }
@@ -107,7 +106,7 @@ public class StaffController  implements StaffApi {
   public ResponseEntity<Void> changeUsername(BasicStringCommandDTO dto) {
     ChangeUsernameCommand command = CommandUtils.toChangeUsernameCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeUsernameCommand(command);
 
     return OK_RESPONSE;
   }
