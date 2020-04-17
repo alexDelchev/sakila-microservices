@@ -29,7 +29,10 @@
         "operationId": "createStaff",
         "responses": {
           "200": {
-            "description": "Command accepted."
+            "description": "Command accepted.",
+            "schema": {
+              "$ref": "#/definitions/AggregateIdDTO"
+            }
           }
         }
       }
@@ -229,7 +232,10 @@
         "operationId": "createStore",
         "responses": {
           "200": {
-            "description": "Command accepted."
+            "description": "Command accepted.",
+            "schema": {
+              "$ref": "#/definitions/AggregateIdDTO"
+            }
           }
         }
       }
@@ -392,6 +398,15 @@
         },
         "newValue": {
           "type": "boolean"
+        }
+      }
+    },
+    "AggregateIdDTO": {
+      "type": "object",
+      "properties": {
+        "aggregateId": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     }
