@@ -25,7 +25,7 @@ CREATE USER sakila_payment_service WITH
   CREATEROLE
   NOREPLICATION;
 
-CREATE USER sakila_store_service WITH
+CREATE USER sakila_store_read_service WITH
   ENCRYPTED PASSWORD 'sakila_dba_pass'
   LOGIN
   SUPERUSER
