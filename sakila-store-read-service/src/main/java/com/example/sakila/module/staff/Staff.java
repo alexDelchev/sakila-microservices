@@ -1,10 +1,5 @@
 package com.example.sakila.module.staff;
 
-import com.example.sakila.module.store.Store;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
 import java.util.Date;
 
 public class Staff {
