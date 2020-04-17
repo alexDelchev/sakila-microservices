@@ -60,21 +60,24 @@ public class StaffController implements StaffApi {
 
   private StaffDTO toDTO(Staff staff) {
     StaffDTO staffDTO = new StaffDTO();
+
     staffDTO.setId(staff.getId());
     staffDTO.setFirstName(staff.getFirstName());
     staffDTO.setLastName(staff.getLastName());
     staffDTO.setAddressId(staff.getAddressId());
     staffDTO.setEmail(staff.getEmail());
-    staffDTO.setStoreId(staff.getStore().getId());
+    staffDTO.setStoreId(staff.getStoreId());
     staffDTO.setActive(staff.getActive());
     staffDTO.setUserName(staff.getUserName());
     staffDTO.setPassword(staff.getPassword());
     staffDTO.setLastUpdate(OffsetDateTime.ofInstant(staff.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+
     return staffDTO;
   }
 
   private Staff toEntity(StaffDTO staffDTO) {
     Staff staff = new Staff();
+
     staff.setId(staffDTO.getId());
     staff.setFirstName(staffDTO.getFirstName());
     staff.setLastName(staffDTO.getLastName());
@@ -83,14 +86,7 @@ public class StaffController implements StaffApi {
     staff.setActive(staffDTO.isActive());
     staff.setUserName(staffDTO.getUserName());
     staff.setPassword(staff.getPassword());
-
-    if (staffDTO.getStoreId() != null) {
-      Store store = storeService.getStoreById(staffDTO.getStoreId());
-      if (store == null) throw new NotFoundException("Store for ID " + staffDTO.getStoreId() + " does not exist");
-
-      staff.setStore(store);
-    }
-
+    staff.setAddressId(staffDTO.getAddressId());
     if (staffDTO.getLastUpdate() != null) staff.setLastUpdate(Date.from(staffDTO.getLastUpdate().toInstant()));
 
     return staff;

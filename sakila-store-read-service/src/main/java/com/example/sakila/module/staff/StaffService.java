@@ -40,7 +40,7 @@ public class StaffService {
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
     target.setEmail(source.getEmail());
-    target.setStore(source.getStore());
+    target.setStoreId(source.getStoreId());
     target.setUserName(source.getUserName());
     target.setPassword(source.getPassword());
     target.setAddressId(source.getAddressId());

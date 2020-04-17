@@ -19,7 +19,7 @@ public class Staff {
 
   private String email;
 
-  private Store store;
+  private Long storeId;
 
   private Boolean active;
 
@@ -37,7 +37,7 @@ public class Staff {
 
   public Staff(
       Long id, String firstName, String lastName, Long addressId,
-      String email, Store store, Boolean active, String userName,
+      String email, Long storeId, Boolean active, String userName,
       String password, Date lastUpdate
   ) {
     this.id = id;
@@ -45,7 +45,7 @@ public class Staff {
     this.lastName = lastName;
     this.addressId = addressId;
     this.email = email;
-    this.store = store;
+    this.storeId = storeId;
     this.active = active;
     this.userName = userName;
     this.password = password;
@@ -92,12 +92,12 @@ public class Staff {
     this.email = email;
   }
 
-  public Store getStore() {
-    return store;
+  public Long getStoreId() {
+    return storeId;
   }
 
-  public void setStore(Store store) {
-    this.store = store;
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
   }
 
   public Boolean getActive() {
