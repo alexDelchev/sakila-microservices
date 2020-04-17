@@ -7,44 +7,26 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "staff")
 public class Staff {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "staff_id")
   private Long id;
 
-  @Column(name = "first_name")
   private String firstName;
 
-  @Column(name = "last_name")
   private String lastName;
 
-  @Column(name = "address_id")
   private Long address_id;
 
-  @Column(name = "email")
   private String email;
 
-  @ManyToOne()
-  @JoinColumn(name = "store_id")
   private Store store;
 
-  @Column(name = "active")
   private Boolean active;
 
-  @Column(name = "username")
   private String userName;
 
-  @Column(name = "password")
   private String password;
 
-  @Column(name = "last_update")
-  @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
 
   public Staff() {}
