@@ -29,7 +29,7 @@ public class StaffCommandService {
   }
 
   @Handler
-  public void onCreateStaffCommand(CreateStaffCommand command) {
+  public Long onCreateStaffCommand(CreateStaffCommand command) {
     Long staffId = eventService.persistAggregate(StaffWriteModel.class.getTypeName());
     Long version = 1L;
 
@@ -47,6 +47,8 @@ public class StaffCommandService {
 
     eventService.persistEvent(event.getStaffId(), event);
     eventBus.emit(event);
+
+    return staffId;
   }
 
   @Handler
