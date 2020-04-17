@@ -17,13 +17,13 @@ public class Store {
 
   private Date lastUpdate;
 
-  Store() {}
+  public Store() {}
 
-  Store(Long id) {
+  public Store(Long id) {
     this.id = id;
   }
 
-  Store(Long id, Staff managerStaff, Long address_id, Date lastUpdate) {
+  public Store(Long id, Staff managerStaff, Long address_id, Date lastUpdate) {
     this.id = id;
     this.managerStaff = managerStaff;
     this.address_id = address_id;
