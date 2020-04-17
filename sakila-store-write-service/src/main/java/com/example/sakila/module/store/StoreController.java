@@ -20,18 +20,18 @@ public class StoreController implements StoreApi {
 
   private static final ResponseEntity<Void> OK_RESPONSE = ResponseEntity.ok(null);
 
-  private final EventBus eventBus;
+  private final StoreCommandService commandService;
 
   @Autowired
-  public StoreController(@Qualifier("StoreEventBus") EventBus eventBus) {
-    this.eventBus = eventBus;
+  public StoreController(StoreCommandService commandService) {
+    this.commandService = commandService;
   }
 
   @Override
   public ResponseEntity<Void> createStore(CreateStoreCommandDTO dto) {
     CreateStoreCommand command = CommandUtils.toCreateStoreCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onCreatStoreCommand(command);
 
     return OK_RESPONSE;
   }
@@ -40,7 +40,7 @@ public class StoreController implements StoreApi {
   public ResponseEntity<Void> deleteStore(DeleteStoreCommandDTO dto) {
     DeleteStoreCommand command = CommandUtils.toDeleteStoreCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onDeleteStoreCommand(command);
 
     return OK_RESPONSE;
   }
@@ -49,7 +49,7 @@ public class StoreController implements StoreApi {
   public ResponseEntity<Void> changeAddress(BasicInt64CommandDTO dto) {
     ChangeAddressCommand command = CommandUtils.toChangeAddressCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeAddressCommand(command);
 
     return OK_RESPONSE;
   }
@@ -58,7 +58,7 @@ public class StoreController implements StoreApi {
   public ResponseEntity<Void> changeManager(BasicInt64CommandDTO dto) {
     ChangeManagerCommand command = CommandUtils.toChangeManagerCommand(dto);
 
-    eventBus.emitSynchroniously(command);
+    commandService.onChangeManagerCommand(command);
 
     return OK_RESPONSE;
   }
