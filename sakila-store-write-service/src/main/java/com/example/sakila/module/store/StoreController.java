@@ -2,6 +2,7 @@ package com.example.sakila.module.store;
 
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.generated.server.api.StoreApi;
+import com.example.sakila.generated.server.model.AggregateIdDTO;
 import com.example.sakila.generated.server.model.BasicInt64CommandDTO;
 import com.example.sakila.generated.server.model.CreateStoreCommandDTO;
 import com.example.sakila.generated.server.model.DeleteStoreCommandDTO;
@@ -28,12 +29,13 @@ public class StoreController implements StoreApi {
   }
 
   @Override
-  public ResponseEntity<Void> createStore(CreateStoreCommandDTO dto) {
+  public ResponseEntity<AggregateIdDTO> createStore(CreateStoreCommandDTO dto) {
     CreateStoreCommand command = CommandUtils.toCreateStoreCommand(dto);
 
-    commandService.onCreatStoreCommand(command);
+    Long createdStoreId = commandService.onCreatStoreCommand(command);
 
-    return OK_RESPONSE;
+    AggregateIdDTO response = new AggregateIdDTO().aggregateId(createdStoreId);
+    return ResponseEntity.ok(response);
   }
 
   @Override
