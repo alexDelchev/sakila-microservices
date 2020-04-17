@@ -10,9 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan("com.example.sakila")
-public class SakilaStoreService {
+public class SakilaStoreReadService {
 
   public static void main(String[] args) {
-    SpringApplication.run(SakilaStoreService.class, args);
+    SpringApplication.run(SakilaStoreReadService.class, args);
   }
 }
