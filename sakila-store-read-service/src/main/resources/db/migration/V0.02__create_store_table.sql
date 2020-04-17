@@ -1,15 +1,7 @@
-CREATE SEQUENCE store_store_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-ALTER TABLE public.store_store_id_seq OWNER TO "${user}";
-
 CREATE TABLE store (
-    store_id integer DEFAULT nextval('store_store_id_seq'::regclass) NOT NULL,
-    manager_staff_id smallint NOT NULL,
-    address_id smallint NOT NULL,
+    store_id integer NOT NULL,
+    manager_staff_id smallint,
+    address_id smallint,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
