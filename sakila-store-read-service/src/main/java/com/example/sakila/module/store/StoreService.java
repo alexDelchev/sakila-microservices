@@ -33,8 +33,8 @@ public class StoreService {
   }
 
   public Store createStore(Store store) {
-    if (getStoreByManagerStaffId(store.getManagerStaff().getId()) != null) throw new DataConflictException(
-        "Staff with ID " + store.getManagerStaff().getId() + " is already a manager"
+    if (getStoreByManagerStaffId(store.getManagerStaffId()) != null) throw new DataConflictException(
+        "Staff with ID " + store.getManagerStaffId() + " is already a manager"
     );
 
     return storeRepository.insertStore(store);
@@ -44,12 +44,12 @@ public class StoreService {
     Store target = getStoreById(id);
     if (target == null) throw new NotFoundException("Store for ID " + id + " does not exist");
 
-    if (!target.getManagerStaff().getId().equals(source.getManagerStaff().getId()) &&
-        getStoreByManagerStaffId(source.getManagerStaff().getId()) != null)
-      throw new DataConflictException("Staff with ID " + source.getManagerStaff().getId() + " is already a manager");
+    if (!target.getManagerStaffId().equals(source.getManagerStaffId()) &&
+        getStoreByManagerStaffId(source.getManagerStaffId()) != null)
+      throw new DataConflictException("Staff with ID " + source.getManagerStaffId() + " is already a manager");
 
     target.setAddressId(source.getAddressId());
-    target.setManagerStaff(source.getManagerStaff());
+    target.setManagerStaffId(source.getManagerStaffId());
 
     return storeRepository.updateStore(target);
   }
