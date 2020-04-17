@@ -1,6 +1,5 @@
 package com.example.sakila.module.store;
 
-import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.generated.server.api.StoreApi;
 import com.example.sakila.generated.server.model.AggregateIdDTO;
 import com.example.sakila.generated.server.model.BasicInt64CommandDTO;
@@ -12,7 +11,6 @@ import com.example.sakila.module.store.command.model.ChangeManagerCommand;
 import com.example.sakila.module.store.command.model.CreateStoreCommand;
 import com.example.sakila.module.store.command.model.DeleteStoreCommand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
