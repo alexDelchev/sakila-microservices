@@ -22,10 +22,10 @@ spring:
           uri: lb://sakila-payment-service
           predicates:
             - Path=/api/payment/**
-        - id: sakila-store-service
-          uri: lb://sakila-store-service
+        - id: sakila-store-read-service
+          uri: lb://sakila-store-read-service
           predicates:
-            - Path=/api/store/**
+            - Path=/api/store/read/**
         - id: sakila-store-write-service
           uri: lb://sakila-store-write-service
           predicates:
