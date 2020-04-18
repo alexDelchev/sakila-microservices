@@ -1,14 +1,14 @@
-package com.example.sakila.event;
+package com.example.sakila.event.store;
 
+import com.example.sakila.event.Event;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EventStoreItemUtils {
 
   private final static ObjectMapper mapper = new ObjectMapper();
 
-  static EventStoreItemDatabaseDTO toDTO(EventStoreItem item) {
+  public static EventStoreItemDatabaseDTO toDTO(EventStoreItem item) {
     EventStoreItemDatabaseDTO result = new EventStoreItemDatabaseDTO();
 
     result.setEventId(item.getEventId());
@@ -21,7 +21,7 @@ public class EventStoreItemUtils {
     return result;
   }
 
-  static <T> EventStoreItem<T> fromDTO(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
+  public static <T> EventStoreItem<T> fromDTO(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
     EventStoreItem<T> result = new EventStoreItem<>();
 
     EventMetaData metaData = deserialize(dto.getMetaDataJson(), EventMetaData.class);
@@ -36,11 +36,11 @@ public class EventStoreItemUtils {
     return result;
   }
 
-  static <T> Event<T> toEvent(EventStoreItem<T> item) {
+  public static <T> Event<T> toEvent(EventStoreItem<T> item) {
     return item.getEvent();
   }
 
-  static <T> Event<T> toEvent(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
+  public static <T> Event<T> toEvent(EventStoreItemDatabaseDTO dto, Class<T> rootType) {
     EventStoreItem<T> item = fromDTO(dto, rootType);
     return toEvent(item);
   }

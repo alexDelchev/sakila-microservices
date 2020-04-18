@@ -1,4 +1,6 @@
-package com.example.sakila.event;
+package com.example.sakila.event.store;
+
+import com.example.sakila.event.Event;
 
 import java.util.Date;
 import java.util.UUID;
