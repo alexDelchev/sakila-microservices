@@ -1,5 +1,6 @@
 package com.example.sakila.data.staff;
 
+import com.example.sakila.data.event.ProcessedEventService;
 import com.example.sakila.module.staff.Staff;
 import com.example.sakila.module.staff.StaffService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,35 +24,44 @@ public class StaffStateKeeper {
 
   private final StaffService staffService;
 
+  private final ProcessedEventService eventService;
+
   @Autowired
-  public StaffStateKeeper(StaffService staffService) {
+  public StaffStateKeeper(StaffService staffService, ProcessedEventService eventService) {
     this.staffService = staffService;
+    this.eventService = eventService;
   }
 
   @KafkaListener(topics = {CREATE_TOPIC}, groupId = GROUP_ID)
   public void consumeStaffCreatedEventStream(String message) {
-    Staff staff = convertJsonToModel(message);
+    StaffEventMessage eventMessage = deserialize(message, StaffEventMessage.class);
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
 
+    Staff staff = fromDTO(eventMessage.getStaffDTO());
     staffService.createStaff(staff);
+
+    eventService.markEventAsProcessed(eventMessage.getEventId());
   }
 
   @KafkaListener(topics = {UPDATE_TOPIC}, groupId = GROUP_ID)
   public void consumeStaffUpdatedEventStream(String message) {
-    Staff staff = convertJsonToModel(message);
+    StaffEventMessage eventMessage = deserialize(message, StaffEventMessage.class);
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
 
+    Staff staff = fromDTO(eventMessage.getStaffDTO());
     staffService.updateStaff(staff.getId(), staff);
+
+    eventService.markEventAsProcessed(eventMessage.getEventId());
   }
 
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
   public void consumeStaffDeletedEventStream(String message) {
     StaffDeletedEvent deletedEvent = deserialize(message, StaffDeletedEvent.class);
+    if (eventService.isEventProcessed(deletedEvent.getId())) return;
 
     staffService.deleteStaff(deletedEvent.getStaffId());
-  }
 
-  private Staff convertJsonToModel(String json) {
-    StaffDTO dto = deserialize(json, StaffDTO.class);
-    return fromDTO(dto);
+    eventService.markEventAsProcessed(deletedEvent.getId());
   }
 
   private <T> T deserialize(String json, Class<T> type) {
