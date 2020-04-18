@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -54,7 +55,11 @@ public class StoreController implements StoresApi {
     storeDTO.setId(store.getId());
     storeDTO.setManagerStaffId(store.getManagerStaffId());
     storeDTO.setAddressId(store.getAddressId());
-    storeDTO.setLastUpdate(OffsetDateTime.ofInstant(store.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    if (store.getLastUpdate() != null) {
+      storeDTO.setLastUpdate(
+          OffsetDateTime.ofInstant(Instant.ofEpochMilli(store.getLastUpdate().getTime()), ZoneId.systemDefault())
+      );
+    }
 
     return storeDTO;
   }
