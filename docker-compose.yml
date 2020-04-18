@@ -120,16 +120,6 @@ services:
       - sakila-backend-network
       - sakila-postgres-network
     command: --spring.profiles.active=docker-secrets
-  sakila-store-service:
-    image: com.example.sakila/sakila-store-service:1.0-SNAPSHOT
-    container_name: sakila-store-service
-    mem_limit: 512M
-    depends_on:
-      - sakila-discovery-service
-    networks:
-      - sakila-backend-network
-      - sakila-postgres-network
-    command: --spring.profiles.active=docker-secrets
   sakila-frontend:
     image: com.example.sakila/sakila-frontend:1.0-SNAPSHOT
     container_name: sakila-frontend
