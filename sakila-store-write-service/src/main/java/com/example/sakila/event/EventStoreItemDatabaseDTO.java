@@ -3,7 +3,7 @@ package com.example.sakila.event;
 import java.util.Date;
 import java.util.UUID;
 
-class EventStoreItemDatabaseDTO {
+public class EventStoreItemDatabaseDTO {
 
   private UUID eventId;
 
@@ -17,19 +17,19 @@ class EventStoreItemDatabaseDTO {
 
   private Date lastUpdate;
 
-  UUID getEventId() {
+  public UUID getEventId() {
     return eventId;
   }
 
-  void setEventId(UUID eventId) {
+  public void setEventId(UUID eventId) {
     this.eventId = eventId;
   }
 
-  Long getAggregateId() {
+  public Long getAggregateId() {
     return aggregateId;
   }
 
-  void setAggregateId(Long aggregateId) {
+  public void setAggregateId(Long aggregateId) {
     this.aggregateId = aggregateId;
   }
 
@@ -41,27 +41,27 @@ class EventStoreItemDatabaseDTO {
     this.aggregateVersion = aggregateVersion;
   }
 
-  String getEventJson() {
+  public String getEventJson() {
     return eventJson;
   }
 
-  void setEventJson(String eventJson) {
+  public void setEventJson(String eventJson) {
     this.eventJson = eventJson;
   }
 
-  String getMetaDataJson() {
+  public String getMetaDataJson() {
     return metaDataJson;
   }
 
-  void setMetaDataJson(String metaDataJson) {
+  public void setMetaDataJson(String metaDataJson) {
     this.metaDataJson = metaDataJson;
   }
 
-  Date getLastUpdate() {
+  public Date getLastUpdate() {
     return lastUpdate;
   }
 
-  void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(Date lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }
