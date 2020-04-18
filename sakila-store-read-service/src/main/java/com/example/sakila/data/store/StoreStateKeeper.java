@@ -32,4 +32,21 @@ public class StoreStateKeeper {
     this.eventService = eventService;
   }
 
+  private <T> T deserialize(String json, Class<T> type) {
+    try {
+      return objectMapper.readValue(json, type);
+    } catch (JsonProcessingException e) {
+      throw new IllegalArgumentException(String.format("Failed parsing json: %s", json), e);
+    }
+  }
+
+  private Store fromDTO(StoreDTO dto) {
+    Store store = new Store();
+
+    store.setId(dto.getId());
+    store.setAddressId(dto.getAddressId());
+    store.setManagerStaffId(dto.getManagerStaffId());
+
+    return store;
+  }
 }
