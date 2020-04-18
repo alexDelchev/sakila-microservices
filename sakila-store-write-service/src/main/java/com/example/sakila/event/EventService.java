@@ -18,6 +18,10 @@ public class EventService {
     this.eventStore = eventStore;
   }
 
+  public <T> Boolean aggregateExists(Long aggregateId, Class<T> type) {
+    return eventStore.aggregateExists(aggregateId, type.getTypeName());
+  }
+
   public Long persistAggregate(String type) {
     return eventStore.persistAggregate(type, new Date());
   }
