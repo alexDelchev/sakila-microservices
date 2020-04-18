@@ -96,6 +96,7 @@ services:
     mem_limit: 512M
     depends_on:
       - sakila-discovery-service
+      - sakila-postgres
     networks:
       - sakila-backend-network
       - sakila-postgres-network
@@ -106,6 +107,7 @@ services:
     mem_limit: 512M
     depends_on:
       - sakila-discovery-service
+      - sakila-mongodb
     networks:
       - sakila-backend-network
       - sakila-mongodb-network
@@ -116,6 +118,7 @@ services:
     mem_limit: 512M
     depends_on:
       - sakila-discovery-service
+      - sakila-postgres
     networks:
       - sakila-backend-network
       - sakila-postgres-network
@@ -126,6 +129,8 @@ services:
     mem_limit: 512M
     depends_on:
       - sakila-discovery-service
+      - sakila-postgres
+      - sakila-kafka
     networks:
       - sakila-backend-network
       - sakila-postgres-network
@@ -137,6 +142,8 @@ services:
     depends_on:
       - sakila-discovery-service
       - sakila-store-write-service
+      - sakila-postgres
+      - sakila-kafka
     networks:
       - sakila-backend-network
       - sakila-postgres-network
