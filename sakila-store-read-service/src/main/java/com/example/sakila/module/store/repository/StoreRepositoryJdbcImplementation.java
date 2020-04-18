@@ -1,6 +1,7 @@
 package com.example.sakila.module.store.repository;
 
 import com.example.sakila.module.store.Store;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -34,7 +35,11 @@ public class StoreRepositoryJdbcImplementation implements StoreRepository {
   public Store getStoreByManagerStaffId(Long managerStaffId) {
     String query = "SELECT store_id, manager_staff_id, address_id, last_update FROM store WHERE manager_staff_id = ?";
 
-    return jdbcTemplate.queryForObject(query, rowMapper, managerStaffId);
+    try {
+      return jdbcTemplate.queryForObject(query, rowMapper, managerStaffId);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
   }
 
   @Override
