@@ -28,6 +28,27 @@ public class StaffStateKeeper {
     this.staffService = staffService;
   }
 
+  @KafkaListener(topics = {CREATE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStaffCreatedEventStream(String message) {
+    Staff staff = convertJsonToModel(message);
+
+    staffService.createStaff(staff);
+  }
+
+  @KafkaListener(topics = {UPDATE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStaffUpdatedEventStream(String message) {
+    Staff staff = convertJsonToModel(message);
+
+    staffService.updateStaff(staff.getId(), staff);
+  }
+
+  @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStaffDeletedEventStream(String message) {
+    StaffDeletedEvent deletedEvent = deserialize(message, StaffDeletedEvent.class);
+
+    staffService.deleteStaff(deletedEvent.getStaffId());
+  }
+
   private Staff convertJsonToModel(String json) {
     StaffDTO dto = deserialize(json, StaffDTO.class);
     return fromDTO(dto);
