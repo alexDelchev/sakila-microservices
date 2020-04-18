@@ -3,9 +3,12 @@ package com.example.sakila.module.staff.command;
 import com.example.sakila.event.EventService;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
+import com.example.sakila.exception.BadRequestException;
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.staff.StaffWriteModel;
 import com.example.sakila.module.staff.command.model.*;
 import com.example.sakila.module.staff.event.model.*;
+import com.example.sakila.module.store.StoreWriteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -94,6 +97,10 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeStoreCommand(ChangeStoreCommand command) {
+    if (command.getNewValue() != null && !eventService.aggregateExists(command.getNewValue(), StoreWriteModel.class)) {
+      throw new NotFoundException(String.format("Store with ID %d does not exist", command.getNewValue()));
+    }
+
     processBasicCommand(command, new StoreChangedEvent());
   }
 
