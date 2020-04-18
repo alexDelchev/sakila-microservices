@@ -211,7 +211,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.example.sakila.application.SakilaStoreService</mainClass>
+              <mainClass>com.example.sakila.application.SakilaStoreReadService</mainClass>
             </manifest>
           </archive>
         </configuration>
