@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface EventStore {
 
+  Boolean aggregateExists(Long aggregateid, String type);
+
   Long persistAggregate(String type, Date date);
 
   Long getAggregateVersion(Long aggregateId);

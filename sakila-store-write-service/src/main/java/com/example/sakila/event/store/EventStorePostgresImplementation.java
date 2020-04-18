@@ -23,6 +23,13 @@ public class EventStorePostgresImplementation implements EventStore {
   }
 
   @Override
+  public Boolean aggregateExists(Long aggregateId, String type) {
+    String query = "SELECT EXISTS(SELECT 1 FROM aggregate WHERE aggregateId = ? and type = ?)";
+
+    return jdbcTemplate.queryForObject(query, Boolean.class, aggregateId, type);
+  }
+
+  @Override
   public Long persistAggregate(String type, Date date) {
     String statement = "INSERT INTO aggregate (type, lastUpdate) VALUES (?, ?) RETURNING aggregateId";
     return jdbcTemplate.queryForObject(statement, Long.class, type, date);
