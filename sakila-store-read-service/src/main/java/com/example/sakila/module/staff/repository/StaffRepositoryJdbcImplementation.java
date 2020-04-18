@@ -58,15 +58,15 @@ public class StaffRepositoryJdbcImplementation implements StaffRepository {
 
   @Override
   public Staff updateStaff(Staff staff) {
-    String statement = "UPDATE staff SET" +
-        "first_name = ?," +
-        "last_name = ?," +
-        "address_id = ?," +
-        "email = ?," +
-        "store_id = ?," +
-        "active = ?," +
-        "username = ?," +
-        "password = ?" +
+    String statement = "UPDATE staff SET " +
+        "first_name = ?, " +
+        "last_name = ?, " +
+        "address_id = ?, " +
+        "email = ?, " +
+        "store_id = ?, " +
+        "active = ?, " +
+        "username = ? ," +
+        "password = ? " +
         "WHERE staff_id = ?";
 
     jdbcTemplate.update(
