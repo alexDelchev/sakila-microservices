@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class StoreEventService {
 
@@ -49,7 +51,7 @@ public class StoreEventService {
 
   @Handler
   public void onStoreCreatedEvent(StoreCreatedEvent event) {
-    String json = getStoreDTOAsJson(event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId());
     kafkaTemplate.send(CREATE_TOPIC, json);
   }
 
@@ -61,20 +63,36 @@ public class StoreEventService {
 
   @Handler
   public void onManagerChangedEvent(ManagerChangedEvent event) {
-    String json = getStoreDTOAsJson(event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId());
     kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
-    String json = getStoreDTOAsJson(event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId());
     kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
-  private String getStoreDTOAsJson(Long storeId) {
-    StoreWriteModel model = storeService.getStoreById(storeId);
-    StoreDTO dto = StoreUtils.toDTO(model);
-    return toJson(dto);
+  private String generateEventMessageJson(UUID eventId, Long storeId) {
+    StoreEventMessage eventMessage = generateEventMessage(eventId, storeId);
+
+    return toJson(eventMessage);
+  }
+
+  private StoreEventMessage generateEventMessage(UUID eventId, Long storeId) {
+    StoreDTO dto = getStoreDTO(storeId);
+
+    StoreEventMessage eventMessage = new StoreEventMessage();
+
+    eventMessage.setEventId(eventId);
+    eventMessage.setStoreDTO(dto);
+
+    return eventMessage;
+  }
+
+  private StoreDTO getStoreDTO(Long storeId) {
+    StoreWriteModel store = storeService.getStoreById(storeId);
+    return StoreUtils.toDTO(store);
   }
 
   private String toJson(Object object) {
