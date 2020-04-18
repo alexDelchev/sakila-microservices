@@ -11,7 +11,6 @@
   <modules>
     <module>sakila-film-service</module>
     <module>sakila-address-service</module>
-    <module>sakila-store-service</module>
     <module>sakila-address-api-spec</module>
     <module>sakila-payment-service</module>
     <module>sakila-film-api-spec</module>
@@ -26,6 +25,7 @@
     <module>sakila-zookeeper</module>
     <module>sakila-store-write-service</module>
     <module>sakila-store-write-api-spec</module>
+    <module>sakila-store-read-service</module>
   </modules>
 
 </project>
