@@ -32,6 +32,38 @@ public class StoreStateKeeper {
     this.eventService = eventService;
   }
 
+  @KafkaListener(topics = {CREATE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStoreCreatedEventStream(String message) {
+    StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
+
+    Store store = fromDTO(eventMessage.getStoreDTO());
+    storeService.createStore(store);
+
+    eventService.markEventAsProcessed(eventMessage.getEventId());
+  }
+
+  @KafkaListener(topics = {UPDATE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStoreUpdatedEventStream(String message) {
+    StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
+
+    Store store = fromDTO(eventMessage.getStoreDTO());
+    storeService.updateStore(store.getId(), store);
+
+    eventService.markEventAsProcessed(eventMessage.getEventId());
+  }
+
+  @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
+  public void consumeStoreDeletedEventStream(String message) {
+    StoreDeletedEvent deletedEvent = deserialize(message, StoreDeletedEvent.class);
+    if (eventService.isEventProcessed(deletedEvent.getId())) return;
+
+    storeService.deleteStore(deletedEvent.getStoreId());
+
+    eventService.markEventAsProcessed(deletedEvent.getId());
+  }
+
   private <T> T deserialize(String json, Class<T> type) {
     try {
       return objectMapper.readValue(json, type);
