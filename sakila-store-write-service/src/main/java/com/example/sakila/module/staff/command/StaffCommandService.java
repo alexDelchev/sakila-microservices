@@ -56,6 +56,8 @@ public class StaffCommandService {
 
   @Handler
   public void onDeleteStaffCommand(DeleteStaffCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     Long staffId = command.getStaffId();
     eventService.deleteEventsForAggregate(staffId);
     eventService.deleteAggregate(staffId);
@@ -67,36 +69,50 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeActiveCommand(ChangeActiveCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new ActiveChangedEvent());
   }
 
   @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new AddressChangedEvent());
   }
 
   @Handler
   public void onChangeEmailCommand(ChangeEmailCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new EmailChangedEvent());
   }
 
   @Handler
   public void onChangeFirstNameCommand(ChangeFirstNameCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new FirstNameChangedEvent());
   }
 
   @Handler
   public void onChangeLastNameCommand(ChangeLastNameCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new LastNameChangedEvent());
   }
 
   @Handler
   public void onChangePasswordCommand(ChangePasswordCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new PasswordChangedEvent());
   }
 
   @Handler
   public void onChangeStoreCommand(ChangeStoreCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     if (command.getNewValue() != null) {
       checkAggregateExistence(command.getNewValue(), StoreWriteModel.class, "Store");
     }
@@ -106,6 +122,8 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeUsernameCommand(ChangeUsernameCommand command) {
+    checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
+
     processBasicCommand(command, new UsernameChangedEvent());
   }
 
