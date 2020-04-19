@@ -4,6 +4,7 @@ import com.example.sakila.event.EventService;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.staff.StaffWriteModel;
 import com.example.sakila.module.store.StoreWriteModel;
 import com.example.sakila.module.store.command.model.*;
 import com.example.sakila.module.store.event.model.*;
@@ -69,7 +70,10 @@ public class StoreCommandService {
   @Handler
   public void onChangeManagerCommand(ChangeManagerCommand command) {
     checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
-    
+    if (command.getNewValue() != null) {
+      checkAggregateExistence(command.getNewValue(), StaffWriteModel.class, "Staff");
+    }
+
     processBasicCommand(command, new ManagerChangedEvent());
   }
 
