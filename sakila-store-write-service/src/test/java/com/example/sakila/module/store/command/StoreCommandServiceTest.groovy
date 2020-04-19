@@ -68,7 +68,7 @@ class StoreCommandServiceTest extends Specification {
   def "OnChangeManagerCommand - should throw NotFoundException on staffId"() {
     given:
     Long existingStoreId = 1L
-    Long nonExistingStaffId = -1L;
+    Long nonExistingStaffId = -1L
     eventService.aggregateExists(existingStoreId, StoreWriteModel.class) >> true
     eventService.aggregateExists(nonExistingStaffId, StaffWriteModel.class) >> false
     ChangeManagerCommand changeManagerCommand = new ChangeManagerCommand(
