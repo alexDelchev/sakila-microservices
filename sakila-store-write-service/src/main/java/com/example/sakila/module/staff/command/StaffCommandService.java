@@ -97,8 +97,8 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeStoreCommand(ChangeStoreCommand command) {
-    if (command.getNewValue() != null && !eventService.aggregateExists(command.getNewValue(), StoreWriteModel.class)) {
-      throw new NotFoundException(String.format("Store with ID %d does not exist", command.getNewValue()));
+    if (command.getNewValue() != null) {
+      checkAggregateExistence(command.getNewValue(), StoreWriteModel.class, "Store");
     }
 
     processBasicCommand(command, new StoreChangedEvent());
@@ -107,6 +107,12 @@ public class StaffCommandService {
   @Handler
   public void onChangeUsernameCommand(ChangeUsernameCommand command) {
     processBasicCommand(command, new UsernameChangedEvent());
+  }
+
+  private <T> void checkAggregateExistence(Long aggregateId, Class<T> type, String domainName) {
+    if (!eventService.aggregateExists(aggregateId, type)) {
+      throw new NotFoundException(String.format("%s for ID %d does not exist", domainName, aggregateId));
+    }
   }
 
   private <T> void processBasicCommand(BasicStaffCommand<T> command, BasicStaffEvent<T> event) {
