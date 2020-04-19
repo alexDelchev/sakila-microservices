@@ -3,6 +3,7 @@ package com.example.sakila.module.store.command;
 import com.example.sakila.event.EventService;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
+import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.store.StoreWriteModel;
 import com.example.sakila.module.store.command.model.*;
 import com.example.sakila.module.store.event.model.*;
@@ -64,6 +65,12 @@ public class StoreCommandService {
   @Handler
   public void onChangeManagerCommand(ChangeManagerCommand command) {
     processBasicCommand(command, new ManagerChangedEvent());
+  }
+
+  private <T> void checkAggregateExistence(Long aggregateId, Class<T> type, String domainName) {
+    if (!eventService.aggregateExists(aggregateId, type)) {
+      throw new NotFoundException(String.format("%s for ID %d does not exist", domainName, aggregateId));
+    }
   }
 
   private <T> void processBasicCommand(BasicStoreCommand<T> command, BasicStoreEvent<T> event) {
