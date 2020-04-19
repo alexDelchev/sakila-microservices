@@ -20,12 +20,9 @@ public class StaffController implements StaffApi {
 
   private final StaffService staffService;
 
-  private final StoreService storeService;
-
   @Autowired
-  public StaffController(StaffService staffService, StoreService storeService) {
+  public StaffController(StaffService staffService) {
     this.staffService = staffService;
-    this.storeService = storeService;
   }
 
   @Override
