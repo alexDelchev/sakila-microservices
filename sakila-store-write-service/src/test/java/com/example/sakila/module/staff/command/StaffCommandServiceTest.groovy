@@ -10,6 +10,7 @@ import com.example.sakila.module.staff.command.model.ChangeEmailCommand
 import com.example.sakila.module.staff.command.model.ChangeFirstNameCommand
 import com.example.sakila.module.staff.command.model.ChangeLastNameCommand
 import com.example.sakila.module.staff.command.model.ChangePasswordCommand
+import com.example.sakila.module.staff.command.model.ChangeUsernameCommand
 import com.example.sakila.module.staff.command.model.DeleteStaffCommand
 import spock.lang.Specification
 
@@ -121,6 +122,21 @@ class StaffCommandServiceTest extends Specification {
 
     when:
     commandService.onChangePasswordCommand(command)
+
+    then:
+    thrown NotFoundException
+  }
+
+  def "OnChangeUsernameCommand"() {
+    given:
+    Long nonExistingStaffId = -1L
+    eventService.aggregateExists(nonExistingStaffId, StaffWriteModel.class) >> false
+    ChangeUsernameCommand command = new ChangeUsernameCommand(
+        staffId: nonExistingStaffId
+    )
+
+    when:
+    commandService.onChangeUsernameCommand(command)
 
     then:
     thrown NotFoundException
