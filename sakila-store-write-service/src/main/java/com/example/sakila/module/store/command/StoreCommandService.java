@@ -29,7 +29,7 @@ public class StoreCommandService {
   }
 
   @Handler
-  public Long onCreatStoreCommand(CreateStoreCommand command) {
+  public Long onCreateStoreCommand(CreateStoreCommand command) {
     Long storeId = eventService.persistAggregate(StoreWriteModel.class.getTypeName());
     Long version = 1L;
 

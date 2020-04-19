@@ -30,7 +30,7 @@ public class StoreController implements StoreApi {
   public ResponseEntity<AggregateIdDTO> createStore(CreateStoreCommandDTO dto) {
     CreateStoreCommand command = CommandUtils.toCreateStoreCommand(dto);
 
-    Long createdStoreId = commandService.onCreatStoreCommand(command);
+    Long createdStoreId = commandService.onCreateStoreCommand(command);
 
     AggregateIdDTO response = new AggregateIdDTO().aggregateId(createdStoreId);
     return ResponseEntity.ok(response);
