@@ -10,8 +10,10 @@ import com.example.sakila.module.staff.command.model.ChangeEmailCommand
 import com.example.sakila.module.staff.command.model.ChangeFirstNameCommand
 import com.example.sakila.module.staff.command.model.ChangeLastNameCommand
 import com.example.sakila.module.staff.command.model.ChangePasswordCommand
+import com.example.sakila.module.staff.command.model.ChangeStoreCommand
 import com.example.sakila.module.staff.command.model.ChangeUsernameCommand
 import com.example.sakila.module.staff.command.model.DeleteStaffCommand
+import com.example.sakila.module.store.StoreWriteModel
 import spock.lang.Specification
 
 class StaffCommandServiceTest extends Specification {
@@ -137,6 +139,41 @@ class StaffCommandServiceTest extends Specification {
 
     when:
     commandService.onChangeUsernameCommand(command)
+
+    then:
+    thrown NotFoundException
+  }
+
+  def "OnChangeStoreCommand - should fail on staff ID"() {
+    given:
+    Long nonExistingStaffId = -1L
+    eventService.aggregateExists(nonExistingStaffId, StaffWriteModel.class) >> false
+    ChangeStoreCommand command = new ChangeStoreCommand(
+        staffId: nonExistingStaffId
+    )
+
+    when:
+    commandService.onChangeStoreCommand(command)
+
+    then:
+    thrown NotFoundException
+  }
+
+  def "OnChangeStoreCommand - should fail on store ID"() {
+    given:
+    Long existingStaffId = 1L
+    eventService.aggregateExists(existingStaffId, StaffWriteModel.class) >> true
+
+    Long nonExistingStoreId = -1L
+    eventService.aggregateExists(nonExistingStoreId, StoreWriteModel.class) >> false
+
+    ChangeStoreCommand command = new ChangeStoreCommand(
+        staffId: existingStaffId,
+        newValue: nonExistingStoreId
+    )
+
+    when:
+    commandService.onChangeStoreCommand(command)
 
     then:
     thrown NotFoundException
