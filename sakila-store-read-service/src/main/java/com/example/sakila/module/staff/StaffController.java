@@ -41,22 +41,6 @@ public class StaffController implements StaffApi {
     );
   }
 
-  @Override
-  public ResponseEntity<StaffDTO> createStaff(@RequestBody StaffDTO staffDTO) {
-    return ResponseEntity.ok(toDTO(staffService.createStaff(toEntity(staffDTO))));
-  }
-
-  @Override
-  public ResponseEntity<StaffDTO> replaceStaff(@PathVariable("id") Long id,@RequestBody StaffDTO staffDTO) {
-    return ResponseEntity.ok(toDTO(staffService.updateStaff(id, toEntity(staffDTO))));
-  }
-
-  @Override
-  public ResponseEntity<Void> deleteStaff(@PathVariable("id") Long id) {
-    staffService.deleteStaff(id);
-    return ResponseEntity.ok(null);
-  }
-
   private StaffDTO toDTO(Staff staff) {
     StaffDTO staffDTO = new StaffDTO();
 
