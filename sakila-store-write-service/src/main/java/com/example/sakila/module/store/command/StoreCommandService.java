@@ -48,6 +48,8 @@ public class StoreCommandService {
 
   @Handler
   public void onDeleteStoreCommand(DeleteStoreCommand command) {
+    checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
+
     Long storeId = command.getStoreId();
     eventService.deleteAggregate(storeId);
     eventService.deleteEventsForAggregate(storeId);
@@ -59,11 +61,15 @@ public class StoreCommandService {
 
   @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
+    checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
+
     processBasicCommand(command, new AddressChangedEvent());
   }
 
   @Handler
   public void onChangeManagerCommand(ChangeManagerCommand command) {
+    checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
+    
     processBasicCommand(command, new ManagerChangedEvent());
   }
 
