@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException
 import com.example.sakila.module.staff.StaffWriteModel
 import com.example.sakila.module.staff.command.model.ChangeActiveCommand
 import com.example.sakila.module.staff.command.model.ChangeAddressCommand
+import com.example.sakila.module.staff.command.model.ChangeEmailCommand
 import com.example.sakila.module.staff.command.model.DeleteStaffCommand
 import spock.lang.Specification
 
@@ -57,6 +58,21 @@ class StaffCommandServiceTest extends Specification {
 
     when:
     commandService.onChangeAddressCommand(command)
+
+    then:
+    thrown NotFoundException
+  }
+
+  def "OnChangeEmailCommand"() {
+    given:
+    Long nonExistingStaffId = -1L
+    eventService.aggregateExists(nonExistingStaffId, StaffWriteModel.class) >> false
+    ChangeEmailCommand command = new ChangeEmailCommand(
+        staffId: nonExistingStaffId
+    )
+
+    when:
+    commandService.onChangeEmailCommand(command)
 
     then:
     thrown NotFoundException
