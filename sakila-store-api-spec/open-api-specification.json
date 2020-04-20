@@ -14,29 +14,6 @@
     }
   ],
   "paths": {
-    "/staff": {
-      "post": {
-        "parameters": [
-          {
-            "in": "body",
-            "name": "staffDTO",
-            "description": "Staff model",
-            "schema": {
-              "$ref": "#/definitions/StaffDTO"
-            }
-          }
-        ],
-        "operationId": "createStaff",
-        "responses": {
-          "200": {
-            "description": "Staff model",
-            "schema": {
-              "$ref": "#/definitions/StaffDTO"
-            }
-          }
-        }
-      }
-    },
     "/staff/{id}": {
       "get": {
         "parameters": [
@@ -55,51 +32,6 @@
             "schema": {
               "$ref": "#/definitions/StaffDTO"
             }
-          }
-        }
-      },
-      "put": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Staff id",
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "in": "body",
-            "name": "staffDTO",
-            "description": "Staff model",
-            "schema": {
-              "$ref": "#/definitions/StaffDTO"
-            }
-          }
-        ],
-        "operationId": "replaceStaff",
-        "responses": {
-          "200": {
-            "description": "Staff model",
-            "schema": {
-              "$ref": "#/definitions/StaffDTO"
-            }
-          }
-        }
-      },
-      "delete": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Staff id",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "operationId": "deleteStaff",
-        "responses": {
-          "200": {
-            "description": "Staff deleted"
           }
         }
       }
@@ -129,29 +61,6 @@
         }
       }
     },
-    "/stores": {
-      "post": {
-        "parameters": [
-          {
-            "in": "body",
-            "name": "storeDTO",
-            "description": "Store model",
-            "schema": {
-              "$ref": "#/definitions/StoreDTO"
-            }
-          }
-        ],
-        "operationId": "createStore",
-        "responses": {
-          "200": {
-            "description": "Store model",
-            "schema": {
-              "$ref": "#/definitions/StoreDTO"
-            }
-          }
-        }
-      }
-    },
     "/stores/{id}": {
       "get": {
         "parameters": [
@@ -170,51 +79,6 @@
             "schema": {
               "$ref": "#/definitions/StoreDTO"
             }
-          }
-        }
-      },
-      "put": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Store ID",
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "in": "body",
-            "name": "storeDTO",
-            "description": "Store model",
-            "schema": {
-              "$ref": "#/definitions/StoreDTO"
-            }
-          }
-        ],
-        "operationId": "replaceStore",
-        "responses": {
-          "200": {
-            "description": "Store model",
-            "schema": {
-              "$ref": "#/definitions/StoreDTO"
-            }
-          }
-        }
-      },
-      "delete": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Store ID",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "operationId": "deleteStore",
-        "responses": {
-          "200": {
-            "description": "Store deleted"
           }
         }
       }
