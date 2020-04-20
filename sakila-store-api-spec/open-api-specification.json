@@ -129,30 +129,6 @@
     }
   },
   "definitions": {
-    "InventoryDTO": {
-      "type": "object",
-      "required": [
-        "filmId", "storeId"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "filmId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "storeId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "StaffDTO": {
       "type": "object",
       "required": [
