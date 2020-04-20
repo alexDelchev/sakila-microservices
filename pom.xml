@@ -15,7 +15,7 @@
     <module>sakila-payment-service</module>
     <module>sakila-film-api-spec</module>
     <module>sakila-payment-api-spec</module>
-    <module>sakila-store-api-spec</module>
+    <module>sakila-store-read-api-spec</module>
     <module>sakila-discovery-service</module>
     <module>sakila-api-gateway</module>
     <module>sakila-frontend</module>
