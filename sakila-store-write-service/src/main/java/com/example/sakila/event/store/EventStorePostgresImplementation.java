@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class EventStorePostgresImplementation implements EventStore {
@@ -77,6 +78,23 @@ public class EventStorePostgresImplementation implements EventStore {
     String query = "SELECT eventId, aggregateId, aggregateVersion, data, metaData, rowCreation FROM event WHERE aggregateId = ?";
 
     return jdbcTemplate.query(query, rowMapper, aggregateId);
+  }
+
+  @Override
+  public List<EventStoreItemDatabaseDTO> getSubsequentEvents(UUID eventId) {
+    String query = "SELECT " +
+        "eventId, " +
+        "aggregateId, " +
+        "aggregateVersion, " +
+        "data, " +
+        "metaData, " +
+        "rowCreation " +
+        "FROM " +
+        "event " +
+        "WHERE " +
+        "rowCreation > (SELECT rowCreation FROM event WHERE eventId = ? LIMIT 1)";
+
+    return jdbcTemplate.query(query, rowMapper, eventId);
   }
 
   @Override

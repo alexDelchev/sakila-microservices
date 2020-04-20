@@ -2,6 +2,7 @@ package com.example.sakila.event.store;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public interface EventStore {
 
@@ -16,6 +17,8 @@ public interface EventStore {
   void persistEventStoreItem(EventStoreItemDatabaseDTO item);
 
   List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregate(Long aggregateId);
+
+  List<EventStoreItemDatabaseDTO> getSubsequentEvents(UUID eventId);
 
   void deleteEventStoreItemsForAggregate(Long aggregateId);
 
