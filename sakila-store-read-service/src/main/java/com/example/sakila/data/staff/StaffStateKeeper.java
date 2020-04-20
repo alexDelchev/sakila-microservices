@@ -57,11 +57,8 @@ public class StaffStateKeeper {
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
   public void consumeStaffDeletedEventStream(String message) {
     StaffDeletedEvent deletedEvent = deserialize(message, StaffDeletedEvent.class);
-    if (eventService.isEventProcessed(deletedEvent.getId())) return;
 
     staffService.deleteStaff(deletedEvent.getStaffId());
-
-    eventService.markEventAsProcessed(deletedEvent.getId());
   }
 
   private <T> T deserialize(String json, Class<T> type) {
