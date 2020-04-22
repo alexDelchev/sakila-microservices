@@ -14,11 +14,9 @@ public class StoreStateKeeper {
 
   private static final String GROUP_ID = "sakila_store_read_service";
 
-  private static final String CREATE_TOPIC = "store-create-event-stream";
+  private static final String WRITE_TOPIC = "sakila-store-write-store-dto-stream";
 
-  private static final String UPDATE_TOPIC = "store-dto-stream";
-
-  private static final String DELETE_TOPIC = "store-delete-event-stream";
+  private static final String DELETE_TOPIC = "sakila-store-write-store-delete-stream";
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -32,26 +30,21 @@ public class StoreStateKeeper {
     this.eventService = eventService;
   }
 
-  @KafkaListener(topics = {CREATE_TOPIC}, groupId = GROUP_ID)
-  public void consumeStoreCreatedEventStream(String message) {
-    StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
-    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
-
-    Store store = fromDTO(eventMessage.getStoreDTO());
-    storeService.createStore(store);
-
-    eventService.markEventAsProcessed(eventMessage.getEventId());
-  }
-
-  @KafkaListener(topics = {UPDATE_TOPIC}, groupId = GROUP_ID)
+  @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
   public void consumeStoreUpdatedEventStream(String message) {
     StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
-    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
+    System.out.println("UPDATE STORE -> ID: " + eventMessage.getStoreDTO().getId() + ", version: " + eventMessage.getStoreVersion());
+    if (isEventInvalidForProcessing(eventMessage)) return;
 
     Store store = fromDTO(eventMessage.getStoreDTO());
-    storeService.updateStore(store.getId(), store);
 
-    eventService.markEventAsProcessed(eventMessage.getEventId());
+    if (storeService.getStoreById(store.getId()) != null) {
+      storeService.updateStore(store.getId(), store);
+    } else {
+      storeService.createStore(store);
+    }
+
+    eventService.markEventAsProcessed(eventMessage.getEventId(), store.getId(), eventMessage.getStoreVersion());
   }
 
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
