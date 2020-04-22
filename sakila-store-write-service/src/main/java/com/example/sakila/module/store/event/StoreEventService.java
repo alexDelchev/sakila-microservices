@@ -22,11 +22,9 @@ import java.util.UUID;
 @Service
 public class StoreEventService {
 
-  private static final String CREATE_TOPIC = "store-create-event-stream";
+  private static final String WRITE_TOPIC = "sakila-store-write-store-dto-stream";
 
-  private static final String UPDATE_TOPIC = "store-dto-stream";
-
-  private static final String DELETE_TOPIC = "store-delete-event-stream";
+  private static final String DELETE_TOPIC = "sakila-store-write-store-delete-stream";
 
   private final EventBus eventBus;
 
@@ -52,7 +50,7 @@ public class StoreEventService {
   @Handler
   public void onStoreCreatedEvent(StoreCreatedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(CREATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
@@ -64,13 +62,13 @@ public class StoreEventService {
   @Handler
   public void onManagerChangedEvent(ManagerChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   private String generateEventMessageJson(UUID eventId, Long storeId, Long storeVersion) {
