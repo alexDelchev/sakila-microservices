@@ -16,6 +16,8 @@ public interface EventStore {
 
   void persistEventStoreItem(EventStoreItemDatabaseDTO item);
 
+  List<EventStoreItemDatabaseDTO> getAllEvents();
+
   List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregate(Long aggregateId);
 
   List<EventStoreItemDatabaseDTO> getSubsequentEvents(UUID eventId);
