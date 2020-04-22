@@ -18,6 +18,14 @@ public class ProcessedEventService {
   public void markEventAsProcessed(UUID eventId, Long aggregateId, Long aggregateVersion) {
     repository.insertProcessedEvent(eventId, aggregateId, aggregateVersion);
   }
+
+  public Long getAggregateVersion(Long aggregateId) {
+    Long version = repository.getAggregateVersion(aggregateId);
+    if (version == null) version = 0L;
+
+    return version;
+  }
+
   public Boolean isEventProcessed(UUID eventId) {
     return repository.processedEventExists(eventId);
   }
