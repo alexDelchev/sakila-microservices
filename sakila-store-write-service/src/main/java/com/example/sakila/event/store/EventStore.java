@@ -20,6 +20,8 @@ public interface EventStore {
 
   List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregate(Long aggregateId);
 
+  List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregateUpToEvent(Long aggregateId, UUID eventId);
+
   List<EventStoreItemDatabaseDTO> getSubsequentEvents(UUID eventId);
 
   void deleteEventStoreItemsForAggregate(Long aggregateId);

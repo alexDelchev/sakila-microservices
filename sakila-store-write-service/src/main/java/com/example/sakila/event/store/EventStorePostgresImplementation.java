@@ -88,6 +88,25 @@ public class EventStorePostgresImplementation implements EventStore {
   }
 
   @Override
+  public List<EventStoreItemDatabaseDTO> getEventStoreItemsForAggregateUpToEvent(Long aggregateId, UUID eventId) {
+    String query = "SELECT " +
+        "eventId, " +
+        "aggregateId, " +
+        "aggregateVersion, " +
+        "data, " +
+        "metaData, " +
+        "rowCreation " +
+        "FROM " +
+        "event " +
+        "WHERE " +
+        "aggregateId = ? " +
+        "AND " +
+        "rowCreation <= (SELECT rowCreation FROM event WHERE eventId = ? LIMIT 1)";
+
+    return jdbcTemplate.query(query, rowMapper, aggregateId, eventId);
+  }
+
+  @Override
   public List<EventStoreItemDatabaseDTO> getSubsequentEvents(UUID eventId) {
     String query = "SELECT " +
         "eventId, " +
