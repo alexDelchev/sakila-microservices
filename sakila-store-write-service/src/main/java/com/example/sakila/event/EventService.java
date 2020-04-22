@@ -67,6 +67,13 @@ public class EventService {
         .collect(Collectors.toList());
   }
 
+  public <T> List<Event<T>> getEventsForAggregateUpToEvent(Long aggregateId, UUID eventId, Class<T> type) {
+    return eventStore.getEventStoreItemsForAggregateUpToEvent(aggregateId, eventId)
+        .stream()
+        .map(dto -> EventStoreItemUtils.toEvent(dto, type))
+        .collect(Collectors.toList());
+  }
+
   public List<Event> getSubsequentEvents(UUID eventId) {
     return eventStore.getSubsequentEvents(eventId)
         .stream()
