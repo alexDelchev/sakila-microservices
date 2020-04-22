@@ -21,7 +21,11 @@ public class StoreRepositoryJdbcImplementation implements StoreRepository {
   public Store getStoreById(Long id) {
     String query = "SELECT store_id, manager_staff_id, address_id, last_update FROM store WHERE store_id = ?";
 
-    return jdbcTemplate.queryForObject(query, rowMapper, id);
+    try {
+      return jdbcTemplate.queryForObject(query, rowMapper, id);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
   }
 
   @Override
