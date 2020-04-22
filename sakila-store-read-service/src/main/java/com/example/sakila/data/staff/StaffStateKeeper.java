@@ -14,11 +14,9 @@ public class StaffStateKeeper {
 
   private static final String GROUP_ID = "sakila_store_read_service";
 
-  private static final String CREATE_TOPIC = "staff-create-event-stream";
+  private static final String WRITE_TOPIC = "staff-store-write-staff-dto-stream";
 
-  private static final String UPDATE_TOPIC = "staff-dto-stream";
-
-  private static final String DELETE_TOPIC = "staff-delete-event-stream";
+  private static final String DELETE_TOPIC = "staff-store-write-staff-delete-stream";
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -32,26 +30,21 @@ public class StaffStateKeeper {
     this.eventService = eventService;
   }
 
-  @KafkaListener(topics = {CREATE_TOPIC}, groupId = GROUP_ID)
-  public void consumeStaffCreatedEventStream(String message) {
+  @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
+  public void consumeStaffWriteEventStream(String message) {
     StaffEventMessage eventMessage = deserialize(message, StaffEventMessage.class);
-    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
+    if (isEventInvalidForProcessing(eventMessage)) return;
 
     Staff staff = fromDTO(eventMessage.getStaffDTO());
-    staffService.createStaff(staff);
+    if (staffService.getStaffById(staff.getId()) != null) {
+      staffService.updateStaff(staff.getId(), staff);
+    } else {
+      staffService.createStaff(staff);
+    }
 
-    eventService.markEventAsProcessed(eventMessage.getEventId());
-  }
-
-  @KafkaListener(topics = {UPDATE_TOPIC}, groupId = GROUP_ID)
-  public void consumeStaffUpdatedEventStream(String message) {
-    StaffEventMessage eventMessage = deserialize(message, StaffEventMessage.class);
-    if (eventService.isEventProcessed(eventMessage.getEventId())) return;
-
-    Staff staff = fromDTO(eventMessage.getStaffDTO());
     staffService.updateStaff(staff.getId(), staff);
 
-    eventService.markEventAsProcessed(eventMessage.getEventId());
+    eventService.markEventAsProcessed(eventMessage.getEventId(), staff.getId(), eventMessage.getStaffVersion());
   }
 
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
