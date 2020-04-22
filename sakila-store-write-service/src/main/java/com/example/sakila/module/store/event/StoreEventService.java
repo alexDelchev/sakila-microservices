@@ -78,7 +78,7 @@ public class StoreEventService {
   }
 
   private StoreEventMessage generateEventMessage(UUID eventId, Long storeId, Long storeVersion) {
-    StoreDTO dto = getStoreDTO(storeId);
+    StoreDTO dto = getStoreDTO(storeId, eventId);
 
     StoreEventMessage eventMessage = new StoreEventMessage();
 
@@ -89,8 +89,8 @@ public class StoreEventService {
     return eventMessage;
   }
 
-  private StoreDTO getStoreDTO(Long storeId) {
-    StoreWriteModel store = storeService.getStoreById(storeId);
+  private StoreDTO getStoreDTO(Long storeId, UUID eventId) {
+    StoreWriteModel store = storeService.getStoreAtEvent(storeId, eventId);
     return StoreUtils.toDTO(store);
   }
 
