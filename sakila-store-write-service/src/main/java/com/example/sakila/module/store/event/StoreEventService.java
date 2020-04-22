@@ -51,7 +51,7 @@ public class StoreEventService {
 
   @Handler
   public void onStoreCreatedEvent(StoreCreatedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
     kafkaTemplate.send(CREATE_TOPIC, json);
   }
 
@@ -63,29 +63,30 @@ public class StoreEventService {
 
   @Handler
   public void onManagerChangedEvent(ManagerChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
     kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId());
+    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
     kafkaTemplate.send(UPDATE_TOPIC, json);
   }
 
-  private String generateEventMessageJson(UUID eventId, Long storeId) {
-    StoreEventMessage eventMessage = generateEventMessage(eventId, storeId);
+  private String generateEventMessageJson(UUID eventId, Long storeId, Long storeVersion) {
+    StoreEventMessage eventMessage = generateEventMessage(eventId, storeId, storeVersion);
 
     return toJson(eventMessage);
   }
 
-  private StoreEventMessage generateEventMessage(UUID eventId, Long storeId) {
+  private StoreEventMessage generateEventMessage(UUID eventId, Long storeId, Long storeVersion) {
     StoreDTO dto = getStoreDTO(storeId);
 
     StoreEventMessage eventMessage = new StoreEventMessage();
 
     eventMessage.setEventId(eventId);
     eventMessage.setStoreDTO(dto);
+    eventMessage.setStoreVersion(storeVersion);
 
     return eventMessage;
   }
