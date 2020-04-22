@@ -1,5 +1,7 @@
 CREATE TABLE processed_event (
     event_id uuid NOT NULL,
+    aggregate_id integer NOT NULL,
+    aggregate_version integer NOT NULL,
     processed_date timestamp without time zone DEFAULT now() NOT NULL
 );
 
