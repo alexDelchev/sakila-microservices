@@ -20,6 +20,10 @@ public class EventBus {
     handlers = new ConcurrentHashMap<>();
   }
 
+  public boolean hasHandlerForType(Class type) {
+    return handlers.keySet().contains(type);
+  }
+
   public void emit(Object object) {
     Class<?> type = object.getClass();
 
