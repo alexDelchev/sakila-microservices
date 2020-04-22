@@ -8,6 +8,8 @@ public class StaffEventMessage {
 
   private UUID eventId;
 
+  private Long staffVersion;
+
   private StaffDTO staffDTO;
 
   public UUID getEventId() {
@@ -16,6 +18,14 @@ public class StaffEventMessage {
 
   public void setEventId(UUID eventId) {
     this.eventId = eventId;
+  }
+
+  public Long getStaffVersion() {
+    return staffVersion;
+  }
+
+  public void setStaffVersion(Long staffVersion) {
+    this.staffVersion = staffVersion;
   }
 
   public StaffDTO getStaffDTO() {
