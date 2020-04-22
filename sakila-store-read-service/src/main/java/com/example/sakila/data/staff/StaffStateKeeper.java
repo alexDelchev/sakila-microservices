@@ -61,6 +61,14 @@ public class StaffStateKeeper {
     staffService.deleteStaff(deletedEvent.getStaffId());
   }
 
+  private boolean isEventInvalidForProcessing(StaffEventMessage eventMessage) {
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return true;
+
+    Long currentVersion = eventService.getAggregateVersion(eventMessage.getStaffDTO().getId());
+
+    return eventMessage.getStaffVersion() != (currentVersion + 1);
+  }
+
   private <T> T deserialize(String json, Class<T> type) {
     try {
       return objectMapper.readValue(json, type);
