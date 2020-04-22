@@ -27,4 +27,10 @@ public class ProcessedEventRepositoryJdbcImplementation implements ProcessedEven
 
     return jdbcTemplate.queryForObject(query, Boolean.class, eventId);
   }
+
+  public Long getAggregateVersion(Long aggregateId) {
+    String query = "SELECT MAX(aggregate_version) FROM processed_event WHERE aggregate_id = ?";
+
+    return jdbcTemplate.queryForObject(query, Long.class, aggregateId);
+  }
 }

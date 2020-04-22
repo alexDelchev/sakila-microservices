@@ -7,4 +7,6 @@ public interface ProcessedEventRepository {
   void insertProcessedEvent(UUID eventId, Long aggregateId, Long aggregateVersion);
 
   Boolean processedEventExists(UUID eventId);
+
+  Long getAggregateVersion(Long aggregateId);
 }
