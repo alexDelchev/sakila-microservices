@@ -20,11 +20,9 @@ import java.util.UUID;
 @Service
 public class StaffEventService {
 
-  private static final String CREATE_TOPIC = "staff-create-event-stream";
+  private static final String WRITE_TOPIC = "staff-store-write-staff-dto-stream";
 
-  private static final String UPDATE_TOPIC = "staff-dto-stream";
-
-  private static final String DELETE_TOPIC = "staff-delete-event-stream";
+  private static final String DELETE_TOPIC = "staff-store-write-staff-delete-stream";
 
   private final EventBus eventBus;
 
@@ -50,7 +48,7 @@ public class StaffEventService {
   @Handler
   public void onStaffCreatedEvent(StaffCreatedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(CREATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
@@ -62,49 +60,49 @@ public class StaffEventService {
   @Handler
   public void onActiveChangedEvent(ActiveChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onEmailChangedEvent(EmailChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onFirstNameChangedEvent(FirstNameChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onLastNameChangedEvent(LastNameChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onPasswordChangedEvent(PasswordChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onStoreChangedEvent(StoreChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
 
   @Handler
   public void onUsernameChangedEvent(UsernameChangedEvent event) {
     String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(UPDATE_TOPIC, json);
+    kafkaTemplate.send(WRITE_TOPIC, json);
   }
   
   private String generateEventMessageJson(UUID eventId, Long staffId, Long staffVersion) {
