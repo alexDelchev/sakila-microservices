@@ -99,7 +99,7 @@ public class EventStorePostgresImplementation implements EventStore {
         "FROM " +
         "event " +
         "WHERE " +
-        "rowCreation > (SELECT rowCreation FROM event WHERE eventId = ? LIMIT 1)";
+        "rowCreation >= (SELECT rowCreation FROM event WHERE eventId = ? LIMIT 1)";
 
     return jdbcTemplate.query(query, rowMapper, eventId);
   }
