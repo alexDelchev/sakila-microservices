@@ -4,6 +4,8 @@ import com.example.sakila.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class StoreService {
 
@@ -19,6 +21,15 @@ public class StoreService {
     StoreWriteModel model = new StoreWriteModel();
     model.setId(id);
     eventService.getEventsForAggregate(id, StoreWriteModel.class).forEach(e -> e.apply(model));
+
+    return model;
+  }
+
+  public StoreWriteModel getStoreAtEvent(Long id, UUID eventId) {
+    if (id == null) return null;
+    StoreWriteModel model = new StoreWriteModel();
+    model.setId(id);
+    eventService.getEventsForAggregateUpToEvent(id, eventId, StoreWriteModel.class).forEach(e -> e.apply(model));
 
     return model;
   }
