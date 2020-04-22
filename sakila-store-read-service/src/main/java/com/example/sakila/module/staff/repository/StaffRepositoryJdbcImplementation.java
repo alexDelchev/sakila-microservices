@@ -2,6 +2,7 @@ package com.example.sakila.module.staff.repository;
 
 import com.example.sakila.module.staff.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,11 @@ public class StaffRepositoryJdbcImplementation implements StaffRepository {
             "FROM staff " +
             "WHERE staff_id = ?" ;
 
-    return jdbcTemplate.queryForObject(query, rowMapper, id);
+    try {
+      return jdbcTemplate.queryForObject(query, rowMapper, id);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
   }
 
   @Override
