@@ -67,6 +67,13 @@ public class EventService {
         .collect(Collectors.toList());
   }
 
+  public List<Event> getSubsequentEvents(UUID eventId) {
+    return eventStore.getSubsequentEvents(eventId)
+        .stream()
+        .map(dto -> EventStoreItemUtils.toEvent(dto, Object.class))
+        .collect(Collectors.toList());
+  }
+
   public void deleteEventsForAggregate(Long aggregateId) {
     eventStore.deleteEventStoreItemsForAggregate(aggregateId);
   }
