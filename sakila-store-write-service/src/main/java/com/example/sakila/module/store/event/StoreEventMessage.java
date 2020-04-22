@@ -8,6 +8,8 @@ public class StoreEventMessage {
 
   private UUID eventId;
 
+  private Long storeVersion;
+
   private StoreDTO storeDTO;
 
   public UUID getEventId() {
@@ -16,6 +18,14 @@ public class StoreEventMessage {
 
   public void setEventId(UUID eventId) {
     this.eventId = eventId;
+  }
+
+  public Long getStoreVersion() {
+    return storeVersion;
+  }
+
+  public void setStoreVersion(Long storeVersion) {
+    this.storeVersion = storeVersion;
   }
 
   public StoreDTO getStoreDTO() {
