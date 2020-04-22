@@ -112,7 +112,7 @@ public class StaffEventService {
   }
   
   private StaffEventMessage generateEventMessage(UUID eventId, Long staffId, Long staffVersion) {
-    StaffDTO dto = getStaffDTO(staffId);
+    StaffDTO dto = getStaffDTO(staffId, eventId);
 
     StaffEventMessage eventMessage = new StaffEventMessage();
     
@@ -123,8 +123,8 @@ public class StaffEventService {
     return eventMessage;
   }
 
-  private StaffDTO getStaffDTO(Long staffId) {
-    StaffWriteModel model = staffService.getStaffById(staffId);
+  private StaffDTO getStaffDTO(Long staffId, UUID eventId) {
+    StaffWriteModel model = staffService.getStaffAtEvent(staffId, eventId);
     return StaffUtils.toDTO(model);
   }
 
