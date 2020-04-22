@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +51,13 @@ public class EventService {
     EventStoreItemDatabaseDTO dto = EventStoreItemUtils.toDTO(item);
 
     eventStore.persistEventStoreItem(dto);
+  }
+
+  public List<Event> getAllEvents() {
+    return eventStore.getAllEvents()
+        .stream()
+        .map(dto -> EventStoreItemUtils.toEvent(dto, Object.class))
+        .collect(Collectors.toList());
   }
 
   public <T> List<Event<T>> getEventsForAggregate(Long aggregateId, Class<T> type) {
