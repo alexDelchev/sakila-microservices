@@ -36,6 +36,17 @@ public class EventEmitter {
     this.staffEventBus = staffEventBus;
   }
 
+  @KafkaListener(topics = {TRIGGER_EVENTS_TOPIC}, id = LISTENER_GROUP_ID )
+  public void triggerEvents(String message) {
+    EmitEventsMessage eventsMessage = deserialize(message, EmitEventsMessage.class);
+
+    if (eventsMessage.getEventId() != null) {
+      emitSubsequentEvents(eventsMessage.getEventId());
+    } else {
+      emitAllEvents();
+    }
+  }
+
   private void emitAllEvents() {
     eventService.getAllEvents().forEach(this::emitEvent);
   }
