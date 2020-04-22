@@ -15,10 +15,9 @@ public class ProcessedEventService {
     this.repository = repository;
   }
 
-  public void markEventAsProcessed(UUID eventId) {
-    repository.insertProcessedEvent(eventId);
+  public void markEventAsProcessed(UUID eventId, Long aggregateId, Long aggregateVersion) {
+    repository.insertProcessedEvent(eventId, aggregateId, aggregateVersion);
   }
-
   public Boolean isEventProcessed(UUID eventId) {
     return repository.processedEventExists(eventId);
   }

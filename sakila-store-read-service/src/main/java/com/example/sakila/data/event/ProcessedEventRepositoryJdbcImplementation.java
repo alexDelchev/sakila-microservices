@@ -16,10 +16,10 @@ public class ProcessedEventRepositoryJdbcImplementation implements ProcessedEven
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public void insertProcessedEvent(UUID eventId) {
-    String statement = "INSERT INTO processed_event(event_id) VALUES (?)";
+  public void insertProcessedEvent(UUID eventId, Long aggregateId, Long aggregateVersion) {
+    String statement = "INSERT INTO processed_event(event_id, aggregate_id, aggregate_version) VALUES (?, ?, ?)";
 
-    jdbcTemplate.update(statement, eventId);
+    jdbcTemplate.update(statement, eventId, aggregateId, aggregateVersion);
   }
 
   public Boolean processedEventExists(UUID eventId) {
