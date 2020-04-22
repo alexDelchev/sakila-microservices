@@ -61,6 +61,14 @@ public class StoreStateKeeper {
     storeService.deleteStore(deletedEvent.getStoreId());
   }
 
+  private boolean isEventInvalidForProcessing(StoreEventMessage eventMessage) {
+    if (eventService.isEventProcessed(eventMessage.getEventId())) return true;
+
+    Long currentVersion = eventService.getAggregateVersion(eventMessage.getStoreDTO().getId());
+
+    return eventMessage.getStoreVersion() != (currentVersion + 1);
+  }
+
   private <T> T deserialize(String json, Class<T> type) {
     try {
       return objectMapper.readValue(json, type);
