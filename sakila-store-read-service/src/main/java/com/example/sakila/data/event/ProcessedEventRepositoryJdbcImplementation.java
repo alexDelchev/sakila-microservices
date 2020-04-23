@@ -1,6 +1,7 @@
 package com.example.sakila.data.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,16 @@ public class ProcessedEventRepositoryJdbcImplementation implements ProcessedEven
   @Autowired
   public ProcessedEventRepositoryJdbcImplementation(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
+  }
+
+  public UUID getLatestProcessedEventId() {
+    String query = "SELECT event_id FROM processed_event ORDER BY processed_date DESC LIMIT 1";
+
+    try {
+      return jdbcTemplate.queryForObject(query, UUID.class);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
   }
 
   public void insertProcessedEvent(UUID eventId, Long aggregateId, Long aggregateVersion) {

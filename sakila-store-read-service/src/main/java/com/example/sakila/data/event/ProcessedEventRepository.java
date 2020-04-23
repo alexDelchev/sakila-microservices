@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public interface ProcessedEventRepository {
 
+  UUID getLatestProcessedEventId();
+
   void insertProcessedEvent(UUID eventId, Long aggregateId, Long aggregateVersion);
 
   Boolean processedEventExists(UUID eventId);
