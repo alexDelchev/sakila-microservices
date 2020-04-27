@@ -56,7 +56,6 @@ public class EventEmitter {
   }
 
   private void emitEvent(Event event) {
-    System.out.println("emitting " + event.getVersion());
     if (storeEventBus.hasHandlerForType(event.getClass())) {
       storeEventBus.emitSynchroniously(event);
     } else if (staffEventBus.hasHandlerForType(event.getClass())) {
