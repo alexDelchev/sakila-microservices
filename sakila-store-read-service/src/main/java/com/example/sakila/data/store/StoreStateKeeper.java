@@ -33,7 +33,6 @@ public class StoreStateKeeper {
   @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
   public void consumeStoreUpdatedEventStream(String message) {
     StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
-    System.out.println("UPDATE STORE -> ID: " + eventMessage.getStoreDTO().getId() + ", version: " + eventMessage.getStoreVersion());
     if (isEventInvalidForProcessing(eventMessage)) return;
 
     Store store = fromDTO(eventMessage.getStoreDTO());
