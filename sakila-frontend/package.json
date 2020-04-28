@@ -8,11 +8,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate-clients": "npm run generate-address-client && npm run generate-film-client && npm run generate-payment-client && npm run generate-store-client",
+    "generate-clients": "npm run generate-address-client && npm run generate-film-client && npm run generate-payment-client && npm run generate-store-read-client && npm run generate-store-write-client",
     "generate-address-client": "ng-swagger-gen -i ./api/spec/address/open-api-specification.json -c ./api/config/address/ng-swagger-gen.json -o ./src/app/api/generated/address",
     "generate-film-client": "ng-swagger-gen -i ./api/spec/film/open-api-specification.json -c ./api/config/film/ng-swagger-gen.json -o ./src/app/api/generated/film",
     "generate-payment-client": "ng-swagger-gen -i ./api/spec/payment/open-api-specification.json -c ./api/config/payment/ng-swagger-gen.json -o ./src/app/api/generated/payment",
-    "generate-store-client": "ng-swagger-gen -i ./api/spec/store/open-api-specification.json -c ./api/config/store/ng-swagger-gen.json -o ./src/app/api/generated/store"
+    "generate-store-read-client": "ng-swagger-gen -i ./api/spec/store/read/open-api-specification.json -c ./api/config/store/read/ng-swagger-gen.json -o ./src/app/api/generated/store/read",
+    "generate-store-write-client": "ng-swagger-gen -i ./api/spec/store/write/open-api-specification.json -c ./api/config/store/write/ng-swagger-gen.json -o ./src/app/api/generated/store/write"
   },
   "private": true,
   "dependencies": {
