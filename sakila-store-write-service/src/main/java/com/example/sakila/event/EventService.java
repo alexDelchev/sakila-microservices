@@ -19,6 +19,10 @@ public class EventService {
     this.eventStore = eventStore;
   }
 
+  public UUID getLatestEventId() {
+    return eventStore.getLatestEventId();
+  }
+
   public <T> Boolean aggregateExists(Long aggregateId, Class<T> type) {
     return eventStore.aggregateExists(aggregateId, type.getTypeName());
   }
