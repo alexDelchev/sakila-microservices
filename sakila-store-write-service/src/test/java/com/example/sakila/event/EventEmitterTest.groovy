@@ -16,4 +16,31 @@ class EventEmitterTest extends Specification {
 
   private final EventEmitter eventEmitter = new EventEmitter(eventService, storeEventBus, staffEventBus)
 
+  def "should get subsequent events when event id is provided"() {
+    given:
+    UUID eventId = UUID.randomUUID()
+
+    EmitEventsMessage message = new EmitEventsMessage(eventId: eventId)
+    String serializedMessage = objectMapper.writeValueAsString(message)
+
+    when:
+    eventEmitter.triggerEvents(serializedMessage)
+
+    then:
+    1 * eventService.getSubsequentEvents(_) >> []
+  }
+
+  def "should get all events when no id is provided"() {
+    given:
+    UUID eventId = null
+
+    EmitEventsMessage message = new EmitEventsMessage(eventId: eventId)
+    String serializedMessage = objectMapper.writeValueAsString(message)
+
+    when:
+    eventEmitter.triggerEvents(serializedMessage)
+
+    then:
+    1 * eventService.getAllEvents() >> []
+  }
 }
