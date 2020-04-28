@@ -30,25 +30,12 @@ public class LeaderElectionService {
     try {
       long electionTimeStart = System.currentTimeMillis();
       leaderLatch.start();
-      //Thread.sleep(500);
-//      System.out.println("No leader");
-//      System.out.println(leaderLatch.getState().name());
-//      System.out.println(leaderLatch.getId());
-//      System.out.println(leaderLatch.getOurPath());
-//      System.out.println(leaderLatch.getParticipants().size());
-//      leaderLatch.getParticipants().forEach(e -> System.out.print(e.getId() + " " + e.isLeader() + "; "));
 
       while (!leaderLatch.getLeader().isLeader()) {
         Thread.sleep(100);
         checkWaitTime(operationName, electionTimeStart, timeoutMillis);
       }
 
-//      System.out.println("Leader found");
-//      System.out.println(leaderLatch.getState().name());
-//      System.out.println(leaderLatch.getId());
-//      System.out.println(leaderLatch.getOurPath());
-//      System.out.println(leaderLatch.getParticipants().size());
-//      leaderLatch.getParticipants().forEach(e -> System.out.print(e.getId() + " " + e.isLeader() + "; "));
       if (leaderLatch.hasLeadership()) {
         operation.run();
       } else {
