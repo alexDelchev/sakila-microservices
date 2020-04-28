@@ -39,6 +39,9 @@ public class EventEmitter {
   @KafkaListener(topics = {TRIGGER_EVENTS_TOPIC}, id = LISTENER_GROUP_ID )
   public void triggerEvents(String message) {
     EmitEventsMessage eventsMessage = deserialize(message, EmitEventsMessage.class);
+    UUID latestEventId = eventService.getLatestEventId();
+
+    if (latestEventId.equals(eventsMessage.getEventId())) return;
 
     if (eventsMessage.getEventId() != null) {
       emitSubsequentEvents(eventsMessage.getEventId());
