@@ -12,7 +12,8 @@ import { AppComponent } from './app.component';
 import { AddressApiModule } from '@api/generated/address/address-api.module';
 import { FilmApiModule } from '@api/generated/film/film-api.module';
 import { PaymentApiModule } from '@api/generated/payment/payment-api.module';
-import { StoreApiModule } from '@api/generated/store/store-api.module';
+import { StoreReadApiModule } from '@api/generated/store/read/store-read-api.module';
+import { StoreWriteApiModule } from '@api/generated/store/write/store-write-api.module';
 
 import { FilmComponent } from './film/film.component';
 import { CategoryPickerComponent } from './category-picker/category-picker.component';
@@ -49,7 +50,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AddressApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/address/' }),
     FilmApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/film/' }),
     PaymentApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/payment/' }),
-    StoreApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/' }),
+    StoreReadApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/read/' }),
+    StoreWriteApiModule.forRoot({ rootUrl: environment.apiRootUrl + '/api/store/write/' }),
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
