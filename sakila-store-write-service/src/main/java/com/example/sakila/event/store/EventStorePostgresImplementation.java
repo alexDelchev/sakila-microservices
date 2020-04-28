@@ -24,6 +24,13 @@ public class EventStorePostgresImplementation implements EventStore {
   }
 
   @Override
+  public UUID getLatestEventId() {
+    String query = "SELECT eventId FROM event ORDER BY rowCreation DESC LIMIT 1";
+
+    return jdbcTemplate.queryForObject(query, UUID.class);
+  }
+
+  @Override
   public Boolean aggregateExists(Long aggregateId, String type) {
     String query = "SELECT EXISTS(SELECT 1 FROM aggregate WHERE aggregateId = ? and type = ?)";
 

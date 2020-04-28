@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface EventStore {
 
+  UUID getLatestEventId();
+
   Boolean aggregateExists(Long aggregateid, String type);
 
   Long persistAggregate(String type, Date date);
