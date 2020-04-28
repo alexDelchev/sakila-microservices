@@ -43,4 +43,20 @@ class EventEmitterTest extends Specification {
     then:
     1 * eventService.getAllEvents() >> []
   }
+
+  def "should not fetch events when broadcasted event id is the same as the latest"() {
+    given:
+    UUID eventId = UUID.randomUUID()
+    eventService.getLatestEventId() >> UUID.fromString(eventId.toString())
+
+    EmitEventsMessage message = new EmitEventsMessage(eventId: eventId)
+    String serializedMessage = objectMapper.writeValueAsString(message)
+
+    when:
+    eventEmitter.triggerEvents(serializedMessage)
+
+    then:
+    0 * eventService.getAllEvents()
+    0 * eventService.getSubsequentEvents(_)
+  }
 }
