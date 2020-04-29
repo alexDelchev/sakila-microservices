@@ -75,8 +75,9 @@ public class RentalController implements RentalsApi {
   private RentalDTO toDTO(Rental rental) {
     RentalDTO rentalDTO = new RentalDTO();
     rentalDTO.setId(rental.getId());
-    rentalDTO.setInventoryId(rental.getInventory_id());
-    rentalDTO.setStaffId(rental.getStaff_id());
+    rentalDTO.setFilmId(rental.getFilmId());
+    rentalDTO.setStoreId(rental.getStoreId());
+    rentalDTO.setStaffId(rental.getStaffId());
     if (rental.getRentalDate() != null) rentalDTO.setRentalDate(toOffsetDateTime(rental.getRentalDate()));
     if (rental.getCustomer() != null) rentalDTO.setCustomerId(rental.getCustomer().getId());
     if (rental.getReturnDate() != null) rentalDTO.setReturnDate(toOffsetDateTime(rental.getReturnDate()));
@@ -87,8 +88,9 @@ public class RentalController implements RentalsApi {
   private Rental toEntity(RentalDTO rentalDTO) {
     Rental rental = new Rental();
     rental.setId(rentalDTO.getId());
-    rental.setStaff_id(rentalDTO.getStaffId());
-    rental.setInventory_id(rentalDTO.getInventoryId());
+    rental.setStaffId(rentalDTO.getStaffId());
+    rental.setFilmId(rentalDTO.getFilmId());
+    rental.setStoreId(rentalDTO.getStoreId());
 
     if (rentalDTO.getCustomerId() != null) {
       Customer customer = customerService.getCustomerById(rentalDTO.getCustomerId());
