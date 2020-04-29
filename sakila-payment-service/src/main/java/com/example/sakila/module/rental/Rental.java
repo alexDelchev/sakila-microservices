@@ -22,8 +22,11 @@ public class Rental {
   @Temporal(TemporalType.TIMESTAMP)
   private Date rentalDate;
 
-  @Column(name = "inventory_id")
-  private Long inventory_id;
+  @Column(name = "film_id")
+  private String filmId;
+
+  @Column(name = "store_id")
+  private Long storeId;
 
   @ManyToOne
   @JoinColumn(name = "customer_id")
@@ -48,11 +51,12 @@ public class Rental {
   }
 
   public Rental(
-      Long id, Date rentalDate, Long inventory_id, Customer customer, Date returnDate, Long staff_id, Date lastUpdate
+      Long id, Date rentalDate, String filmId, Long storeId, Customer customer, Date returnDate, Long staff_id, Date lastUpdate
   ) {
     this.id = id;
     this.rentalDate = rentalDate;
-    this.inventory_id = inventory_id;
+    this.filmId = filmId;
+    this.storeId = storeId;
     this.customer = customer;
     this.returnDate = returnDate;
     this.staff_id = staff_id;
@@ -75,12 +79,20 @@ public class Rental {
     this.rentalDate = rentalDate;
   }
 
-  public Long getInventory_id() {
-    return inventory_id;
+  public String getFilmId() {
+    return filmId;
   }
 
-  public void setInventory_id(Long inventory_id) {
-    this.inventory_id = inventory_id;
+  public void setFilmId(String filmId) {
+    this.filmId = filmId;
+  }
+
+  public Long getStoreId() {
+    return storeId;
+  }
+
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
   }
 
   public Customer getCustomer() {
