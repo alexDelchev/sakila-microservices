@@ -50,8 +50,9 @@ public class RentalService {
     target.setRentalDate(source.getRentalDate());
     target.setReturnDate(source.getReturnDate());
     target.setCustomer(source.getCustomer());
-    target.setInventory_id(source.getInventory_id());
-    target.setStaff_id(source.getStaff_id());
+    target.setFilmId(source.getFilmId());
+    target.setStoreId(source.getStoreId());
+    target.setStaffId(source.getStaffId());
 
     return rentalRepository.updateRental(target);
   }
