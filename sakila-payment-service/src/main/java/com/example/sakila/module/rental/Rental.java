@@ -37,7 +37,7 @@ public class Rental {
   private Date returnDate;
 
   @Column(name = "staff_id")
-  private Long staff_id;
+  private Long staffId;
 
   @Column(name = "last_update")
   @Temporal(TemporalType.TIMESTAMP)
@@ -51,7 +51,7 @@ public class Rental {
   }
 
   public Rental(
-      Long id, Date rentalDate, String filmId, Long storeId, Customer customer, Date returnDate, Long staff_id, Date lastUpdate
+      Long id, Date rentalDate, String filmId, Long storeId, Customer customer, Date returnDate, Long staffId, Date lastUpdate
   ) {
     this.id = id;
     this.rentalDate = rentalDate;
@@ -59,7 +59,7 @@ public class Rental {
     this.storeId = storeId;
     this.customer = customer;
     this.returnDate = returnDate;
-    this.staff_id = staff_id;
+    this.staffId = staffId;
     this.lastUpdate = lastUpdate;
   }
 
@@ -111,12 +111,12 @@ public class Rental {
     this.returnDate = returnDate;
   }
 
-  public Long getStaff_id() {
-    return staff_id;
+  public Long getStaffId() {
+    return staffId;
   }
 
-  public void setStaff_id(Long staff_id) {
-    this.staff_id = staff_id;
+  public void setStaffId(Long staffId) {
+    this.staffId = staffId;
   }
 
   public Date getLastUpdate() {
