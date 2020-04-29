@@ -569,7 +569,10 @@
           "type": "string",
           "format": "date-time"
         },
-        "inventoryId": {
+        "filmId": {
+          "type": "string"
+        },
+        "storeId": {
           "type": "integer",
           "format": "int64"
         },
