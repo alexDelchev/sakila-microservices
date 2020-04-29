@@ -18,7 +18,7 @@ public class Customer {
   private Long id;
 
   @Column(name = "store_id")
-  private Long store_id;
+  private Long storeId;
 
   @Column(name = "first_name")
   private String firstName;
@@ -30,7 +30,7 @@ public class Customer {
   private String email;
 
   @Column(name = "address_id")
-  private Long address_id;
+  private Long addressId;
 
   @Column(name = "activebool")
   private Boolean activeBool;
@@ -53,15 +53,15 @@ public class Customer {
   }
 
   public Customer(
-      Long id, Long store_id, String firstName, String lastName, String email,
-      Long address_id, Boolean activeBool, Date createDate, Date lastUpdate, Integer active
+      Long id, Long storeId, String firstName, String lastName, String email,
+      Long addressId, Boolean activeBool, Date createDate, Date lastUpdate, Integer active
   ) {
     this.id = id;
-    this.store_id = store_id;
+    this.storeId = storeId;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.address_id = address_id;
+    this.addressId = addressId;
     this.activeBool = activeBool;
     this.createDate = createDate;
     this.lastUpdate = lastUpdate;
@@ -76,12 +76,12 @@ public class Customer {
     this.id = id;
   }
 
-  public Long getStore_id() {
-    return store_id;
+  public Long getStoreId() {
+    return storeId;
   }
 
-  public void setStore_id(Long store_id) {
-    this.store_id = store_id;
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
   }
 
   public String getFirstName() {
@@ -108,12 +108,12 @@ public class Customer {
     this.email = email;
   }
 
-  public Long getAddress_id() {
-    return address_id;
+  public Long getAddressId() {
+    return addressId;
   }
 
-  public void setAddress_id(Long address_id) {
-    this.address_id = address_id;
+  public void setAddressId(Long addressId) {
+    this.addressId = addressId;
   }
 
   public Boolean getActiveBool() {

@@ -77,11 +77,11 @@ public class CustomerController implements CustomersApi {
   private CustomerDTO toDTO(Customer customer) {
     CustomerDTO customerDTO = new CustomerDTO();
     customerDTO.setId(customer.getId());
-    customerDTO.setStoreId(customer.getStore_id());
+    customerDTO.setStoreId(customer.getStoreId());
     customerDTO.setFirstName(customer.getFirstName());
     customerDTO.setLastName(customer.getLastName());
     customerDTO.setEmail(customer.getEmail());
-    customerDTO.setAddressId(customer.getAddress_id());
+    customerDTO.setAddressId(customer.getAddressId());
     customerDTO.setActiveBool(customer.getActiveBool());
     customerDTO.setCreateDate(toLocalDate(customer.getCreateDate()));
     customerDTO.setLastUpdate(toOffsetDateTime(customer.getLastUpdate()));
@@ -92,11 +92,11 @@ public class CustomerController implements CustomersApi {
   private Customer toEntity(CustomerDTO customerDTO) {
     Customer customer = new Customer();
     customer.setId(customerDTO.getId());
-    customer.setStore_id(customerDTO.getStoreId());
+    customer.setStoreId(customerDTO.getStoreId());
     customer.setFirstName(customerDTO.getFirstName());
     customer.setLastName(customerDTO.getLastName());
     customer.setEmail(customerDTO.getEmail());
-    customer.setAddress_id(customerDTO.getAddressId());
+    customer.setAddressId(customerDTO.getAddressId());
     customer.setActiveBool(customerDTO.isActiveBool());
     if (customerDTO.getCreateDate() != null) {
       customer.setCreateDate(Date.from(customerDTO.getCreateDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));

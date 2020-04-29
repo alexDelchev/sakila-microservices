@@ -47,11 +47,11 @@ public class CustomerService {
     Customer target = getCustomerById(id);
     if (target == null) throw new NotFoundException("Customer for ID " + id + " does not exist");
 
-    target.setStore_id(source.getStore_id());
+    target.setStoreId(source.getStoreId());
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
     target.setEmail(source.getEmail());
-    target.setAddress_id(source.getAddress_id());
+    target.setAddressId(source.getAddressId());
     target.setActive(source.getActive());
 
     //Update these values only when they are not null as columns prohibit nulls and have default values
