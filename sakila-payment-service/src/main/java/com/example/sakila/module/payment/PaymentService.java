@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.event.PaymentEventUtils;
 import com.example.sakila.module.payment.event.model.PaymentCreatedEvent;
 import com.example.sakila.module.payment.event.model.PaymentEventDTO;
+import com.example.sakila.module.payment.event.model.PaymentUpdatedEvent;
 import com.example.sakila.module.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,8 +59,15 @@ public class PaymentService {
     Payment result = paymentRepository.insertPayment(payment);
 
     generateCreatedEvent(result);
-    
+
     return result;
+  }
+
+  private void generateUpdatedEvent(Payment payment) {
+    PaymentEventDTO dto = PaymentEventUtils.toDTO(payment);
+    PaymentUpdatedEvent updatedEvent = new PaymentUpdatedEvent();
+    updatedEvent.setDto(dto);
+    eventBus.emit(updatedEvent);
   }
 
   public Payment updatePayment(Long id, Payment source) {
@@ -72,7 +80,11 @@ public class PaymentService {
     target.setAmount(source.getAmount());
     target.setPaymentDate(source.getPaymentDate());
 
-    return paymentRepository.updatePayment(target);
+    Payment result = paymentRepository.updatePayment(target);
+    
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deletePayment(Long id) {
