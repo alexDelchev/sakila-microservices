@@ -34,6 +34,12 @@ public class RentalEventEmitter {
     this.eventBus.register(this);
   }
 
+  @Handler
+  public void onRentalCreatedEvent(RentalCreatedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(RENTAL_CREATED_TOPIC, serializedMessage);
+  }
+
   private String serialize(Object object) {
     try {
       return objectMapper.writeValueAsString(object);
