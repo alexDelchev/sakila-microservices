@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.address.event.AddressEventEmitter;
 import com.example.sakila.module.address.event.AddressEventUtils;
 import com.example.sakila.module.address.event.model.AddressCreatedEvent;
+import com.example.sakila.module.address.event.model.AddressDeletedEvent;
 import com.example.sakila.module.address.event.model.AddressEventDTO;
 import com.example.sakila.module.address.event.model.AddressUpdatedEvent;
 import com.example.sakila.module.address.repository.AddressRepository;
@@ -86,12 +87,19 @@ public class AddressService {
     return result;
   }
 
+  private void generateDeletedEvent(Long id) {
+    AddressDeletedEvent event = new AddressDeletedEvent();
+    event.setId(id);
+    eventBus.emit(event);
+  }
+
   public void deleteAddress(Long id) {
     Address address = addressRepository.getAddressById(id);
     if (address == null) throw new NotFoundException("Address for ID " + id + " does not exist");
 
     try {
       addressRepository.deleteAddress(address);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
