@@ -3,6 +3,9 @@ package com.example.sakila.module.rental;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.rental.event.RentalEventUtils;
+import com.example.sakila.module.rental.event.model.RentalCreatedEvent;
+import com.example.sakila.module.rental.event.model.RentalEventDTO;
 import com.example.sakila.module.rental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,8 +47,19 @@ public class RentalService {
     return rentalRepository.getRentalsByStaffId(id);
   }
 
+  private void generateCreatedEvent(Rental rental) {
+    RentalEventDTO dto = RentalEventUtils.toDTO(rental);
+    RentalCreatedEvent createdEvent = new RentalCreatedEvent();
+    createdEvent.setDto(dto);
+    eventBus.emit(dto);
+  }
+
   public Rental createRental(Rental rental) {
-    return rentalRepository.insertRental(rental);
+    Rental result = rentalRepository.insertRental(rental);
+
+    generateCreatedEvent(result);
+
+    return result;
   }
 
   public Rental updateRental(Long id, Rental source) {
