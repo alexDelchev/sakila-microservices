@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.city.event.CityEventUtils;
 import com.example.sakila.module.city.event.model.CityCreatedEvent;
+import com.example.sakila.module.city.event.model.CityDeletedEvent;
 import com.example.sakila.module.city.event.model.CityEventDTO;
 import com.example.sakila.module.city.event.model.CityUpdatedEvent;
 import com.example.sakila.module.city.repository.CityRepository;
@@ -83,12 +84,19 @@ public class CityService {
     return result;
   }
 
+  private void generateDeletedEvent(Long id) {
+    CityDeletedEvent event = new CityDeletedEvent();
+    event.setCityId(id);
+    eventBus.emit(event);
+  }
+
   public void deleteCity(Long id) {
     City city = cityRepository.getCityById(id);
     if (city == null) throw new NotFoundException("City for ID " + id + " does not exist");
 
     try {
       cityRepository.deleteCity(city);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
