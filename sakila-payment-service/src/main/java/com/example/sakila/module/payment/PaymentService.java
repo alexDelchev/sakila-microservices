@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.event.PaymentEventUtils;
 import com.example.sakila.module.payment.event.model.PaymentCreatedEvent;
+import com.example.sakila.module.payment.event.model.PaymentDeletedEvent;
 import com.example.sakila.module.payment.event.model.PaymentEventDTO;
 import com.example.sakila.module.payment.event.model.PaymentUpdatedEvent;
 import com.example.sakila.module.payment.repository.PaymentRepository;
@@ -81,10 +82,16 @@ public class PaymentService {
     target.setPaymentDate(source.getPaymentDate());
 
     Payment result = paymentRepository.updatePayment(target);
-    
+
     generateUpdatedEvent(result);
 
     return result;
+  }
+
+  private void generateDeletedEvent(Long id) {
+    PaymentDeletedEvent event = new PaymentDeletedEvent();
+    event.setPaymentId(id);
+    eventBus.emit(event);
   }
 
   public void deletePayment(Long id) {
@@ -93,6 +100,7 @@ public class PaymentService {
 
     try {
       paymentRepository.deletePayment(payment);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
