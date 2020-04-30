@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.rental.event.RentalEventUtils;
 import com.example.sakila.module.rental.event.model.RentalCreatedEvent;
 import com.example.sakila.module.rental.event.model.RentalEventDTO;
+import com.example.sakila.module.rental.event.model.RentalUpdatedEvent;
 import com.example.sakila.module.rental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,6 +63,13 @@ public class RentalService {
     return result;
   }
 
+  public void generateUpdatedEvent(Rental rental) {
+    RentalEventDTO dto = RentalEventUtils.toDTO(rental);
+    RentalUpdatedEvent updatedEvent = new RentalUpdatedEvent();
+    updatedEvent.setDto(dto);
+    eventBus.emit(updatedEvent);
+  }
+
   public Rental updateRental(Long id, Rental source) {
     Rental target = getRentalById(id);
     if (target == null) throw new NotFoundException("Rental for ID " + id + " does not exist");
@@ -73,7 +81,11 @@ public class RentalService {
     target.setStoreId(source.getStoreId());
     target.setStaffId(source.getStaffId());
 
-    return rentalRepository.updateRental(target);
+    Rental result = rentalRepository.updateRental(target);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteRental(Long id) {
