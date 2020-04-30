@@ -1,6 +1,8 @@
 package com.example.sakila.module.film.event;
 
 import com.example.sakila.event.bus.EventBus;
+import com.example.sakila.event.bus.Handler;
+import com.example.sakila.module.film.event.model.FilmCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,12 @@ public class FilmEventEmitter {
     this.kafkaTemplate = kafkaTemplate;
 
     this.eventBus.register(this);
+  }
+
+  @Handler
+  public void onFilmCreatedEvent(FilmCreatedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(FILM_CREATED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
