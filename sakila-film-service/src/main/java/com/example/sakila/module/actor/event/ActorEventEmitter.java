@@ -3,6 +3,7 @@ package com.example.sakila.module.actor.event;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.module.actor.event.model.ActorCreatedEvent;
+import com.example.sakila.module.actor.event.model.ActorDeletedEvent;
 import com.example.sakila.module.actor.event.model.ActorUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,6 +43,12 @@ public class ActorEventEmitter {
   public void onActorUpdatedEvent(ActorUpdatedEvent event) {
     String serializedMessage = serialize(event);
     kafkaTemplate.send(ACTOR_UPDATED_TOPIC, serializedMessage);
+  }
+
+  @Handler
+  public void onActorDeletedEvent(ActorDeletedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(ACTOR_DELETED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
