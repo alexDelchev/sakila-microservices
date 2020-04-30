@@ -18,7 +18,7 @@ public class AddressService {
 
   private final EventBus eventBus;
 
-  private AddressRepository addressRepository;
+  private final AddressRepository addressRepository;
 
   @Autowired
   AddressService(@Qualifier("AddressEventService") EventBus eventBus,  AddressRepository addressRepository) {
