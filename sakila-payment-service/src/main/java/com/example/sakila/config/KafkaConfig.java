@@ -19,7 +19,7 @@ import java.util.Map;
 public class KafkaConfig {
 
   @Value("${kafka.group-id}")
-  private String GROUP_ID;
+  private String groupId;
 
   @Value("${kafka.broker.url}")
   private String brokerUrl;
@@ -45,7 +45,7 @@ public class KafkaConfig {
     Map<String, Object> props = new HashMap<>();
 
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerUrl);
-    props.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
