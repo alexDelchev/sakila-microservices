@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.city.event.CityEventUtils;
 import com.example.sakila.module.city.event.model.CityCreatedEvent;
 import com.example.sakila.module.city.event.model.CityEventDTO;
+import com.example.sakila.module.city.event.model.CityUpdatedEvent;
 import com.example.sakila.module.city.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,6 +62,13 @@ public class CityService {
     return result;
   }
 
+  private void generatedUpdatedEvent(City city) {
+    CityEventDTO dto = CityEventUtils.toDto(city);
+    CityUpdatedEvent event = new CityUpdatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public City updateCity(Long id, City city) {
     City target = cityRepository.getCityById(id);
     if (target == null) throw new NotFoundException("Target city for update does not exist");
@@ -68,7 +76,11 @@ public class CityService {
     target.setCity(city.getCity());
     target.setCountry(city.getCountry());
 
-    return cityRepository.updateCity(target);
+    City result = cityRepository.updateCity(target);
+
+    generatedUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteCity(Long id) {
