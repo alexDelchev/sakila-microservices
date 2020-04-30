@@ -3,6 +3,9 @@ package com.example.sakila.module.country;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.country.event.CountryEventUtils;
+import com.example.sakila.module.country.event.model.CountryCreatedEvent;
+import com.example.sakila.module.country.event.model.CountryEventDTO;
 import com.example.sakila.module.country.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +37,19 @@ public class CountryService {
     return countryRepository.getCountryByAddressId(addressId);
   }
 
+  public void generateCreatedEvent(Country country) {
+    CountryEventDTO dto = CountryEventUtils.toDto(country);
+    CountryCreatedEvent event = new CountryCreatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Country createCountry(Country country) {
-    return countryRepository.insertCountry(country);
+    Country result = countryRepository.insertCountry(country);
+
+    generateCreatedEvent(result);
+
+    return result;
   }
 
   public Country updateCountry(Long id, Country source) {
