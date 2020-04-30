@@ -1,9 +1,11 @@
 package com.example.sakila.module.city;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.city.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,13 @@ import java.util.List;
 @Service
 public class CityService {
 
+  private final EventBus eventBus;
+
   private final CityRepository cityRepository;
 
   @Autowired
-  public CityService(CityRepository cityRepository) {
+  public CityService(@Qualifier("CityEventBus") EventBus eventBus,  CityRepository cityRepository) {
+    this.eventBus = eventBus;
     this.cityRepository = cityRepository;
   }
 
