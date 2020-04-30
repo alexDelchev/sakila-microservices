@@ -3,6 +3,10 @@ package com.example.sakila.module.address;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.address.event.AddressEventEmitter;
+import com.example.sakila.module.address.event.AddressEventUtils;
+import com.example.sakila.module.address.event.model.AddressCreatedEvent;
+import com.example.sakila.module.address.event.model.AddressEventDTO;
 import com.example.sakila.module.address.repository.AddressRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +45,19 @@ public class AddressService {
     return addressRepository.getAddressesByCountry(countryId);
   }
 
+  private void generateCreatedEvent(Address address) {
+    AddressEventDTO dto = AddressEventUtils.toDto(address);
+    AddressCreatedEvent event = new AddressCreatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Address createAddress(Address address) {
-    return addressRepository.insertAddress(address);
+    Address result = addressRepository.insertAddress(address);
+
+    generateCreatedEvent(result);
+
+    return result;
   }
 
   public Address updateAddress(Long id, Address source) {
