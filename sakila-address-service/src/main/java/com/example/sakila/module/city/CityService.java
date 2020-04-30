@@ -3,6 +3,9 @@ package com.example.sakila.module.city;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.city.event.CityEventUtils;
+import com.example.sakila.module.city.event.model.CityCreatedEvent;
+import com.example.sakila.module.city.event.model.CityEventDTO;
 import com.example.sakila.module.city.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,8 +46,19 @@ public class CityService {
     return cityRepository.getAllCities();
   }
 
+  private void generateCreatedEvent(City city) {
+    CityEventDTO dto = CityEventUtils.toDto(city);
+    CityCreatedEvent event = new CityCreatedEvent();
+    event.setCityEventDTO(dto);
+    eventBus.emit(event);
+  }
+
   public City createCity(City city) {
-    return cityRepository.insertCity(city);
+    City result = cityRepository.insertCity(city);
+
+    generateCreatedEvent(city);
+
+    return result;
   }
 
   public City updateCity(Long id, City city) {
