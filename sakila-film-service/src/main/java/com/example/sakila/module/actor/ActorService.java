@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.actor.event.ActorEventUtils;
 import com.example.sakila.module.actor.event.model.ActorCreatedEvent;
 import com.example.sakila.module.actor.event.model.ActorEventDTO;
+import com.example.sakila.module.actor.event.model.ActorUpdatedEvent;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
 import org.bson.types.ObjectId;
@@ -52,6 +53,13 @@ public class ActorService {
     return result;
   }
 
+  private void generateUpdatedEvent(Actor actor) {
+    ActorEventDTO dto = ActorEventUtils.toDTO(actor);
+    ActorUpdatedEvent event = new ActorUpdatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Actor updateActor(String hexString, Actor source) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
@@ -65,7 +73,11 @@ public class ActorService {
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
 
-    return actorRepository.updateActor(target);
+    Actor result = actorRepository.updateActor(target);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteActor(String hexString) {
