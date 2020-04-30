@@ -10,13 +10,13 @@ public class InternalEventInfrastructureConfig {
 
   @Bean
   @Qualifier("FilmEventBus")
-  public EventBus rentalEventBus() {
+  public EventBus filmEventBus() {
     return new EventBus("film-event-bus");
   }
 
   @Bean
   @Qualifier("ActorEventBus")
-  public EventBus customerEventBus() {
+  public EventBus actorEventBus() {
     return new EventBus("actor-event-bus");
   }
 }
