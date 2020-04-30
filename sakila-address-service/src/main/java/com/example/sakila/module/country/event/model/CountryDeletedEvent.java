@@ -2,13 +2,13 @@ package com.example.sakila.module.country.event.model;
 
 public class CountryDeletedEvent {
 
-  private CountryEventDTO dto;
+  private Long countryId;
 
-  public CountryEventDTO getDto() {
-    return dto;
+  public Long getCountryId() {
+    return countryId;
   }
 
-  public void setDto(CountryEventDTO dto) {
-    this.dto = dto;
+  public void setCountryId(Long countryId) {
+    this.countryId = countryId;
   }
 }
