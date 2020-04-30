@@ -47,6 +47,12 @@ public class CustomerEventEmitter {
     kafkaTemplate.send(CUSTOMER_UPDATED_TOPIC, serializedMessage);
   }
 
+  @Handler
+  public void onCustomerDeletedEvent(CustomerDeletedEvent event) {
+    String serliaziedMessage = serialize(event);
+    kafkaTemplate.send(CUSTOMER_DELETED_TOPIC, serliaziedMessage);
+  }
+
   private String serialize(Object object) {
     try {
       return objectMapper.writeValueAsString(object);
