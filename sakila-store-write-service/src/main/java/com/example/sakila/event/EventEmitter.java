@@ -60,9 +60,9 @@ public class EventEmitter {
 
   private void emitEvent(Event event) {
     if (storeEventBus.hasHandlerForType(event.getClass())) {
-      storeEventBus.emitSynchroniously(event);
+      storeEventBus.emitSynchronously(event);
     } else if (staffEventBus.hasHandlerForType(event.getClass())) {
-      staffEventBus.emitSynchroniously(event);
+      staffEventBus.emitSynchronously(event);
     } else {
       throw new IllegalArgumentException(
           String.format("Could not find event bus for type %s", event.getClass().getTypeName())

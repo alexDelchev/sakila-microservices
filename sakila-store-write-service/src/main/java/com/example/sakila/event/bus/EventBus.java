@@ -32,7 +32,7 @@ public class EventBus {
     }
   }
 
-  public void emitSynchroniously(Object object) {
+  public void emitSynchronously(Object object) {
     Class<?> type = object.getClass();
 
     if (handlers.containsKey(type)) {
