@@ -3,6 +3,7 @@ package com.example.sakila.module.address.event;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.module.address.event.model.AddressCreatedEvent;
+import com.example.sakila.module.address.event.model.AddressDeletedEvent;
 import com.example.sakila.module.address.event.model.AddressUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,12 @@ public class AddressEventEmitter {
   public void onAddressUpdatedEvent(AddressUpdatedEvent event) {
     String serializedMatcher = serialize(event);
     kafkaTemplate.send(ADDRESS_UPDATED_TOPIC, serializedMatcher);
+  }
+
+  @Handler
+  public void onAddressDeletedEvent(AddressDeletedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(ADDRESS_DELETED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
