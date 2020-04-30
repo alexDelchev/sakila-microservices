@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentEventEmitter {
 
-  private static final String PAYMENT_CREATE_TOPIC = "sakila-payment-payment-create";
+  private static final String PAYMENT_CREATED_TOPIC = "sakila-payment-payment-created";
 
-  private static final String PAYMENT_UPDATE_TOPIC = "sakila-payment-payment-update";
+  private static final String PAYMENT_UPDATED_TOPIC = "sakila-payment-payment-updated";
 
-  private static final String PAYMENT_DELETE_TOPIC = "sakila-payment-payment-delete";
+  private static final String PAYMENT_DELETED_TOPIC = "sakila-payment-payment-deleted";
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -38,19 +38,19 @@ public class PaymentEventEmitter {
   @Handler
   public void onPaymentCreatedEvent(PaymentCreatedEvent event) {
     String serializedMessage = serialize(event);
-    kafkaTemplate.send(PAYMENT_CREATE_TOPIC, serializedMessage);
+    kafkaTemplate.send(PAYMENT_CREATED_TOPIC, serializedMessage);
   }
 
   @Handler
   public void onPaymentUpdatedEvent(PaymentUpdatedEvent event) {
     String seriliazedMessage = serialize(event);
-    kafkaTemplate.send(PAYMENT_UPDATE_TOPIC, seriliazedMessage);
+    kafkaTemplate.send(PAYMENT_UPDATED_TOPIC, seriliazedMessage);
   }
 
   @Handler
   public void onPaymentDeletedEvent(PaymentDeletedEvent event) {
     String serializedMessage = serialize(event);
-    kafkaTemplate.send(PAYMENT_DELETE_TOPIC, serializedMessage);
+    kafkaTemplate.send(PAYMENT_DELETED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
