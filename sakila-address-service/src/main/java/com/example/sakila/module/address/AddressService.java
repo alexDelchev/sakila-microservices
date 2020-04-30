@@ -7,6 +7,7 @@ import com.example.sakila.module.address.event.AddressEventEmitter;
 import com.example.sakila.module.address.event.AddressEventUtils;
 import com.example.sakila.module.address.event.model.AddressCreatedEvent;
 import com.example.sakila.module.address.event.model.AddressEventDTO;
+import com.example.sakila.module.address.event.model.AddressUpdatedEvent;
 import com.example.sakila.module.address.repository.AddressRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,13 @@ public class AddressService {
     return result;
   }
 
+  private void generateUpdatedEvent(Address address) {
+    AddressEventDTO dto = AddressEventUtils.toDto(address);
+    AddressUpdatedEvent event = new AddressUpdatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Address updateAddress(Long id, Address source) {
     Address target = addressRepository.getAddressById(id);
     if (target == null) throw new NotFoundException("Target address for update does not exist");
@@ -71,7 +79,11 @@ public class AddressService {
     target.setPostalCode(source.getPostalCode());
     target.setPhone(source.getPhone());
 
-    return addressRepository.updateAddress(target);
+    Address result = addressRepository.updateAddress(target);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteAddress(Long id) {
