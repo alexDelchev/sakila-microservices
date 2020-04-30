@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.event.FilmEventUtils;
 import com.example.sakila.module.film.event.model.FilmCreatedEvent;
+import com.example.sakila.module.film.event.model.FilmDeletedEvent;
 import com.example.sakila.module.film.event.model.FilmEventDTO;
 import com.example.sakila.module.film.event.model.FilmUpdatedEvent;
 import com.example.sakila.module.film.repository.FilmRepository;
@@ -135,6 +136,12 @@ public class FilmService {
     return result;
   }
 
+  private void generateDeletedEvent(String hexString) {
+    FilmDeletedEvent event = new FilmDeletedEvent();
+    event.setId(hexString);
+    eventBus.emit(event);
+  }
+
   public void deleteFilm(String hexString) {
     if (hexString == null || hexString.length() == 0) return;
     ObjectId id = new ObjectId(hexString);
@@ -147,6 +154,7 @@ public class FilmService {
 
     try {
       filmRepository.deleteFilm(film);
+      generateDeletedEvent(id.toHexString());
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
