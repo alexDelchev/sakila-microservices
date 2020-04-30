@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.customer.event.CustomerEventUtils;
 import com.example.sakila.module.customer.event.model.CustomerCreatedEvent;
+import com.example.sakila.module.customer.event.model.CustomerDeletedEvent;
 import com.example.sakila.module.customer.event.model.CustomerEventDTO;
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent;
 import com.example.sakila.module.customer.repository.CustomerRepository;
@@ -92,12 +93,19 @@ public class CustomerService {
     return result;
   }
 
+  private void generateDeletedEvent(Long id) {
+    CustomerDeletedEvent deletedEvent = new CustomerDeletedEvent();
+    deletedEvent.setCustomerId(id);
+    eventBus.emit(deletedEvent);
+  }
+
   public void deleteCustomer(Long id) {
     Customer customer = getCustomerById(id);
     if (customer == null) throw new NotFoundException("Customer for ID " + id + " does not exist");
 
     try {
       customerRepository.deleteCustomer(customer);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
