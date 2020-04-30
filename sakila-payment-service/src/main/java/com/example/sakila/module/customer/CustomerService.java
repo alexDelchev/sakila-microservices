@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.customer.event.CustomerEventUtils;
 import com.example.sakila.module.customer.event.model.CustomerCreatedEvent;
 import com.example.sakila.module.customer.event.model.CustomerEventDTO;
+import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent;
 import com.example.sakila.module.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,6 +63,13 @@ public class CustomerService {
     return result;
   }
 
+  private void generateUpdatedEvent(Customer customer) {
+    CustomerEventDTO eventDTO = CustomerEventUtils.toDTO(customer);
+    CustomerUpdatedEvent createdEvent = new CustomerUpdatedEvent();
+    createdEvent.setDto(eventDTO);
+    eventBus.emit(createdEvent);
+  }
+
   public Customer updateCustomer(Long id, Customer source) {
     Customer target = getCustomerById(id);
     if (target == null) throw new NotFoundException("Customer for ID " + id + " does not exist");
@@ -77,7 +85,11 @@ public class CustomerService {
     if (source.getActiveBool() != null) target.setActiveBool(source.getActiveBool());
     if (source.getCreateDate() != null) target.setCreateDate(source.getCreateDate());
 
-    return customerRepository.updateCustomer(target);
+    Customer result = customerRepository.updateCustomer(target);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteCustomer(Long id) {
