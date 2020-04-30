@@ -35,6 +35,12 @@ public class CustomerEventEmitter {
     this.eventBus.register(this);
   }
 
+  @Handler
+  public void onCustomerCreatedEvent(CustomerCreatedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(CUSTOMER_CREATED_TOPIC, serializedMessage);
+  }
+
   private String serialize(Object object) {
     try {
       return objectMapper.writeValueAsString(object);
