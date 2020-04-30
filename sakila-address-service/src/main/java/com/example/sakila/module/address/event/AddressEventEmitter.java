@@ -3,6 +3,7 @@ package com.example.sakila.module.address.event;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.module.address.event.model.AddressCreatedEvent;
+import com.example.sakila.module.address.event.model.AddressUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressEventEmitter {
 
-  private static final String COUNTRY_CREATED_TOPIC = "sakila-address-country-created";
+  private static final String ADDRESS_CREATED_TOPIC = "sakila-address-address-created";
 
-  private static final String COUNTRY_UPDATED_TOPIC = "sakila-address-country-updated";
+  private static final String ADDRESS_UPDATED_TOPIC = "sakila-address-address-updated";
 
-  private static final String COUNTRY_DELETED_TOPIC = "sakila-address-country-deleted";
+  private static final String ADDRESS_DELETED_TOPIC = "sakila-address-address-deleted";
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,7 +37,13 @@ public class AddressEventEmitter {
   @Handler
   public void onAddressCreatedEvent(AddressCreatedEvent event) {
     String serializedMessage = serialize(event);
-    kafkaTemplate.send(COUNTRY_CREATED_TOPIC, serializedMessage);
+    kafkaTemplate.send(ADDRESS_CREATED_TOPIC, serializedMessage);
+  }
+
+  @Handler
+  public void onAddressUpdatedEvent(AddressUpdatedEvent event) {
+    String serializedMatcher = serialize(event);
+    kafkaTemplate.send(ADDRESS_UPDATED_TOPIC, serializedMatcher);
   }
 
   private String serialize(Object object) {
