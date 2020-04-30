@@ -3,6 +3,7 @@ package com.example.sakila.module.film.event;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.module.film.event.model.FilmCreatedEvent;
+import com.example.sakila.module.film.event.model.FilmDeletedEvent;
 import com.example.sakila.module.film.event.model.FilmUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,12 @@ public class FilmEventEmitter {
   public void onFilmUpdatedEvent(FilmUpdatedEvent event) {
     String serializedMessage = serialize(event);
     kafkaTemplate.send(FILM_UPDATED_TOPIC, serializedMessage);
+  }
+
+  @Handler
+  public void onFilmDeletedEvent(FilmDeletedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(FILM_DELETED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
