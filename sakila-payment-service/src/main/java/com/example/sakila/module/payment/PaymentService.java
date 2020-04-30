@@ -1,9 +1,11 @@
 package com.example.sakila.module.payment;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,13 @@ import java.util.List;
 @Service
 public class PaymentService {
 
+  private final EventBus eventBus;
+
   private final PaymentRepository paymentRepository;
 
   @Autowired
-  public PaymentService(PaymentRepository paymentRepository) {
+  public PaymentService(@Qualifier("PaymentEventBus") EventBus eventBus, PaymentRepository paymentRepository) {
+    this.eventBus = eventBus;
     this.paymentRepository = paymentRepository;
   }
 
