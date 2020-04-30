@@ -1,4 +1,4 @@
-package com.example.sakila.config.mongodb.migration;
+package com.example.sakila.data.migration.mongodb;
 
 import java.io.IOException;
 import java.io.InputStream;
