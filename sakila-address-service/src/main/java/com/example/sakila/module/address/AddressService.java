@@ -1,10 +1,12 @@
 package com.example.sakila.module.address;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.address.repository.AddressRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,13 @@ import java.util.List;
 @Service
 public class AddressService {
 
+  private final EventBus eventBus;
+
   private AddressRepository addressRepository;
 
   @Autowired
-  AddressService(AddressRepository addressRepository) {
+  AddressService(@Qualifier("AddressEventService") EventBus eventBus,  AddressRepository addressRepository) {
+    this.eventBus = eventBus;
     this.addressRepository = addressRepository;
   }
 
