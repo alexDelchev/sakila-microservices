@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.country.event.CountryEventUtils;
 import com.example.sakila.module.country.event.model.CountryCreatedEvent;
+import com.example.sakila.module.country.event.model.CountryDeletedEvent;
 import com.example.sakila.module.country.event.model.CountryEventDTO;
 import com.example.sakila.module.country.event.model.CountryUpdatedEvent;
 import com.example.sakila.module.country.repository.CountryRepository;
@@ -73,12 +74,19 @@ public class CountryService {
     return result;
   }
 
+  private void generateDeletedEvent(Long id) {
+    CountryDeletedEvent event = new CountryDeletedEvent();
+    event.setCountryId(id);
+    eventBus.emit(event);
+  }
+
   public void deleteCountry(Long id) {
     Country country = countryRepository.getCountryById(id);
     if (country == null) throw new NotFoundException("Country for ID " + id + " does not exist");
 
     try {
       countryRepository.deleteCountry(country);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(),e);
     }
