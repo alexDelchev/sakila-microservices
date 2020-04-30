@@ -3,6 +3,7 @@ package com.example.sakila.module.country.event;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.event.bus.Handler;
 import com.example.sakila.module.country.event.model.CountryCreatedEvent;
+import com.example.sakila.module.country.event.model.CountryDeletedEvent;
 import com.example.sakila.module.country.event.model.CountryUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,12 @@ public class CountryEventEmitter {
   public void onCountryUpdatedEvent(CountryUpdatedEvent event) {
     String serializedMessage = serialize(event);
     kafkaTemplate.send(COUNTRY_UPDATED_TOPIC, serializedMessage);
+  }
+
+  @Handler
+  public void onCountryDeletedEvent(CountryDeletedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(COUNTRY_DELETED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
