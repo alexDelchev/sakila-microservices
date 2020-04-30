@@ -66,9 +66,9 @@ public class CustomerService {
 
   private void generateUpdatedEvent(Customer customer) {
     CustomerEventDTO eventDTO = CustomerEventUtils.toDTO(customer);
-    CustomerUpdatedEvent createdEvent = new CustomerUpdatedEvent();
-    createdEvent.setDto(eventDTO);
-    eventBus.emit(createdEvent);
+    CustomerUpdatedEvent updatedEvent = new CustomerUpdatedEvent();
+    updatedEvent.setDto(eventDTO);
+    eventBus.emit(updatedEvent);
   }
 
   public Customer updateCustomer(Long id, Customer source) {
