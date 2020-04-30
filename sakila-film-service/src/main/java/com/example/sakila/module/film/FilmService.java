@@ -3,6 +3,9 @@ package com.example.sakila.module.film;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.film.event.FilmEventUtils;
+import com.example.sakila.module.film.event.model.FilmCreatedEvent;
+import com.example.sakila.module.film.event.model.FilmEventDTO;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +74,21 @@ public class FilmService {
     return filmRepository.getFilmsByRating(rating);
   }
 
+  private void generateCreatedEvent(Film film) {
+    FilmEventDTO dto = FilmEventUtils.toDTO(film);
+    FilmCreatedEvent event = new FilmCreatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Film createFilm(Film film) {
     FilmWriteModel writeModel = FilmUtils.toWriteModel(film);
     filmRepository.insertFilm(writeModel);
-    return filmRepository.getFilmById(film.getId());
+    Film result = filmRepository.getFilmById(film.getId());
+
+    generateCreatedEvent(result);
+
+    return result;
   }
 
   public Film updateFilm(String hexString, Film source) {
