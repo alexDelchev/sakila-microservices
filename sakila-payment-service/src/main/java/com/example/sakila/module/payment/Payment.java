@@ -24,7 +24,7 @@ public class Payment {
   private Customer customer;
 
   @Column(name = "staff_id")
-  private Long staff_id;
+  private Long staffId;
 
   @OneToOne
   @JoinColumn(name = "rental_id")
@@ -43,10 +43,10 @@ public class Payment {
     this.id = id;
   }
 
-  public Payment(Long id, Customer customer, Long staff_id, Rental rental, Float amount, Date paymentDate) {
+  public Payment(Long id, Customer customer, Long staffId, Rental rental, Float amount, Date paymentDate) {
     this.id = id;
     this.customer = customer;
-    this.staff_id = staff_id;
+    this.staffId = staffId;
     this.rental = rental;
     this.amount = amount;
     this.paymentDate = paymentDate;
@@ -68,12 +68,12 @@ public class Payment {
     this.customer = customer;
   }
 
-  public Long getStaff_id() {
-    return staff_id;
+  public Long getStaffId() {
+    return staffId;
   }
 
-  public void setStaff_id(Long staff_id) {
-    this.staff_id = staff_id;
+  public void setStaffId(Long staffId) {
+    this.staffId = staffId;
   }
 
   public Rental getRental() {

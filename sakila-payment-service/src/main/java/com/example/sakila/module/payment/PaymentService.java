@@ -49,7 +49,7 @@ public class PaymentService {
 
     target.setCustomer(source.getCustomer());
     target.setRental(source.getRental());
-    target.setStaff_id(source.getStaff_id());
+    target.setStaffId(source.getStaffId());
     target.setAmount(source.getAmount());
     target.setPaymentDate(source.getPaymentDate());
 
