@@ -1,9 +1,11 @@
 package com.example.sakila.module.customer;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,13 @@ import java.util.List;
 @Service
 public class CustomerService {
 
+  private final EventBus eventBus;
+
   private final CustomerRepository customerRepository;
 
   @Autowired
-  public CustomerService(CustomerRepository customerRepository) {
+  public CustomerService(@Qualifier("CustomerEventBus") EventBus eventBus, CustomerRepository customerRepository) {
+    this.eventBus = eventBus;
     this.customerRepository = customerRepository;
   }
 
