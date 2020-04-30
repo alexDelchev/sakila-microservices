@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.country.event.CountryEventUtils;
 import com.example.sakila.module.country.event.model.CountryCreatedEvent;
 import com.example.sakila.module.country.event.model.CountryEventDTO;
+import com.example.sakila.module.country.event.model.CountryUpdatedEvent;
 import com.example.sakila.module.country.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,13 +53,24 @@ public class CountryService {
     return result;
   }
 
+  public void generateUpdatedEvent(Country country) {
+    CountryEventDTO dto = CountryEventUtils.toDto(country);
+    CountryUpdatedEvent event = new CountryUpdatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Country updateCountry(Long id, Country source) {
     Country target = getCountryById(id);
     if (target == null) throw new NotFoundException("Country for ID " + id + " does not exist");
 
     target.setCountry(source.getCountry());
 
-    return countryRepository.updateCountry(target);
+    Country result = countryRepository.updateCountry(target);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteCountry(Long id) {
