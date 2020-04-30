@@ -1,6 +1,8 @@
 package com.example.sakila.module.country.event;
 
 import com.example.sakila.event.bus.EventBus;
+import com.example.sakila.event.bus.Handler;
+import com.example.sakila.module.country.event.model.CountryCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,12 @@ public class CountryEventEmitter {
     this.kafkaTemplate = kafkaTemplate;
 
     this.eventBus.register(this);
+  }
+
+  @Handler
+  public void onCountryCreatedEvent(CountryCreatedEvent event) {
+    String serialiedMessage = serialize(event);
+    kafkaTemplate.send(COUNTRY_CREATED_TOPIC, serialiedMessage); 
   }
 
   private String serialize(Object object) {
