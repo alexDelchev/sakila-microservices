@@ -1,4 +1,4 @@
-package com.example.sakila.bus;
+package com.example.sakila.event.bus;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

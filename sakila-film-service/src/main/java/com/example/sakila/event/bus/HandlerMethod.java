@@ -1,4 +1,4 @@
-package com.example.sakila.bus;
+package com.example.sakila.event.bus;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
