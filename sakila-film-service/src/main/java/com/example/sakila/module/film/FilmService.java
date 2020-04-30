@@ -6,6 +6,7 @@ import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.event.FilmEventUtils;
 import com.example.sakila.module.film.event.model.FilmCreatedEvent;
 import com.example.sakila.module.film.event.model.FilmEventDTO;
+import com.example.sakila.module.film.event.model.FilmUpdatedEvent;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,13 @@ public class FilmService {
     return result;
   }
 
+  private void generateUpdatedEvent(Film film) {
+    FilmEventDTO dto = FilmEventUtils.toDTO(film);
+    FilmUpdatedEvent event = new FilmUpdatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Film updateFilm(String hexString, Film source) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
@@ -120,7 +128,11 @@ public class FilmService {
 
     filmRepository.updateFilm(writeModel);
 
-    return filmRepository.getFilmById(id);
+    Film result = filmRepository.getFilmById(id);
+
+    generateUpdatedEvent(result);
+
+    return result;
   }
 
   public void deleteFilm(String hexString) {
