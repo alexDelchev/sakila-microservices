@@ -5,6 +5,7 @@ import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.rental.event.RentalEventUtils;
 import com.example.sakila.module.rental.event.model.RentalCreatedEvent;
+import com.example.sakila.module.rental.event.model.RentalDeletedEvent;
 import com.example.sakila.module.rental.event.model.RentalEventDTO;
 import com.example.sakila.module.rental.event.model.RentalUpdatedEvent;
 import com.example.sakila.module.rental.repository.RentalRepository;
@@ -88,12 +89,19 @@ public class RentalService {
     return result;
   }
 
+  public void generateDeletedEvent(Long id) {
+    RentalDeletedEvent deletedEvent = new RentalDeletedEvent();
+    deletedEvent.setRentalId(id);
+    eventBus.emit(deletedEvent);
+  }
+
   public void deleteRental(Long id) {
     Rental rental = getRentalById(id);
     if (rental == null) throw new NotFoundException("Rental for ID " + id + " does not exist");
 
     try {
       rentalRepository.deleteRental(rental);
+      generateDeletedEvent(id);
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
