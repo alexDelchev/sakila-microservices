@@ -4,6 +4,7 @@ import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.actor.event.ActorEventUtils;
 import com.example.sakila.module.actor.event.model.ActorCreatedEvent;
+import com.example.sakila.module.actor.event.model.ActorDeletedEvent;
 import com.example.sakila.module.actor.event.model.ActorEventDTO;
 import com.example.sakila.module.actor.event.model.ActorUpdatedEvent;
 import com.example.sakila.module.actor.repository.ActorRepository;
@@ -80,6 +81,12 @@ public class ActorService {
     return result;
   }
 
+  private void generateDeletedEvent(String hexString){
+    ActorDeletedEvent event = new ActorDeletedEvent();
+    event.setActorId(hexString);
+    eventBus.emit(event);
+  }
+
   public void deleteActor(String hexString) {
     if (hexString == null || hexString.length() == 0) return;
     ObjectId id = new ObjectId(hexString);
@@ -92,6 +99,7 @@ public class ActorService {
 
     try {
       actorRepository.deleteActor(actor);
+      generateDeletedEvent(id.toHexString());
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
