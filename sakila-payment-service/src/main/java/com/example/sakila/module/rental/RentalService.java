@@ -52,7 +52,7 @@ public class RentalService {
     RentalEventDTO dto = RentalEventUtils.toDTO(rental);
     RentalCreatedEvent createdEvent = new RentalCreatedEvent();
     createdEvent.setDto(dto);
-    eventBus.emit(dto);
+    eventBus.emit(createdEvent);
   }
 
   public Rental createRental(Rental rental) {
