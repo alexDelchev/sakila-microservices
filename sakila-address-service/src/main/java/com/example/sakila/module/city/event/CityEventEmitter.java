@@ -1,6 +1,8 @@
 package com.example.sakila.module.city.event;
 
 import com.example.sakila.event.bus.EventBus;
+import com.example.sakila.event.bus.Handler;
+import com.example.sakila.module.city.event.model.CityCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,12 @@ public class CityEventEmitter {
     this.kafkaTemplate = kafkaTemplate;
 
     this.eventBus.register(this);
+  }
+
+  @Handler
+  public void onCityCreatedEvent(CityCreatedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(CITY_CREATED_TOPIC, serializedMessage);
   }
 
   private String serialize(Object object) {
