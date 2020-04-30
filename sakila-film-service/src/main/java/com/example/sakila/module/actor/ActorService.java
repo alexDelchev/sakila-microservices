@@ -1,10 +1,12 @@
 package com.example.sakila.module.actor;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,13 @@ import java.util.List;
 @Service
 public class ActorService {
 
+  private final EventBus eventBus;
+
   private ActorRepository actorRepository;
 
   @Autowired
-  public ActorService(ActorRepository actorRepository) {
+  public ActorService(@Qualifier("ActorEventBus") EventBus eventBus, ActorRepository actorRepository) {
+    this.eventBus = eventBus;
     this.actorRepository = actorRepository;
   }
 
