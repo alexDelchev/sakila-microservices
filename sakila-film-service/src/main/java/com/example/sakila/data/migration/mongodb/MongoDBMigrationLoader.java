@@ -1,5 +1,7 @@
 package com.example.sakila.data.migration.mongodb;
 
+import com.example.sakila.data.migration.mongodb.model.MongoDBMigrationDescription;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

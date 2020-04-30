@@ -1,5 +1,6 @@
 package com.example.sakila.data.migration.mongodb;
 
+import com.example.sakila.data.migration.mongodb.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bson.Document;

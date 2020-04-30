@@ -1,4 +1,4 @@
-package com.example.sakila.data.migration.mongodb;
+package com.example.sakila.data.migration.mongodb.model;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.example.sakila.data.migration.mongodb;
 
+import com.example.sakila.data.migration.mongodb.model.MongoDBMigrationDescription;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
