@@ -3,6 +3,9 @@ package com.example.sakila.module.customer;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.customer.event.CustomerEventUtils;
+import com.example.sakila.module.customer.event.model.CustomerCreatedEvent;
+import com.example.sakila.module.customer.event.model.CustomerEventDTO;
 import com.example.sakila.module.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,8 +47,19 @@ public class CustomerService {
     return customerRepository.searchCustomersByLastName(expression);
   }
 
+  private void produceCreatedEvent(Customer customer) {
+    CustomerEventDTO eventDTO = CustomerEventUtils.toDTO(customer);
+    CustomerCreatedEvent createdEvent = new CustomerCreatedEvent();
+    createdEvent.setDto(eventDTO);
+    eventBus.emit(createdEvent);
+  }
+
   public Customer createCustomer(Customer customer) {
-    return customerRepository.insertCustomer(customer);
+    Customer result = customerRepository.insertCustomer(customer);
+
+    produceCreatedEvent(result);
+
+    return result;
   }
 
   public Customer updateCustomer(Long id, Customer source) {
