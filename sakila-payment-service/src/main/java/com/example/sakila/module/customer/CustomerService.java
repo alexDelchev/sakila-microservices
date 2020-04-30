@@ -47,7 +47,7 @@ public class CustomerService {
     return customerRepository.searchCustomersByLastName(expression);
   }
 
-  private void produceCreatedEvent(Customer customer) {
+  private void generateCreatedEvent(Customer customer) {
     CustomerEventDTO eventDTO = CustomerEventUtils.toDTO(customer);
     CustomerCreatedEvent createdEvent = new CustomerCreatedEvent();
     createdEvent.setDto(eventDTO);
@@ -57,7 +57,7 @@ public class CustomerService {
   public Customer createCustomer(Customer customer) {
     Customer result = customerRepository.insertCustomer(customer);
 
-    produceCreatedEvent(result);
+    generateCreatedEvent(result);
 
     return result;
   }
