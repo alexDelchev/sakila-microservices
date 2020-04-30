@@ -2,6 +2,9 @@ package com.example.sakila.module.actor;
 
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
+import com.example.sakila.module.actor.event.ActorEventUtils;
+import com.example.sakila.module.actor.event.model.ActorCreatedEvent;
+import com.example.sakila.module.actor.event.model.ActorEventDTO;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
 import org.bson.types.ObjectId;
@@ -34,8 +37,19 @@ public class ActorService {
     return actorRepository.getActorById(id);
   }
 
+  private void generateCreatedEvent(Actor actor) {
+    ActorEventDTO dto = ActorEventUtils.toDTO(actor);
+    ActorCreatedEvent event = new ActorCreatedEvent();
+    event.setDto(dto);
+    eventBus.emit(event);
+  }
+
   public Actor createActor(Actor actor) {
-    return actorRepository.insertActor(actor);
+    Actor result = actorRepository.insertActor(actor);
+
+    generateCreatedEvent(result);
+
+    return result;
   }
 
   public Actor updateActor(String hexString, Actor source) {
