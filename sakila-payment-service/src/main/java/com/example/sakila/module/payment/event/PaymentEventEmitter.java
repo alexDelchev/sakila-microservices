@@ -47,6 +47,12 @@ public class PaymentEventEmitter {
     kafkaTemplate.send(PAYMENT_UPDATE_TOPIC, seriliazedMessage);
   }
 
+  @Handler
+  public void onPaymentDeletedEvent(PaymentDeletedEvent event) {
+    String serializedMessage = serialize(event);
+    kafkaTemplate.send(PAYMENT_DELETE_TOPIC, serializedMessage);
+  }
+
   private String serialize(Object object) {
     try {
       return objectMapper.writeValueAsString(object);
