@@ -76,6 +76,22 @@ public class FilmService {
     return filmRepository.getFilmsByRating(rating);
   }
 
+  public void decreaseQuantityForStore(String filmId, Long storeId) {
+    Film film = getFilmById(filmId);
+
+    film.getInventories()
+        .stream()
+        .filter(i -> i.getStoreId().equals(storeId))
+        .forEach(i -> {
+          if (i.getQuantity() < 1) return;
+
+          Integer newQuantity = i.getQuantity() -1;
+          i.setQuantity(newQuantity);
+        });
+
+    updateFilm(filmId, film);
+  }
+
   private void generateCreatedEvent(Film film) {
     FilmEventDTO dto = FilmEventUtils.toDTO(film);
     FilmCreatedEvent event = new FilmCreatedEvent();
