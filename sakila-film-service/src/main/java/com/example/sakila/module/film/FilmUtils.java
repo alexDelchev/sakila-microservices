@@ -146,6 +146,7 @@ public class FilmUtils {
   public static FilmWriteModel toWriteModel(Film film) {
     FilmWriteModel writeModel = new FilmWriteModel();
 
+    writeModel.setId(film.getId());
     writeModel.setTitle(film.getTitle());
     writeModel.setDescription(film.getDescription());
     writeModel.setReleaseYear(film.getReleaseYear());
