@@ -2,9 +2,7 @@ package com.example.sakila.module.country.repository;
 
 import com.example.sakila.module.country.Country;
 
-import java.util.List;
-
-public interface CountryRepository {
+interface CountryRepository {
 
   Country getCountryById(Long id);
 
