@@ -28,17 +28,17 @@ class AddressService {
   }
 
   Address getAddressById(Long id) {
-    if (id == null) return null
+    if (!id) return null
     addressRepository.getAddressById(id)
   }
 
   List<Address> getAddressesByCity(Long cityId) {
-    if (cityId == null) return null
+    if (!cityId) return null
     addressRepository.getAddressesByCity(cityId)
   }
 
   List<Address> getAddressesByCountry(Long countryId) {
-    if (countryId == null) return null
+    if (!countryId) return null
     addressRepository.getAddressesByCountry(countryId)
   }
 
@@ -69,7 +69,7 @@ class AddressService {
 
   Address updateAddress(Long id, Address source) {
     Address target = addressRepository.getAddressById(id)
-    if (target == null) throw new NotFoundException('Target address for update does not exist')
+    if (!target) throw new NotFoundException('Target address for update does not exist')
 
     target.address = source.address
     target.address2 = source.address2
@@ -95,7 +95,7 @@ class AddressService {
 
   void deleteAddress(Long id) {
     Address address = addressRepository.getAddressById(id)
-    if (address == null) throw new NotFoundException("Address for ID ${id} does not exist")
+    if (!address) throw new NotFoundException("Address for ID ${id} does not exist")
 
     try {
       addressRepository.deleteAddress(address)
