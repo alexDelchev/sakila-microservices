@@ -56,7 +56,7 @@ class EventBus {
 
   private void checkEventHandlerMethodParameters(Method method) {
     if (method.parameterCount > 1) {
-      throw new IllegalArgumentException("Method annotated with @Handler has more than 1 parameter")
+      throw new IllegalArgumentException('Method annotated with @Handler has more than 1 parameter')
     }
   }
 }
