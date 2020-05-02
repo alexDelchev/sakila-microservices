@@ -68,7 +68,7 @@ class AddressController implements AddressesApi {
     BeanUtils.copyProperties(address, addressDTO)
     addressDTO.cityId = address.city.id
 
-    if (address.lastUpdate != null) {
+    if (address.lastUpdate) {
       addressDTO.lastUpdate = OffsetDateTime.ofInstant(address.lastUpdate.toInstant(), ZoneId.systemDefault())
     }
 
@@ -85,7 +85,7 @@ class AddressController implements AddressesApi {
       address.city = city
     }
 
-    if (addressDTO.lastUpdate != null) address.setLastUpdate(Date.from(addressDTO.lastUpdate.toInstant()))
+    if (addressDTO.lastUpdate) address.setLastUpdate(Date.from(addressDTO.lastUpdate.toInstant()))
 
     address
   }
