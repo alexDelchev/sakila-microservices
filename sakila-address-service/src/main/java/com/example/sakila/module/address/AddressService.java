@@ -27,7 +27,7 @@ public class AddressService {
   private final AddressRepository addressRepository;
 
   @Autowired
-  AddressService(@Qualifier("AddressEventService") EventBus eventBus,  AddressRepository addressRepository) {
+  AddressService(@Qualifier("AddressEventBus") EventBus eventBus,  AddressRepository addressRepository) {
     this.eventBus = eventBus;
     this.addressRepository = addressRepository;
   }

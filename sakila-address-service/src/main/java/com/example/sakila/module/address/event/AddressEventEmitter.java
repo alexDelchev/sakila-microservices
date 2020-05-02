@@ -28,7 +28,7 @@ public class AddressEventEmitter {
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   @Autowired
-  public AddressEventEmitter(@Qualifier("AddressEventBUs") EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  public AddressEventEmitter(@Qualifier("AddressEventBus") EventBus eventBus, KafkaTemplate kafkaTemplate) {
     this.eventBus = eventBus;
     this.kafkaTemplate = kafkaTemplate;
 
