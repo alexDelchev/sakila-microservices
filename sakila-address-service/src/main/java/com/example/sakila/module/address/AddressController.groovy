@@ -81,7 +81,7 @@ class AddressController implements AddressesApi {
 
     if (addressDTO.cityId != null) {
       City city = cityService.getCityById(addressDTO.cityId)
-      if (city == null) throw new NotFoundException("City for ID ${addressDTO.cityId} does not exist")
+      if (!city) throw new NotFoundException("City for ID ${addressDTO.cityId} does not exist")
       address.city = city
     }
 
