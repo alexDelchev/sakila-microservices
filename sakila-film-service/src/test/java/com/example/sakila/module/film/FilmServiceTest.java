@@ -1,5 +1,6 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
@@ -17,6 +18,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FilmServiceTest {
+
+  @Mock
+  private EventBus eventBus;
 
   @Mock
   private FilmRepository filmRepository;
