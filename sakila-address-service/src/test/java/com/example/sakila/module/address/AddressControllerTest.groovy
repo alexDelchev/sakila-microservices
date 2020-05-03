@@ -15,8 +15,8 @@ class AddressControllerTest extends Specification {
 
   void 'createAddress - should throw NotFoundException'() {
     given:
-    final long NON_EXISTING_CITY_ID = -1L
-    AddressDTO invalidDTO = new AddressDTO(cityId: NON_EXISTING_CITY_ID)
+    final long nonExistingCityId = -1L
+    AddressDTO invalidDTO = new AddressDTO(cityId: nonExistingCityId)
 
     when:
     addressController.createAddress(invalidDTO)
@@ -27,12 +27,12 @@ class AddressControllerTest extends Specification {
 
   void 'replaceAddress - should throw NotFoundException'() {
     given:
-    final long UPDATED_ADDRESS_ID = 1L
-    final long NON_EXISTING_CITY_ID = -1L
-    AddressDTO invalidDTO = new AddressDTO(cityId: NON_EXISTING_CITY_ID)
+    final long updatedAddressId = 1L
+    final long nonExistingCityId = -1L
+    AddressDTO invalidDTO = new AddressDTO(cityId: nonExistingCityId)
 
     when:
-    addressController.replaceAddress(UPDATED_ADDRESS_ID, invalidDTO)
+    addressController.replaceAddress(updatedAddressId, invalidDTO)
 
     then:
     thrown NotFoundException
