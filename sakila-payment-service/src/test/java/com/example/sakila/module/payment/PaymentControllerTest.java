@@ -33,33 +33,33 @@ class PaymentControllerTest {
 
   @Test
   void createPayment() {
-    final long NON_EXISTING_RENTAL_ID = -1L;
-    when(rentalService.getRentalById(NON_EXISTING_RENTAL_ID)).thenReturn(null);
+    final long nonExistingRentalId = -1L;
+    when(rentalService.getRentalById(nonExistingRentalId)).thenReturn(null);
 
-    final long EXISTING_RENTAL_ID = 1L;
-    when(rentalService.getRentalById(EXISTING_RENTAL_ID)).thenReturn(new Rental());
+    final long existingRentalId = 1L;
+    when(rentalService.getRentalById(existingRentalId)).thenReturn(new Rental());
 
-    final long NON_EXISTING_CUSTOMER_ID = -1L;
-    when(customerService.getCustomerById(NON_EXISTING_CUSTOMER_ID)).thenReturn(null);
+    final long nonExistingCustomerId = -1L;
+    when(customerService.getCustomerById(nonExistingCustomerId)).thenReturn(null);
 
-    final long EXISTING_CUSTOMER_ID = 1L;
-    when(customerService.getCustomerById(EXISTING_CUSTOMER_ID)).thenReturn(new Customer());
+    final long existingCustomerId = 1L;
+    when(customerService.getCustomerById(existingCustomerId)).thenReturn(new Customer());
 
     when(paymentService.createPayment(any(Payment.class))).thenReturn(new Payment());
 
     PaymentDTO paymentWithValidRental = new PaymentDTO();
-    paymentWithValidRental.setCustomerId(EXISTING_CUSTOMER_ID);
-    paymentWithValidRental.setRentalId(EXISTING_RENTAL_ID);
+    paymentWithValidRental.setCustomerId(existingCustomerId);
+    paymentWithValidRental.setRentalId(existingRentalId);
 
     PaymentDTO paymentWithInvalidRental = new PaymentDTO();
-    paymentWithInvalidRental.setCustomerId(EXISTING_CUSTOMER_ID);
-    paymentWithInvalidRental.setRentalId(NON_EXISTING_RENTAL_ID);
+    paymentWithInvalidRental.setCustomerId(existingCustomerId);
+    paymentWithInvalidRental.setRentalId(nonExistingRentalId);
 
     PaymentDTO paymentWithValidCustomer = new PaymentDTO();
-    paymentWithValidCustomer.setCustomerId(EXISTING_CUSTOMER_ID);
+    paymentWithValidCustomer.setCustomerId(existingCustomerId);
 
     PaymentDTO paymentWithInvalidCustomer = new PaymentDTO();
-    paymentWithInvalidCustomer.setCustomerId(NON_EXISTING_CUSTOMER_ID);
+    paymentWithInvalidCustomer.setCustomerId(nonExistingCustomerId);
 
     assertDoesNotThrow(() -> paymentController.createPayment(paymentWithValidRental));
     assertThrows(NotFoundException.class, () -> paymentController.createPayment(paymentWithInvalidRental));
@@ -70,33 +70,33 @@ class PaymentControllerTest {
 
   @Test
   void replacePayment() {
-    final long NON_EXISTING_RENTAL_ID = -1L;
-    when(rentalService.getRentalById(NON_EXISTING_RENTAL_ID)).thenReturn(null);
+    final long nonExistingRentalId = -1L;
+    when(rentalService.getRentalById(nonExistingRentalId)).thenReturn(null);
 
-    final long EXISTING_RENTAL_ID = 1L;
-    when(rentalService.getRentalById(EXISTING_RENTAL_ID)).thenReturn(new Rental());
+    final long existingRentalId = 1L;
+    when(rentalService.getRentalById(existingRentalId)).thenReturn(new Rental());
 
-    final long NON_EXISTING_CUSTOMER_ID = -1L;
-    when(customerService.getCustomerById(NON_EXISTING_CUSTOMER_ID)).thenReturn(null);
+    final long nonExistingCustomerId = -1L;
+    when(customerService.getCustomerById(nonExistingCustomerId)).thenReturn(null);
 
-    final long EXISTING_CUSTOMER_ID = 1L;
-    when(customerService.getCustomerById(EXISTING_CUSTOMER_ID)).thenReturn(new Customer());
+    final long existingCustomerId = 1L;
+    when(customerService.getCustomerById(existingCustomerId)).thenReturn(new Customer());
 
     when(paymentService.updatePayment(any(Long.class), any(Payment.class))).thenReturn(new Payment());
 
     PaymentDTO paymentWithValidRental = new PaymentDTO();
-    paymentWithValidRental.setCustomerId(EXISTING_CUSTOMER_ID);
-    paymentWithValidRental.setRentalId(EXISTING_RENTAL_ID);
+    paymentWithValidRental.setCustomerId(existingCustomerId);
+    paymentWithValidRental.setRentalId(existingRentalId);
 
     PaymentDTO paymentWithInvalidRental = new PaymentDTO();
-    paymentWithInvalidRental.setCustomerId(EXISTING_CUSTOMER_ID);
-    paymentWithInvalidRental.setRentalId(NON_EXISTING_RENTAL_ID);
+    paymentWithInvalidRental.setCustomerId(existingCustomerId);
+    paymentWithInvalidRental.setRentalId(nonExistingRentalId);
 
     PaymentDTO paymentWithValidCustomer = new PaymentDTO();
-    paymentWithValidCustomer.setCustomerId(EXISTING_CUSTOMER_ID);
+    paymentWithValidCustomer.setCustomerId(existingCustomerId);
 
     PaymentDTO paymentWithInvalidCustomer = new PaymentDTO();
-    paymentWithInvalidCustomer.setCustomerId(NON_EXISTING_CUSTOMER_ID);
+    paymentWithInvalidCustomer.setCustomerId(nonExistingCustomerId);
 
     assertDoesNotThrow(() -> paymentController.replacePayment(1L, paymentWithValidRental));
     assertThrows(NotFoundException.class, () -> paymentController.replacePayment(1L, paymentWithInvalidRental));

@@ -36,22 +36,22 @@ class ActorServiceTest {
 
   @Test
   void updateActor() {
-    final ObjectId EXISTING_ACTOR_ID = new ObjectId();
-    when(actorRepository.getActorById(EXISTING_ACTOR_ID)).thenReturn(new Actor());
+    final ObjectId existingActorId = new ObjectId();
+    when(actorRepository.getActorById(existingActorId)).thenReturn(new Actor());
 
-    final ObjectId NON_EXISTING_ACTOR_ID = new ObjectId();
-    when(actorRepository.getActorById(NON_EXISTING_ACTOR_ID)).thenReturn(null);
+    final ObjectId nonExistingActorId = new ObjectId();
+    when(actorRepository.getActorById(nonExistingActorId)).thenReturn(null);
 
     when(actorRepository.updateActor(any(Actor.class))).thenReturn(new Actor());
 
-    assertDoesNotThrow(() -> actorService.updateActor(EXISTING_ACTOR_ID, new Actor()));
-    assertThrows(NotFoundException.class, () -> actorService.updateActor(NON_EXISTING_ACTOR_ID, new Actor()));
+    assertDoesNotThrow(() -> actorService.updateActor(existingActorId, new Actor()));
+    assertThrows(NotFoundException.class, () -> actorService.updateActor(nonExistingActorId, new Actor()));
   }
 
   @Test
   void deleteActor() {
-    final ObjectId NON_EXISTING_ACTOR_ID = new ObjectId();
+    final ObjectId nonExistingActorId = new ObjectId();
 
-    assertThrows(NotFoundException.class, () -> actorService.deleteActor(NON_EXISTING_ACTOR_ID));
+    assertThrows(NotFoundException.class, () -> actorService.deleteActor(nonExistingActorId));
   }
 }

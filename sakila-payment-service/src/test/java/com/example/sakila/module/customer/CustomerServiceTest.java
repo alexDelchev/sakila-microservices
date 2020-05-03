@@ -39,25 +39,25 @@ class CustomerServiceTest {
 
   @Test
   void updateCustomer() {
-    final long EXISTING_CUSTOMER_ID = 1L;
-    when(customerRepository.getCustomerById(EXISTING_CUSTOMER_ID)).thenReturn(new Customer());
+    final long existingCustomerId = 1L;
+    when(customerRepository.getCustomerById(existingCustomerId)).thenReturn(new Customer());
 
-    final long NON_EXISTING_CUSTOMER_ID = -1L;
-    when(customerRepository.getCustomerById(NON_EXISTING_CUSTOMER_ID)).thenReturn(null);
+    final long nonExistingCustomerId = -1L;
+    when(customerRepository.getCustomerById(nonExistingCustomerId)).thenReturn(null);
 
     when(customerRepository.updateCustomer(any(Customer.class))).thenReturn(new Customer());
 
-    assertDoesNotThrow(() -> customerService.updateCustomer(EXISTING_CUSTOMER_ID, new Customer()));
+    assertDoesNotThrow(() -> customerService.updateCustomer(existingCustomerId, new Customer()));
     assertThrows(
         NotFoundException.class,
-        () -> customerService.updateCustomer(NON_EXISTING_CUSTOMER_ID, new Customer())
+        () -> customerService.updateCustomer(nonExistingCustomerId, new Customer())
     );
   }
 
   @Test
   void deleteCustomer() {
-    final long NON_EXISTING_CUSTOMER_ID = 1L;
+    final long nonExistingCustomerId = 1L;
 
-    assertThrows(NotFoundException.class, () -> customerService.deleteCustomer(NON_EXISTING_CUSTOMER_ID));
+    assertThrows(NotFoundException.class, () -> customerService.deleteCustomer(nonExistingCustomerId));
   }
 }

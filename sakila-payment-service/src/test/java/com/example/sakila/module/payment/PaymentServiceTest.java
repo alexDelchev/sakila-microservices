@@ -53,22 +53,22 @@ class PaymentServiceTest {
 
   @Test
   void updatePayment() {
-    final long EXISTING_PAYMENT_ID = 1L;
-    when(paymentRepository.getPaymentById(EXISTING_PAYMENT_ID)).thenReturn(new Payment());
+    final long existingPaymentId = 1L;
+    when(paymentRepository.getPaymentById(existingPaymentId)).thenReturn(new Payment());
 
-    final long NON_EXISTING_PAYMENT_ID = -1L;
-    when(paymentRepository.getPaymentById(NON_EXISTING_PAYMENT_ID)).thenReturn(null);
+    final long nonExistingPaymentId = -1L;
+    when(paymentRepository.getPaymentById(nonExistingPaymentId)).thenReturn(null);
 
     when(paymentRepository.updatePayment(any(Payment.class))).thenReturn(new Payment());
 
-    assertDoesNotThrow(() -> paymentService.updatePayment(EXISTING_PAYMENT_ID, new Payment()));
-    assertThrows(NotFoundException.class, () -> paymentService.updatePayment(NON_EXISTING_PAYMENT_ID, new Payment()));
+    assertDoesNotThrow(() -> paymentService.updatePayment(existingPaymentId, new Payment()));
+    assertThrows(NotFoundException.class, () -> paymentService.updatePayment(nonExistingPaymentId, new Payment()));
   }
 
   @Test
   void deletePayment() {
-    final long NON_EXISTING_PAYMENT_ID = -1L;
+    final long nonExistingPaymentId = -1L;
 
-    assertThrows(NotFoundException.class, () -> paymentService.deletePayment(NON_EXISTING_PAYMENT_ID));
+    assertThrows(NotFoundException.class, () -> paymentService.deletePayment(nonExistingPaymentId));
   }
 }

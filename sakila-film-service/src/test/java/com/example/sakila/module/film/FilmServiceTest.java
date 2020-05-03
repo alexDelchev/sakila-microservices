@@ -59,22 +59,22 @@ class FilmServiceTest {
 
   @Test
   void updateFilm() {
-    final ObjectId EXISTING_FILM_ID = new ObjectId();
-    when(filmRepository.getFilmById(EXISTING_FILM_ID)).thenReturn(new Film());
+    final ObjectId existingFilmId = new ObjectId();
+    when(filmRepository.getFilmById(existingFilmId)).thenReturn(new Film());
 
-    final ObjectId NON_EXISTING_FILM_ID = new ObjectId();
-    when(filmRepository.getFilmById(NON_EXISTING_FILM_ID)).thenReturn(null);
+    final ObjectId nonExistingFilmId = new ObjectId();
+    when(filmRepository.getFilmById(nonExistingFilmId)).thenReturn(null);
 
     when(filmRepository.updateFilm(any(FilmWriteModel.class))).thenReturn(new FilmWriteModel());
 
-    assertDoesNotThrow(() -> filmService.updateFilm(EXISTING_FILM_ID, new Film()));
-    assertThrows(NotFoundException.class, () -> filmService.updateFilm(NON_EXISTING_FILM_ID, new Film()));
+    assertDoesNotThrow(() -> filmService.updateFilm(existingFilmId, new Film()));
+    assertThrows(NotFoundException.class, () -> filmService.updateFilm(nonExistingFilmId, new Film()));
   }
 
   @Test
   void deleteFilm() {
-    final ObjectId NON_EXISTING_ID = new ObjectId();
+    final ObjectId nonExistingId = new ObjectId();
 
-    assertThrows(NotFoundException.class, () -> filmService.deleteFilm(NON_EXISTING_ID));
+    assertThrows(NotFoundException.class, () -> filmService.deleteFilm(nonExistingId));
   }
 }

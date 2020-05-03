@@ -53,22 +53,22 @@ class RentalServiceTest {
 
   @Test
   void updateRental() {
-    final long EXISITING_RENTAL_ID = 1L;
-    when(rentalRepository.getRentalById(EXISITING_RENTAL_ID)).thenReturn(new Rental());
+    final long existingRentalId = 1L;
+    when(rentalRepository.getRentalById(existingRentalId)).thenReturn(new Rental());
 
-    final long NON_EXISTING_RENTAL_ID = -1L;
-    when(rentalRepository.getRentalById(NON_EXISTING_RENTAL_ID)).thenReturn(null);
+    final long nonExistingRentalId = -1L;
+    when(rentalRepository.getRentalById(nonExistingRentalId)).thenReturn(null);
 
     when(rentalRepository.updateRental(any(Rental.class))).thenReturn(new Rental());
 
-    assertDoesNotThrow(() -> rentalService.updateRental(EXISITING_RENTAL_ID, new Rental()));
-    assertThrows(NotFoundException.class, () -> rentalService.updateRental(NON_EXISTING_RENTAL_ID, new Rental()));
+    assertDoesNotThrow(() -> rentalService.updateRental(existingRentalId, new Rental()));
+    assertThrows(NotFoundException.class, () -> rentalService.updateRental(nonExistingRentalId, new Rental()));
   }
 
   @Test
   void deleteRental() {
-    final long NON_EXISTING_RENTAL_ID = -1L;
+    final long nonExistingRentalId = -1L;
 
-    assertThrows(NotFoundException.class, () -> rentalService.deleteRental(NON_EXISTING_RENTAL_ID));
+    assertThrows(NotFoundException.class, () -> rentalService.deleteRental(nonExistingRentalId));
   }
 }
