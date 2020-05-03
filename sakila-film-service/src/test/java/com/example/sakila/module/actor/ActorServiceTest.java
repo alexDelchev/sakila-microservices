@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class ActorServiceTest {
 
   @Mock
-  private EventBus eventBus = new EventBus("actor-test-event-bus");
+  private EventBus eventBus;
 
   @Mock
   private ActorRepository actorRepository;
