@@ -64,15 +64,21 @@ class FilmServiceTest {
   @Test
   void updateFilm() {
     final ObjectId existingFilmId = new ObjectId();
-    when(filmRepository.getFilmById(existingFilmId)).thenReturn(new Film());
+    when(filmRepository.getFilmById(existingFilmId)).thenReturn(new Film(existingFilmId));
 
     final ObjectId nonExistingFilmId = new ObjectId();
     when(filmRepository.getFilmById(nonExistingFilmId)).thenReturn(null);
 
-    when(filmRepository.updateFilm(any(FilmWriteModel.class))).thenReturn(new FilmWriteModel());
+    when(filmRepository.updateFilm(any(FilmWriteModel.class))).thenReturn(filmWriteModel());
 
     assertDoesNotThrow(() -> filmService.updateFilm(existingFilmId, new Film()));
     assertThrows(NotFoundException.class, () -> filmService.updateFilm(nonExistingFilmId, new Film()));
+  }
+
+  private FilmWriteModel filmWriteModel() {
+    FilmWriteModel model = new FilmWriteModel();
+    model.setId(new ObjectId());
+    return model;
   }
 
   @Test
