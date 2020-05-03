@@ -1,6 +1,8 @@
 package com.example.sakila.module.rental;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.customer.Customer;
 import com.example.sakila.module.rental.repository.RentalRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +18,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RentalServiceTest {
+
+  @Mock
+  private EventBus eventBus;
 
   @Mock
   private RentalRepository rentalRepository;
