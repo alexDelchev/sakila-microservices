@@ -82,7 +82,7 @@ class CityController implements CitiesApi {
         city: cityDTO.city,
     )
 
-    if (cityDTO.getCountryId() != null) {
+    if (cityDTO.countryId != null) {
       Country country = countryService.getCountryById(cityDTO.countryId)
       if (!country) throw new NotFoundException("Country for ID ${cityDTO.countryId} does not exist")
       city.country = country
