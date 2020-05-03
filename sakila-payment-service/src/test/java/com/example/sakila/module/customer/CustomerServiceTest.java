@@ -44,7 +44,7 @@ class CustomerServiceTest {
   @Test
   void updateCustomer() {
     final long existingCustomerId = 1L;
-    when(customerRepository.getCustomerById(existingCustomerId)).thenReturn(new Customer());
+    when(customerRepository.getCustomerById(existingCustomerId)).thenReturn(new Customer(existingCustomerId));
 
     final long nonExistingCustomerId = -1L;
     when(customerRepository.getCustomerById(nonExistingCustomerId)).thenReturn(null);
