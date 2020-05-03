@@ -1,5 +1,6 @@
 package com.example.sakila.module.actor;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import org.bson.types.ObjectId;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +17,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ActorServiceTest {
+
+  @Mock
+  private EventBus eventBus = new EventBus("actor-test-event-bus");
 
   @Mock
   private ActorRepository actorRepository;
