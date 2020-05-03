@@ -60,15 +60,23 @@ class PaymentServiceTest {
   @Test
   void updatePayment() {
     final long existingPaymentId = 1L;
-    when(paymentRepository.getPaymentById(existingPaymentId)).thenReturn(new Payment());
+    final Payment existingPayment = payment(existingPaymentId);
+    when(paymentRepository.getPaymentById(existingPaymentId)).thenReturn(existingPayment);
 
     final long nonExistingPaymentId = -1L;
     when(paymentRepository.getPaymentById(nonExistingPaymentId)).thenReturn(null);
 
-    when(paymentRepository.updatePayment(any(Payment.class))).thenReturn(new Payment());
+    when(paymentRepository.updatePayment(existingPayment)).thenReturn(existingPayment);
 
-    assertDoesNotThrow(() -> paymentService.updatePayment(existingPaymentId, new Payment()));
+    assertDoesNotThrow(() -> paymentService.updatePayment(existingPaymentId, existingPayment));
     assertThrows(NotFoundException.class, () -> paymentService.updatePayment(nonExistingPaymentId, new Payment()));
+  }
+
+  private Payment payment(long id) {
+    Payment payment = new Payment(id);
+    payment.setCustomer(new Customer());
+    payment.setRental(new Rental());
+    return payment;
   }
 
   @Test
