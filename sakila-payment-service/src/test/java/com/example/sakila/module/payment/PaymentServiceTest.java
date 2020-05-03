@@ -1,7 +1,10 @@
 package com.example.sakila.module.payment;
 
+import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.module.customer.Customer;
 import com.example.sakila.module.payment.repository.PaymentRepository;
+import com.example.sakila.module.rental.Rental;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +19,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceTest {
+
+  @Mock
+  private EventBus eventBus;
 
   @Mock
   private PaymentRepository paymentRepository;
