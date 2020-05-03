@@ -42,12 +42,12 @@ class ActorServiceTest {
   @Test
   void updateActor() {
     final ObjectId existingActorId = new ObjectId();
-    when(actorRepository.getActorById(existingActorId)).thenReturn(new Actor());
+    when(actorRepository.getActorById(existingActorId)).thenReturn(new Actor(existingActorId));
 
     final ObjectId nonExistingActorId = new ObjectId();
     when(actorRepository.getActorById(nonExistingActorId)).thenReturn(null);
 
-    when(actorRepository.updateActor(any(Actor.class))).thenReturn(new Actor());
+    when(actorRepository.updateActor(any(Actor.class))).thenReturn(new Actor(new ObjectId()));
 
     assertDoesNotThrow(() -> actorService.updateActor(existingActorId, new Actor()));
     assertThrows(NotFoundException.class, () -> actorService.updateActor(nonExistingActorId, new Actor()));
