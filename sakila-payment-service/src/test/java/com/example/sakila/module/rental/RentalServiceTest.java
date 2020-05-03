@@ -59,15 +59,22 @@ class RentalServiceTest {
   @Test
   void updateRental() {
     final long existingRentalId = 1L;
-    when(rentalRepository.getRentalById(existingRentalId)).thenReturn(new Rental());
+    final Rental existingRental = rental(existingRentalId);
+    when(rentalRepository.getRentalById(existingRentalId)).thenReturn(existingRental);
 
     final long nonExistingRentalId = -1L;
     when(rentalRepository.getRentalById(nonExistingRentalId)).thenReturn(null);
 
-    when(rentalRepository.updateRental(any(Rental.class))).thenReturn(new Rental());
+    when(rentalRepository.updateRental(existingRental)).thenReturn(existingRental);
 
-    assertDoesNotThrow(() -> rentalService.updateRental(existingRentalId, new Rental()));
-    assertThrows(NotFoundException.class, () -> rentalService.updateRental(nonExistingRentalId, new Rental()));
+    assertDoesNotThrow(() -> rentalService.updateRental(existingRentalId, existingRental));
+    assertThrows(NotFoundException.class, () -> rentalService.updateRental(nonExistingRentalId, existingRental));
+  }
+
+  private Rental rental(long rentalId) {
+    Rental rental = new Rental();
+    rental.setCustomer(new Customer());
+    return rental;
   }
 
   @Test
