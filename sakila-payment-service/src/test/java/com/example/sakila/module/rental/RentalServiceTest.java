@@ -72,7 +72,7 @@ class RentalServiceTest {
   }
 
   private Rental rental(long rentalId) {
-    Rental rental = new Rental();
+    Rental rental = new Rental(rentalId);
     rental.setCustomer(new Customer());
     return rental;
   }
