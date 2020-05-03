@@ -19,6 +19,8 @@ class EventEmitterTest extends Specification {
   def "should get subsequent events when event id is provided"() {
     given:
     UUID eventId = UUID.randomUUID()
+    UUID latestEventId = UUID.randomUUID()
+    eventService.getLatestEventId() >> latestEventId
 
     EmitEventsMessage message = new EmitEventsMessage(eventId: eventId)
     String serializedMessage = objectMapper.writeValueAsString(message)
@@ -33,6 +35,8 @@ class EventEmitterTest extends Specification {
   def "should get all events when no id is provided"() {
     given:
     UUID eventId = null
+    UUID latestEventId = UUID.randomUUID()
+    eventService.getLatestEventId() >> latestEventId
 
     EmitEventsMessage message = new EmitEventsMessage(eventId: eventId)
     String serializedMessage = objectMapper.writeValueAsString(message)
