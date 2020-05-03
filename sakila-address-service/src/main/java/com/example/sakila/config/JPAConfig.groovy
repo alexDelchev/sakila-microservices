@@ -20,7 +20,7 @@ class JPAConfig {
   LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(DataSource dataSource) {
     LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean()
     entityManagerFactoryBean.dataSource = dataSource
-    entityManagerFactoryBean.packagesToScan = 'com.example.sakila'
+    entityManagerFactoryBean.packagesToScan = ['com.example.sakila']
     entityManagerFactoryBean.jpaVendorAdapter = new HibernateJpaVendorAdapter()
     entityManagerFactoryBean.jpaProperties = hibernatePsql10Properties()
     entityManagerFactoryBean
