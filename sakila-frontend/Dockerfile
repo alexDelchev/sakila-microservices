@@ -6,7 +6,6 @@ RUN apk update && apk add --no-cache make git
 
 WORKDIR /app
 COPY package.json package-lock.json  /app/
-RUN npm install @angular/cli@6.0.8 -g
 
 RUN cd /app && npm install
 COPY --chown=root . /app
