@@ -2,7 +2,7 @@ package com.example.sakila.exception
 
 import java.util.*
 
-class ErrorResponse(
-    private val message: String,
-    private val date: Date = Date()
+data class ErrorResponse(
+    val message: String,
+    val date: Date = Date()
 )
