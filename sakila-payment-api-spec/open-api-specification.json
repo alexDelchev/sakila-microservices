@@ -99,10 +99,7 @@
         "operationId": "deleteCustomer",
         "responses": {
           "200": {
-            "description": "Customer model",
-            "schema": {
-              "$ref": "#/definitions/CustomerDTO"
-            }
+            "description": "Customer deleted"
           }
         }
       }
