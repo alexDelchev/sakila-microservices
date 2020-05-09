@@ -16,7 +16,7 @@ class CustomerRepositoryHibernateImpl : CustomerRepository {
   override fun getCustomerById(id: Long): Customer? = entityManager.find(Customer::class.java, id)
 
   override fun getCustomersByStoreId(id: Long): List<Customer>? {
-    val query = createQuery("SELECT c FROM Customer c WHERE c.store_id = :storeId")
+    val query = createQuery("SELECT c FROM Customer c WHERE c.storeId = :storeId")
     query.setParameter("storeId", id)
     return query.resultList
   }
