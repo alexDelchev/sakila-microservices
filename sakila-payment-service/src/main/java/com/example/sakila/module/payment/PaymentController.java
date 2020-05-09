@@ -116,7 +116,7 @@ public class PaymentController implements PaymentsApi {
       payment.setRental(rental);
     }
 
-    if (paymentDTO.getPaymentDate() != null) payment.setPaymentDate(Date.from(paymentDTO.getPaymentDate().toInstant()));
+    payment.setPaymentDate(paymentDTO.getPaymentDate());
 
     return payment;
   }
