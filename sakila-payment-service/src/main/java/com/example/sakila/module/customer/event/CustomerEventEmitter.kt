@@ -6,7 +6,6 @@ import com.example.sakila.module.customer.event.model.CustomerCreatedEvent
 import com.example.sakila.module.customer.event.model.CustomerDeletedEvent
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
@@ -18,7 +17,9 @@ class CustomerEventEmitter @Autowired constructor(
     @Qualifier("CustomerEventBus")
     private val eventBus: EventBus,
 
-    private val kafkaTemplate: KafkaTemplate<String, String>
+    private val kafkaTemplate: KafkaTemplate<String, String>,
+
+    private val objectMapper: ObjectMapper
 ) {
 
   private val customerCreatedTopic = "sakila-payment-customer-created"
@@ -26,8 +27,6 @@ class CustomerEventEmitter @Autowired constructor(
   private val customerUpdatedTopic = "sakila-payment-customer-updated"
 
   private val customerDeletedTopic = "sakila-payment-customer-deleted"
-
-  private val objectMapper = ObjectMapper().registerModule(KotlinModule())
 
   @PostConstruct
   private fun postConstruct() {
