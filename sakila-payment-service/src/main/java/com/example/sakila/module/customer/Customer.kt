@@ -2,8 +2,9 @@ package com.example.sakila.module.customer
 
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
-import java.util.*
 import javax.persistence.*
+import java.sql.Timestamp
+import java.time.OffsetDateTime
 
 @Entity
 @DynamicInsert
@@ -34,12 +35,10 @@ data class Customer(
     var activeBool: Boolean? = null,
 
     @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    var createDate: Date? = null,
+    var createDate: OffsetDateTime? = null,
 
     @Column(name = "last_update")
-    @Temporal(TemporalType.TIMESTAMP)
-    var lastUpdate: Date? = null,
+    var lastUpdate: OffsetDateTime? = null,
 
     @Column(name = "active")
     var active: Int? = null

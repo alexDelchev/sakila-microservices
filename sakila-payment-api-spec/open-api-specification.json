@@ -541,7 +541,7 @@
         },
         "createDate": {
           "type": "string",
-          "format": "date"
+          "format": "date-time"
         },
         "lastUpdate": {
           "type": "string",

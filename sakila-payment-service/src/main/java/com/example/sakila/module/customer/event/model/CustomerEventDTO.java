@@ -1,5 +1,6 @@
 package com.example.sakila.module.customer.event.model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class CustomerEventDTO {
@@ -18,9 +19,9 @@ public class CustomerEventDTO {
 
   private Boolean activeBool;
 
-  private Date createDate;
+  private OffsetDateTime createDate;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   private Integer active;
 
@@ -80,19 +81,19 @@ public class CustomerEventDTO {
     this.activeBool = activeBool;
   }
 
-  public Date getCreateDate() {
+  public OffsetDateTime getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(OffsetDateTime createDate) {
     this.createDate = createDate;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 
