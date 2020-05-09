@@ -1,5 +1,6 @@
 package com.example.sakila.module.customer
 
+import com.example.sakila.exception.BadRequestException
 import com.example.sakila.generated.server.api.CustomersApi
 import com.example.sakila.generated.server.model.CustomerDTO
 import org.springframework.beans.factory.annotation.Autowired
@@ -79,9 +80,10 @@ class CustomerController @Autowired constructor(
       consumes = ["application/json"],
       method = [RequestMethod.PUT]
   ) override fun replaceCustomer(
-      @PathVariable("id") id: Long,
+      @PathVariable("id") id: Long?,
       @RequestBody customerDTO: CustomerDTO
   ): ResponseEntity<CustomerDTO> {
+    if (id == null) throw BadRequestException("ID should not be null")
     var customer = toEntity(customerDTO)
     customer = customerService.updateCustomer(id, customer)
 
@@ -94,7 +96,8 @@ class CustomerController @Autowired constructor(
       produces = ["application/json"],
       consumes = ["application/json"],
       method = [RequestMethod.DELETE]
-  ) override fun deleteCustomer(id: Long): ResponseEntity<Void> {
+  ) override fun deleteCustomer(id: Long?): ResponseEntity<Void> {
+    if (id == null) throw BadRequestException("ID should not be null")
     customerService.deleteCustomer(id)
     return ResponseEntity.ok().build()
   }
