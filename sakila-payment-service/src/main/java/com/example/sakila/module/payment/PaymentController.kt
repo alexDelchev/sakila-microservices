@@ -107,8 +107,8 @@ class PaymentController @Autowired constructor(
     val paymentDTO = PaymentDTO()
 
     paymentDTO.id = payment.id
-    paymentDTO.staffId = paymentDTO.staffId
-    paymentDTO.amount = paymentDTO.amount
+    paymentDTO.staffId = payment.staffId
+    paymentDTO.amount = payment.amount
     paymentDTO.paymentDate = payment.paymentDate
 
     paymentDTO.customerId = payment.customer?.id
