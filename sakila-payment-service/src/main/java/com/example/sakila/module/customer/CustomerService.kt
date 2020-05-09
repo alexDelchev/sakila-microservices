@@ -47,8 +47,7 @@ class CustomerService @Autowired constructor(
 
   private fun generateCreatedEvent(customer: Customer) {
     val eventDTO = CustomerEventUtils.toDTO(customer)
-    val event = CustomerCreatedEvent()
-    event.dto = eventDTO
+    val event = CustomerCreatedEvent(eventDTO)
     eventBus.emit(event)
   }
 
