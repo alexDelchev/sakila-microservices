@@ -87,8 +87,7 @@ class CustomerService @Autowired constructor(
   }
 
   private fun generateDeletedEvent(id: Long) {
-    val event = CustomerDeletedEvent()
-    event.customerId = id
+    val event = CustomerDeletedEvent(id)
     eventBus.emit(event)
   }
 
