@@ -3,7 +3,6 @@ package com.example.sakila.module.customer
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.*
-import java.sql.Timestamp
 import java.time.OffsetDateTime
 
 @Entity
