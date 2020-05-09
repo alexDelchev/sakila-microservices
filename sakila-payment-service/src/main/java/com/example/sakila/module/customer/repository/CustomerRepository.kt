@@ -12,9 +12,9 @@ interface CustomerRepository {
 
   fun searchCustomersByLastName(lastName: String): List<Customer>?
 
-  fun insertCustomer(customer: Customer): Customer?
+  fun insertCustomer(customer: Customer): Customer
 
-  fun updateCustomer(customer: Customer): Customer?
+  fun updateCustomer(customer: Customer): Customer
 
   fun deleteCustomer(customer: Customer)
 }
