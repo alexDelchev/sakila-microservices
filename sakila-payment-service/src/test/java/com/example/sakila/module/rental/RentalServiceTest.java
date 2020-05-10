@@ -50,13 +50,6 @@ class RentalServiceTest {
   }
 
   @Test
-  void getRentalByInventoryId() {
-    List<Rental> rentals = rentalService.getRentalsByInventoryId(null);
-
-    assertNull(rentals);
-  }
-
-  @Test
   void updateRental() {
     final long existingRentalId = 1L;
     final Rental existingRental = rental(existingRentalId);
