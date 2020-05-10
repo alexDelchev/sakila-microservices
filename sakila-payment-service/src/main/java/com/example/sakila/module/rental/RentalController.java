@@ -78,10 +78,10 @@ public class RentalController implements RentalsApi {
     rentalDTO.setFilmId(rental.getFilmId());
     rentalDTO.setStoreId(rental.getStoreId());
     rentalDTO.setStaffId(rental.getStaffId());
-    if (rental.getRentalDate() != null) rentalDTO.setRentalDate(toOffsetDateTime(rental.getRentalDate()));
+    if (rental.getRentalDate() != null) rentalDTO.setRentalDate(rental.getRentalDate());
     if (rental.getCustomer() != null) rentalDTO.setCustomerId(rental.getCustomer().getId());
-    if (rental.getReturnDate() != null) rentalDTO.setReturnDate(toOffsetDateTime(rental.getReturnDate()));
-    if (rental.getLastUpdate() != null) rentalDTO.setLastUpdate(toOffsetDateTime(rental.getLastUpdate()));
+    if (rental.getReturnDate() != null) rentalDTO.setReturnDate(rental.getReturnDate());
+    if (rental.getLastUpdate() != null) rentalDTO.setLastUpdate(rental.getLastUpdate());
     return rentalDTO;
   }
 
@@ -101,9 +101,9 @@ public class RentalController implements RentalsApi {
       rental.setCustomer(customer);
     }
 
-    if (rentalDTO.getRentalDate() != null) rental.setRentalDate(Date.from(rentalDTO.getRentalDate().toInstant()));
-    if (rentalDTO.getReturnDate() != null) rental.setReturnDate(Date.from(rentalDTO.getReturnDate().toInstant()));
-    if (rentalDTO.getLastUpdate() != null) rental.setLastUpdate(Date.from(rentalDTO.getLastUpdate().toInstant()));
+    if (rentalDTO.getRentalDate() != null) rental.setRentalDate(rentalDTO.getRentalDate());
+    if (rentalDTO.getReturnDate() != null) rental.setReturnDate(rentalDTO.getReturnDate());
+    if (rentalDTO.getLastUpdate() != null) rental.setLastUpdate(rentalDTO.getLastUpdate());
 
     return rental;
   }
