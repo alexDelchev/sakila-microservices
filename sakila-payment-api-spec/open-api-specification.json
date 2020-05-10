@@ -267,31 +267,6 @@
         }
       }
     },
-    "/rentals/inventory/{id}": {
-      "get": {
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Inventory ID",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "operationId": "getRentalsByInventoryId",
-        "responses": {
-          "200": {
-            "description": "Rental model list",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/RentalDTO"
-              }
-            }
-          }
-        }
-      }
-    },
     "/rentals/customer/{id}": {
       "get": {
         "parameters": [
@@ -555,7 +530,7 @@
     "RentalDTO": {
       "type": "object",
       "required": [
-        "rentalDate", "inventoryId", "customerId", "staffId"
+        "rentalDate", "customerId", "staffId"
       ],
       "properties": {
         "id": {
