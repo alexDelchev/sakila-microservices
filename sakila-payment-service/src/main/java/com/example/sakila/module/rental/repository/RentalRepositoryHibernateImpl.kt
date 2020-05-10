@@ -22,7 +22,7 @@ class RentalRepositoryHibernateImpl : RentalRepository {
   }
 
   override fun getRentalsByStaffId(id: Long): List<Rental>? {
-    val query = createQuery("SELECT r FROM Rental r WHERE r.staff_id = :staffId")
+    val query = createQuery("SELECT r FROM Rental r WHERE r.staffId = :staffId")
     query.setParameter("staffId", id)
     return query.resultList
   }
