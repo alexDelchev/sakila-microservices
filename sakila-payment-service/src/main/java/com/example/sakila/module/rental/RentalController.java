@@ -36,13 +36,6 @@ public class RentalController implements RentalsApi {
   }
 
   @Override
-  public ResponseEntity<List<RentalDTO>> getRentalsByInventoryId(@PathVariable("id") Long id) {
-    return ResponseEntity.ok(
-      rentalService.getRentalsByInventoryId(id).stream().map(this::toDTO).collect(Collectors.toList())
-    );
-  }
-
-  @Override
   public ResponseEntity<List<RentalDTO>> getRentalsByCustomerId(@PathVariable("id") Long id) {
     return ResponseEntity.ok(
         rentalService.getRentalsByCustomerId(id).stream().map(this::toDTO).collect(Collectors.toList())

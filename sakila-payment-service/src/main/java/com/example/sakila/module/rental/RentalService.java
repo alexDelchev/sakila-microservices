@@ -34,11 +34,6 @@ public class RentalService {
     return rentalRepository.getRentalById(id);
   }
 
-  public List<Rental> getRentalsByInventoryId(Long id) {
-    if (id == null) return null;
-    return rentalRepository.getRentalsByInventoryId(id);
-  }
-
   public List<Rental> getRentalsByCustomerId(Long id) {
     if (id == null) return null;
     return rentalRepository.getRentalsByCustomerId(id);
