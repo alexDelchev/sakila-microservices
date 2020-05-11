@@ -1,11 +1,13 @@
 package com.example.sakila.exception
 
+import groovy.util.logging.Slf4j
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 
+@Slf4j
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
 
@@ -31,6 +33,7 @@ class GlobalControllerExceptionHandler {
   }
 
   private ErrorResponse generateResponse(Exception exception) {
+    log.error("Exception thrown while processing request:", exception)
     new ErrorResponse(exception.getMessage())
   }
 }
