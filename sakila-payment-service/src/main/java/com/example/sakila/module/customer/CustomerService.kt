@@ -2,12 +2,12 @@ package com.example.sakila.module.customer
 
 import com.example.sakila.event.bus.EventBus
 import com.example.sakila.exception.DataConflictException
+import com.example.sakila.exception.NotFoundException
 import com.example.sakila.module.customer.event.CustomerEventUtils
 import com.example.sakila.module.customer.event.model.CustomerCreatedEvent
 import com.example.sakila.module.customer.event.model.CustomerDeletedEvent
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent
 import com.example.sakila.module.customer.repository.CustomerRepository
-import javassist.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
