@@ -45,6 +45,7 @@ class EventBus {
   }
 
   void register(Object object) {
+    log.info("Registering ${object.class.name}")
     List<HandlerMethod> eventHandlers = getEventHandlerMethods(object)
 
     eventHandlers.each { h ->
@@ -53,7 +54,10 @@ class EventBus {
       } else {
         handlers[h.parameterType] = [h]
       }
+
+      log.info("Registered method ${h.method.name}")
     }
+    log.info("Registered ${object.class.name}")
   }
 
   private List<HandlerMethod> getEventHandlerMethods(Object object) {
