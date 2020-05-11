@@ -1,9 +1,12 @@
 package com.example.sakila.event.bus
 
+import groovy.util.logging.Slf4j
+
 import java.lang.reflect.Method
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
 
+@Slf4j
 class EventBus {
 
   private final Map<Class<?>, List<HandlerMethod>> handlers
@@ -23,7 +26,10 @@ class EventBus {
     Class<?> type = object.class
 
     if (handlers.containsKey(type)) {
-      handlers[type].each { h -> CompletableFuture.runAsync { h.invoke(object) } }
+      handlers[type].each { h ->
+        log.info("Invoking ${h.owner.class.name}::${h.method.name} asynchronously")
+        CompletableFuture.runAsync { h.invoke(object) }
+      }
     }
   }
 
@@ -31,7 +37,10 @@ class EventBus {
     Class<?> type = object.class
 
     if (handlers.containsKey(type)) {
-      handlers[type].each { h -> h.invoke(object) }
+      handlers[type].each { h ->
+        log.info("Invoking ${h.owner.class.name}::${h.method.name} synchronously")
+        h.invoke(object)
+      }
     }
   }
 
