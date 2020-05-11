@@ -52,8 +52,7 @@ class RentalService @Autowired constructor(
 
   private fun generateUpdatedEvent(rental: Rental) {
     val dto = RentalEventUtils.toDTO(rental)
-    val event = RentalUpdatedEvent()
-    event.dto = dto
+    val event = RentalUpdatedEvent(dto)
     eventBus.emit(event)
   }
 
