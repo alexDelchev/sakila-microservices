@@ -64,9 +64,9 @@ class RentalServiceTest {
     assertThrows(NotFoundException.class, () -> rentalService.updateRental(nonExistingRentalId, existingRental));
   }
 
-  private Rental rental(long rentalId) {
-    Rental rental = new Rental(rentalId);
-    rental.setCustomer(new Customer());
+  private Rental rental(long id) {
+    Rental rental = new Rental(id);
+    rental.setCustomer(new Customer(id));
     return rental;
   }
 
