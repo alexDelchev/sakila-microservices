@@ -75,8 +75,7 @@ class RentalService @Autowired constructor(
   }
 
   private fun generateDeletedEvent(id: Long) {
-    val event = RentalDeletedEvent()
-    event.rentalId = id
+    val event = RentalDeletedEvent(id)
     eventBus.emit(event)
   }
 
