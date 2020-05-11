@@ -66,7 +66,7 @@ class RentalService @Autowired constructor(
     target.storeId = source.storeId
     target.staffId = source.staffId
 
-    val result = rentalRepository.insertRental(target)
+    val result = rentalRepository.updateRental(target)
 
     generateUpdatedEvent(result)
 
