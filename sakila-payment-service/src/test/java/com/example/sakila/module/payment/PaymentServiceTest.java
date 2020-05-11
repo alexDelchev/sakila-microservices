@@ -74,8 +74,8 @@ class PaymentServiceTest {
 
   private Payment payment(long id) {
     Payment payment = new Payment(id);
-    payment.setCustomer(new Customer());
-    payment.setRental(new Rental());
+    payment.setCustomer(new Customer(id));
+    payment.setRental(new Rental(id));
     return payment;
   }
 
