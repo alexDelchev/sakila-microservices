@@ -2,6 +2,7 @@ package com.example.sakila.module.country
 
 import com.example.sakila.event.bus.EventBus
 import com.example.sakila.exception.NotFoundException
+import com.example.sakila.module.city.CityService
 import com.example.sakila.module.country.repository.CountryRepository
 import spock.lang.Specification
 
@@ -11,7 +12,9 @@ class CountryServiceTest extends Specification {
 
   private final CountryRepository countryRepository = Mock(CountryRepository)
 
-  private final CountryService countryService = new CountryService(eventBus, countryRepository)
+  private final CityService cityService = Mock(CityService)
+
+  private final CountryService countryService = new CountryService(eventBus, countryRepository, cityService)
 
   void 'getCountryById - should return null when given id is null'() {
     when:
