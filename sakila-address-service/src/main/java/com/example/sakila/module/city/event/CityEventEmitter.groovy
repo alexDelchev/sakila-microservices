@@ -37,20 +37,22 @@ class CityEventEmitter {
 
   @Handler
   void onCityCreatedEvent(CityCreatedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(CITY_CREATED_TOPIC, serializedMessage)
+    publish(CITY_CREATED_TOPIC, event)
   }
 
   @Handler
   void onCityUpdatedEvent(CityUpdatedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(CITY_UPDATED_TOPIC, serializedMessage)
+    publish(CITY_UPDATED_TOPIC, event)
   }
 
   @Handler
   void onCityDeletedEvent(CityDeletedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(CITY_DELETED_TOPIC, serializedMessage)
+    publish(CITY_DELETED_TOPIC, event)
+  }
+
+  private void publish(String topic, Object value) {
+    String serializedMessage = serialize(value)
+    kafkaTemplate.send(topic, serializedMessage)
   }
 
   private String serialize(Object object) {
