@@ -9,11 +9,13 @@ import com.example.sakila.module.address.event.model.AddressDeletedEvent
 import com.example.sakila.module.address.event.model.AddressEventDTO
 import com.example.sakila.module.address.event.model.AddressUpdatedEvent
 import com.example.sakila.module.address.repository.AddressRepository
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
+@Slf4j
 @Service
 class AddressService {
 
@@ -52,7 +54,9 @@ class AddressService {
   }
 
   Address createAddress(Address address) {
+    log.info('Creating address')
     Address result = addressRepository.insertAddress(address)
+    log.info("Created address id: ${result.id}")
 
     generateCreatedEvent(result)
 
@@ -70,6 +74,7 @@ class AddressService {
   Address updateAddress(Long id, Address source) {
     Address target = addressRepository.getAddressById(id)
     if (!target) throw new NotFoundException('Target address for update does not exist')
+    log.info("Updating address (ID: ${id})")
 
     target.address = source.address
     target.address2 = source.address2
@@ -96,6 +101,7 @@ class AddressService {
   void deleteAddress(Long id) {
     Address address = addressRepository.getAddressById(id)
     if (!address) throw new NotFoundException("Address for ID ${id} does not exist")
+    log.info("Deleting address (ID: ${id})")
 
     try {
       addressRepository.deleteAddress(address)
