@@ -11,12 +11,17 @@
 
   <artifactId>sakila-zookeeper</artifactId>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>1.4.13</version>
+        <version>${dockerfile-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>default</id>
