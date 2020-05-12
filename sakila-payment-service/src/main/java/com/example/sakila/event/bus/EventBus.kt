@@ -58,6 +58,7 @@ class EventBus(private val name: String) {
   }
 
   fun register(component: Any) {
+    log.info("Registering {}", component::class.java.name)
     val eventHandlers = getEventHandlerMethods(component)
 
     eventHandlers.forEach { h ->
@@ -66,6 +67,9 @@ class EventBus(private val name: String) {
       } else {
         handlers[h.parameterType] = mutableListOf(h)
       }
+
+      log.info("Registered method {}", h.method.name)
     }
+    log.info("Registered {}", component::class.java.name)
   }
 }
