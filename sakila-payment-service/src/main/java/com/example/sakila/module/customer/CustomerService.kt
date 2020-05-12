@@ -8,6 +8,7 @@ import com.example.sakila.module.customer.event.model.CustomerCreatedEvent
 import com.example.sakila.module.customer.event.model.CustomerDeletedEvent
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent
 import com.example.sakila.module.customer.repository.CustomerRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
@@ -20,6 +21,8 @@ class CustomerService @Autowired constructor(
 
     private val customerRepository: CustomerRepository
 ) {
+
+  private val log = LoggerFactory.getLogger(CustomerService::class.java)
 
   fun getCustomerById(id: Long?): Customer? {
     if (id == null) return null
@@ -52,7 +55,9 @@ class CustomerService @Autowired constructor(
   }
 
   fun createCustomer(customer: Customer): Customer {
+    log.info("Creating Customer")
     val result = customerRepository.insertCustomer(customer)
+    log.info("Created Customer id: ${result.id}")
 
     generateCreatedEvent(result)
 
@@ -67,6 +72,7 @@ class CustomerService @Autowired constructor(
 
   fun updateCustomer(id: Long, source: Customer): Customer {
     val target = getCustomerById(id) ?: throw NotFoundException("Customer for ID $id does not exist")
+    log.info("Updating Customer (ID: $id)")
 
     target.storeId = source.storeId
     target.firstName = source.firstName
@@ -92,6 +98,7 @@ class CustomerService @Autowired constructor(
 
   fun deleteCustomer(id: Long) {
     val customer = getCustomerById(id) ?: throw NotFoundException("Customer for ID $id does not exist")
+    log.info("Deleting Customer (ID: $id)")
 
     try {
       customerRepository.deleteCustomer(customer)
