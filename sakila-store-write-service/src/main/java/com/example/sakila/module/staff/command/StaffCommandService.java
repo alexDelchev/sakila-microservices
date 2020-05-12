@@ -9,12 +9,16 @@ import com.example.sakila.module.staff.StaffWriteModel;
 import com.example.sakila.module.staff.command.model.*;
 import com.example.sakila.module.staff.event.model.*;
 import com.example.sakila.module.store.StoreWriteModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StaffCommandService {
+
+  private final Logger log = LoggerFactory.getLogger(StaffCommandService.class);
 
   private final EventBus eventBus;
 
@@ -33,6 +37,7 @@ public class StaffCommandService {
 
   @Handler
   public Long onCreateStaffCommand(CreateStaffCommand command) {
+    log.info("Received CreateStaffCommand");
     Long staffId = eventService.persistAggregate(StaffWriteModel.class.getTypeName());
     Long version = 1L;
 
@@ -56,6 +61,7 @@ public class StaffCommandService {
 
   @Handler
   public void onDeleteStaffCommand(DeleteStaffCommand command) {
+    log.info("Received DeleteStaffCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     Long staffId = command.getStaffId();
@@ -69,6 +75,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeActiveCommand(ChangeActiveCommand command) {
+    log.info("Received ChangeActiveCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new ActiveChangedEvent());
@@ -76,6 +83,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
+    log.info("Received ChangeAddressCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new AddressChangedEvent());
@@ -83,6 +91,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeEmailCommand(ChangeEmailCommand command) {
+    log.info("Received ChangeEmailCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new EmailChangedEvent());
@@ -90,6 +99,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeFirstNameCommand(ChangeFirstNameCommand command) {
+    log.info("Received ChangeFirstNameCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new FirstNameChangedEvent());
@@ -97,6 +107,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeLastNameCommand(ChangeLastNameCommand command) {
+    log.info("Received ChangeLastNameCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new LastNameChangedEvent());
@@ -104,6 +115,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangePasswordCommand(ChangePasswordCommand command) {
+    log.info("Received ChangePasswordCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new PasswordChangedEvent());
@@ -111,6 +123,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeStoreCommand(ChangeStoreCommand command) {
+    log.info("Received ChangeStoreCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     if (command.getNewValue() != null) {
@@ -122,6 +135,7 @@ public class StaffCommandService {
 
   @Handler
   public void onChangeUsernameCommand(ChangeUsernameCommand command) {
+    log.info("Received ChangeUsernameCommand");
     checkAggregateExistence(command.getStaffId(), StaffWriteModel.class, "Staff");
 
     processBasicCommand(command, new UsernameChangedEvent());
