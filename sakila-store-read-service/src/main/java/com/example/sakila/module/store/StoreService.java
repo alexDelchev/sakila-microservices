@@ -3,12 +3,16 @@ package com.example.sakila.module.store;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.store.repository.StoreRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StoreService {
+
+  private final Logger log = LoggerFactory.getLogger(StoreService.class);
 
   private final StoreRepository storeRepository;
 
@@ -34,19 +38,22 @@ public class StoreService {
 
   public Store createStore(Store store) {
     if (getStoreByManagerStaffId(store.getManagerStaffId()) != null) throw new DataConflictException(
-        "Staff with ID " + store.getManagerStaffId() + " is already a manager"
+        String.format("Staff with ID %d is already a manager", store.getManagerStaffId())
     );
 
+    log.info("Creating Store (ID: {})", store.getId());
     return storeRepository.insertStore(store);
   }
 
   public Store updateStore(Long id, Store source) {
     Store target = getStoreById(id);
-    if (target == null) throw new NotFoundException("Store for ID " + id + " does not exist");
+    if (target == null) throw new NotFoundException(String.format("Store for ID %d does not exist", id));
 
     if (!target.getManagerStaffId().equals(source.getManagerStaffId()) &&
         getStoreByManagerStaffId(source.getManagerStaffId()) != null)
-      throw new DataConflictException("Staff with ID " + source.getManagerStaffId() + " is already a manager");
+      throw new DataConflictException(String.format("Staff with ID %d is already a manager", source.getManagerStaffId()));
+
+    log.info("Updating Store (ID: {})", id);
 
     target.setAddressId(source.getAddressId());
     target.setManagerStaffId(source.getManagerStaffId());
@@ -57,6 +64,7 @@ public class StoreService {
   public void deleteStore(Long id) {
     Store store = getStoreById(id);
     if (store == null) throw new NotFoundException("Store for ID " + id + " does not exist");
+    log.info("Deleting Store (ID: {})", id);
 
     try {
       storeRepository.deleteStore(store);
