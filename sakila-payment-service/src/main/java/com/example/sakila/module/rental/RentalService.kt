@@ -3,6 +3,7 @@ package com.example.sakila.module.rental
 import com.example.sakila.event.bus.EventBus
 import com.example.sakila.exception.DataConflictException
 import com.example.sakila.exception.NotFoundException
+import com.example.sakila.module.payment.PaymentService
 import com.example.sakila.module.rental.event.RentalEventUtils
 import com.example.sakila.module.rental.event.model.RentalCreatedEvent
 import com.example.sakila.module.rental.event.model.RentalDeletedEvent
@@ -19,7 +20,9 @@ class RentalService @Autowired constructor(
     @Qualifier("RentalEventBus")
     private val eventBus: EventBus,
 
-    private val rentalRepository: RentalRepository
+    private val rentalRepository: RentalRepository,
+
+    private val paymentService: PaymentService
 ) {
 
   private val log = LoggerFactory.getLogger(RentalService::class.java)
@@ -84,11 +87,16 @@ class RentalService @Autowired constructor(
     eventBus.emit(event)
   }
 
+  private fun deletePayments(rentalId: Long)  {
+    paymentService.getPaymentsByRentalId(rentalId)?.forEach { paymentService.deletePayment(it.id!!) }
+  }
+
   fun deleteRental(id: Long) {
     val rental = rentalRepository.getRentalById(id)?: throw NotFoundException("Rental for ID $id does not exist")
     log.info("Deleting Rental (ID: $id)")
 
     try {
+      deletePayments(id)
       rentalRepository.deleteRental(rental)
       generateDeletedEvent(id)
     } catch (e: DataIntegrityViolationException) {
