@@ -4,7 +4,7 @@ import com.example.sakila.event.bus.EventBus
 import com.fasterxml.jackson.databind.ObjectMapper
 import spock.lang.Specification
 
-class EventEmitterTest extends Specification {
+class EventPublisherTest extends Specification {
 
   private final ObjectMapper objectMapper = new ObjectMapper()
 
@@ -14,7 +14,7 @@ class EventEmitterTest extends Specification {
 
   private final EventBus staffEventBus = Mock(EventBus)
 
-  private final EventEmitter eventEmitter = new EventEmitter(eventService, storeEventBus, staffEventBus)
+  private final EventPublisher eventEmitter = new EventPublisher(eventService, storeEventBus, staffEventBus)
 
   def "should get subsequent events when event id is provided"() {
     given:

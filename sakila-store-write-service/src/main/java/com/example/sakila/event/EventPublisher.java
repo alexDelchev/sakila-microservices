@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class EventEmitter {
+public class EventPublisher {
 
   private static final String LISTENER_GROUP_ID = "sakila-store-write-event-emitter";
 
   private static final String TRIGGER_EVENTS_TOPIC = "store-store-write-events-trigger";
 
-  private final Logger log = LoggerFactory.getLogger(EventEmitter.class);
+  private final Logger log = LoggerFactory.getLogger(EventPublisher.class);
 
   private final ObjectMapper mapper;
 
@@ -30,7 +30,7 @@ public class EventEmitter {
   private final EventBus staffEventBus;
 
   @Autowired
-  public EventEmitter(
+  public EventPublisher(
       EventService eventService,
       @Qualifier("StoreEventBus") EventBus storeEventBus,
       @Qualifier("StaffEventBus") EventBus staffEventBus,
