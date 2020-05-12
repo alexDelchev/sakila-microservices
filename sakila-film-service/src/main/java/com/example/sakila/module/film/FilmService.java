@@ -10,6 +10,8 @@ import com.example.sakila.module.film.event.model.FilmEventDTO;
 import com.example.sakila.module.film.event.model.FilmUpdatedEvent;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,6 +21,8 @@ import java.util.List;
 
 @Service
 public class FilmService {
+
+  private final Logger log = LoggerFactory.getLogger(FilmService.class);
 
   private final EventBus eventBus;
 
@@ -85,6 +89,7 @@ public class FilmService {
         .forEach(i -> {
           if (i.getQuantity() < 1) return;
 
+          log.info("Decreasing quantity of Film (ID: {})", filmId);
           Integer newQuantity = i.getQuantity() -1;
           i.setQuantity(newQuantity);
         });
@@ -101,7 +106,9 @@ public class FilmService {
 
   public Film createFilm(Film film) {
     FilmWriteModel writeModel = FilmUtils.toWriteModel(film);
+    log.info("Creating Film");
     filmRepository.insertFilm(writeModel);
+    log.info("Created Film id: {}", writeModel.getId());
     Film result = filmRepository.getFilmById(film.getId());
 
     generateCreatedEvent(result);
@@ -125,6 +132,7 @@ public class FilmService {
   public Film updateFilm(ObjectId id, Film source) {
     Film target = filmRepository.getFilmById(id);
     if (target == null) throw new NotFoundException("Film for ID " + id + " does not exist");
+    log.info("Updating Film (ID: {})", id.toHexString());
 
     target.setTitle(source.getTitle());
     target.setDescription(source.getDescription());
@@ -167,6 +175,7 @@ public class FilmService {
   public void deleteFilm(ObjectId id) {
     Film film = filmRepository.getFilmById(id);
     if (film == null) throw new NotFoundException("Film for ID " + id + " does not exist");
+    log.info("Deleting Film (ID: {})", id.toHexString());
 
     try {
       filmRepository.deleteFilm(film);
