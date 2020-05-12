@@ -30,7 +30,7 @@ public class FilmEventPublisher {
   @Autowired
   public FilmEventPublisher(
       @Qualifier("FilmEventBus") EventBus eventBus,
-      KafkaTemplate kafkaTemplate,
+      KafkaTemplate<String, String> kafkaTemplate,
       ObjectMapper objectMapper
   ) {
     this.eventBus = eventBus;
