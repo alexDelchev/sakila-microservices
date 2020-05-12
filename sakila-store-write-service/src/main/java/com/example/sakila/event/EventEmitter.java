@@ -3,6 +3,8 @@ package com.example.sakila.event;
 import com.example.sakila.event.bus.EventBus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,6 +19,8 @@ public class EventEmitter {
 
   private static final String TRIGGER_EVENTS_TOPIC = "store-store-write-events-trigger";
 
+  private final Logger log = LoggerFactory.getLogger(EventEmitter.class);
+
   private final ObjectMapper mapper;
 
   private final EventService eventService;
@@ -30,7 +34,7 @@ public class EventEmitter {
       EventService eventService,
       @Qualifier("StoreEventBus") EventBus storeEventBus,
       @Qualifier("StaffEventBus") EventBus staffEventBus,
-      ObjectMapper objectMapper;
+      ObjectMapper objectMapper
   ) {
     this.eventService = eventService;
     this.storeEventBus = storeEventBus;
@@ -40,14 +44,18 @@ public class EventEmitter {
 
   @KafkaListener(topics = {TRIGGER_EVENTS_TOPIC}, id = LISTENER_GROUP_ID )
   public void triggerEvents(String message) {
+    log.info("Consuming message from {}: {}", TRIGGER_EVENTS_TOPIC, message);
     EmitEventsMessage eventsMessage = deserialize(message, EmitEventsMessage.class);
     UUID latestEventId = eventService.getLatestEventId();
 
     if (latestEventId.equals(eventsMessage.getEventId())) return;
+    log.info("Found stale read db state");
 
     if (eventsMessage.getEventId() != null) {
+      log.info("Publishing events after {}", eventsMessage.getEventId().toString());
       emitSubsequentEvents(eventsMessage.getEventId());
     } else {
+      log.info("Publishing all events");
       emitAllEvents();
     }
   }
