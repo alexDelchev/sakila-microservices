@@ -33,7 +33,7 @@ public class EventBus {
 
     if (handlers.containsKey(type)) {
       handlers.get(type).forEach(h -> {
-        log.info("Invoking {} asynchronously", h.getMethod().getName());
+        log.info("Invoking {}::{} asynchronously", h.getOwner().getClass().getName(), h.getMethod().getName());
         CompletableFuture.runAsync(() -> h.invoke(object));
       });
     }
@@ -44,7 +44,7 @@ public class EventBus {
 
     if (handlers.containsKey(type)) {
       handlers.get(type).forEach(h -> {
-        log.info("Invoking {} synchronously", h.getMethod().getName());
+        log.info("Invoking {}::{} synchronously", h.getOwner().getClass().getName(), h.getMethod().getName());
         h.invoke(object);
       });
     }
