@@ -5,6 +5,8 @@ import com.example.sakila.module.store.Store;
 import com.example.sakila.module.store.StoreService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class StoreStateKeeper {
   private static final String WRITE_TOPIC = "sakila-store-write-store-dto-stream";
 
   private static final String DELETE_TOPIC = "sakila-store-write-store-delete-stream";
+
+  private final Logger log = LoggerFactory.getLogger(StoreStateKeeper.class);
 
   private final ObjectMapper objectMapper;
 
@@ -33,6 +37,7 @@ public class StoreStateKeeper {
 
   @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
   public void consumeStoreUpdatedEventStream(String message) {
+    log.info("Consuming message from {}: {}", WRITE_TOPIC, message);
     StoreEventMessage eventMessage = deserialize(message, StoreEventMessage.class);
     if (isEventInvalidForProcessing(eventMessage)) return;
 
@@ -49,6 +54,7 @@ public class StoreStateKeeper {
 
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
   public void consumeStoreDeletedEventStream(String message) {
+    log.info("Consuming message from {}: {}", DELETE_TOPIC, message);
     StoreDeletedEvent deletedEvent = deserialize(message, StoreDeletedEvent.class);
 
     storeService.deleteStore(deletedEvent.getStoreId());
