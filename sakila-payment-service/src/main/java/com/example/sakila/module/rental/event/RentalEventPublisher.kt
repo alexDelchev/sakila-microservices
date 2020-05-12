@@ -6,6 +6,7 @@ import com.example.sakila.module.rental.event.model.RentalCreatedEvent
 import com.example.sakila.module.rental.event.model.RentalDeletedEvent
 import com.example.sakila.module.rental.event.model.RentalUpdatedEvent
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
@@ -28,26 +29,25 @@ class RentalEventPublisher @Autowired constructor(
 
   private val rentalDeletedTopic = "sakila-payment-rental-deleted"
 
+  private val log = LoggerFactory.getLogger(RentalEventPublisher::class.java)
+
   @PostConstruct
   private fun postConstruct() {
     eventBus.register(this)
   }
 
   @Handler
-  fun onRentalCreatedEvent(event: RentalCreatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(rentalCreatedTopic, serializedMessage)
-  }
+  fun onRentalCreatedEvent(event: RentalCreatedEvent) = publish(rentalCreatedTopic, event)
 
   @Handler
-  fun onRentalUpdatedEvent(event: RentalUpdatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(rentalUpdatedTopic, serializedMessage)
-  }
+  fun onRentalUpdatedEvent(event: RentalUpdatedEvent) = publish(rentalUpdatedTopic, event)
 
   @Handler
-  fun onRentalDeletedEvent(event: RentalDeletedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(rentalDeletedTopic, serializedMessage)
+  fun onRentalDeletedEvent(event: RentalDeletedEvent) = publish(rentalDeletedTopic, event)
+
+  private fun publish(topic: String, value: Any) {
+    val serializedMessage = objectMapper.writeValueAsString(value)
+    log.info("Publishing to ($topic): $serializedMessage")
+    kafkaTemplate.send(topic, serializedMessage)
   }
 }
