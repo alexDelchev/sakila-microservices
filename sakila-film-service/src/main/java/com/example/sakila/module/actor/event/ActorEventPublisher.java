@@ -12,7 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActorEventEmitter {
+public class ActorEventPublisher {
 
   private static final String ACTOR_CREATED_TOPIC = "sakila-film-actor-created";
 
@@ -26,7 +26,7 @@ public class ActorEventEmitter {
 
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public ActorEventEmitter(@Qualifier("ActorEventBus") EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  public ActorEventPublisher(@Qualifier("ActorEventBus") EventBus eventBus, KafkaTemplate kafkaTemplate) {
     this.eventBus = eventBus;
     this.kafkaTemplate = kafkaTemplate;
 
