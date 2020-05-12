@@ -8,6 +8,8 @@ import com.example.sakila.module.customer.event.model.CustomerCreatedEvent
 import com.example.sakila.module.customer.event.model.CustomerDeletedEvent
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent
 import com.example.sakila.module.customer.repository.CustomerRepository
+import com.example.sakila.module.payment.PaymentService
+import com.example.sakila.module.rental.RentalService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -19,7 +21,11 @@ class CustomerService @Autowired constructor(
     @Qualifier("CustomerEventBus")
     private val eventBus: EventBus,
 
-    private val customerRepository: CustomerRepository
+    private val customerRepository: CustomerRepository,
+
+    private val paymentService: PaymentService,
+
+    private val rentalService: RentalService
 ) {
 
   private val log = LoggerFactory.getLogger(CustomerService::class.java)
@@ -96,11 +102,21 @@ class CustomerService @Autowired constructor(
     eventBus.emit(event)
   }
 
+  private fun deletePayments(customerId: Long) {
+    paymentService.getPaymentsByCustomerId(customerId)?.forEach { paymentService.deletePayment(it.id!!) }
+  }
+
+  private fun deleteRentals(customerId: Long) {
+    rentalService.getRentalsByCustomerId(customerId)?.forEach { rentalService.deleteRental(it.id!!) }
+  }
+
   fun deleteCustomer(id: Long) {
     val customer = getCustomerById(id) ?: throw NotFoundException("Customer for ID $id does not exist")
     log.info("Deleting Customer (ID: $id)")
 
     try {
+      deletePayments(id)
+      deleteRentals(id)
       customerRepository.deleteCustomer(customer)
       generateDeletedEvent(id)
     } catch (e: DataIntegrityViolationException) {
