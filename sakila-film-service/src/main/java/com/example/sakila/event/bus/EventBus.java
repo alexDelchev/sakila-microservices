@@ -1,5 +1,8 @@
 package com.example.sakila.event.bus;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class EventBus {
+
+  private final Logger log = LoggerFactory.getLogger(EventBus.class);
 
   private final String name;
 
@@ -27,7 +32,10 @@ public class EventBus {
     Class<?> type = object.getClass();
 
     if (handlers.containsKey(type)) {
-      handlers.get(type).forEach(h -> CompletableFuture.runAsync(() -> h.invoke(object)));
+      handlers.get(type).forEach(h -> {
+        log.info("Invoking {} asynchronously", h.getMethod().getName());
+        CompletableFuture.runAsync(() -> h.invoke(object));
+      });
     }
   }
 
@@ -35,7 +43,10 @@ public class EventBus {
     Class<?> type = object.getClass();
 
     if (handlers.containsKey(type)) {
-      handlers.get(type).forEach(h -> h.invoke(object));
+      handlers.get(type).forEach(h -> {
+        log.info("Invoking {} synchronously", h.getMethod().getName());
+        h.invoke(object);
+      });
     }
   }
 
