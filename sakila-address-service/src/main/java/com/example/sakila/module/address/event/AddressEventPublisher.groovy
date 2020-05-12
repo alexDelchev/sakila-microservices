@@ -7,11 +7,13 @@ import com.example.sakila.module.address.event.model.AddressDeletedEvent
 import com.example.sakila.module.address.event.model.AddressUpdatedEvent
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
+@Slf4j
 @Component
 class AddressEventPublisher {
 
@@ -54,6 +56,7 @@ class AddressEventPublisher {
 
   private publish(String topic, Object value) {
     String serializedMessage = serialize(value)
+    log.info("Publishing to (${topic}): ${serializedMessage}")
     kafkaTemplate.send(topic, serializedMessage)
   }
 
