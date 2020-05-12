@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
+import javax.annotation.PostConstruct
+
 @Component
 class CityEventEmitter {
 
@@ -31,8 +33,11 @@ class CityEventEmitter {
   CityEventEmitter(@Qualifier('CityEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
     this.eventBus = eventBus
     this.kafkaTemplate = kafkaTemplate
+  }
 
-    this.eventBus.register(this)
+  @PostConstruct
+  private postConstruct() {
+    eventBus.register(this)
   }
 
   @Handler
