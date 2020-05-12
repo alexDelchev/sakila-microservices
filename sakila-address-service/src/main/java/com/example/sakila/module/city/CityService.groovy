@@ -56,9 +56,9 @@ class CityService {
   }
 
   City createCity(City city) {
-    log.info("Creating city")
+    log.info("Creating City")
     City result = cityRepository.insertCity(city)
-    log.info("Created city id: ${result.id}")
+    log.info("Created City id: ${result.id}")
 
     generateCreatedEvent(city)
 
@@ -75,7 +75,7 @@ class CityService {
   City updateCity(Long id, City city) {
     City target = cityRepository.getCityById(id)
     if (!target) throw new NotFoundException("Target city for update does not exist")
-    log.info("Updateing city (ID: ${id})")
+    log.info("Updateing City (ID: ${id})")
 
     target.city = city.city
     target.country = city.country
@@ -98,7 +98,7 @@ class CityService {
   void deleteCity(Long id) {
     City city = cityRepository.getCityById(id)
     if (!city) throw new NotFoundException("City for ID ${id} does not exist")
-    log.info("Deleteing city (ID: ${id}")
+    log.info("Deleteing City (ID: ${id}")
 
     try {
       cityRepository.deleteCity(city)

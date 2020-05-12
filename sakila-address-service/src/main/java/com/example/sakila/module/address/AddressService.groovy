@@ -54,9 +54,9 @@ class AddressService {
   }
 
   Address createAddress(Address address) {
-    log.info('Creating address')
+    log.info('Creating Address')
     Address result = addressRepository.insertAddress(address)
-    log.info("Created address id: ${result.id}")
+    log.info("Created Address id: ${result.id}")
 
     generateCreatedEvent(result)
 
@@ -74,7 +74,7 @@ class AddressService {
   Address updateAddress(Long id, Address source) {
     Address target = addressRepository.getAddressById(id)
     if (!target) throw new NotFoundException('Target address for update does not exist')
-    log.info("Updating address (ID: ${id})")
+    log.info("Updating Address (ID: ${id})")
 
     target.address = source.address
     target.address2 = source.address2
@@ -101,7 +101,7 @@ class AddressService {
   void deleteAddress(Long id) {
     Address address = addressRepository.getAddressById(id)
     if (!address) throw new NotFoundException("Address for ID ${id} does not exist")
-    log.info("Deleting address (ID: ${id})")
+    log.info("Deleting Address (ID: ${id})")
 
     try {
       addressRepository.deleteAddress(address)
