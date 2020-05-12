@@ -55,7 +55,7 @@ public class StateKeeper {
       message.setEventId(latestEventId);
       String payload = serialize(message);
 
-      log.info("Publishing latest event ID as {}", latestEventId.toString());
+      if (latestEventId != null) log.info("Publishing latest event ID as {}", latestEventId.toString());
       kafkaTemplate.send(TRIGGER_EVENT_EMISSION_TOPIC, payload);
     });
   }
