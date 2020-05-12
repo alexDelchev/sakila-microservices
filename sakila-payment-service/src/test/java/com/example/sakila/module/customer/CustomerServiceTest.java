@@ -3,6 +3,8 @@ package com.example.sakila.module.customer;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.module.customer.repository.CustomerRepository;
+import com.example.sakila.module.payment.PaymentService;
+import com.example.sakila.module.rental.RentalService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +25,12 @@ class CustomerServiceTest {
 
   @Mock
   private CustomerRepository customerRepository;
+
+  @Mock
+  private PaymentService paymentService;
+
+  @Mock
+  private RentalService rentalService;
 
   @InjectMocks
   private CustomerService customerService;
