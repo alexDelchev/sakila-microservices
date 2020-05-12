@@ -20,13 +20,14 @@ public class RentalEventStreamsConsumer {
 
   private static final String RENTAL_CREATED_TOPIC = "sakila-payment-rental-created";
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   private final FilmService filmService;
 
   @Autowired
-  public RentalEventStreamsConsumer(FilmService filmService) {
+  public RentalEventStreamsConsumer(FilmService filmService, ObjectMapper objectMapper) {
     this.filmService = filmService;
+    this.objectMapper = objectMapper;
   }
 
   @KafkaListener(topics = {RENTAL_CREATED_TOPIC}, groupId = GROUP_ID)
