@@ -12,6 +12,8 @@ import com.example.sakila.module.store.event.model.StoreCreatedEvent;
 import com.example.sakila.module.store.event.model.StoreDeletedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -26,6 +28,8 @@ public class StoreEventService {
   private static final String WRITE_TOPIC = "sakila-store-write-store-dto-stream";
 
   private static final String DELETE_TOPIC = "sakila-store-write-store-delete-stream";
+
+  private final Logger log = LoggerFactory.getLogger(StoreEventService.class);
 
   private final EventBus eventBus;
 
@@ -55,26 +59,33 @@ public class StoreEventService {
 
   @Handler
   public void onStoreCreatedEvent(StoreCreatedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStoreId(), event.getVersion());
   }
 
   @Handler
   public void onStoreDeletedEvent(StoreDeletedEvent event) {
     String json = toJson(event);
-    kafkaTemplate.send(DELETE_TOPIC, json);
+    publish(DELETE_TOPIC, json);
   }
 
   @Handler
   public void onManagerChangedEvent(ManagerChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStoreId(), event.getVersion());
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStoreId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStoreId(), event.getVersion());
+  }
+
+  private void publish(String topic, String message) {
+    log.info("Publishing to ({}): {}", topic, message);
+    kafkaTemplate.send(topic, message);
+  }
+
+  public void publishDTO(String topic, UUID eventId, Long storeId, Long version) {
+    String json = generateEventMessageJson(eventId, storeId, version);
+    publish(topic, json);
   }
 
   private String generateEventMessageJson(UUID eventId, Long storeId, Long storeVersion) {
