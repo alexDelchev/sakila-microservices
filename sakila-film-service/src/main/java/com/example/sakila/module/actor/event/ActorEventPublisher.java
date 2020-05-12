@@ -35,20 +35,22 @@ public class ActorEventPublisher {
 
   @Handler
   public void onActorCreatedEvent(ActorCreatedEvent event) {
-    String serializedMessage = serialize(event);
-    kafkaTemplate.send(ACTOR_CREATED_TOPIC, serializedMessage);
+    publish(ACTOR_CREATED_TOPIC, event);
   }
 
   @Handler
   public void onActorUpdatedEvent(ActorUpdatedEvent event) {
-    String serializedMessage = serialize(event);
-    kafkaTemplate.send(ACTOR_UPDATED_TOPIC, serializedMessage);
+    publish(ACTOR_UPDATED_TOPIC, event);
   }
 
   @Handler
   public void onActorDeletedEvent(ActorDeletedEvent event) {
-    String serializedMessage = serialize(event);
-    kafkaTemplate.send(ACTOR_DELETED_TOPIC, serializedMessage);
+    publish(ACTOR_DELETED_TOPIC, event);
+  }
+
+  private void publish(String topic, Object value) {
+    String serializedMessage = serialize(value);
+    kafkaTemplate.send(topic, serializedMessage);
   }
 
   private String serialize(Object object) {
