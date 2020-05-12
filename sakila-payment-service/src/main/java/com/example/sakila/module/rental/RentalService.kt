@@ -8,6 +8,7 @@ import com.example.sakila.module.rental.event.model.RentalCreatedEvent
 import com.example.sakila.module.rental.event.model.RentalDeletedEvent
 import com.example.sakila.module.rental.event.model.RentalUpdatedEvent
 import com.example.sakila.module.rental.repository.RentalRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
@@ -20,6 +21,8 @@ class RentalService @Autowired constructor(
 
     private val rentalRepository: RentalRepository
 ) {
+
+  private val log = LoggerFactory.getLogger(RentalService::class.java)
 
   fun getRentalById(id: Long?): Rental? {
     if (id == null) return null
@@ -43,7 +46,9 @@ class RentalService @Autowired constructor(
   }
 
   fun createRental(rental: Rental): Rental {
+    log.info("Creating Rental")
     val result = rentalRepository.insertRental(rental)
+    log.info("Created Rental id: ${result.id}")
 
     generateCreatedEvent(result)
 
@@ -58,6 +63,7 @@ class RentalService @Autowired constructor(
 
   fun updateRental(id: Long, source: Rental): Rental {
     val target = getRentalById(id)?: throw NotFoundException("Rental for ID $id does not exist")
+    log.info("Updating Rental (ID: $id)")
 
     target.rentalDate = source.rentalDate
     target.returnDate = source.returnDate
@@ -80,6 +86,7 @@ class RentalService @Autowired constructor(
 
   fun deleteRental(id: Long) {
     val rental = rentalRepository.getRentalById(id)?: throw NotFoundException("Rental for ID $id does not exist")
+    log.info("Deleting Rental (ID: $id)")
 
     try {
       rentalRepository.deleteRental(rental)
