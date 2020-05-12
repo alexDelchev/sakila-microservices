@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
 public class StoreRowMapper implements RowMapper<Store> {
 
@@ -15,7 +16,7 @@ public class StoreRowMapper implements RowMapper<Store> {
     store.setId(resultSet.getLong("store_id"));
     store.setManagerStaffId(resultSet.getLong("manager_staff_id"));
     store.setAddressId(resultSet.getLong("address_id"));
-    store.setLastUpdate(resultSet.getDate("last_update"));
+    store.setLastUpdate(resultSet.getObject("last_update", OffsetDateTime.class));
 
     return store;
   }

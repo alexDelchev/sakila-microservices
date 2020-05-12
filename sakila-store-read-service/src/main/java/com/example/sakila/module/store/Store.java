@@ -1,5 +1,6 @@
 package com.example.sakila.module.store;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Store {
@@ -10,7 +11,7 @@ public class Store {
 
   private Long addressId;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public Store() {}
 
@@ -18,7 +19,7 @@ public class Store {
     this.id = id;
   }
 
-  public Store(Long id, Long managerStaffId, Long addressId, Date lastUpdate) {
+  public Store(Long id, Long managerStaffId, Long addressId, OffsetDateTime lastUpdate) {
     this.id = id;
     this.managerStaffId = managerStaffId;
     this.addressId = addressId;
@@ -49,11 +50,11 @@ public class Store {
     this.addressId = addressId;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }

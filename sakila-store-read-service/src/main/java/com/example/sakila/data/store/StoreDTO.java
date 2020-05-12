@@ -1,5 +1,6 @@
 package com.example.sakila.data.store;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class StoreDTO {
@@ -12,7 +13,7 @@ public class StoreDTO {
 
   private Long addressId;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public Long getId() {
     return id;
@@ -46,11 +47,11 @@ public class StoreDTO {
     this.addressId = addressId;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }

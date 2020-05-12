@@ -39,11 +39,7 @@ public class StoreController implements StoresApi {
     storeDTO.setId(store.getId());
     storeDTO.setManagerStaffId(store.getManagerStaffId());
     storeDTO.setAddressId(store.getAddressId());
-    if (store.getLastUpdate() != null) {
-      storeDTO.setLastUpdate(
-          OffsetDateTime.ofInstant(Instant.ofEpochMilli(store.getLastUpdate().getTime()), ZoneId.systemDefault())
-      );
-    }
+    storeDTO.setLastUpdate(store.getLastUpdate());
 
     return storeDTO;
   }
@@ -54,7 +50,7 @@ public class StoreController implements StoresApi {
     store.setId(storeDTO.getId());
     store.setAddressId(storeDTO.getAddressId());
     store.setManagerStaffId(storeDTO.getManagerStaffId());
-    if (storeDTO.getLastUpdate() != null) store.setLastUpdate(Date.from(storeDTO.getLastUpdate().toInstant()));
+    store.setLastUpdate(storeDTO.getLastUpdate());
 
     return store;
   }
