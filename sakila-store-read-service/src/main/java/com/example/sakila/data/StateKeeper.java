@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-@EnableScheduling
 public class StateKeeper {
 
   private static final String TRIGGER_EVENT_EMISSION_TOPIC = "store-store-write-events-trigger";
