@@ -1,7 +1,6 @@
 package com.example.sakila.module.staff;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class Staff {
 

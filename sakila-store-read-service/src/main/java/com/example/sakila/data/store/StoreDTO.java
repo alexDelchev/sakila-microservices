@@ -1,7 +1,6 @@
 package com.example.sakila.data.store;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class StoreDTO {
 
