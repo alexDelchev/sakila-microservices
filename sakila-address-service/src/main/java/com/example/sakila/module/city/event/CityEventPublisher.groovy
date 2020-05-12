@@ -25,16 +25,21 @@ class CityEventPublisher {
 
   private static final String CITY_DELETED_TOPIC = 'sakila-address-city-deleted'
 
-  private final ObjectMapper objectMapper = new ObjectMapper()
+  private final ObjectMapper objectMapper
 
   private final EventBus eventBus
 
   private final KafkaTemplate<String, String> kafkaTemplate
 
   @Autowired
-  CityEventPublisher(@Qualifier('CityEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  CityEventPublisher(
+      @Qualifier('CityEventBus') EventBus eventBus,
+      KafkaTemplate kafkaTemplate,
+      ObjectMapper objectMapper
+  ) {
     this.eventBus = eventBus
     this.kafkaTemplate = kafkaTemplate
+    this.objectMapper = objectMapper
   }
 
   @PostConstruct
