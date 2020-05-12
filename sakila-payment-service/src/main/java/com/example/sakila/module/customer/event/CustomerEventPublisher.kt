@@ -6,6 +6,7 @@ import com.example.sakila.module.customer.event.model.CustomerCreatedEvent
 import com.example.sakila.module.customer.event.model.CustomerDeletedEvent
 import com.example.sakila.module.customer.event.model.CustomerUpdatedEvent
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
@@ -28,26 +29,25 @@ class CustomerEventPublisher @Autowired constructor(
 
   private val customerDeletedTopic = "sakila-payment-customer-deleted"
 
+  private val log = LoggerFactory.getLogger(CustomerEventPublisher::class.java)
+
   @PostConstruct
   private fun postConstruct() {
     eventBus.register(component = this)
   }
 
   @Handler
-  fun onCustomerCreatedEvent(event: CustomerCreatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(customerCreatedTopic, serializedMessage)
-  }
+  fun onCustomerCreatedEvent(event: CustomerCreatedEvent) = publish(customerCreatedTopic, event)
 
   @Handler
-  fun onCustomerUpdatedEvent(event: CustomerUpdatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(customerUpdatedTopic, serializedMessage)
-  }
+  fun onCustomerUpdatedEvent(event: CustomerUpdatedEvent) = publish(customerUpdatedTopic, event)
 
   @Handler
-  fun onCustomerDeletedEvent(event: CustomerDeletedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(customerDeletedTopic, serializedMessage)
+  fun onCustomerDeletedEvent(event: CustomerDeletedEvent) = publish(customerDeletedTopic, event)
+
+  private fun publish(topic: String, value: Any) {
+    val serializedMessage = objectMapper.writeValueAsString(value)
+    log.info("Publishing to ($topic): $serializedMessage")
+    kafkaTemplate.send(topic, serializedMessage)
   }
 }
