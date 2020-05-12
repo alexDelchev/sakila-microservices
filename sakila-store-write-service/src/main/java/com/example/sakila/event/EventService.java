@@ -1,6 +1,8 @@
 package com.example.sakila.event;
 
 import com.example.sakila.event.store.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class EventService {
+
+  private final Logger log = LoggerFactory.getLogger(EventService.class);
 
   private final EventStore eventStore;
 
@@ -28,7 +32,11 @@ public class EventService {
   }
 
   public Long persistAggregate(String type) {
-    return eventStore.persistAggregate(type, new Date());
+    log.info("Persisting aggregate for type {}", type);
+    Long id =  eventStore.persistAggregate(type, new Date());
+    log.info("Persisted aggregate id: {}", id);
+
+    return id;
   }
 
   public Long getAggregateVersion(Long aggregateId) {
@@ -39,6 +47,7 @@ public class EventService {
   }
 
   public void deleteAggregate(Long aggregateId) {
+    log.info("Deleting aggregate (ID: {})", aggregateId);
     eventStore.deleteAggregate(aggregateId);
   }
 
@@ -54,6 +63,7 @@ public class EventService {
 
     EventStoreItemDatabaseDTO dto = EventStoreItemUtils.toDTO(item);
 
+    log.info("Persisting event (ID: {}, type: {})", event.getId().toString(), event.getClass().getName());
     eventStore.persistEventStoreItem(dto);
   }
 
@@ -86,6 +96,7 @@ public class EventService {
   }
 
   public void deleteEventsForAggregate(Long aggregateId) {
+    log.info("Deleting events for aggregate (ID: {})", aggregateId);
     eventStore.deleteEventStoreItemsForAggregate(aggregateId);
   }
 }
