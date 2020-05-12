@@ -15,6 +15,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.UUID;
 
 @Service
@@ -43,8 +44,11 @@ public class StaffEventService {
     this.staffService = staffService;
     this.kafkaTemplate = kafkaTemplate;
     this.mapper = objectMapper;
+  }
 
-    this.eventBus.register(this);
+  @PostConstruct
+  private void postConstruct() {
+    eventBus.register(this);
   }
 
   @Handler
