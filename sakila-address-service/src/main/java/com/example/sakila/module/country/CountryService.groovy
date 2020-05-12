@@ -27,7 +27,7 @@ class CountryService {
   private final CityService cityService
 
   @Autowired
-  private CountryService(
+  public CountryService(
       @Qualifier("CountryEventBus") EventBus eventBus,
       CountryRepository countryRepository,
       CityService cityService
