@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 @Component
-class CustomerEventEmitter @Autowired constructor(
+class CustomerEventPublisher @Autowired constructor(
     @Qualifier("CustomerEventBus")
     private val eventBus: EventBus,
 
