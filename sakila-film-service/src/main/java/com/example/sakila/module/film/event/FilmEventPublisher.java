@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class FilmEventPublisher {
 
@@ -36,8 +38,11 @@ public class FilmEventPublisher {
     this.eventBus = eventBus;
     this.kafkaTemplate = kafkaTemplate;
     this.objectMapper = objectMapper;
+  }
 
-    this.eventBus.register(this);
+  @PostConstruct
+  private void postConstruct() {
+    eventBus.register(this);
   }
 
   @Handler
