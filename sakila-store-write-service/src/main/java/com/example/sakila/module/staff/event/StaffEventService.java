@@ -30,17 +30,19 @@ public class StaffEventService {
 
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  private final ObjectMapper mapper = new ObjectMapper();
+  private final ObjectMapper mapper;
 
   @Autowired
   public StaffEventService(
       @Qualifier("StaffEventBus") EventBus eventBus,
       StaffService staffService,
-      KafkaTemplate<String, String> kafkaTemplate
+      KafkaTemplate<String, String> kafkaTemplate,
+      ObjectMapper objectMapper
   ) {
     this.eventBus = eventBus;
     this.staffService = staffService;
     this.kafkaTemplate = kafkaTemplate;
+    this.mapper = objectMapper;
 
     this.eventBus.register(this);
   }
