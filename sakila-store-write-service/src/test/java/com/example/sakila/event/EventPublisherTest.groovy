@@ -14,7 +14,9 @@ class EventPublisherTest extends Specification {
 
   private final EventBus staffEventBus = Mock(EventBus)
 
-  private final EventPublisher eventEmitter = new EventPublisher(eventService, storeEventBus, staffEventBus)
+  private final EventPublisher eventEmitter = new EventPublisher(
+      eventService, storeEventBus, staffEventBus, objectMapper
+  )
 
   def "should get subsequent events when event id is provided"() {
     given:
