@@ -34,7 +34,7 @@ public class ActorEventPublisher {
 
   public ActorEventPublisher(
       @Qualifier("ActorEventBus") EventBus eventBus,
-      KafkaTemplate kafkaTemplate,
+      KafkaTemplate<String, String> kafkaTemplate,
       ObjectMapper objectMapper
   ) {
     this.eventBus = eventBus;
