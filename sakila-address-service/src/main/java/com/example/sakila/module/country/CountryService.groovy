@@ -9,11 +9,13 @@ import com.example.sakila.module.country.event.model.CountryDeletedEvent
 import com.example.sakila.module.country.event.model.CountryEventDTO
 import com.example.sakila.module.country.event.model.CountryUpdatedEvent
 import com.example.sakila.module.country.repository.CountryRepository
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
+@Slf4j
 @Service
 class CountryService {
 
@@ -45,7 +47,9 @@ class CountryService {
   }
 
   Country createCountry(Country country) {
+    log.info("Creating Country")
     Country result = countryRepository.insertCountry(country)
+    log.info("Created Country id: ${result.id}")
 
     generateCreatedEvent(result)
 
@@ -62,6 +66,7 @@ class CountryService {
   Country updateCountry(Long id, Country source) {
     Country target = getCountryById(id)
     if (!target) throw new NotFoundException("Country for ID " + id + " does not exist")
+    log.info("Updating Country (ID: ${id})")
 
     target.country = source.getCountry()
 
@@ -81,6 +86,7 @@ class CountryService {
   void deleteCountry(Long id) {
     Country country = countryRepository.getCountryById(id)
     if (!country) throw new NotFoundException("Country for ID ${id} does not exist")
+    log.info("Deleting Country (ID: ${id})")
 
     try {
       countryRepository.deleteCountry(country)
