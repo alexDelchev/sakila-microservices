@@ -16,10 +16,6 @@ export class RentalService {
     return this.apiService.getRentalById(id);
   }
 
-  getRentalsByInventoryId(id: number): Observable<Array<RentalDTO>> {
-    return this.apiService.getRentalsByInventoryId(id);
-  }
-
   getRentalsByCustomerId(id: number): Observable<Array<RentalDTO>> {
     return this.apiService.getRentalsByCustomerId(id);
   }
