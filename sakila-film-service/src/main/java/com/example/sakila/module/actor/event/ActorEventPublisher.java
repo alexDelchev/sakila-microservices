@@ -26,15 +26,20 @@ public class ActorEventPublisher {
 
   private final Logger log = LoggerFactory.getLogger(ActorEventPublisher.class);
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   private final EventBus eventBus;
 
   private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public ActorEventPublisher(@Qualifier("ActorEventBus") EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  public ActorEventPublisher(
+      @Qualifier("ActorEventBus") EventBus eventBus,
+      KafkaTemplate kafkaTemplate,
+      ObjectMapper objectMapper
+  ) {
     this.eventBus = eventBus;
     this.kafkaTemplate = kafkaTemplate;
+    this.objectMapper = objectMapper;
   }
 
   @PostConstruct
