@@ -13,7 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class AddressEventEmitter {
+class AddressEventPublisher {
 
   private static final String ADDRESS_CREATED_TOPIC = 'sakila-address-address-created'
 
@@ -28,7 +28,7 @@ class AddressEventEmitter {
   private final KafkaTemplate<String, String> kafkaTemplate
 
   @Autowired
-  AddressEventEmitter(@Qualifier('AddressEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  AddressEventPublisher(@Qualifier('AddressEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
     this.eventBus = eventBus
     this.kafkaTemplate = kafkaTemplate
 
