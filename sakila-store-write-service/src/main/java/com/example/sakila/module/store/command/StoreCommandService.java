@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class StoreCommandService {
 
@@ -26,8 +28,11 @@ public class StoreCommandService {
   ) {
     this.eventBus = eventBus;
     this.eventService = eventService;
+  }
 
-    this.eventBus.register(this);
+  @PostConstruct
+  private void postConstruct() {
+    eventBus.register(this);
   }
 
   @Handler
