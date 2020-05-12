@@ -7,6 +7,7 @@ import com.example.sakila.module.city.event.model.CityDeletedEvent
 import com.example.sakila.module.city.event.model.CityUpdatedEvent
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 
+@Slf4j
 @Component
 class CityEventEmitter {
 
@@ -57,6 +59,7 @@ class CityEventEmitter {
 
   private void publish(String topic, Object value) {
     String serializedMessage = serialize(value)
+    log.info("Publishing to (${topic}): ${serializedMessage}");
     kafkaTemplate.send(topic, serializedMessage)
   }
 
