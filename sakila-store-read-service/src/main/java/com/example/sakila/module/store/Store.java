@@ -1,7 +1,6 @@
 package com.example.sakila.module.store;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class Store {
 
