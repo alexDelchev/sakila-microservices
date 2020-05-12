@@ -13,6 +13,7 @@
 
   <properties>
     <api.dir>${basedir}/api/spec</api.dir>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-dependency-plugin.version>3.0.1</maven-dependency-plugin.version>
     <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     <sakila-address-api-spec.version>1.0-SNAPSHOT</sakila-address-api-spec.version>
