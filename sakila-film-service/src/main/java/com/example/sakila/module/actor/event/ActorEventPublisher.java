@@ -7,6 +7,8 @@ import com.example.sakila.module.actor.event.model.ActorDeletedEvent;
 import com.example.sakila.module.actor.event.model.ActorUpdatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class ActorEventPublisher {
   private static final String ACTOR_UPDATED_TOPIC = "sakila-film-actor-updated";
 
   private static final String ACTOR_DELETED_TOPIC = "sakila-film-actor-deleted";
+
+  private final Logger log = LoggerFactory.getLogger(ActorEventPublisher.class)
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -55,6 +59,7 @@ public class ActorEventPublisher {
 
   private void publish(String topic, Object value) {
     String serializedMessage = serialize(value);
+    log.info("Publishing to ({}): {}", topic, serializedMessage);
     kafkaTemplate.send(topic, serializedMessage);
   }
 
