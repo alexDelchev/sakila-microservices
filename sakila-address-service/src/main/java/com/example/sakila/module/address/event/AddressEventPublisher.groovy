@@ -44,13 +44,11 @@ class AddressEventPublisher {
 
   @Handler
   void onAddressUpdatedEvent(AddressUpdatedEvent event) {
-    String serializedMatcher = serialize(event)
     publish(ADDRESS_UPDATED_TOPIC, event)
   }
 
   @Handler
   void onAddressDeletedEvent(AddressDeletedEvent event) {
-    String serializedMessage = serialize(event)
     publish(ADDRESS_DELETED_TOPIC, event)
   }
 
