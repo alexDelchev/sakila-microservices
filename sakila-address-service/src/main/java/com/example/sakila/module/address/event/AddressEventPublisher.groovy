@@ -37,20 +37,24 @@ class AddressEventPublisher {
 
   @Handler
   void onAddressCreatedEvent(AddressCreatedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(ADDRESS_CREATED_TOPIC, serializedMessage)
+    publish(ADDRESS_CREATED_TOPIC, event)
   }
 
   @Handler
   void onAddressUpdatedEvent(AddressUpdatedEvent event) {
     String serializedMatcher = serialize(event)
-    kafkaTemplate.send(ADDRESS_UPDATED_TOPIC, serializedMatcher)
+    publish(ADDRESS_UPDATED_TOPIC, event)
   }
 
   @Handler
   void onAddressDeletedEvent(AddressDeletedEvent event) {
     String serializedMessage = serialize(event)
-    kafkaTemplate.send(ADDRESS_DELETED_TOPIC, serializedMessage)
+    publish(ADDRESS_DELETED_TOPIC, event)
+  }
+
+  private publish(String topic, Object value) {
+    String serializedMessage = serialize(value)
+    kafkaTemplate.send(topic, serializedMessage)
   }
 
   private String serialize(Object object) {
