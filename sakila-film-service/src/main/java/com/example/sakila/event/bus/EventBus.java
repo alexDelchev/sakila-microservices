@@ -51,6 +51,7 @@ public class EventBus {
   }
 
   public void register(Object object) {
+    log.info("Registering {}", object.getClass().getName());
     List<HandlerMethod> eventHandlers = getEventHandlerMethods(object);
 
     eventHandlers.forEach(h -> {
@@ -58,8 +59,11 @@ public class EventBus {
         handlers.get(h.getParameterType()).add(h);
       } else {
         handlers.put(h.getParameterType(), Arrays.asList(h));
+
+        log.info("Registered method {}", h.getMethod().getName());
       }
     });
+    log.info("Registered {}", object.getClass().getName());
   }
 
   private List<HandlerMethod> getEventHandlerMethods(Object object) {
