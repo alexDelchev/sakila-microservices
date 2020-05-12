@@ -24,7 +24,7 @@ public class ActorEventPublisher {
 
   private static final String ACTOR_DELETED_TOPIC = "sakila-film-actor-deleted";
 
-  private final Logger log = LoggerFactory.getLogger(ActorEventPublisher.class)
+  private final Logger log = LoggerFactory.getLogger(ActorEventPublisher.class);
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
