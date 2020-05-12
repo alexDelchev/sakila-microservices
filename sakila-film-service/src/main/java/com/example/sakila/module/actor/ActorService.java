@@ -10,6 +10,8 @@ import com.example.sakila.module.actor.event.model.ActorUpdatedEvent;
 import com.example.sakila.module.actor.repository.ActorRepository;
 import com.example.sakila.exception.NotFoundException;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ActorService {
+
+  private final Logger log = LoggerFactory.getLogger(ActorService.class);
 
   private final EventBus eventBus;
 
@@ -47,7 +51,9 @@ public class ActorService {
   }
 
   public Actor createActor(Actor actor) {
+    log.info("Creating Actor");
     Actor result = actorRepository.insertActor(actor);
+    log.info("Created Actor id: {}", actor.getId());
 
     generateCreatedEvent(result);
 
@@ -70,6 +76,7 @@ public class ActorService {
   public Actor updateActor(ObjectId id, Actor source) {
     Actor target = actorRepository.getActorById(id);
     if (target == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
+    log.info("Updating actor (ID: {})", id.toHexString());
 
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
@@ -96,6 +103,7 @@ public class ActorService {
   public void deleteActor(ObjectId id) {
     Actor actor = actorRepository.getActorById(id);
     if (actor == null) throw new NotFoundException("Actor for ID " + id + " does not exist");
+    log.info("Deleting Actor (ID: {})", id.toHexString());
 
     try {
       actorRepository.deleteActor(actor);
