@@ -7,11 +7,13 @@ import com.example.sakila.module.country.event.model.CountryDeletedEvent
 import com.example.sakila.module.country.event.model.CountryUpdatedEvent
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
+@Slf4j
 @Component
 class CountryEventEmitter {
 
@@ -37,20 +39,23 @@ class CountryEventEmitter {
 
   @Handler
   void onCountryCreatedEvent(CountryCreatedEvent event) {
-    String serialiedMessage = serialize(event)
-    kafkaTemplate.send(COUNTRY_CREATED_TOPIC, serialiedMessage)
+    publish(COUNTRY_CREATED_TOPIC, event)
   }
 
   @Handler
   void onCountryUpdatedEvent(CountryUpdatedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(COUNTRY_UPDATED_TOPIC, serializedMessage)
+    publish(COUNTRY_UPDATED_TOPIC, event)
   }
 
   @Handler
   void onCountryDeletedEvent(CountryDeletedEvent event) {
-    String serializedMessage = serialize(event)
-    kafkaTemplate.send(COUNTRY_DELETED_TOPIC, serializedMessage)
+    publish(COUNTRY_DELETED_TOPIC, event)
+  }
+
+  private publish(String topic, Object value) {
+    String serializedMessage = serialize(value)
+    log.info("Publishing to (${topic}): ${serializedMessage}")
+    kafkaTemplate.send(topic, serializedMessage)
   }
 
   private String serialize(Object object) {
