@@ -3,6 +3,7 @@ package com.example.sakila.module.country
 import com.example.sakila.event.bus.EventBus
 import com.example.sakila.exception.DataConflictException
 import com.example.sakila.exception.NotFoundException
+import com.example.sakila.module.city.CityService
 import com.example.sakila.module.country.event.CountryEventUtils
 import com.example.sakila.module.country.event.model.CountryCreatedEvent
 import com.example.sakila.module.country.event.model.CountryDeletedEvent
@@ -23,10 +24,17 @@ class CountryService {
 
   private final CountryRepository countryRepository
 
+  private final CityService cityService
+
   @Autowired
-  private CountryService(@Qualifier("CountryEventBus") EventBus eventBus, CountryRepository countryRepository) {
+  private CountryService(
+      @Qualifier("CountryEventBus") EventBus eventBus,
+      CountryRepository countryRepository,
+      CityService cityService
+  ) {
     this.eventBus = eventBus
     this.countryRepository = countryRepository
+    this.cityService = cityService
   }
 
   Country getCountryById(Long id) {
@@ -89,11 +97,16 @@ class CountryService {
     log.info("Deleting Country (ID: ${id})")
 
     try {
+      deleteChildCities(id)
       countryRepository.deleteCountry(country)
       generateDeletedEvent(id)
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(),e)
     }
+  }
+
+  private void deleteChildCities(Long countryId) {
+    cityService.getCitiesByCountry(countryId).each { cityService.deleteCity(it.id) }
   }
 
   List<Country> getAllCountries() {
