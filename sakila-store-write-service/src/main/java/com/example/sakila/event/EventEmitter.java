@@ -17,7 +17,7 @@ public class EventEmitter {
 
   private static final String TRIGGER_EVENTS_TOPIC = "store-store-write-events-trigger";
 
-  private final ObjectMapper mapper = new ObjectMapper();
+  private final ObjectMapper mapper;
 
   private final EventService eventService;
 
@@ -29,11 +29,13 @@ public class EventEmitter {
   public EventEmitter(
       EventService eventService,
       @Qualifier("StoreEventBus") EventBus storeEventBus,
-      @Qualifier("StaffEventBus") EventBus staffEventBus
+      @Qualifier("StaffEventBus") EventBus staffEventBus,
+      ObjectMapper objectMapper;
   ) {
     this.eventService = eventService;
     this.storeEventBus = storeEventBus;
     this.staffEventBus = staffEventBus;
+    this.mapper = objectMapper;
   }
 
   @KafkaListener(topics = {TRIGGER_EVENTS_TOPIC}, id = LISTENER_GROUP_ID )
