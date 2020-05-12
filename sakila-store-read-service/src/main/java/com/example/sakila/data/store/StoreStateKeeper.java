@@ -18,16 +18,17 @@ public class StoreStateKeeper {
 
   private static final String DELETE_TOPIC = "sakila-store-write-store-delete-stream";
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   private final StoreService storeService;
 
   private final ProcessedEventService eventService;
 
   @Autowired
-  public StoreStateKeeper(StoreService storeService, ProcessedEventService eventService) {
+  public StoreStateKeeper(StoreService storeService, ProcessedEventService eventService, ObjectMapper objectMapper) {
     this.storeService = storeService;
     this.eventService = eventService;
+    this.objectMapper = objectMapper;
   }
 
   @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
