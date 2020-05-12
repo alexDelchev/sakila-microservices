@@ -12,6 +12,7 @@
   <artifactId>sakila-address-service</artifactId>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.boot.starter.version>2.2.0.RELEASE</spring.boot.starter.version>
     <spring-orm.version>5.2.0.RELEASE</spring-orm.version>
     <spring-kafka.version>2.4.5.RELEASE</spring-kafka.version>
