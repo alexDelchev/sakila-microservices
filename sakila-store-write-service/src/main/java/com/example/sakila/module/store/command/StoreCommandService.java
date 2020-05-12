@@ -8,6 +8,8 @@ import com.example.sakila.module.staff.StaffWriteModel;
 import com.example.sakila.module.store.StoreWriteModel;
 import com.example.sakila.module.store.command.model.*;
 import com.example.sakila.module.store.event.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class StoreCommandService {
+
+  private final Logger log = LoggerFactory.getLogger(StoreCommandService.class);
 
   private final EventBus eventBus;
 
@@ -37,6 +41,7 @@ public class StoreCommandService {
 
   @Handler
   public Long onCreateStoreCommand(CreateStoreCommand command) {
+    log.info("Received CreateStoreCommand");
     Long storeId = eventService.persistAggregate(StoreWriteModel.class.getTypeName());
     Long version = 1L;
 
@@ -54,6 +59,7 @@ public class StoreCommandService {
 
   @Handler
   public void onDeleteStoreCommand(DeleteStoreCommand command) {
+    log.info("Received DeleteStoreCommand");
     checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
 
     Long storeId = command.getStoreId();
@@ -67,6 +73,7 @@ public class StoreCommandService {
 
   @Handler
   public void onChangeAddressCommand(ChangeAddressCommand command) {
+    log.info("Received ChangeAddressCommand");
     checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
 
     processBasicCommand(command, new AddressChangedEvent());
@@ -74,6 +81,7 @@ public class StoreCommandService {
 
   @Handler
   public void onChangeManagerCommand(ChangeManagerCommand command) {
+    log.info("Received ChangeManagerCommand");
     checkAggregateExistence(command.getStoreId(), StoreWriteModel.class, "Store");
     if (command.getNewValue() != null) {
       checkAggregateExistence(command.getNewValue(), StaffWriteModel.class, "Staff");
