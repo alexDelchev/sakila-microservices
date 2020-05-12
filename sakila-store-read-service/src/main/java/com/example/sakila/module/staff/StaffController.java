@@ -49,10 +49,7 @@ public class StaffController implements StaffApi {
     staffDTO.setActive(staff.getActive());
     staffDTO.setUserName(staff.getUserName());
     staffDTO.setPassword(staff.getPassword());
-    if (staff.getLastUpdate() != null) {
-      staffDTO.setLastUpdate(
-          OffsetDateTime.ofInstant(Instant.ofEpochMilli(staff.getLastUpdate().getTime()), ZoneId.systemDefault()));
-    }
+    staffDTO.setLastUpdate(staff.getLastUpdate());
 
     return staffDTO;
   }
@@ -69,7 +66,7 @@ public class StaffController implements StaffApi {
     staff.setUserName(staffDTO.getUserName());
     staff.setPassword(staff.getPassword());
     staff.setAddressId(staffDTO.getAddressId());
-    if (staffDTO.getLastUpdate() != null) staff.setLastUpdate(Date.from(staffDTO.getLastUpdate().toInstant()));
+    staff.setLastUpdate(staffDTO.getLastUpdate());
 
     return staff;
   }

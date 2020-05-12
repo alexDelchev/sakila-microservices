@@ -1,5 +1,6 @@
 package com.example.sakila.module.staff;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Staff {
@@ -22,7 +23,7 @@ public class Staff {
 
   private String password;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public Staff() {}
 
@@ -33,7 +34,7 @@ public class Staff {
   public Staff(
       Long id, String firstName, String lastName, Long addressId,
       String email, Long storeId, Boolean active, String userName,
-      String password, Date lastUpdate
+      String password, OffsetDateTime lastUpdate
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -119,11 +120,11 @@ public class Staff {
     this.password = password;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }

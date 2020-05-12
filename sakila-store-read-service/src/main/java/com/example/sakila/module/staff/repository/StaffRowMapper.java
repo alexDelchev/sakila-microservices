@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
 public class StaffRowMapper implements RowMapper<Staff> {
 
@@ -21,7 +22,7 @@ public class StaffRowMapper implements RowMapper<Staff> {
     staff.setActive(resultSet.getBoolean("active"));
     staff.setUserName(resultSet.getString("username"));
     staff.setPassword(resultSet.getString("password"));
-    staff.setLastUpdate(resultSet.getDate("last_update"));
+    staff.setLastUpdate(resultSet.getObject("last_update", OffsetDateTime.class));
 
     return staff;
   }

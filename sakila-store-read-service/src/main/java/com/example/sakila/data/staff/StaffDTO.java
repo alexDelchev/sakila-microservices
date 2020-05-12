@@ -1,6 +1,6 @@
 package com.example.sakila.data.staff;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 public class StaffDTO {
 
@@ -22,7 +22,7 @@ public class StaffDTO {
 
   private String password;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public Long getId() {
     return id;
@@ -96,11 +96,11 @@ public class StaffDTO {
     this.password = password;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }
