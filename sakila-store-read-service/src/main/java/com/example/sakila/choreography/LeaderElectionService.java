@@ -2,6 +2,8 @@ package com.example.sakila.choreography;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.leader.LeaderLatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ public class LeaderElectionService {
   private final static long DEFAULT_ELECTION_TIMEOUT = 1_500L;
 
   private final static String LEADER_LATCH_BASE_PATH = "/sakila-store-read/leader/";
+
+  private final Logger log = LoggerFactory.getLogger(LeaderElectionService.class);
 
   private final CuratorFramework curatorFramework;
 
@@ -36,6 +40,7 @@ public class LeaderElectionService {
       }
 
       if (leaderLatch.hasLeadership()) {
+        log.info("Running {} as elected leader", operationName);
         operation.run();
       } else {
         leaderLatch.await();
