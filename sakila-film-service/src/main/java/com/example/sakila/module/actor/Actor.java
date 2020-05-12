@@ -2,6 +2,7 @@ package com.example.sakila.module.actor;
 
 import org.bson.types.ObjectId;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Actor {
@@ -12,7 +13,7 @@ public class Actor {
 
   private String lastName;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public Actor() {
   }
@@ -21,7 +22,7 @@ public class Actor {
     this.id = id;
   }
 
-  public Actor(ObjectId id, String firstName, String lastName, Date lastUpdate) {
+  public Actor(ObjectId id, String firstName, String lastName, OffsetDateTime lastUpdate) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -52,11 +53,11 @@ public class Actor {
     this.lastName = lastName;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdated) {
+  public void setLastUpdate(OffsetDateTime lastUpdated) {
     this.lastUpdate = lastUpdated;
   }
 }

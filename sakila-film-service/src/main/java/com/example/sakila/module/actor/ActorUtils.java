@@ -14,7 +14,7 @@ public class ActorUtils {
     actorDTO.setId(actor.getId().toHexString());
     actorDTO.setFirstName(actor.getFirstName());
     actorDTO.setLastName(actor.getLastName());
-    actorDTO.setLastUpdate(OffsetDateTime.ofInstant(actor.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    actorDTO.setLastUpdate(actor.getLastUpdate());
     return actorDTO;
   }
 
@@ -23,7 +23,7 @@ public class ActorUtils {
     actor.setId(new ObjectId(actorDTO.getId()));
     actor.setFirstName(actorDTO.getFirstName());
     actor.setLastName(actorDTO.getLastName());
-    if (actorDTO.getLastUpdate() != null) actor.setLastUpdate(Date.from(actorDTO.getLastUpdate().toInstant()));
+    actor.setLastUpdate(actorDTO.getLastUpdate());
     return actor;
   }
 

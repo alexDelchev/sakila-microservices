@@ -1,5 +1,6 @@
 package com.example.sakila.module.actor.event.model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class ActorEventDTO {
@@ -10,7 +11,7 @@ public class ActorEventDTO {
 
   private String lastName;
 
-  private Date lastUpdate;
+  private OffsetDateTime lastUpdate;
 
   public String getId() {
     return id;
@@ -36,11 +37,11 @@ public class ActorEventDTO {
     this.lastName = lastName;
   }
 
-  public Date getLastUpdate() {
+  public OffsetDateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(Date lastUpdate) {
+  public void setLastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 }
