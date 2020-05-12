@@ -21,16 +21,21 @@ public class FilmEventPublisher {
 
   private static final String FILM_DELETED_TOPIC = "sakila-film-film-deleted";
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   private final EventBus eventBus;
 
   private final KafkaTemplate<String, String> kafkaTemplate;
 
   @Autowired
-  public FilmEventPublisher(@Qualifier("FilmEventBus") EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  public FilmEventPublisher(
+      @Qualifier("FilmEventBus") EventBus eventBus,
+      KafkaTemplate kafkaTemplate,
+      ObjectMapper objectMapper
+  ) {
     this.eventBus = eventBus;
     this.kafkaTemplate = kafkaTemplate;
+    this.objectMapper = objectMapper;
 
     this.eventBus.register(this);
   }
