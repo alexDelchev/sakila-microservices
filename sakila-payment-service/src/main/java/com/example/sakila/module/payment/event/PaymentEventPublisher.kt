@@ -6,6 +6,7 @@ import com.example.sakila.module.payment.event.model.PaymentCreatedEvent
 import com.example.sakila.module.payment.event.model.PaymentDeletedEvent
 import com.example.sakila.module.payment.event.model.PaymentUpdatedEvent
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
@@ -28,26 +29,25 @@ class PaymentEventPublisher @Autowired constructor(
 
   private val paymentDeletedTopic = "sakila-payment-payment-deleted"
 
+  private val log = LoggerFactory.getLogger(PaymentEventPublisher::class.java)
+
   @PostConstruct
   private fun postConstruct() {
     eventBus.register(component = this)
   }
 
   @Handler
-  fun onPaymentCreatedEvent(event: PaymentCreatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(paymentCreatedTopic, serializedMessage)
-  }
+  fun onPaymentCreatedEvent(event: PaymentCreatedEvent) = publish(paymentCreatedTopic, event)
 
   @Handler
-  fun onPaymentUpdatedEvent(event: PaymentUpdatedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(paymentUpdatedTopic, serializedMessage)
-  }
+  fun onPaymentUpdatedEvent(event: PaymentUpdatedEvent) = publish(paymentUpdatedTopic, event)
 
   @Handler
-  fun onPaymentDeletedEvent(event: PaymentDeletedEvent) {
-    val serializedMessage = objectMapper.writeValueAsString(event)
-    kafkaTemplate.send(paymentDeletedTopic, serializedMessage)
+  fun onPaymentDeletedEvent(event: PaymentDeletedEvent) = publish(paymentDeletedTopic, event)
+
+  private fun publish(topic: String, value: Any) {
+    val serializedMessage = objectMapper.writeValueAsString(value)
+    log.info("Publishing to ($topic): $serializedMessage")
+    kafkaTemplate.send(topic, serializedMessage)
   }
 }
