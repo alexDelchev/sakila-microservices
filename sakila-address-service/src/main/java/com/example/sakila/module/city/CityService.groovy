@@ -9,11 +9,13 @@ import com.example.sakila.module.city.event.model.CityDeletedEvent
 import com.example.sakila.module.city.event.model.CityEventDTO
 import com.example.sakila.module.city.event.model.CityUpdatedEvent
 import com.example.sakila.module.city.repository.CityRepository
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
+@Slf4j
 @Service
 class CityService {
 
@@ -54,7 +56,9 @@ class CityService {
   }
 
   City createCity(City city) {
+    log.info("Creating city")
     City result = cityRepository.insertCity(city)
+    log.info("Created city id: ${result.id}")
 
     generateCreatedEvent(city)
 
@@ -71,6 +75,7 @@ class CityService {
   City updateCity(Long id, City city) {
     City target = cityRepository.getCityById(id)
     if (!target) throw new NotFoundException("Target city for update does not exist")
+    log.info("Updateing city (ID: ${id})")
 
     target.city = city.city
     target.country = city.country
@@ -93,6 +98,7 @@ class CityService {
   void deleteCity(Long id) {
     City city = cityRepository.getCityById(id)
     if (!city) throw new NotFoundException("City for ID ${id} does not exist")
+    log.info("Deleteing city (ID: ${id}")
 
     try {
       cityRepository.deleteCity(city)
