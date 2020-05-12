@@ -8,6 +8,7 @@ import com.example.sakila.module.payment.event.model.PaymentCreatedEvent
 import com.example.sakila.module.payment.event.model.PaymentDeletedEvent
 import com.example.sakila.module.payment.event.model.PaymentUpdatedEvent
 import com.example.sakila.module.payment.repository.PaymentRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.dao.DataIntegrityViolationException
@@ -20,6 +21,8 @@ class PaymentService @Autowired constructor(
 
     private val paymentRepository: PaymentRepository
 ) {
+
+  private val log = LoggerFactory.getLogger(PaymentService::class.java)
 
   fun getPaymentById(id: Long?): Payment? {
     if (id == null) return null
@@ -49,7 +52,9 @@ class PaymentService @Autowired constructor(
   }
 
   fun createPayment(payment: Payment): Payment {
+    log.info("Creating Payment")
     val result = paymentRepository.insertPayment(payment)
+    log.info("Created Payment id: ${result.id}")
 
     generateCreatedEvent(payment)
 
@@ -65,6 +70,7 @@ class PaymentService @Autowired constructor(
 
   fun updatePayment(id: Long, source: Payment): Payment {
     val target = getPaymentById(id)?: throw NotFoundException("Payment for ID $id does not exist")
+    log.info("Updating Payment (ID: $id)")
 
     target.customer = source.customer
     target.rental = source.rental
@@ -87,6 +93,7 @@ class PaymentService @Autowired constructor(
 
   fun deletePayment(id: Long) {
     val payment = getPaymentById(id)?: throw NotFoundException("Payment for ID $id does not exist")
+    log.info("Deleting Payment (ID: $id)")
 
     try {
       paymentRepository.deletePayment(payment)
