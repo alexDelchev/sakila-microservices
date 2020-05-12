@@ -2,11 +2,14 @@ package com.example.sakila.event.bus
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
 
 class EventBus(private val name: String) {
+
+  private val log = LoggerFactory.getLogger(EventBus::class.java)
 
   private val handlers: MutableMap<Class<*>, MutableList<HandlerMethod>>
 
@@ -20,7 +23,11 @@ class EventBus(private val name: String) {
     val type = payload::class.java
 
     if (handlers.containsKey(type)) {
-      handlers[type]!!.forEach { GlobalScope.launch { it.invoke(payload)} }
+      handlers[type]!!.forEach {
+        log.info("Invoking {}::{} asynchronously", it.owner::class.java.name, it.method.name)
+        GlobalScope.launch { it.invoke(payload)
+        }
+      }
     }
   }
 
@@ -28,7 +35,10 @@ class EventBus(private val name: String) {
     val type = payload::class.java
 
     if (handlers.containsKey(type)) {
-      handlers[type]!!.forEach { it.invoke(payload) }
+      handlers[type]!!.forEach {
+        log.info("Invoking {}::{} synchronously", it.owner::class.java.name, it.method.name)
+        it.invoke(payload)
+      }
     }
   }
 
