@@ -9,6 +9,8 @@ import com.example.sakila.module.staff.StaffWriteModel;
 import com.example.sakila.module.staff.event.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -24,6 +26,8 @@ public class StaffEventService {
   private static final String WRITE_TOPIC = "staff-store-write-staff-dto-stream";
 
   private static final String DELETE_TOPIC = "staff-store-write-staff-delete-stream";
+
+  private final Logger log = LoggerFactory.getLogger(StaffEventService.class);
 
   private final EventBus eventBus;
 
@@ -53,62 +57,63 @@ public class StaffEventService {
 
   @Handler
   public void onStaffCreatedEvent(StaffCreatedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onStaffDeletedEvent(StaffDeletedEvent event) {
     String json = toJson(event);
-    kafkaTemplate.send(DELETE_TOPIC, json);
+    publish(DELETE_TOPIC, json);
   }
 
   @Handler
   public void onActiveChangedEvent(ActiveChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onAddressChangedEvent(AddressChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onEmailChangedEvent(EmailChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onFirstNameChangedEvent(FirstNameChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onLastNameChangedEvent(LastNameChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onPasswordChangedEvent(PasswordChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onStoreChangedEvent(StoreChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
   }
 
   @Handler
   public void onUsernameChangedEvent(UsernameChangedEvent event) {
-    String json = generateEventMessageJson(event.getId(), event.getStaffId(), event.getVersion());
-    kafkaTemplate.send(WRITE_TOPIC, json);
+    publishDTO(WRITE_TOPIC, event.getId(), event.getStaffId(), event.getVersion());
+  }
+
+  private void publish(String topic, String message) {
+    log.info("Publishing to ({}): {}", topic, message);
+    kafkaTemplate.send(topic, message);
+  }
+
+  private void publishDTO(String topic, UUID eventId, Long staffId, Long version) {
+    String json = generateEventMessageJson(eventId, staffId, version);
+    publish(topic, json);
   }
   
   private String generateEventMessageJson(UUID eventId, Long staffId, Long staffVersion) {
