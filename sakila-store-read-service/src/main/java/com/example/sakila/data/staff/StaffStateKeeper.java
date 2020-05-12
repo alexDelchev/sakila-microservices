@@ -18,16 +18,17 @@ public class StaffStateKeeper {
 
   private static final String DELETE_TOPIC = "staff-store-write-staff-delete-stream";
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   private final StaffService staffService;
 
   private final ProcessedEventService eventService;
 
   @Autowired
-  public StaffStateKeeper(StaffService staffService, ProcessedEventService eventService) {
+  public StaffStateKeeper(StaffService staffService, ProcessedEventService eventService, ObjectMapper objectMapper) {
     this.staffService = staffService;
     this.eventService = eventService;
+    this.objectMapper = objectMapper;
   }
 
   @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
