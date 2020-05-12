@@ -1,7 +1,5 @@
 package com.example.sakila.module.staff;
 
-import java.util.Date;
-
 public class StaffWriteModel {
 
   private Long id;
