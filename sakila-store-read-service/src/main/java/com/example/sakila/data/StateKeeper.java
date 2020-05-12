@@ -24,7 +24,7 @@ public class StateKeeper {
 
   private final LeaderElectionService leaderElectionService;
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
   @Value("${eureka.instance.instance-id}")
   private String instanceId;
@@ -33,11 +33,13 @@ public class StateKeeper {
   public StateKeeper(
       KafkaTemplate kafkaTemplate,
       ProcessedEventService eventService,
-      LeaderElectionService leaderElectionService
+      LeaderElectionService leaderElectionService,
+      ObjectMapper objectMapper
   ) {
     this.kafkaTemplate = kafkaTemplate;
     this.eventService = eventService;
     this.leaderElectionService = leaderElectionService;
+    this.objectMapper = objectMapper;
   }
 
   @Scheduled(cron = "0/15 * * ? * *")
