@@ -5,6 +5,8 @@ import com.example.sakila.module.staff.Staff;
 import com.example.sakila.module.staff.StaffService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ public class StaffStateKeeper {
   private static final String WRITE_TOPIC = "staff-store-write-staff-dto-stream";
 
   private static final String DELETE_TOPIC = "staff-store-write-staff-delete-stream";
+
+  private final Logger log = LoggerFactory.getLogger(StaffStateKeeper.class);
 
   private final ObjectMapper objectMapper;
 
@@ -33,6 +37,7 @@ public class StaffStateKeeper {
 
   @KafkaListener(topics = {WRITE_TOPIC}, groupId = GROUP_ID, concurrency = "1")
   public void consumeStaffWriteEventStream(String message) {
+    log.info("Consuming message from {}: {}", WRITE_TOPIC, message);
     StaffEventMessage eventMessage = deserialize(message, StaffEventMessage.class);
     if (isEventInvalidForProcessing(eventMessage)) return;
 
@@ -50,6 +55,7 @@ public class StaffStateKeeper {
 
   @KafkaListener(topics = {DELETE_TOPIC}, groupId = GROUP_ID)
   public void consumeStaffDeletedEventStream(String message) {
+    log.info("Consuming message from {}: {}", DELETE_TOPIC, message);
     StaffDeletedEvent deletedEvent = deserialize(message, StaffDeletedEvent.class);
 
     staffService.deleteStaff(deletedEvent.getStaffId());
