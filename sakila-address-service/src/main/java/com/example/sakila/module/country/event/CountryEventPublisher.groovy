@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct
 
 @Slf4j
 @Component
-class CountryEventEmitter {
+class CountryEventPublisher {
 
   private static final String COUNTRY_CREATED_TOPIC = 'sakila-address-country-created'
 
@@ -32,7 +32,7 @@ class CountryEventEmitter {
   private final KafkaTemplate<String, String> kafkaTemplate
 
   @Autowired
-  CountryEventEmitter(@Qualifier('CountryEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
+  CountryEventPublisher(@Qualifier('CountryEventBus') EventBus eventBus, KafkaTemplate kafkaTemplate) {
     this.eventBus = eventBus
     this.kafkaTemplate = kafkaTemplate
   }
