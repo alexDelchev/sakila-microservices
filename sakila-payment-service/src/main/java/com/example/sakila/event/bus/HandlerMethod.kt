@@ -3,8 +3,8 @@ package com.example.sakila.event.bus
 import java.lang.reflect.Method
 
 class HandlerMethod(
-    private val owner: Any,
-    private val method: Method,
+    val owner: Any,
+    val method: Method,
     val parameterType: Class<*>
 ) {
 
