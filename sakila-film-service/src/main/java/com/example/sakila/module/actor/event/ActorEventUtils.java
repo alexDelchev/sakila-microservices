@@ -3,6 +3,9 @@ package com.example.sakila.module.actor.event;
 import com.example.sakila.module.actor.Actor;
 import com.example.sakila.module.actor.event.model.ActorEventDTO;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+
 public class ActorEventUtils {
 
   public static ActorEventDTO toDTO(Actor actor) {
@@ -11,7 +14,10 @@ public class ActorEventUtils {
     dto.setId(actor.getId().toHexString());
     dto.setFirstName(actor.getFirstName());
     dto.setLastName(actor.getLastName());
-    dto.setLastUpdate(actor.getLastUpdate());
+
+    if (actor.getLastUpdate() != null) {
+      dto.setLastUpdate(OffsetDateTime.ofInstant(actor.getLastUpdate().toInstant(), ZoneId.systemDefault()));
+    }
 
     return dto;
   }

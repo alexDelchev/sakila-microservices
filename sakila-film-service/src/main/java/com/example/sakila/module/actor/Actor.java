@@ -13,7 +13,7 @@ public class Actor {
 
   private String lastName;
 
-  private OffsetDateTime lastUpdate;
+  private Date lastUpdate;
 
   public Actor() {
   }
@@ -22,7 +22,7 @@ public class Actor {
     this.id = id;
   }
 
-  public Actor(ObjectId id, String firstName, String lastName, OffsetDateTime lastUpdate) {
+  public Actor(ObjectId id, String firstName, String lastName, Date lastUpdate) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -53,11 +53,11 @@ public class Actor {
     this.lastName = lastName;
   }
 
-  public OffsetDateTime getLastUpdate() {
+  public Date getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(OffsetDateTime lastUpdated) {
+  public void setLastUpdate(Date lastUpdated) {
     this.lastUpdate = lastUpdated;
   }
 }
