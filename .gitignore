@@ -262,12 +262,6 @@ $RECYCLE.BIN/
 *.iml
 .idea/
 
-# Secrets file
-application-secrets.yml
-application-secrets.properties
-application-docker-secrets.yml
-application-docker-secrets.properties
-
 # Swagger gen
 **/api/spec
 **/api/generated
