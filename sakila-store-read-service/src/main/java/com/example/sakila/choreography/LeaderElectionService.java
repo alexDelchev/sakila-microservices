@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class LeaderElectionService {
 
@@ -43,7 +45,8 @@ public class LeaderElectionService {
         log.info("Running {} as elected leader", operationName);
         operation.run();
       } else {
-        leaderLatch.await();
+        long awaitTimeout = electionTimeStart + timeoutMillis - System.currentTimeMillis();
+        leaderLatch.await(awaitTimeout, TimeUnit.MILLISECONDS);
       }
 
       leaderLatch.close(LeaderLatch.CloseMode.NOTIFY_LEADER);
