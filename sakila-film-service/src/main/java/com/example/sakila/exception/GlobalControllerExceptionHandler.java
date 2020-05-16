@@ -22,7 +22,7 @@ public class GlobalControllerExceptionHandler {
 
   @ResponseBody
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler({BadRequestException.class})
+  @ExceptionHandler({BadRequestException.class, IllegalArgumentException.class})
   public ErrorResponse handleBadRequestException(Exception exception) {
     return generateResponse(exception);
   }
