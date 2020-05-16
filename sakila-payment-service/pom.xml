@@ -263,7 +263,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.example.sakila.application.SakilaPaymentService</mainClass>
+              <mainClass>com.example.sakila.application.SakilaPaymentServiceKt</mainClass>
             </manifest>
           </archive>
         </configuration>
