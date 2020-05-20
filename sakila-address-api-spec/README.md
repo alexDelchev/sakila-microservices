@@ -11,4 +11,4 @@ modules are built.
 
 Install this module to your local m2 repository:
 
-`mvn -pl sakila-address-service- am clean install`
+`mvn -pl sakila-address-api-spec am clean install`
