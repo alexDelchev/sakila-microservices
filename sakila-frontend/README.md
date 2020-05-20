@@ -1,4 +1,13 @@
-# SakilaFrontend
+# sakila-frontend
+
+This is the frontend client of the `sakila-microservices` system. This project consumes the composite 
+system API and visualizes the data. The client code is generated using the 
+`ng-swagger-gen` module. 
+
+The application is based on `Angular 8`, with the resulting compiled sources being served using `nginx`.
+
+The `nginx` server is packaged into a `Docker` container. The image is built using `node:alpine` as a 
+builder image, and `nginx:alpine` as the runtime environment.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
 
