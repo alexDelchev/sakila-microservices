@@ -48,6 +48,10 @@ events to `Kafka` streams
                         └── film            ## Film service tests
 ```
 
+#### Database structure
+
+![DatabaseStructure](sakila_film_structure.png)
+
 ## Technology stack
 
 The application is based on `Spring Boot`, written in `Java`. Testing is done with the `JUnit 5`
