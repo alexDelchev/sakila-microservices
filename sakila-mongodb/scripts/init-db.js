@@ -1,4 +1,4 @@
-db.auth('sakila-dba', 'sakila-dba-pass')
+db.auth('sakila_dba', 'sakila_dba_pass')
 
 db = db.getSiblingDB('sakila-film')
 
