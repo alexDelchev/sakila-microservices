@@ -46,6 +46,10 @@ src
                         └── country         ## Country service & controller tests
 ```
 
+#### Database schema
+
+![DatabaseSchema](sakila-address-schema.png)
+
 ## Technology stack
 
 The application is based on `Spring Boot`, written in `Groovy`. Testing is also done with `Groovy`
