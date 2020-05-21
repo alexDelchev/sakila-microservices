@@ -1,6 +1,6 @@
 db.auth('sakila_dba', 'sakila_dba_pass')
 
-db = db.getSiblingDB('sakila-film')
+db = db.getSiblingDB('sakila_film')
 
 db.createUser({
   user: 'sakila_film_service',
@@ -8,7 +8,7 @@ db.createUser({
   roles: [
     {
       role: 'readWrite',
-      db: 'sakila-film',
+      db: 'sakila_film',
     },
   ],
 });

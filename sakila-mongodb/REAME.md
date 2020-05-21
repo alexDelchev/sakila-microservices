@@ -6,7 +6,7 @@
 
 This is the mongodb database which is used in the `sakila-microservices` system.
 
-The database comes with a pre-created database called `sakila-film` with a user
+The database comes with a pre-created database called `sakila_film` with a user
 for the `sakila-film-service`.
 
 

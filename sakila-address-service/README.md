@@ -1,7 +1,7 @@
 # sakila-address-service
 
 The address microservice which is part of the `sakila-microservices` system. This service manages the
-`sakila-address` database and exposes the data through a RESTful API and publishes data change events
+`sakila_address` database and exposes the data through a RESTful API and publishes data change events
 to `Kafka` streams.
 
 ## Structure

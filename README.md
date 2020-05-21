@@ -9,11 +9,11 @@ ported to `PostgreSQL` and `MongoDB`.
 
 The original database is split into 5 separate databases: 
 
- - `address`
- - `store-write`
- - `store-read`
- - `payment`
- - `film`
+ - `sakila_address`
+ - `sakila_store_write`
+ - `sakila_store_read`
+ - `sakila_payment`
+ - `sakila_film`
 
 Each database is completely managed by a microservice. The separate services communicate 
 with each other by broadcasting and consuming messages when data change events occur. Each 
@@ -34,7 +34,7 @@ function.
 Each of the microservices follows a MVC CRUD design, with the exception of the
 (`sakila-store-write-service`, `sakila-store-read-service`) which combined together form the
 "logical" store service using event sourcing and command-query responsibility segregation.
-Here the `sakila-store-write` database acts as the event store, and the `sakila-store-read`
+Here the `sakila_store_write` database acts as the event store, and the `sakila_store_read`
 contains the resulting models.
 
 ## Technology stack

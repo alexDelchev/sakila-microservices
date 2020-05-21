@@ -1,7 +1,7 @@
 # sakila-film-service
 
 The film microservice which is part of the `sakila-microservices`. This service manages the
-`sakila-film` database and exposes the data through a RESTful API and publishes data change
+`sakila_film` database and exposes the data through a RESTful API and publishes data change
 events to `Kafka` streams
 
 ## Structure
