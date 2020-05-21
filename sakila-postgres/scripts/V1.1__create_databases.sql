@@ -19,6 +19,11 @@ CREATE DATABASE sakila_payment
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
+GRANT ALL ON DATABASE sakila_payment TO postgres;
+
+GRANT TEMPORARY, CONNECT ON DATABASE sakila_payment TO PUBLIC;
+
+GRANT ALL ON DATABASE sakila_payment TO sakila_payment_service;
 
 
 CREATE DATABASE sakila_store_read
