@@ -7,15 +7,6 @@ CREATE USER sakila_address_service WITH
   CREATEROLE
   NOREPLICATION;
 
-CREATE USER sakila_film_service WITH
-  ENCRYPTED PASSWORD 'sakila_dba_pass'
-  LOGIN
-  SUPERUSER
-  INHERIT
-  CREATEDB
-  CREATEROLE
-  NOREPLICATION;
-
 CREATE USER sakila_payment_service WITH
   ENCRYPTED PASSWORD 'sakila_dba_pass'
   LOGIN
