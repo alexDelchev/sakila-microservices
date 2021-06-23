@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+import java.time.OffsetDateTime
+import java.time.ZoneId
+
 @RestController
 class CountryController implements CountriesApi {
 
@@ -50,7 +53,8 @@ class CountryController implements CountriesApi {
     new CountryDTO(
         country: country.country,
         id: country.id,
-        lastUpdate: country.lastUpdate
+        lastUpdate: country.lastUpdate ?
+            OffsetDateTime.ofInstant(country.lastUpdate.toInstant(), ZoneId.systemDefault()) : null
     )
   }
 
