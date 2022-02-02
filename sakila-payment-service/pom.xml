@@ -22,7 +22,7 @@
     <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
     <spring-boot-maven-plugin.version>2.2.0.RELEASE</spring-boot-maven-plugin.version>
     <flyway.version>5.2.3</flyway.version>
-    <postgres.version>42.2.8</postgres.version>
+    <postgres.version>42.2.25</postgres.version>
     <hibernate-types-52.version>2.4.0</hibernate-types-52.version>
     <swagger-annotations.version>1.5.17</swagger-annotations.version>
     <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
