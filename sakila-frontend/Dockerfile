@@ -7,10 +7,10 @@ RUN apk update && apk add --no-cache make git
 WORKDIR /app
 COPY package.json package-lock.json  /app/
 
-RUN cd /app && npm install
+RUN cd /app && NODE_OPTIONS="--openssl-legacy-provider --no-experimental-fetch"  npm install
 COPY --chown=root . /app
 
-RUN cd /app && npm run build
+RUN cd /app && NODE_OPTIONS="--openssl-legacy-provider --no-experimental-fetch" npm run build
 
 
 FROM nginx:alpine

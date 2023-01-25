@@ -1,8 +1,32 @@
-FROM openjdk:8-jre-alpine
+FROM amazoncorretto:17.0.6-alpine3.17 as jdk-builder
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/sakila-address-service/sakila-address-service.jar"]
+RUN apk add --no-cache binutils
 
-COPY target/lib           /usr/share/sakila-address-service/lib
+RUN $JAVA_HOME/bin/jlink \
+    --verbose \
+    --add-modules java.base,java.compiler,java.desktop,java.instrument,java.management,java.prefs,java.rmi,java.scripting,java.security.jgss,java.security.sasl,java.sql.rowset,jdk.httpserver,jdk.jdi,jdk.jfr,jdk.unsupported \
+    --strip-debug \
+    --no-man-pages \
+    --no-header-files \
+    --compress=2 \
+    --output /jre
+
+FROM alpine:3.17
+ENV JAVA_HOME=/jre
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+COPY --from=jdk-builder /jre $JAVA_HOME
+
+RUN adduser --no-create-home -u 1000 -D service
+
+RUN mkdir /usr/share/sakila-address-service && \
+    chown -R service /usr/share/sakila-address-service
+
+USER 1000
+
+COPY --chown=1000:1000 target/lib /usr/share/sakila-address-service/lib
 
 ARG JAR_FILE
-COPY target/${JAR_FILE} /usr/share/sakila-address-service/sakila-address-service.jar
+COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-address-service/sakila-address-service.jar
+
+ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-address-service/sakila-address-service.jar"]
