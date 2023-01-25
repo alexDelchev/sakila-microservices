@@ -8,8 +8,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -32,7 +33,9 @@ public class MongoDBMigrationLoader {
     URI uri = getClass().getResource(path).toURI();
 
     if (uri.getScheme().equals("jar")) {
-      FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
+      Map<String, String> env = new HashMap<>();
+      env.put("create", "true");
+      FileSystem fileSystem = FileSystems.newFileSystem(uri, env);
       result = fileSystem.getPath(path);
     } else {
       result = Paths.get(uri);
