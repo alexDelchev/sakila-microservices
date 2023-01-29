@@ -5,10 +5,14 @@ ARG env=prod
 RUN apk update && apk add --no-cache make git
 
 WORKDIR /app
-COPY package.json package-lock.json  /app/
+
+COPY package.json package-lock.json angular.json browserslist karma.conf.js \
+  tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json /app/
 
 RUN cd /app && NODE_OPTIONS="--openssl-legacy-provider --no-experimental-fetch"  npm install
-COPY --chown=root . /app
+
+COPY api /app/api
+COPY src /app/src
 
 RUN cd /app && NODE_OPTIONS="--openssl-legacy-provider --no-experimental-fetch" npm run build
 
