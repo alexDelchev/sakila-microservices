@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    sakila-service: sakila-mongodb
+  name: sakila-mongodb
+spec:
+  type: NodePort
+  ports:
+    - name: "27017"
+      port: 27017
+      targetPort: 27017
+      nodePort: 30777
+  selector:
+    sakila-service: sakila-mongodb
+status:
+  loadBalancer: {}
