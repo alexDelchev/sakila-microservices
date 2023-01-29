@@ -1,13 +1,19 @@
 {
   "swagger": "2.0",
-  "info" : {
+  "info": {
     "version": "1.0.0",
     "title": "Payment API"
   },
-  "host": "",
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "host": "localhost",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [
     {
       "name": "Payment"
@@ -45,7 +51,8 @@
             "name": "id",
             "description": "Customer ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getCustomerById",
@@ -65,7 +72,8 @@
             "name": "id",
             "description": "Customer ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           },
           {
             "in": "body",
@@ -93,7 +101,8 @@
             "name": "id",
             "description": "Customer ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "deleteCustomer",
@@ -112,7 +121,8 @@
             "name": "id",
             "description": "Store ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getCustomersByStoreId",
@@ -135,7 +145,7 @@
           {
             "in": "query",
             "name": "expression",
-            "description":"First name search expression",
+            "description": "First name search expression",
             "type": "string"
           }
         ],
@@ -159,7 +169,7 @@
           {
             "in": "query",
             "name": "expression",
-            "description":"Last name search expression",
+            "description": "Last name search expression",
             "type": "string"
           }
         ],
@@ -208,7 +218,8 @@
             "name": "id",
             "description": "Rental ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getRentalById",
@@ -228,7 +239,8 @@
             "name": "id",
             "description": "Rental ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           },
           {
             "in": "body",
@@ -256,7 +268,8 @@
             "name": "id",
             "description": "Rental ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "deleteRental",
@@ -275,7 +288,8 @@
             "name": "id",
             "description": "Customer ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getRentalsByCustomerId",
@@ -300,7 +314,8 @@
             "name": "id",
             "description": "Staff ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getRentalsByStaffId",
@@ -348,7 +363,8 @@
             "name": "id",
             "description": "Payment ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getPaymentById",
@@ -368,7 +384,8 @@
             "name": "id",
             "description": "Payment ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           },
           {
             "in": "body",
@@ -396,7 +413,8 @@
             "name": "id",
             "description": "Payment ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "deletePayment",
@@ -415,7 +433,8 @@
             "name": "id",
             "description": "Rental ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getPaymentsByRentalId",
@@ -440,7 +459,8 @@
             "name": "id",
             "description": "Customer ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getPaymentsByCustomerId",
@@ -465,7 +485,8 @@
             "name": "id",
             "description": "Staff ID",
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "required": true
           }
         ],
         "operationId": "getPaymentsByStaffId",
@@ -487,7 +508,10 @@
     "CustomerDTO": {
       "type": "object",
       "required": [
-        "storeId", "firstName", "lastName", "addressId"
+        "storeId",
+        "firstName",
+        "lastName",
+        "addressId"
       ],
       "properties": {
         "id": {
@@ -530,7 +554,9 @@
     "RentalDTO": {
       "type": "object",
       "required": [
-        "rentalDate", "customerId", "staffId"
+        "rentalDate",
+        "customerId",
+        "staffId"
       ],
       "properties": {
         "id": {
@@ -569,7 +595,11 @@
     "PaymentDTO": {
       "type": "object",
       "required": [
-        "customerId", "staffId", "rentalId", "amount", "paymentDate"
+        "customerId",
+        "staffId",
+        "rentalId",
+        "amount",
+        "paymentDate"
       ],
       "properties": {
         "id": {
