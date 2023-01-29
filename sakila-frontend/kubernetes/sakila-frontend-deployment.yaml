@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-frontend
+  name: sakila-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        frontend-network: "true"
+        sakila-service: sakila-frontend
+    spec:
+      containers:
+        - image: com.example.sakila/sakila-frontend:1.0-SNAPSHOT
+          name: sakila-frontend
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

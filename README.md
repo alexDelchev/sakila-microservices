@@ -85,11 +85,13 @@ to start/stop the system.
 Generated sources based on the `OpenAPI` specifications are generated using the
 `swagger-codegen` plugin.
 
+Configurations for `Kubernetes` resources are also defined for each component of the system.
+
 ## How to run
 
 Prerequisites to build & run the system are:
  - `JRE` version between 1.8 and 19
- - running `Docker` daemon
+ - running `Docker` daemon / local Kubernetes cluster
  - `docker-compose`
 
 1 - Build the system
@@ -98,11 +100,13 @@ Prerequisites to build & run the system are:
 
 3 - Start the system
 
-`docker-compose up`
+- either through docker-compose: `docker-compose up`
+- or on a local Kubernetes cluster by running the deployment script: `./kubernetes-deploy` -> this deploys all
+the components' kubernetes resources using `kubectl`
 
 4 - Open the browser client
 
-Visit `http://localhost/index.html` in your browser
+Visit `http://localhost:30080/index.html` in your browser
 
 ## TODO
 

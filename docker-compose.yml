@@ -42,7 +42,7 @@ services:
     networks:
       - sakila-backend-network
     ports:
-      - 2181:2181
+      - '2181:2181'
     restart: always
   sakila-kafka:
     image: com.example.sakila/sakila-kafka:1.0-SNAPSHOT
@@ -53,8 +53,8 @@ services:
     networks:
       - sakila-backend-network
     ports:
-      - 9092:9092
-      - 9093:9093
+      - '9092:9092'
+      - '9093:9093'
     restart: always
   sakila-postgres:
     image: com.example.sakila/sakila-postgres:1.0-SNAPSHOT
@@ -63,7 +63,7 @@ services:
     networks:
       - sakila-postgres-network
     ports:
-      - 5678:5432
+      - '30678:5432'
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U health -d sakila_store_write" ]
       interval: 10s
@@ -77,7 +77,7 @@ services:
     networks:
       - sakila-mongodb-network
     ports:
-      - 27777:27017
+      - '30777:27017'
     healthcheck:
       test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin -u sakila_dba -p sakila_dba_pass --quiet | grep 1
       interval: 10s
@@ -91,7 +91,7 @@ services:
     networks:
       - sakila-backend-network
     ports:
-      - 8761:8761
+      - '30761:8761'
     restart: always
   sakila-api-gateway:
     image: com.example.sakila/sakila-api-gateway:1.0-SNAPSHOT
@@ -103,7 +103,7 @@ services:
       - sakila-backend-network
       - sakila-frontend-network
     ports:
-      - 8999:8999
+      - '30999:8999'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-address-service:
@@ -118,6 +118,8 @@ services:
     networks:
       - sakila-backend-network
       - sakila-postgres-network
+    ports:
+      - '30000:9000'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-film-service:
@@ -132,6 +134,8 @@ services:
     networks:
       - sakila-backend-network
       - sakila-mongodb-network
+    ports:
+      - '30001:9000'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-payment-service:
@@ -146,6 +150,8 @@ services:
     networks:
       - sakila-backend-network
       - sakila-postgres-network
+    ports:
+      - '30002:9000'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-store-write-service:
@@ -162,6 +168,8 @@ services:
     networks:
       - sakila-backend-network
       - sakila-postgres-network
+    ports:
+      - '30003:9000'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-store-read-service:
@@ -180,6 +188,8 @@ services:
     networks:
       - sakila-backend-network
       - sakila-postgres-network
+    ports:
+      - '30004:9000'
     command: --spring.profiles.active=docker-secrets
     restart: always
   sakila-frontend:
@@ -192,5 +202,5 @@ services:
     networks:
       - sakila-frontend-network
     ports:
-      - 80:80
+      - '30080:80'
     restart: always

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-kafka
+  name: sakila-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-kafka
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        sakila-service: sakila-kafka
+    spec:
+      containers:
+        - image: com.example.sakila/sakila-kafka:1.0-SNAPSHOT
+          name: sakila-kafka
+          ports:
+            - containerPort: 9092
+            - containerPort: 9093
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

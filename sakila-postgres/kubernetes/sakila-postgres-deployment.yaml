@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-postgres
+  name: sakila-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-postgres
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        postgres-network: "true"
+        sakila-service: sakila-postgres
+    spec:
+      containers:
+        - image: com.example.sakila/sakila-postgres:1.0-SNAPSHOT
+          name: sakila-postgres
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

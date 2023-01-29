@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-zookeeper
+  name: sakila-zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-zookeeper
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        sakila-service: sakila-zookeeper
+    spec:
+      containers:
+        - image: com.example.sakila/sakila-zookeeper:1.0-SNAPSHOT
+          name: sakila-zookeeper
+          ports:
+            - containerPort: 2181
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

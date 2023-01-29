@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sakila-microservices-mongodb-network
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              mongodb-network: "true"
+  podSelector:
+    matchLabels:
+      mongodb-network: "true"

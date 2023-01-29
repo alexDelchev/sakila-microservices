@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    sakila-service: sakila-film-service
+  name: sakila-film-service
+spec:
+  type: NodePort
+  ports:
+    - name: "9001"
+      port: 9001
+      targetPort: 9000
+      nodePort: 30001
+  selector:
+    sakila-service: sakila-film-service
+status:
+  loadBalancer: {}

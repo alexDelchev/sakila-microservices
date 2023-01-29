@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-address-service
+  name: sakila-address-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-address-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        postgres-network: "true"
+        sakila-service: sakila-address-service
+    spec:
+      containers:
+        - args:
+            - --spring.profiles.active=docker-secrets
+          image: com.example.sakila/sakila-address-service:1.0-SNAPSHOT
+          name: sakila-address-service
+          ports:
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

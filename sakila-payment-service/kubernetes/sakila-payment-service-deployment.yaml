@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-payment-service
+  name: sakila-payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-payment-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        postgres-network: "true"
+        sakila-service: sakila-payment-service
+    spec:
+      containers:
+        - args:
+            - --spring.profiles.active=docker-secrets
+          image: com.example.sakila/sakila-payment-service:1.0-SNAPSHOT
+          name: sakila-payment-service
+          ports:
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

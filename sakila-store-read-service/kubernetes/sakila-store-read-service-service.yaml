@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    sakila-service: sakila-store-read-service
+  name: sakila-store-read-service
+spec:
+  type: NodePort
+  ports:
+    - name: "9004"
+      port: 9004
+      targetPort: 9000
+      nodePort: 30004
+  selector:
+    sakila-service: sakila-store-read-service
+status:
+  loadBalancer: {}
