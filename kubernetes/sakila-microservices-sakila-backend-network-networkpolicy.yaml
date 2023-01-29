@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sakila-microservices-backend-network
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              backend-network: "true"
+  podSelector:
+    matchLabels:
+      backend-network: "true"
