@@ -24,10 +24,8 @@ RUN mkdir /usr/share/sakila-store-write-service && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-store-write-service/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-store-write-service/sakila-store-write-service.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-store-write-service/sakila-store-write-service.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-store-write-service/sakila-store-write-service.jar"]
 
