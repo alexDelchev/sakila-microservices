@@ -1,0 +1,92 @@
+plugins {
+  id 'base'
+}
+
+group = 'com.example.sakila'
+version = '1.0-SNAPSHOT'
+description = 'sakila-frontend'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+configurations {
+  sakilaAddressApiSpec
+  sakilaFilmApiSpec
+  sakilaPaymentApiSpec
+  sakilaStoreReadApiSpec
+  sakilaStoreWriteApiSpec
+}
+
+dependencies {
+  sakilaAddressApiSpec 'com.example.sakila:sakila-address-api-spec:1.0-SNAPSHOT'
+  sakilaFilmApiSpec 'com.example.sakila:sakila-film-api-spec:1.0-SNAPSHOT'
+  sakilaPaymentApiSpec 'com.example.sakila:sakila-payment-api-spec:1.0-SNAPSHOT'
+  sakilaStoreReadApiSpec 'com.example.sakila:sakila-store-read-api-spec:1.0-SNAPSHOT'
+  sakilaStoreWriteApiSpec 'com.example.sakila:sakila-store-write-api-spec:1.0-SNAPSHOT'
+}
+
+tasks.register('unpackSakilaAddressApiSpec', Sync) {
+  dependsOn configurations.sakilaAddressApiSpec
+
+  from {
+    configurations.sakilaAddressApiSpec.collect { zipTree(it) }
+  }
+  into "$projectDir/api/spec/address"
+}
+
+tasks.register('unpackSakilaFilmApiSpec', Sync) {
+  dependsOn configurations.sakilaFilmApiSpec
+
+  from {
+    configurations.sakilaFilmApiSpec.collect { zipTree(it) }
+  }
+  into "$projectDir/api/spec/film"
+}
+
+tasks.register('unpackSakilaPaymentApiSpec', Sync) {
+  dependsOn configurations.sakilaPaymentApiSpec
+
+  from {
+    configurations.sakilaPaymentApiSpec.collect { zipTree(it) }
+  }
+  into "$projectDir/api/spec/payment"
+}
+
+tasks.register('unpackSakilaStoreReadApiSpec', Sync) {
+  dependsOn configurations.sakilaStoreReadApiSpec
+
+  from {
+    configurations.sakilaStoreReadApiSpec.collect { zipTree(it) }
+  }
+  into "$projectDir/api/spec/store/read"
+}
+
+tasks.register('unpackSakilaStoreWriteApiSpec', Sync) {
+  dependsOn configurations.sakilaStoreWriteApiSpec
+
+  from {
+    configurations.sakilaStoreWriteApiSpec.collect { zipTree(it) }
+  }
+  into "$projectDir/api/spec/store/write"
+}
+
+tasks.register('buildDockerImage', Exec) {
+  def dockerFile = "Dockerfile"
+  def tag = "${project.group}/${project.name}:${project.version}"
+  def context = "."
+
+  commandLine 'docker', 'build',
+    '-f', "${dockerFile}",
+    '-t', "${tag}",
+    "${context}"
+
+  dependsOn 'unpackSakilaAddressApiSpec', 'unpackSakilaFilmApiSpec',
+    'unpackSakilaPaymentApiSpec', 'unpackSakilaStoreReadApiSpec',
+    'unpackSakilaStoreWriteApiSpec'
+}
+
+tasks.named('build') {
+  finalizedBy 'buildDockerImage'
+}

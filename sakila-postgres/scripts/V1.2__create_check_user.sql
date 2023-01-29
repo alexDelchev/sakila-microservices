@@ -1,0 +1,4 @@
+CREATE USER health WITH
+  ENCRYPTED PASSWORD 'sakila_dba_pass'
+  LOGIN
+  NOREPLICATION;

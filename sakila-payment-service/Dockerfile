@@ -24,10 +24,8 @@ RUN mkdir /usr/share/sakila-payment-service && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-payment-service/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-payment-service/sakila-payment-service.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-payment-service/sakila-payment-service.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-payment-service/sakila-payment-service.jar"]
 

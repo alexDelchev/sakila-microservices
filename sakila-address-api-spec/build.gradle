@@ -1,0 +1,28 @@
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+}
+
+group = 'com.example.sakila'
+version = '1.0-SNAPSHOT'
+description = 'sakila-address-api-spec'
+
+repositories {
+  mavenLocal()
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      from components.java
+    }
+  }
+}
+
+jar {
+  from 'open-api-specification.json'
+}
+
+tasks.named('build') {
+  finalizedBy publishToMavenLocal
+}

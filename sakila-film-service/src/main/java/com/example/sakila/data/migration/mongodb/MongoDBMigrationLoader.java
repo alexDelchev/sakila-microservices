@@ -33,10 +33,11 @@ public class MongoDBMigrationLoader {
     URI uri = getClass().getResource(path).toURI();
 
     if (uri.getScheme().equals("jar")) {
+      // Read file from within the boot jar
       Map<String, String> env = new HashMap<>();
       env.put("create", "true");
       FileSystem fileSystem = FileSystems.newFileSystem(uri, env);
-      result = fileSystem.getPath(path);
+      result = fileSystem.getPath("/BOOT-INF/classes" + path);
     } else {
       result = Paths.get(uri);
     }

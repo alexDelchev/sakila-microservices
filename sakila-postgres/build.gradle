@@ -1,0 +1,27 @@
+plugins {
+  id 'base'
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+group = 'com.example.sakila'
+version = '1.0-SNAPSHOT'
+description = 'sakila-postgres'
+
+tasks.register('buildDockerImage', Exec) {
+  def dockerFile = "Dockerfile"
+  def tag = "${project.group}/${project.name}:${project.version}"
+  def context = "."
+
+  commandLine 'docker', 'build',
+      '-f', "${dockerFile}",
+      '-t', "${tag}",
+      "${context}"
+}
+
+tasks.named('build') {
+  finalizedBy 'buildDockerImage'
+}

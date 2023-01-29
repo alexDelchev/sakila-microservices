@@ -173,7 +173,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -187,6 +186,9 @@ hs_err_pid*
 ### Java-Web ###
 ## ignoring target file
 target/
+
+build
+.gradle
 
 ### Linux ###
 *~

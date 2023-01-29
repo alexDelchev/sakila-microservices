@@ -24,9 +24,7 @@ RUN mkdir /usr/share/sakila-api-gateway && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-api-gateway/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-api-gateway/sakila-api-gateway.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-api-gateway/sakila-api-gateway.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-api-gateway/sakila-api-gateway.jar"]

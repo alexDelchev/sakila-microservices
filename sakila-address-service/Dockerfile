@@ -24,9 +24,7 @@ RUN mkdir /usr/share/sakila-address-service && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-address-service/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-address-service/sakila-address-service.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-address-service/sakila-address-service.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-address-service/sakila-address-service.jar"]

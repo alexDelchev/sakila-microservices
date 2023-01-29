@@ -24,9 +24,7 @@ RUN mkdir /usr/share/sakila-film-service && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-film-service/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-film-service/sakila-film-service.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-film-service/sakila-film-service.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-film-service/sakila-film-service.jar"]

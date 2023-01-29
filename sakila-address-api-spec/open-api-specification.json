@@ -1,13 +1,19 @@
 {
   "swagger": "2.0",
-  "info" : {
+  "info": {
     "version": "1.0.0",
     "title": "Address API"
   },
-  "host": "",
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "host": "localhost",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "tags": [
     {
       "name": "Address"
@@ -159,7 +165,7 @@
         }
       }
     },
-    "/cities":{
+    "/cities": {
       "get": {
         "operationId": "getAllCities",
         "responses": {
@@ -398,10 +404,13 @@
     }
   },
   "definitions": {
-    "AddressDTO" : {
+    "AddressDTO": {
       "type": "object",
       "required": [
-        "address", "district", "cityId", "phone"
+        "address",
+        "district",
+        "cityId",
+        "phone"
       ],
       "properties": {
         "id": {
@@ -436,7 +445,8 @@
     "CityDTO": {
       "type": "object",
       "required": [
-        "city", "countryId"
+        "city",
+        "countryId"
       ],
       "properties": {
         "id": {

@@ -1,0 +1,8 @@
+{
+  "dateLibrary": "java8",
+  "hideGenerationTimestamp": true,
+  "modelPackage": "com.example.sakila.generated.server.model",
+  "apiPackage": "com.example.sakila.generated.server.api",
+  "invokerPackage": "com.example.sakila.generated.server",
+  "interfaceOnly": true
+}
