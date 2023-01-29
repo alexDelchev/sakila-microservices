@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-discovery-service
+  name: sakila-discovery-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-discovery-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        sakila-service: sakila-discovery-service
+    spec:
+      containers:
+        - image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
+          name: sakila-discovery-service
+          ports:
+            - containerPort: 8761
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}
