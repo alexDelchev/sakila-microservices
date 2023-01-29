@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-store-write-service
+  name: sakila-store-write-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-store-write-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        postgres-network: "true"
+        sakila-service: sakila-store-write-service
+    spec:
+      containers:
+        - args:
+            - --spring.profiles.active=docker-secrets
+          image: com.example.sakila/sakila-store-write-service:1.0-SNAPSHOT
+          name: sakila-store-write-service
+          ports:
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}
