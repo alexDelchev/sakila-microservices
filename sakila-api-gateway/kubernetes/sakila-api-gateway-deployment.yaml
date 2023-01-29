@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-api-gateway
+  name: sakila-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-api-gateway
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        frontend-network: "true"
+        sakila-service: sakila-api-gateway
+    spec:
+      containers:
+        - args:
+            - --spring.profiles.active=docker-secrets
+          image: com.example.sakila/sakila-api-gateway:1.0-SNAPSHOT
+          name: sakila-api-gateway
+          ports:
+            - containerPort: 8999
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}
