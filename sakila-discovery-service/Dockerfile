@@ -24,9 +24,7 @@ RUN mkdir /usr/share/sakila-discovery-service && \
 
 USER 1000
 
-COPY --chown=1000:1000 target/lib /usr/share/sakila-discovery-service/lib
-
 ARG JAR_FILE
-COPY --chown=1000:1000 target/${JAR_FILE} /usr/share/sakila-discovery-service/sakila-discovery-service.jar
+COPY --chown=1000:1000 ${JAR_FILE} /usr/share/sakila-discovery-service/sakila-discovery-service.jar
 
 ENTRYPOINT ["/jre/bin/java", "-jar", "/usr/share/sakila-discovery-service/sakila-discovery-service.jar"]
