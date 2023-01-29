@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "title": "Film API"
   },
-  "host": "",
+  "host": "localhost",
   "schemes": [
     "http"
   ],
@@ -50,7 +50,8 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "getActorById",
@@ -69,7 +70,8 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           },
           {
             "in": "body",
@@ -96,7 +98,8 @@
             "in": "path",
             "name": "id",
             "description": "Actor ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "deleteActor",
@@ -137,7 +140,8 @@
             "in": "path",
             "name": "id",
             "description": "Film ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "getFilmById",
@@ -156,7 +160,8 @@
             "in": "path",
             "name": "id",
             "description": "Film ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           },
           {
             "in": "body",
@@ -183,7 +188,8 @@
             "in": "path",
             "name": "id",
             "description": "Film ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "deleteFilm",
@@ -201,7 +207,8 @@
             "in": "path",
             "name": "language",
             "description": "Language ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "getFilmsByLanguage",
@@ -225,7 +232,8 @@
             "in": "path",
             "name": "category",
             "description": "Category ID",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "getFilmsByCategory",
@@ -249,7 +257,8 @@
             "in": "path",
             "name": "rating",
             "description": "MPAA rating",
-            "type": "string"
+            "type": "string",
+            "required": true
           }
         ],
         "operationId": "getFilmsByMpaaRating",
@@ -274,7 +283,7 @@
             "name": "expression",
             "description": "Title search expression",
             "type": "string",
-            "required": "true"
+            "required": true
           }
         ],
         "operationId": "searchFilmsByTitle",
@@ -299,7 +308,7 @@
             "name": "expression",
             "description": "Description search expression",
             "type": "string",
-            "required": "true"
+            "required": true
           }
         ],
         "operationId": "searchFilmsByDescription",
@@ -321,7 +330,8 @@
     "ActorDTO": {
       "type": "object",
       "required": [
-        "firstName", "lastName"
+        "firstName",
+        "lastName"
       ],
       "properties": {
         "id": {
@@ -342,7 +352,10 @@
     "FilmDTO": {
       "type": "object",
       "required": [
-        "title", "languageId", "rentalDuration", "rentalRate",
+        "title",
+        "languageId",
+        "rentalDuration",
+        "rentalRate",
         "replacementCost"
       ],
       "properties": {
