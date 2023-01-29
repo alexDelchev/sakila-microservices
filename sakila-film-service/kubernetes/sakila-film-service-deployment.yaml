@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-film-service
+  name: sakila-film-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-film-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        mongodb-network: "true"
+        sakila-service: sakila-film-service
+    spec:
+      containers:
+        - args:
+            - --spring.profiles.active=docker-secrets
+          image: com.example.sakila/sakila-film-service:1.0-SNAPSHOT
+          name: sakila-film-service
+          ports:
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}
