@@ -1,0 +1,20 @@
+rootProject.name = 'sakila-microservices'
+include(':sakila-discovery-service')
+include(':sakila-zookeeper')
+include(':sakila-store-write-service')
+include(':sakila-postgres')
+include(':sakila-film-service')
+include(':sakila-store-write-api-spec')
+include(':sakila-frontend')
+include(':sakila-store-read-api-spec')
+include(':sakila-mongodb')
+include(':sakila-api-gateway')
+include(':sakila-kafka')
+include(':sakila-address-service')
+include(':sakila-store-read-service')
+include(':sakila-payment-api-spec')
+include(':sakila-film-api-spec')
+include(':sakila-payment-service')
+include(':sakila-address-api-spec')
+
+
