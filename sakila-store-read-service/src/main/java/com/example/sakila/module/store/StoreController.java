@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.ws.rs.Path;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -31,6 +32,11 @@ public class StoreController implements StoresApi {
   @Override
   public ResponseEntity<StoreDTO> getStoreByAddressId(@PathVariable("id") Long id) {
     return ResponseEntity.ok(toDTO(storeService.getStoreByAddressId(id)));
+  }
+
+  @Override
+  public ResponseEntity<StoreDTO> getStoreByManagerId(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(toDTO(storeService.getStoreByManagerStaffId(id)));
   }
 
   private StoreDTO toDTO(Store store) {
