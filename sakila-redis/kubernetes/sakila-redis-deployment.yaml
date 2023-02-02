@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-redis
+  name: sakila-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-redis
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        sakila-service: sakila-redis
+    spec:
+      containers:
+        - image: redis/redis-stack-server:7.0.6-RC4
+          name: sakila-redis
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              memory: "536870912"
+      restartPolicy: Always
+status: {}

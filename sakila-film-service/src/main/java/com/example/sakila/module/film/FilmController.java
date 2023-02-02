@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class FilmController implements FilmsApi {
@@ -27,75 +26,56 @@ public class FilmController implements FilmsApi {
 
   @Override
   public ResponseEntity<FilmDTO> getFilmById(@PathVariable("id") String id) {
-    return ResponseEntity.ok(toDTO(filmService.getFilmById(id)));
+    return ResponseEntity.ok(filmService.getFilmById(id));
   }
 
   @Override
   public ResponseEntity<List<FilmDTO>> getFilmsByLanguage(@PathVariable("language") String languageName) {
     Language language = Language.valueOf(languageName);
-    return ResponseEntity.ok(
-        filmService.getFilmsByLanguage(language).stream().map(this::toDTO).collect(Collectors.toList())
-    );
+    return ResponseEntity.ok(filmService.getFilmsByLanguage(language));
   }
 
   @Override
   public ResponseEntity<List<FilmDTO>> getFilmsByCategory(@PathVariable("category") String categoryName) {
     Category category = Category.valueOf(categoryName);
-    return ResponseEntity.ok(
-        filmService.getFilmsByCategory(category).stream().map(this::toDTO).collect(Collectors.toList())
-    );
+    return ResponseEntity.ok(filmService.getFilmsByCategory(category));
   }
 
   @Override
   public ResponseEntity<List<FilmDTO>> getFilmsByMpaaRating(@PathVariable("rating") String rating) {
     if (Arrays.stream(FilmRating.values()).noneMatch((x -> x.toString().equals(rating)))) return null;
-    return ResponseEntity.ok(
-        filmService.getFilmsByRating(rating).stream().map(this::toDTO).collect(Collectors.toList())
-    );
+    return ResponseEntity.ok(filmService.getFilmsByRating(rating));
   }
 
   @Override
   public ResponseEntity<List<FilmDTO>> searchFilmsByTitle(
       @RequestParam(value = "expression", required = true) String expression
   ) {
-    return ResponseEntity.ok(
-        filmService.searchFilmsByTitle(expression).stream().map(this::toDTO).collect(Collectors.toList())
-    );
+    return ResponseEntity.ok(filmService.searchFilmsByTitle(expression));
   }
 
   @Override
   public ResponseEntity<List<FilmDTO>> searchFilmsByDescription(
       @RequestParam(value = "expression", required = true) String expression
   ) {
-    return ResponseEntity.ok(
-        filmService.searchFilmsByDescription(expression).stream().map(this::toDTO).collect(Collectors.toList())
-    );
+    return ResponseEntity.ok(filmService.searchFilmsByDescription(expression));
   }
 
   @Override
   public ResponseEntity<FilmDTO> createFilm(@RequestBody FilmDTO filmDTO) {
-    return ResponseEntity.ok(toDTO(filmService.createFilm(toEntity(filmDTO))));
+    return ResponseEntity.ok(filmService.createFilm(filmDTO));
   }
 
   @Override
   public ResponseEntity<FilmDTO> replaceFilm(@PathVariable("id") String id, @RequestBody FilmDTO filmDTO) {
-    return ResponseEntity.ok(toDTO(filmService.updateFilm(id, toEntity(filmDTO))));
+    validateDTO(filmDTO);
+    return ResponseEntity.ok(filmService.updateFilm(id, filmDTO));
   }
 
   @Override
   public ResponseEntity<Void> deleteFilm(@PathVariable("id") String id) {
     filmService.deleteFilm(id);
     return ResponseEntity.ok(null);
-  }
-
-  private FilmDTO toDTO(Film film) {
-    return FilmUtils.toDTO(film);
-  }
-
-  private Film toEntity(FilmDTO filmDTO) {
-    validateDTO(filmDTO);
-
-    return FilmUtils.toEntity(filmDTO);
   }
 
   private void validateDTO(FilmDTO filmDTO) {
