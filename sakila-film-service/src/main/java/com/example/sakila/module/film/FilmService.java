@@ -1,8 +1,10 @@
 package com.example.sakila.module.film;
 
+import com.example.sakila.config.CachingService;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.generated.server.model.FilmDTO;
 import com.example.sakila.module.film.event.FilmEventUtils;
 import com.example.sakila.module.film.event.model.FilmCreatedEvent;
 import com.example.sakila.module.film.event.model.FilmDeletedEvent;
@@ -18,9 +20,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class FilmService {
+public class FilmService implements CachingService {
+
+  private static final String CACHE_KEY = "film";
 
   private final Logger log = LoggerFactory.getLogger(FilmService.class);
 
@@ -34,15 +39,15 @@ public class FilmService {
     this.filmRepository = filmRepository;
   }
 
-  public Film getFilmById(String hexString) {
+  public FilmDTO getFilmById(String hexString) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return getFilmById(id);
   }
 
-  public Film getFilmById(ObjectId id) {
+  public FilmDTO getFilmById(ObjectId id) {
     if (id == null) return null;
-    return filmRepository.getFilmById(id);
+    return FilmUtils.toDTO(filmRepository.getFilmById(id));
   }
 
   public boolean filmExists(String hexString) {
@@ -55,33 +60,48 @@ public class FilmService {
     return getFilmById(id) != null;
   }
 
-  public List<Film> searchFilmsByTitle(String searchExpression) {
+  public List<FilmDTO> searchFilmsByTitle(String searchExpression) {
     if (searchExpression == null) return null;
-    return filmRepository.searchFilmsByTitle(searchExpression);
+    return filmRepository.searchFilmsByTitle(searchExpression)
+        .stream()
+        .map(FilmUtils::toDTO)
+        .collect(Collectors.toList());
   }
 
-  public List<Film> searchFilmsByDescription(String searchExpression) {
+  public List<FilmDTO> searchFilmsByDescription(String searchExpression) {
     if (searchExpression == null) return null;
-    return filmRepository.searchFilmsByDescription(searchExpression);
+    return filmRepository.searchFilmsByDescription(searchExpression)
+        .stream()
+        .map(FilmUtils::toDTO)
+        .collect(Collectors.toList());
   }
 
-  public List<Film> getFilmsByCategory(Category category) {
+  public List<FilmDTO> getFilmsByCategory(Category category) {
     if (category == null) return null;
-    return filmRepository.getFilmsByCategory(category);
+    return filmRepository.getFilmsByCategory(category)
+        .stream()
+        .map(FilmUtils::toDTO)
+        .collect(Collectors.toList());
   }
 
-  public List<Film> getFilmsByLanguage(Language language) {
+  public List<FilmDTO> getFilmsByLanguage(Language language) {
     if (language == null) return null;
-    return filmRepository.getFilmsByLanguage(language);
+    return filmRepository.getFilmsByLanguage(language)
+        .stream()
+        .map(FilmUtils::toDTO)
+        .collect(Collectors.toList());
   }
 
-  public List<Film> getFilmsByRating(String rating) {
+  public List<FilmDTO> getFilmsByRating(String rating) {
     if (rating == null) return null;
-    return filmRepository.getFilmsByRating(rating);
+    return filmRepository.getFilmsByRating(rating)
+        .stream()
+        .map(FilmUtils::toDTO)
+        .collect(Collectors.toList());
   }
 
   public void decreaseQuantityForStore(String filmId, Long storeId) {
-    Film film = getFilmById(filmId);
+    Film film = filmRepository.getFilmById(new ObjectId(filmId));
 
     film.getInventories()
         .stream()
@@ -94,7 +114,19 @@ public class FilmService {
           i.setQuantity(newQuantity);
         });
 
-    updateFilm(filmId, film);
+    updateFilm(filmId, FilmUtils.toDTO(film));
+  }
+
+  public FilmDTO createFilm(FilmDTO film) {
+    FilmWriteModel writeModel = FilmUtils.toWriteModel(FilmUtils.toEntity(film));
+    log.info("Creating Film");
+    filmRepository.insertFilm(writeModel);
+    log.info("Created Film id: {}", writeModel.getId());
+    Film result = filmRepository.getFilmById(new ObjectId(film.getId()));
+
+    generateCreatedEvent(result);
+
+    return FilmUtils.toDTO(result);
   }
 
   private void generateCreatedEvent(Film film) {
@@ -104,32 +136,14 @@ public class FilmService {
     eventBus.emit(event);
   }
 
-  public Film createFilm(Film film) {
-    FilmWriteModel writeModel = FilmUtils.toWriteModel(film);
-    log.info("Creating Film");
-    filmRepository.insertFilm(writeModel);
-    log.info("Created Film id: {}", writeModel.getId());
-    Film result = filmRepository.getFilmById(film.getId());
-
-    generateCreatedEvent(result);
-
-    return result;
-  }
-
-  private void generateUpdatedEvent(Film film) {
-    FilmEventDTO dto = FilmEventUtils.toDTO(film);
-    FilmUpdatedEvent event = new FilmUpdatedEvent();
-    event.setDto(dto);
-    eventBus.emit(event);
-  }
-
-  public Film updateFilm(String hexString, Film source) {
+  public FilmDTO updateFilm(String hexString, FilmDTO source) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return updateFilm(id, source);
   }
 
-  public Film updateFilm(ObjectId id, Film source) {
+  public FilmDTO updateFilm(ObjectId id, FilmDTO sourceDto) {
+    Film source = FilmUtils.toEntity(sourceDto);
     Film target = filmRepository.getFilmById(id);
     if (target == null) throw new NotFoundException("Film for ID " + id + " does not exist");
     log.info("Updating Film (ID: {})", id.toHexString());
@@ -157,12 +171,13 @@ public class FilmService {
 
     generateUpdatedEvent(result);
 
-    return result;
+    return FilmUtils.toDTO(result);
   }
 
-  private void generateDeletedEvent(String hexString) {
-    FilmDeletedEvent event = new FilmDeletedEvent();
-    event.setId(hexString);
+  private void generateUpdatedEvent(Film film) {
+    FilmEventDTO dto = FilmEventUtils.toDTO(film);
+    FilmUpdatedEvent event = new FilmUpdatedEvent();
+    event.setDto(dto);
     eventBus.emit(event);
   }
 
@@ -183,5 +198,16 @@ public class FilmService {
     } catch (DataIntegrityViolationException e) {
       throw new DataConflictException(e.getMessage(), e);
     }
+  }
+
+  private void generateDeletedEvent(String hexString) {
+    FilmDeletedEvent event = new FilmDeletedEvent();
+    event.setId(hexString);
+    eventBus.emit(event);
+  }
+
+  @Override
+  public String getCacheKey() {
+    return CACHE_KEY;
   }
 }
