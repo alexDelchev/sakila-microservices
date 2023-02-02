@@ -27,6 +27,10 @@ echo 'Creating discovery service'
 kubectl apply -f ./sakila-discovery-service/kubernetes
 echo
 
+echo 'Creating redis server'
+kubectl apply -f ./sakila-redis/kubernetes
+echo
+
 echo 'Creating API gateway'
 kubectl apply -f ./sakila-api-gateway/kubernetes
 echo

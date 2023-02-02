@@ -84,6 +84,14 @@ services:
       timeout: 10s
       retries: 3
     restart: always
+  sakila-redis:
+    image: redis/redis-stack-server:7.0.6-RC4
+    mem_limit: 512M
+    ports:
+      - '30379:6379'
+    networks:
+      - sakila-backend-network
+    restart: always
   sakila-discovery-service:
     image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
     container_name: sakila-discovery-service
@@ -131,6 +139,8 @@ services:
         condition: service_started
       sakila-mongodb:
         condition: service_healthy
+      sakila-redis:
+        condition: service_started
     networks:
       - sakila-backend-network
       - sakila-mongodb-network
