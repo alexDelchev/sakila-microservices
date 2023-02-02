@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -39,27 +41,32 @@ public class FilmService implements CachingService {
     this.filmRepository = filmRepository;
   }
 
+  @Cacheable(CACHE_KEY)
   public FilmDTO getFilmById(String hexString) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
     return getFilmById(id);
   }
 
+  @Cacheable(CACHE_KEY)
   public FilmDTO getFilmById(ObjectId id) {
     if (id == null) return null;
     return FilmUtils.toDTO(filmRepository.getFilmById(id));
   }
 
+  @Cacheable(CACHE_KEY)
   public boolean filmExists(String hexString) {
     if (hexString == null || hexString.length() == 0) return false;
     ObjectId id = new ObjectId(hexString);
     return filmExists(id);
   }
 
+  @Cacheable(CACHE_KEY)
   public boolean filmExists(ObjectId id) {
     return getFilmById(id) != null;
   }
 
+  @Cacheable(CACHE_KEY)
   public List<FilmDTO> searchFilmsByTitle(String searchExpression) {
     if (searchExpression == null) return null;
     return filmRepository.searchFilmsByTitle(searchExpression)
@@ -68,6 +75,7 @@ public class FilmService implements CachingService {
         .collect(Collectors.toList());
   }
 
+  @Cacheable(CACHE_KEY)
   public List<FilmDTO> searchFilmsByDescription(String searchExpression) {
     if (searchExpression == null) return null;
     return filmRepository.searchFilmsByDescription(searchExpression)
@@ -76,6 +84,7 @@ public class FilmService implements CachingService {
         .collect(Collectors.toList());
   }
 
+  @Cacheable(CACHE_KEY)
   public List<FilmDTO> getFilmsByCategory(Category category) {
     if (category == null) return null;
     return filmRepository.getFilmsByCategory(category)
@@ -84,6 +93,7 @@ public class FilmService implements CachingService {
         .collect(Collectors.toList());
   }
 
+  @Cacheable(CACHE_KEY)
   public List<FilmDTO> getFilmsByLanguage(Language language) {
     if (language == null) return null;
     return filmRepository.getFilmsByLanguage(language)
@@ -92,6 +102,7 @@ public class FilmService implements CachingService {
         .collect(Collectors.toList());
   }
 
+  @Cacheable(CACHE_KEY)
   public List<FilmDTO> getFilmsByRating(String rating) {
     if (rating == null) return null;
     return filmRepository.getFilmsByRating(rating)
@@ -100,6 +111,7 @@ public class FilmService implements CachingService {
         .collect(Collectors.toList());
   }
 
+  @CacheEvict(CACHE_KEY)
   public void decreaseQuantityForStore(String filmId, Long storeId) {
     Film film = filmRepository.getFilmById(new ObjectId(filmId));
 
@@ -117,6 +129,7 @@ public class FilmService implements CachingService {
     updateFilm(filmId, FilmUtils.toDTO(film));
   }
 
+  @CacheEvict(CACHE_KEY)
   public FilmDTO createFilm(FilmDTO film) {
     FilmWriteModel writeModel = FilmUtils.toWriteModel(FilmUtils.toEntity(film));
     log.info("Creating Film");
@@ -136,6 +149,7 @@ public class FilmService implements CachingService {
     eventBus.emit(event);
   }
 
+  @CacheEvict(CACHE_KEY)
   public FilmDTO updateFilm(String hexString, FilmDTO source) {
     if (hexString == null || hexString.length() == 0) return null;
     ObjectId id = new ObjectId(hexString);
@@ -181,12 +195,14 @@ public class FilmService implements CachingService {
     eventBus.emit(event);
   }
 
+  @CacheEvict(CACHE_KEY)
   public void deleteFilm(String hexString) {
     if (hexString == null || hexString.length() == 0) return;
     ObjectId id = new ObjectId(hexString);
     deleteFilm(id);
   }
 
+  @CacheEvict(CACHE_KEY)
   public void deleteFilm(ObjectId id) {
     Film film = filmRepository.getFilmById(id);
     if (film == null) throw new NotFoundException("Film for ID " + id + " does not exist");
