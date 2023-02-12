@@ -69,6 +69,10 @@ using the `Apache Curator` library. Each service has a custom event bus implemen
 used to asynchronously publish data change events internally, which are then published to the
 `Kafka` streams.
 
+The sakila-film-service uses Redis for caching responses to film data requests. It also maintains
+a search index of film data on an Elastic Search server, which is used to perform film queries coming
+from the frontend.
+
 Service discovery is handled by `Spring Cloud Netflix Eureka`, where the system has 1 server
 and the separate services are clients. Instances of the microservices bind to a random port and
 requests are load-balanced and routed to a given instance

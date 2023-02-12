@@ -52,7 +52,7 @@ to `Kafka` streams.
 
 ## Technology stack
 
-The application is based on `Spring Boot`, written in `Kotlin`. Testing is done with the `JUnit 5` 
+The application is based on `Spring Boot`, written in `Kotlin`. Testing is done with the `JUnit 5`
 framework. The connection to the database is managed with the `Hibernate` ORM.
 
 The API code is generated using the `swagger-codegen-maven-plugin`. The connection to the `Kafka`
@@ -64,10 +64,16 @@ using the `spring-netflix-eureka-client`.
 The database schema is wholly managed by the service using `Flyway`. For each of the tables there is
 also a script which writes the initial state.
 
-The build process is managed through `maven`
+The service can be built using gradle:
+`./gradlew build`
 
 ## Environment
 
 The service is packaged into a `Docker` container using the Dockerfile in the root dir, which is used
-to build an image on top of `openjdk:8-jre-alpine`.
+to build an image on top of `alpine:3.17` with a custom linked JRE.
+
+## Kubernetes deployment
+
+To create a Kubernetes deployment and service run:
+`kubectl apply -f ./kubernetes`
 

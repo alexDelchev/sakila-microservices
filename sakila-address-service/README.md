@@ -16,7 +16,7 @@ src
 │   │               ├── application          ## Main class
 │   │               ├── config               ## JPA, Kafka, Cors, EventBus beans
 │   │               ├── discovery            ## Registered instances controller
-│   │               ├── event                
+│   │               ├── event
 │   │               │   └── bus              ## Custom event bus implementation
 │   │               ├── exception            ## Custom exceptions and @ControllerAdvice exception handlers
 │   │               └── module
@@ -64,9 +64,15 @@ using the `spring-netflix-eureka-client`.
 The database schema is wholly managed by the service using `Flyway`. For each of the tables there is
 also a script which writes the initial state.
 
-The build process is managed through `maven`
+The service can be built using gradle:
+`./gradlew build`
 
 ## Environment
 
 The service is packaged into a `Docker` container using the Dockerfile in the root dir, which is used
-to build an image on top of `openjdk:8-jre-alpine`.
+to build an image on top of `alpine:3.17` with a custom linked JRE.
+
+## Kubernetes deployment
+
+To create a Kubernetes deployment and service run:
+`kubectl apply -f ./kubernetes`
