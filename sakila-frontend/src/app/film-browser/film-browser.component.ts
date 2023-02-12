@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { FilmDTO } from '@api/generated/film/models/film-dto';
-import { ApiFilmCategory } from '@api/generated/film/models/api-film-category';
-import { FilmService } from '../services/film/film.service';
-import { FilmRating } from '@api/generated/film/models/film-rating';
-import { FilmSelectionService } from '../services/film-selection/film-selection.service';
+import {FilmSearchDTO} from '@api/generated/film/models/film-search-dto';
+import {ApiFilmCategory} from '@api/generated/film/models/api-film-category';
+import {FilmService} from '../services/film/film.service';
+import {FilmRating} from '@api/generated/film/models/film-rating';
 
 @Component({
   selector: 'app-film-browser',
@@ -15,24 +14,24 @@ import { FilmSelectionService } from '../services/film-selection/film-selection.
 })
 export class FilmBrowserComponent implements OnInit {
 
-  private searchExpression: string;
+  searchExpression: string;
 
-  private category: ApiFilmCategory;
+  category: ApiFilmCategory;
 
-  private filmRating: FilmRating;
+  filmRating: FilmRating;
 
-  private filmRatings: Array<FilmRating> = FilmRating.values();
+  filmRatings: Array<FilmRating> = FilmRating.values();
 
-  private categories: Array<ApiFilmCategory> = ApiFilmCategory.values();
+  categories: Array<ApiFilmCategory> = ApiFilmCategory.values();
 
-  private films: Array<FilmDTO>;
+  films: Array<FilmSearchDTO>;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private filmService: FilmService,
-    private filmSelectionService: FilmSelectionService
-  ) { }
+    private filmService: FilmService
+  ) {
+  }
 
   ngOnInit() {
     this.filmRating = FilmRating.PG_13;
@@ -56,17 +55,8 @@ export class FilmBrowserComponent implements OnInit {
     return this.route.snapshot.paramMap.get(name);
   }
 
-  private getFilms() {
-    if (this.searchExpression != null) {
-      this.filmService.searchFilmsByTitle(this.searchExpression).subscribe(
-        result =>
-          this.films = result.filter(film => film.categories.indexOf(this.category) > -1 && film.rating === this.filmRating)
-      )
-    } else {
-      this.filmService.getFilmsByCategory(this.category).subscribe(
-        result =>
-          this.films = result.filter(film => film.rating === this.filmRating)
-      )
-    }
+  getFilms() {
+    this.filmService.searchFilms(this.searchExpression, this.category, this.filmRating)
+      .subscribe(result => this.films = result);
   }
 }

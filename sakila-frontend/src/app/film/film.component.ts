@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
-import { FilmService } from '../services/film/film.service';
-import { FilmDTO } from '@api/generated/film/models/film-dto';
-import { FilmSelectionService } from '../services/film-selection/film-selection.service';
+import {FilmSearchDTO} from '@api/generated/film/models/film-search-dto';
+import {FilmSelectionService} from '../services/film-selection/film-selection.service';
 
 @Component({
   selector: 'app-film',
@@ -11,11 +10,12 @@ import { FilmSelectionService } from '../services/film-selection/film-selection.
 })
 export class FilmComponent {
 
-  @Input() film: FilmDTO;
+  @Input() film: FilmSearchDTO;
 
   constructor(
     private filmSelectionService: FilmSelectionService
-  ) {}
+  ) {
+  }
 
   isFilmSelected(): boolean {
     let selection: Array<string> = this.filmSelectionService.getSelectedFilmIds();
@@ -38,21 +38,5 @@ export class FilmComponent {
 
   deselectFilm() {
     this.filmSelectionService.removeFilmFromSelection(this.film.id);
-  }
-
-  isFilmInStock(): boolean {
-    if (!this.film.inventories) return false;
-
-    if (this.film.inventories.length == 0) return false;
-
-    let inStock: boolean = false;
-    for (let inventory of this.film.inventories) {
-      if (inventory.quantity > 0) {
-        inStock = true;
-        break;
-      }
-    }
-
-    return inStock;
   }
 }

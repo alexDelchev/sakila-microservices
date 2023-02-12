@@ -243,7 +243,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/FilmDTO"
+                "$ref": "#/definitions/FilmSearchDTO"
               }
             }
           }
@@ -275,7 +275,7 @@
         }
       }
     },
-    "/films/search/title": {
+    "/films/search": {
       "get": {
         "parameters": [
           {
@@ -283,42 +283,31 @@
             "name": "expression",
             "description": "Title search expression",
             "type": "string",
-            "required": true
-          }
-        ],
-        "operationId": "searchFilmsByTitle",
-        "responses": {
-          "200": {
-            "description": "Film model list",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/FilmDTO"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/films/search/description": {
-      "get": {
-        "parameters": [
+            "required": false
+          },
           {
             "in": "query",
-            "name": "expression",
-            "description": "Description search expression",
+            "name": "category",
+            "description": "Film category",
             "type": "string",
-            "required": true
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "rating",
+            "description": "Film rating",
+            "type": "string",
+            "required": false
           }
         ],
-        "operationId": "searchFilmsByDescription",
+        "operationId": "searchFilms",
         "responses": {
           "200": {
             "description": "Film model list",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/FilmDTO"
+                "$ref": "#/definitions/FilmSearchDTO"
               }
             }
           }
@@ -427,6 +416,37 @@
         "lastUpdate": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "FilmSearchDTO": {
+      "type": "object",
+      "required": [
+        "title",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "rating": {
+          "$ref": "#/definitions/FilmRating"
+        },
+        "rentalRate": {
+          "type": "number",
+          "format": "float"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiFilmCategory"
+          }
         }
       }
     },
