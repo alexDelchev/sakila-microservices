@@ -1,5 +1,11 @@
 #!/bin/sh
 
+declare -a components=("postgres" "mongodb" "zookeeper"
+  "kafka" "discovery-service" "redis" "elastic-search"
+  "api-gateway" "address-service" "film-service"
+  "payment-service" "store-read-service"
+  "store-write-service" "frontend")
+
 echo 'Deploying sakila-microservices to kubernetes'
 echo
 
@@ -7,57 +13,15 @@ echo 'Creating network policies'
 kubectl apply -f ./kubernetes
 echo
 
-echo 'Creating postgres db'
-kubectl apply -f ./sakila-postgres/kubernetes
-echo
+for component in "${components[@]}"
+do
+  component_name="sakila-${component}"
+  kubernetes_dir="./${component_name}/kubernetes"
 
-echo 'Creating mongodb'
-kubectl apply -f ./sakila-mongodb/kubernetes
-echo
-
-echo 'Creating zookeeper'
-kubectl apply -f ./sakila-zookeeper/kubernetes
-echo
-
-echo 'Creating kafka'
-kubectl apply -f ./sakila-kafka/kubernetes
-echo
-
-echo 'Creating discovery service'
-kubectl apply -f ./sakila-discovery-service/kubernetes
-echo
-
-echo 'Creating redis server'
-kubectl apply -f ./sakila-redis/kubernetes
-echo
-
-echo 'Creating API gateway'
-kubectl apply -f ./sakila-api-gateway/kubernetes
-echo
-
-echo 'Creating sakila-address-service'
-kubectl apply -f ./sakila-address-service/kubernetes
-echo
-
-echo 'Creating sakila-film-service'
-kubectl apply -f ./sakila-film-service/kubernetes
-echo
-
-echo 'Creating sakila-payment-service'
-kubectl apply -f ./sakila-payment-service/kubernetes
-echo
-
-echo 'Creating sakila-store-read-service'
-kubectl apply -f ./sakila-store-read-service/kubernetes
-echo
-
-echo 'Creating sakila-store-write-service'
-kubectl apply -f ./sakila-store-write-service/kubernetes
-echo
-
-echo 'Creating sakila-frontend'
-kubectl apply -f ./sakila-frontend/kubernetes
-echo
+  echo "Deploying component '${component}' with kubernetes configuration from ${kubernetes_dir}"
+  kubectl apply -f "${kubernetes_dir}"
+  echo
+done
 
 echo 'Finished.'
 echo
