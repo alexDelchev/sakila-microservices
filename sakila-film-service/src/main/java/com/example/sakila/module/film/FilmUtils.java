@@ -3,6 +3,7 @@ package com.example.sakila.module.film;
 import com.example.sakila.generated.server.model.*;
 import com.example.sakila.module.actor.Actor;
 import com.example.sakila.module.actor.ActorUtils;
+import com.example.sakila.module.film.event.model.FilmEventDTO;
 import org.bson.types.ObjectId;
 
 import java.sql.Date;
@@ -101,7 +102,7 @@ public class FilmUtils {
       filmDTO.setLanguages(languages);
     }
 
-    if (film.getOriginalLanguages() != null ) {
+    if (film.getOriginalLanguages() != null) {
       List<ApiFilmLanguage> originalLanguages = film.getOriginalLanguages()
           .stream()
           .filter(Objects::nonNull)
@@ -142,7 +143,41 @@ public class FilmUtils {
 
     return filmDTO;
   }
-  
+
+  public static FilmSearchDTO toSearchDto(Film film) {
+    return new FilmSearchDTO()
+        .id(film.getId().toHexString())
+        .title(film.getTitle())
+        .description(film.getDescription())
+        .rating(FilmRating.fromValue(film.getRating()))
+        .rentalRate(film.getRentalRate())
+        .categories(film.getCategories().stream()
+            .map(c -> ApiFilmCategory.fromValue(c.name()))
+            .collect(Collectors.toList()));
+  }
+
+  public static FilmSearchDTO toSearchDto(FilmDTO film) {
+    return new FilmSearchDTO()
+        .id(film.getId())
+        .title(film.getTitle())
+        .description(film.getDescription())
+        .rating(film.getRating())
+        .rentalRate(film.getRentalRate())
+        .categories(film.getCategories());
+  }
+
+  public static FilmSearchDTO toSearchDto(FilmEventDTO film) {
+    return new FilmSearchDTO()
+        .id(film.getId())
+        .title(film.getTitle())
+        .description(film.getDescription())
+        .rating(FilmRating.fromValue(film.getRating()))
+        .rentalRate(film.getRentalRate())
+        .categories(film.getCategories().stream()
+            .map(ApiFilmCategory::fromValue)
+            .collect(Collectors.toList()));
+  }
+
   public static FilmWriteModel toWriteModel(Film film) {
     FilmWriteModel writeModel = new FilmWriteModel();
 

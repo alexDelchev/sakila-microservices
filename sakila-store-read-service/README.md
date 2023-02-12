@@ -1,11 +1,11 @@
 # sakila-store-read-service
 
-The store-read microservice which is part of the `sakila-microservices` system. This service 
-manages the `sakila_store_read` database and exposes the data through a RESTful API and publishes 
+The store-read microservice which is part of the `sakila-microservices` system. This service
+manages the `sakila_store_read` database and exposes the data through a RESTful API and publishes
 data change events to `Kafka` streams.
 
 This is the read component of the logical "sakila-store-service". While this application manages
-the data in the `sakila_store_read` database, the API specification does not have any write 
+the data in the `sakila_store_read` database, the API specification does not have any write
 operations. Writes to the database are done only when consuming event messages coming from the
 `sakila-store-write-service` topics.
 
@@ -57,23 +57,29 @@ is elected among the registered instances.
 
 ## Technology stack
 
-The application is based on `Spring Boot`, written in `Java`. Testing is done with `Groovy` and the 
+The application is based on `Spring Boot`, written in `Java`. Testing is done with `Groovy` and the
 `Spock Framework`. The connection to the database is done with `JDBC`.
 
-The API code is generated using the `swagger-codegen-maven-plugin`. The connection to the `Kafka` 
+The API code is generated using the `swagger-codegen-maven-plugin`. The connection to the `Kafka`
 cluster is done using `spring-kafka`.
 
-The service can scale horizontally, this is done by registering running instances in the `Eureka` 
-cluster using the `spring-netflix-eureka-client`. Leader election for scheduled tasks execution is 
+The service can scale horizontally, this is done by registering running instances in the `Eureka`
+cluster using the `spring-netflix-eureka-client`. Leader election for scheduled tasks execution is
 done by the `zookeeper` cluster using the `Apache Curator` framework.
 
 The database schema is wholly managed by the service using `Flyway`. For each of the tables there is
 also a script which writes the initial state.
 
-The build process is managed through `maven`
+The service can be built using gradle:
+`./gradlew build`
 
 ## Environment
 
 The service is packaged into a `Docker` container using the Dockerfile in the root dir, which is used
-to build an image on top of `openjdk:8-jre-alpine`.
+to build an image on top of `alpine:3.17` with a custom linked JRE.
+
+## Kubernetes deployment
+
+To create a Kubernetes deployment and service run:
+`kubectl apply -f ./kubernetes`
 

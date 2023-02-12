@@ -92,6 +92,18 @@ services:
     networks:
       - sakila-backend-network
     restart: always
+  sakila-elastic-search:
+    image: elasticsearch:8.6.0
+    container_name: sakila-elastic-search
+    mem_limit: 512m
+    networks:
+      - sakila-backend-network
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
   sakila-discovery-service:
     image: com.example.sakila/sakila-discovery-service:1.0-SNAPSHOT
     container_name: sakila-discovery-service
@@ -140,6 +152,8 @@ services:
       sakila-mongodb:
         condition: service_healthy
       sakila-redis:
+        condition: service_started
+      sakila-elastic-search:
         condition: service_started
     networks:
       - sakila-backend-network

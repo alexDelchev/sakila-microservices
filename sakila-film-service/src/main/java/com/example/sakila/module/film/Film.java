@@ -42,7 +42,8 @@ public class Film {
 
   private List<Inventory> inventories;
 
-  public Film() {}
+  public Film() {
+  }
 
   public Film(ObjectId id) {
     this.id = id;

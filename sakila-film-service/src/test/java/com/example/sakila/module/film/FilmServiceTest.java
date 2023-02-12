@@ -3,6 +3,7 @@ package com.example.sakila.module.film;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.model.FilmDTO;
+import com.example.sakila.generated.server.model.FilmSearchDTO;
 import com.example.sakila.module.film.repository.FilmRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
@@ -46,14 +47,14 @@ class FilmServiceTest {
 
   @Test
   void searchFilmsByTitle() {
-    List<FilmDTO> films = filmService.searchFilmsByTitle(null);
+    List<FilmSearchDTO> films = filmService.searchFilmsByTitle(null);
 
     assertNull(films);
   }
 
   @Test
   void searchFilmsByDescription() {
-    List<FilmDTO> films = filmService.searchFilmsByDescription(null);
+    List<FilmSearchDTO> films = filmService.searchFilmsByDescription(null);
 
     assertNull(films);
   }

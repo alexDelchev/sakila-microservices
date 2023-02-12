@@ -2,25 +2,24 @@ package com.example.sakila.module.film;
 
 import com.example.sakila.exception.NotFoundException;
 import com.example.sakila.generated.server.api.FilmsApi;
-import com.example.sakila.generated.server.model.ApiFilmCategory;
-import com.example.sakila.generated.server.model.ApiFilmLanguage;
-import com.example.sakila.generated.server.model.FilmDTO;
-import com.example.sakila.generated.server.model.FilmRating;
+import com.example.sakila.generated.server.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class FilmController implements FilmsApi {
 
   private final FilmService filmService;
 
-  public FilmController(FilmService filmService){
+  public FilmController(FilmService filmService) {
     this.filmService = filmService;
   }
 
@@ -36,9 +35,11 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<List<FilmDTO>> getFilmsByCategory(@PathVariable("category") String categoryName) {
+  public ResponseEntity<List<FilmSearchDTO>> getFilmsByCategory(@PathVariable("category") String categoryName) {
     Category category = Category.valueOf(categoryName);
-    return ResponseEntity.ok(filmService.getFilmsByCategory(category));
+    return ResponseEntity.ok(filmService.getFilmsByCategory(category).stream()
+        .map(FilmUtils::toSearchDto)
+        .collect(Collectors.toList()));
   }
 
   @Override
@@ -48,17 +49,17 @@ public class FilmController implements FilmsApi {
   }
 
   @Override
-  public ResponseEntity<List<FilmDTO>> searchFilmsByTitle(
-      @RequestParam(value = "expression", required = true) String expression
-  ) {
-    return ResponseEntity.ok(filmService.searchFilmsByTitle(expression));
-  }
+  public ResponseEntity<List<FilmSearchDTO>> searchFilms(
+      @RequestParam(value = "expression", required = false) String searchExpression,
+      @RequestParam(value = "category", required = false) String categoryExpression,
+      @RequestParam(value = "rating", required = false) String ratingExpression) {
 
-  @Override
-  public ResponseEntity<List<FilmDTO>> searchFilmsByDescription(
-      @RequestParam(value = "expression", required = true) String expression
-  ) {
-    return ResponseEntity.ok(filmService.searchFilmsByDescription(expression));
+    ApiFilmCategory category = StringUtils.hasText(categoryExpression) ?
+        ApiFilmCategory.fromValue(categoryExpression) : null;
+    FilmRating rating = StringUtils.hasText(ratingExpression) ?
+        FilmRating.fromValue(ratingExpression) : null;
+
+    return ResponseEntity.ok(filmService.searchFilms(searchExpression, category, rating));
   }
 
   @Override
@@ -104,7 +105,7 @@ public class FilmController implements FilmsApi {
   private void checkLanguageExistence(String languageName) {
     boolean exists = false;
 
-    for (Language language: Language.values()) {
+    for (Language language : Language.values()) {
       if (language.toString().equals(languageName)) {
         exists = true;
         break;
@@ -117,7 +118,7 @@ public class FilmController implements FilmsApi {
   private void checkCategoryExistence(String categoryName) {
     boolean exists = false;
 
-    for (Category category: Category.values()) {
+    for (Category category : Category.values()) {
       if (category.toString().equals(categoryName)) {
         exists = true;
         break;

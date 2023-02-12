@@ -1,0 +1,46 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "title_analyzer": {
+          "type": "custom",
+          "tokenizer": "edge_ngram",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        },
+        "description_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "title_analyzer"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "description_analyzer"
+      },
+      "rating": {
+        "type": "keyword"
+      },
+      "rentalRate": {
+        "type": "float",
+        "index": false
+      },
+      "categories": {
+        "type": "keyword"
+      }
+    }
+  }
+}

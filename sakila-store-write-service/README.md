@@ -1,13 +1,13 @@
 # sakila-store-write-service
 
 The store-write microservice of the `sakila-microservices` system. This service
-manages the `sakila_store_write` database and exposes the data through a RESTful 
+manages the `sakila_store_write` database and exposes the data through a RESTful
 API and publishes data change events to `Kafka` streams.
 
-This is the write component of the logical "sakila-store-service". This database 
-acts as the event store of the logical service. The service API defines only 
-write operations in the form of commands. Each accepted command generates an 
-event which is stored in the event store and published to a `Kafka` stream. 
+This is the write component of the logical "sakila-store-service". This database
+acts as the event store of the logical service. The service API defines only
+write operations in the form of commands. Each accepted command generates an
+event which is stored in the event store and published to a `Kafka` stream.
 Event messages contain the constructed entity at the given event state.
 The `sakila-store-read-service` listens for these messages and directly updates
 its data accordingly.
@@ -62,25 +62,31 @@ src
 
 ## Technology stack
 
-The application is based on `Spring Boot`, written in `Java`. Testing is done with 
-`Groovy`, using the `Spock Framework`. The connection to the database is done with 
+The application is based on `Spring Boot`, written in `Java`. Testing is done with
+`Groovy`, using the `Spock Framework`. The connection to the database is done with
 `JDBC`
 
-The API code is generated using the `swagger-codegen-maven-plugin`. The connection 
+The API code is generated using the `swagger-codegen-maven-plugin`. The connection
 to the `Kafka` cluster is done using `spring-kafka`.
 
-The service can scale horizontally, this is done by registering running instances 
+The service can scale horizontally, this is done by registering running instances
 in the `Eureka` cluster using the `spring-netflix-eureka-client`.
 
-The database schema is wholly managed by the service using `Flyway`. For each of 
+The database schema is wholly managed by the service using `Flyway`. For each of
 the tables there is also a script which writes the initial state.
 
-The build process is managed through `maven`
+The service can be built using gradle:
+`./gradlew build`
 
 ## Environment
 
-The service is packaged into a `Docker` container using the Dockerfile in the root 
-dir, which is used to build an image on top of `openjdk:8-jre-alpine`.
+The service is packaged into a `Docker` container using the Dockerfile in the root dir, which is used
+to build an image on top of `alpine:3.17` with a custom linked JRE.
+
+## Kubernetes deployment
+
+To create a Kubernetes deployment and service run:
+`kubectl apply -f ./kubernetes`
 
 
 
