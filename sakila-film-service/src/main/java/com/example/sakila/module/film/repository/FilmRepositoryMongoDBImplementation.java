@@ -22,7 +22,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   private final MongoCollection<Film> readCollection;
 
   private final MongoCollection<FilmWriteModel> writeCollection;
-  
+
   private final Bson actorLookup = Aggregates.lookup("actor", "actors", "_id", "actors");
 
   @Autowired
@@ -39,13 +39,18 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
   }
 
   @Override
+  public Iterable<Film> findAll() {
+    return readCollection.aggregate(generateAggregateParameters(new BasicDBObject()));
+  }
+
+  @Override
   public List<Film> searchFilmsByTitle(String searchExpression) {
     Map<String, String> regexParameters = new HashMap<>();
     regexParameters.put("$regex", String.format(".*%s.*", searchExpression));
     regexParameters.put("$options", "i");
 
     List<Bson> parameters = generateAggregateParameters(new BasicDBObject("title", new BasicDBObject(regexParameters)));
-    
+
     MongoIterable<Film> result = readCollection.aggregate(parameters);
 
     return toList(result);
@@ -112,7 +117,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
     readCollection.deleteOne(new BasicDBObject("_id", film.getId()));
   }
 
-  private <T>  List<T> toList(MongoIterable<T> find) {
+  private <T> List<T> toList(MongoIterable<T> find) {
     List<T> result = new ArrayList<>();
     MongoCursor<T> cursor = find.iterator();
 
@@ -120,7 +125,7 @@ public class FilmRepositoryMongoDBImplementation implements FilmRepository {
 
     return result;
   }
-  
+
   private List<Bson> generateAggregateParameters(Bson filter) {
     return Arrays.asList(
         Aggregates.match(filter),

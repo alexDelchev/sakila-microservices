@@ -1,6 +1,8 @@
 package com.example.sakila.config;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,10 @@ public class CacheConfig {
   @Bean
   @Primary
   public RedisCacheConfiguration cacheConfiguration(ObjectMapper objectMapper) {
+    objectMapper = objectMapper.copy();
+    objectMapper = objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
+        ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+
     return RedisCacheConfiguration.defaultCacheConfig()
         .entryTtl(TTL)
         .disableCachingNullValues()

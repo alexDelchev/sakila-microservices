@@ -12,6 +12,8 @@ public interface FilmRepository {
 
   Film getFilmById(ObjectId id);
 
+  Iterable<Film> findAll();
+
   List<Film> searchFilmsByTitle(String searchExpression);
 
   List<Film> searchFilmsByDescription(String searchExpression);

@@ -4,7 +4,10 @@ import com.example.sakila.config.CachingService;
 import com.example.sakila.event.bus.EventBus;
 import com.example.sakila.exception.DataConflictException;
 import com.example.sakila.exception.NotFoundException;
+import com.example.sakila.generated.server.model.ApiFilmCategory;
 import com.example.sakila.generated.server.model.FilmDTO;
+import com.example.sakila.generated.server.model.FilmRating;
+import com.example.sakila.generated.server.model.FilmSearchDTO;
 import com.example.sakila.module.film.event.FilmEventUtils;
 import com.example.sakila.module.film.event.model.FilmCreatedEvent;
 import com.example.sakila.module.film.event.model.FilmDeletedEvent;
@@ -21,6 +24,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +39,14 @@ public class FilmService implements CachingService {
 
   private final FilmRepository filmRepository;
 
+  private final FilmSearchService filmSearchService;
+
   @Autowired
-  public FilmService(@Qualifier("FilmEventBus") EventBus eventBus, FilmRepository filmRepository) {
+  public FilmService(@Qualifier("FilmEventBus") EventBus eventBus, FilmRepository filmRepository,
+                     FilmSearchService filmSearchService) {
     this.eventBus = eventBus;
     this.filmRepository = filmRepository;
+    this.filmSearchService = filmSearchService;
   }
 
   @Cacheable(CACHE_KEY)
@@ -67,21 +75,37 @@ public class FilmService implements CachingService {
   }
 
   @Cacheable(CACHE_KEY)
-  public List<FilmDTO> searchFilmsByTitle(String searchExpression) {
-    if (searchExpression == null) return null;
-    return filmRepository.searchFilmsByTitle(searchExpression)
-        .stream()
-        .map(FilmUtils::toDTO)
-        .collect(Collectors.toList());
+  public List<FilmSearchDTO> searchFilms(String searchExpression, ApiFilmCategory category,
+                                         FilmRating rating) {
+    try {
+      return filmSearchService.searchFilms(searchExpression, category, rating);
+    } catch (IOException e) {
+      log.error("Failed film search with parameters searchExperssion={}, category={}, rating={}",
+          searchExpression, category, rating);
+      throw new RuntimeException(e);
+    }
   }
 
   @Cacheable(CACHE_KEY)
-  public List<FilmDTO> searchFilmsByDescription(String searchExpression) {
+  public List<FilmSearchDTO> searchFilmsByTitle(String searchExpression) {
     if (searchExpression == null) return null;
-    return filmRepository.searchFilmsByDescription(searchExpression)
-        .stream()
-        .map(FilmUtils::toDTO)
-        .collect(Collectors.toList());
+    try {
+      return filmSearchService.searchFilmsByTitle(searchExpression);
+    } catch (IOException e) {
+      log.error("Failed film search for title {}", searchExpression, e);
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Cacheable(CACHE_KEY)
+  public List<FilmSearchDTO> searchFilmsByDescription(String searchExpression) {
+    if (searchExpression == null) return null;
+    try {
+      return filmSearchService.searchFilmsByDescription(searchExpression);
+    } catch (IOException e) {
+      log.error("Failed film search for description {}", searchExpression, e);
+      throw new RuntimeException(e);
+    }
   }
 
   @Cacheable(CACHE_KEY)
@@ -122,7 +146,7 @@ public class FilmService implements CachingService {
           if (i.getQuantity() < 1) return;
 
           log.info("Decreasing quantity of Film (ID: {})", filmId);
-          Integer newQuantity = i.getQuantity() -1;
+          Integer newQuantity = i.getQuantity() - 1;
           i.setQuantity(newQuantity);
         });
 
