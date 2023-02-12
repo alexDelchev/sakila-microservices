@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    sakila-service: sakila-elastic-search
+  name: sakila-elastic-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sakila-service: sakila-elastic-search
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        backend-network: "true"
+        sakila-service: sakila-elastic-search
+    spec:
+      containers:
+        - image: elasticsearch:8.6.0
+          name: sakila-elastic-search
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: 'discovery.type'
+              value: 'single-node'
+            - name: 'xpack.security.enabled'
+              value: 'false'
+      restartPolicy: Always
+status: {}
