@@ -90,12 +90,9 @@ tasks.register('buildDockerImage', Exec) {
       '--build-arg', "JAR_FILE=${jarFile}"
 }
 
-tasks.named('build') {
-  finalizedBy 'buildDockerImage'
-}
-
 swaggerSources.server.code.dependsOn unpackApiSpec
 compileJava.dependsOn swaggerSources.server.code
+buildDockerImage.dependsOn build
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'

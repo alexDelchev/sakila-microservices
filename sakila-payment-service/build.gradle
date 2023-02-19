@@ -100,10 +100,6 @@ tasks.register('buildDockerImage', Exec) {
       '--build-arg', "JAR_FILE=${jarFile}"
 }
 
-tasks.named('build') {
-  finalizedBy 'buildDockerImage'
-}
-
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
   kotlinOptions {
     jvmTarget = '17'
@@ -112,6 +108,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
 
 swaggerSources.server.code.dependsOn unpackApiSpec
 compileKotlin.dependsOn swaggerSources.server.code
+buildDockerImage.dependsOn build
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'

@@ -32,9 +32,7 @@ tasks.register('buildDockerImage', Exec) {
       '--build-arg', "JAR_FILE=${jarFile}"
 }
 
-tasks.named('build') {
-  finalizedBy 'buildDockerImage'
-}
+buildDockerImage.dependsOn build
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'

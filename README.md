@@ -98,9 +98,9 @@ Prerequisites to build & run the system are:
  - running `Docker` daemon / local Kubernetes cluster
  - `docker-compose`
 
-1 - Build the system
+1 - Build the system & docker images
 
-`./gradlew build`
+`./gradlew buildDockerImage`
 
 3 - Start the system
 

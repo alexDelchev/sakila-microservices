@@ -21,7 +21,3 @@ tasks.register('buildDockerImage', Exec) {
       '-t', "${tag}",
       "${context}"
 }
-
-tasks.named('build') {
-  finalizedBy 'buildDockerImage'
-}

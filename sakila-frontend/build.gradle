@@ -86,7 +86,3 @@ tasks.register('buildDockerImage', Exec) {
     'unpackSakilaPaymentApiSpec', 'unpackSakilaStoreReadApiSpec',
     'unpackSakilaStoreWriteApiSpec'
 }
-
-tasks.named('build') {
-  finalizedBy 'buildDockerImage'
-}
